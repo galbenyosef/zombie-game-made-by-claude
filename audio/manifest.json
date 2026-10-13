@@ -1,0 +1,2460 @@
+{
+ "v_flash": {
+  "file": "voice/v_flash.mp3",
+  "dur": 1.75,
+  "text": "[whispering] Take the flashlight."
+ },
+ "v_intro_1": {
+  "file": "voice/v_intro_1.mp3",
+  "dur": 1.99,
+  "text": "[scared] What is this place??"
+ },
+ "v_intro_2": {
+  "file": "voice/v_intro_2.mp3",
+  "dur": 2.72,
+  "text": "[whispering] You're awake. Don't make a sound."
+ },
+ "v_piano": {
+  "file": "voice/v_piano.mp3",
+  "dur": 2.3,
+  "text": "[nervous] It keeps doing that."
+ },
+ "v_lock": {
+  "file": "voice/v_lock.mp3",
+  "dur": 3.5,
+  "text": "[whispering] It's locked. I need light. Here."
+ },
+ "v_lock_nudge": {
+  "file": "voice/v_lock_nudge.mp3",
+  "dur": 2.46,
+  "text": "[whispering] The light. On the lock."
+ },
+ "v_lock_done": {
+  "file": "voice/v_lock_done.mp3",
+  "dur": 1.26,
+  "text": "[relieved] Got it."
+ },
+ "v_wardrobe": {
+  "file": "voice/v_wardrobe.mp3",
+  "dur": 2.61,
+  "text": "[scared] Don't look. Keep it steady."
+ },
+ "v_hall_go": {
+  "file": "voice/v_hall_go.mp3",
+  "dur": 1.83,
+  "text": "[whispering] Stay behind me."
+ },
+ "v_d3": {
+  "file": "voice/v_d3.mp3",
+  "dur": 1.91,
+  "text": "[scared] Don't touch that door."
+ },
+ "v_guns": {
+  "file": "voice/v_guns.mp3",
+  "dur": 2.38,
+  "text": "[whispering] Take one. I'll take the other."
+ },
+ "v_guns2": {
+  "file": "voice/v_guns2.mp3",
+  "dur": 2.88,
+  "text": "[whispering] Point and pull. Don't waste it."
+ },
+ "v_first": {
+  "file": "voice/v_first.mp3",
+  "dur": 2.07,
+  "text": "[whispering] There. Don't miss."
+ },
+ "v_first_nudge": {
+  "file": "voice/v_first_nudge.mp3",
+  "dur": 2.14,
+  "text": "[whispering] Shoot it. Now."
+ },
+ "v_heard": {
+  "file": "voice/v_heard.mp3",
+  "dur": 1.67,
+  "text": "[scared] They heard that."
+ },
+ "v_behind": {
+  "file": "voice/v_behind.mp3",
+  "dur": 1.26,
+  "text": "[urgent] Behind you!"
+ },
+ "v_left": {
+  "file": "voice/v_left.mp3",
+  "dur": 1.1,
+  "text": "[urgent] Left!"
+ },
+ "v_behind2": {
+  "file": "voice/v_behind2.mp3",
+  "dur": 1.67,
+  "text": "[screaming] Turn around!"
+ },
+ "v_gotone": {
+  "file": "voice/v_gotone.mp3",
+  "dur": 1.6,
+  "text": "[breathless] Got one."
+ },
+ "v_right": {
+  "file": "voice/v_right.mp3",
+  "dur": 1.26,
+  "text": "[urgent] Right side!"
+ },
+ "v_hurt": {
+  "file": "voice/v_hurt.mp3",
+  "dur": 1.52,
+  "text": "[gasps] Ah!"
+ },
+ "v_grab": {
+  "file": "voice/v_grab.mp3",
+  "dur": 2.3,
+  "text": "[screaming] Get it off me!"
+ },
+ "v_saved": {
+  "file": "voice/v_saved.mp3",
+  "dur": 2.8,
+  "text": "[breathless] Thanks. I owe you."
+ },
+ "v_idle1": {
+  "file": "voice/v_idle1.mp3",
+  "dur": 1.44,
+  "text": "[whispering] Come on."
+ },
+ "v_door": {
+  "file": "voice/v_door.mp3",
+  "dur": 2.14,
+  "text": "[urgent] The door! Go, go!"
+ },
+ "v_idle2": {
+  "file": "voice/v_idle2.mp3",
+  "dur": 1.44,
+  "text": "[whispering] Over here."
+ },
+ "v_gunpoint": {
+  "file": "voice/v_gunpoint.mp3",
+  "dur": 1.67,
+  "text": "[annoyed] Not funny."
+ },
+ "amb_living": {
+  "file": "sfx/amb_living.mp3",
+  "dur": 22.08
+ },
+ "amb_bedroom": {
+  "file": "sfx/amb_bedroom.mp3",
+  "dur": 22.08
+ },
+ "amb_hall": {
+  "file": "sfx/amb_hall.mp3",
+  "dur": 22.08
+ },
+ "piano_sting_dissonant": {
+  "file": "sfx/piano_sting_dissonant.mp3",
+  "dur": 4.08
+ },
+ "piano_lullaby": {
+  "file": "sfx/piano_lullaby.mp3",
+  "dur": 8.07
+ },
+ "piano_low_note": {
+  "file": "sfx/piano_low_note.mp3",
+  "dur": 5.07
+ },
+ "piano_descend": {
+  "file": "sfx/piano_descend.mp3",
+  "dur": 7.06
+ },
+ "amb_wind_rain": {
+  "file": "sfx/amb_wind_rain.mp3",
+  "dur": 20.06
+ },
+ "piano_music_box": {
+  "file": "sfx/piano_music_box.mp3",
+  "dur": 9.07
+ },
+ "door_creak_open": {
+  "file": "sfx/door_creak_open.mp3",
+  "dur": 4.08
+ },
+ "door_slam": {
+  "file": "sfx/door_slam.mp3",
+  "dur": 2.07
+ },
+ "door_locked_rattle": {
+  "file": "sfx/door_locked_rattle.mp3",
+  "dur": 2.07
+ },
+ "door_burst": {
+  "file": "sfx/door_burst.mp3",
+  "dur": 2.54
+ },
+ "flashlight_click": {
+  "file": "sfx/flashlight_click.mp3",
+  "dur": 0.66
+ },
+ "pickup_item": {
+  "file": "sfx/pickup_item.mp3",
+  "dur": 1.07
+ },
+ "lock_pick": {
+  "file": "sfx/lock_pick.mp3",
+  "dur": 5.07
+ },
+ "wardrobe_thump": {
+  "file": "sfx/wardrobe_thump.mp3",
+  "dur": 2.54
+ },
+ "doll_creak": {
+  "file": "sfx/doll_creak.mp3",
+  "dur": 2.54
+ },
+ "glass_crack": {
+  "file": "sfx/glass_crack.mp3",
+  "dur": 1.54
+ },
+ "floor_creak": {
+  "file": "sfx/floor_creak.mp3",
+  "dur": 1.54
+ },
+ "wood_break": {
+  "file": "sfx/wood_break.mp3",
+  "dur": 2.54
+ },
+ "door_pound": {
+  "file": "sfx/door_pound.mp3",
+  "dur": 3.06
+ },
+ "step_wood_1": {
+  "file": "sfx/step_wood_1.mp3",
+  "dur": 0.76
+ },
+ "step_wood_2": {
+  "file": "sfx/step_wood_2.mp3",
+  "dur": 0.76
+ },
+ "step_wood_3": {
+  "file": "sfx/step_wood_3.mp3",
+  "dur": 0.76
+ },
+ "tv_static": {
+  "file": "sfx/tv_static.mp3",
+  "dur": 6.06
+ },
+ "step_wood_4": {
+  "file": "sfx/step_wood_4.mp3",
+  "dur": 0.76
+ },
+ "gun_pistol_1": {
+  "file": "sfx/gun_pistol_1.mp3",
+  "dur": 2.07
+ },
+ "gun_pistol_2": {
+  "file": "sfx/gun_pistol_2.mp3",
+  "dur": 2.07
+ },
+ "gun_slide_rack": {
+  "file": "sfx/gun_slide_rack.mp3",
+  "dur": 1.07
+ },
+ "gun_mag_out": {
+  "file": "sfx/gun_mag_out.mp3",
+  "dur": 1.07
+ },
+ "gun_mag_in": {
+  "file": "sfx/gun_mag_in.mp3",
+  "dur": 1.07
+ },
+ "shell_drop": {
+  "file": "sfx/shell_drop.mp3",
+  "dur": 1.26
+ },
+ "gun_dry_fire": {
+  "file": "sfx/gun_dry_fire.mp3",
+  "dur": 0.66
+ },
+ "zombie_groan_1": {
+  "file": "sfx/zombie_groan_1.mp3",
+  "dur": 3.06
+ },
+ "zombie_groan_2": {
+  "file": "sfx/zombie_groan_2.mp3",
+  "dur": 3.06
+ },
+ "zombie_groan_3": {
+  "file": "sfx/zombie_groan_3.mp3",
+  "dur": 3.06
+ },
+ "zombie_groan_4": {
+  "file": "sfx/zombie_groan_4.mp3",
+  "dur": 2.07
+ },
+ "zombie_growl": {
+  "file": "sfx/zombie_growl.mp3",
+  "dur": 2.07
+ },
+ "zombie_hit_wet": {
+  "file": "sfx/zombie_hit_wet.mp3",
+  "dur": 0.86
+ },
+ "zombie_scream": {
+  "file": "sfx/zombie_scream.mp3",
+  "dur": 2.54
+ },
+ "zombie_die": {
+  "file": "sfx/zombie_die.mp3",
+  "dur": 2.54
+ },
+ "zombie_shuffle": {
+  "file": "sfx/zombie_shuffle.mp3",
+  "dur": 3.06
+ },
+ "breath_scared": {
+  "file": "sfx/breath_scared.mp3",
+  "dur": 3.06
+ },
+ "heartbeat": {
+  "file": "sfx/heartbeat.mp3",
+  "dur": 4.08
+ },
+ "whisper_creepy": {
+  "file": "sfx/whisper_creepy.mp3",
+  "dur": 5.07
+ },
+ "distant_gunfire": {
+  "file": "sfx/distant_gunfire.mp3",
+  "dur": 8.07
+ },
+ "thunder_far": {
+  "file": "sfx/thunder_far.mp3",
+  "dur": 6.06
+ },
+ "distant_siren": {
+  "file": "sfx/distant_siren.mp3",
+  "dur": 8.07
+ },
+ "sub_hit": {
+  "file": "sfx/sub_hit.mp3",
+  "dur": 3.06
+ },
+ "riser_short": {
+  "file": "sfx/riser_short.mp3",
+  "dur": 4.08
+ },
+ "v_strain": {
+  "file": "voice/v_strain.mp3",
+  "dur": 2.8,
+  "text": "[straining] Come on... move!"
+ },
+ "v_cover2": {
+  "file": "voice/v_cover2.mp3",
+  "dur": 1.6,
+  "text": "[panicked] Keep them off me!"
+ },
+ "v_cover": {
+  "file": "voice/v_cover.mp3",
+  "dur": 2.54,
+  "text": "[urgent] Cover me! I need ten seconds!"
+ },
+ "v_clear": {
+  "file": "voice/v_clear.mp3",
+  "dur": 2.3,
+  "text": "[breathless] It's open! Come on!"
+ },
+ "chair_drag": {
+  "file": "sfx/chair_drag.mp3",
+  "dur": 1.26
+ },
+ "chair_clatter": {
+  "file": "sfx/chair_clatter.mp3",
+  "dur": 1.54
+ },
+ "bookcase_crash": {
+  "file": "sfx/bookcase_crash.mp3",
+  "dur": 2.54
+ },
+ "bookcase_thud": {
+  "file": "sfx/bookcase_thud.mp3",
+  "dur": 1.54
+ },
+ "furniture_scrape": {
+  "file": "sfx/furniture_scrape.mp3",
+  "dur": 2.54
+ },
+ "plank_drop": {
+  "file": "sfx/plank_drop.mp3",
+  "dur": 1.26
+ },
+ "nail_pry": {
+  "file": "sfx/nail_pry.mp3",
+  "dur": 1.26
+ },
+ "a2_comehere": {
+  "file": "voice/a2_comehere.mp3",
+  "dur": 2.22,
+  "text": "[softly] Sara. Come here."
+ },
+ "a2_fornow": {
+  "file": "voice/a2_fornow.mp3",
+  "dur": 2.72,
+  "text": "[softly] For now. Come here a moment."
+ },
+ "s2_madeit": {
+  "file": "voice/s2_madeit.mp3",
+  "dur": 3.42,
+  "text": "[breathless, relieved] We made it... We actually made it out."
+ },
+ "s2_nomemory": {
+  "file": "voice/s2_nomemory.mp3",
+  "dur": 3.89,
+  "text": "[quiet, stunned] Three days... I don't remember any of it."
+ },
+ "s2_what": {
+  "file": "voice/s2_what.mp3",
+  "dur": 4.94,
+  "text": "[shaky] Akane... what happened out there? Those... people..."
+ },
+ "s2_stayed": {
+  "file": "voice/s2_stayed.mp3",
+  "dur": 2.54,
+  "text": "[softly, moved] You stayed. With me."
+ },
+ "a2_started": {
+  "file": "voice/a2_started.mp3",
+  "dur": 10.48,
+  "text": "[sad] It started three days ago. People got sick... and then they got back up. The whole city is under attack. The army pulled out last night."
+ },
+ "a2_head": {
+  "file": "voice/a2_head.mp3",
+  "dur": 6.95,
+  "text": "[gently] You hit your head when the building shook. I found you in that room. I didn't know if you'd ever wake up."
+ },
+ "a2_couldnt": {
+  "file": "voice/a2_couldnt.mp3",
+  "dur": 3.66,
+  "text": "[emotional] Everyone else ran. I couldn't leave you."
+ },
+ "s2_what2": {
+  "file": "voice/s2_what2.mp3",
+  "dur": 2.54,
+  "text": "[terrified, whispering] No... no, no..."
+ },
+ "s2_garden": {
+  "file": "voice/s2_garden.mp3",
+  "dur": 4.94,
+  "text": "[wondering] Then why is it so peaceful here? Why is there such a beautiful garden?"
+ },
+ "a2_nogarden": {
+  "file": "voice/a2_nogarden.mp3",
+  "dur": 5.75,
+  "text": "[sad, gently] Sara... there is no beautiful garden. You need to face reality."
+ },
+ "a2_stayclose": {
+  "file": "voice/a2_stayclose.mp3",
+  "dur": 1.52,
+  "text": "[urgent] Stay close to me!"
+ },
+ "a2_keepmoving": {
+  "file": "voice/a2_keepmoving.mp3",
+  "dur": 2.72,
+  "text": "[breathless] Keep moving! Don't stop!"
+ },
+ "a2_almost": {
+  "file": "voice/a2_almost.mp3",
+  "dur": 2.07,
+  "text": "[breathless] Almost there!"
+ },
+ "a2_church": {
+  "file": "voice/a2_church.mp3",
+  "dur": 5.98,
+  "text": "[urgent] They found us! The church, across the square. It's the only safe place left. Follow me!"
+ },
+ "a2_inside": {
+  "file": "voice/a2_inside.mp3",
+  "dur": 1.91,
+  "text": "[urgent] Inside! Now!"
+ },
+ "s2_end": {
+  "file": "voice/s2_end.mp3",
+  "dur": 3.03,
+  "text": "[breathless] We made it... Thank you, Akane."
+ },
+ "amb_garden": {
+  "file": "sfx/amb_garden.mp3",
+  "dur": 22.08
+ },
+ "amb_ruins": {
+  "file": "sfx/amb_ruins.mp3",
+  "dur": 22.08
+ },
+ "garden_theme": {
+  "file": "sfx/garden_theme.mp3",
+  "dur": 22.08
+ },
+ "reveal_sting": {
+  "file": "sfx/reveal_sting.mp3",
+  "dur": 4.08
+ },
+ "church_doors": {
+  "file": "sfx/church_doors.mp3",
+  "dur": 3.06
+ },
+ "fire_loop": {
+  "file": "sfx/fire_loop.mp3",
+  "dur": 8.07
+ },
+ "a2_blocked": {
+  "file": "voice/a2_blocked.mp3",
+  "dur": 3.5,
+  "text": "[urgent] They walled off the square! Round the side, this way!"
+ },
+ "a2_ammo": {
+  "file": "voice/a2_ammo.mp3",
+  "dur": 2.3,
+  "text": "[urgent] Sara! Ammo! Grab it!"
+ },
+ "a2_through": {
+  "file": "voice/a2_through.mp3",
+  "dur": 2.07,
+  "text": "[urgent, breathless] Through here! Go, go!"
+ },
+ "a2_more": {
+  "file": "voice/a2_more.mp3",
+  "dur": 2.72,
+  "text": "[scared] More of them! Keep shooting!"
+ },
+ "a2_stuck": {
+  "file": "voice/a2_stuck.mp3",
+  "dur": 3.82,
+  "text": "[straining, panicked] It won't open! Cover me, I have to force it!"
+ },
+ "s2_cover": {
+  "file": "voice/s2_cover.mp3",
+  "dur": 2.07,
+  "text": "[determined, breathless] Go! I've got your back!"
+ },
+ "s2_hurry": {
+  "file": "voice/s2_hurry.mp3",
+  "dur": 2.61,
+  "text": "[panicked] Akane, hurry! They're coming!"
+ },
+ "a2_dark": {
+  "file": "voice/a2_dark.mp3",
+  "dur": 3.03,
+  "text": "[whispering, scared] Careful... Something's in here."
+ },
+ "a2_bus": {
+  "file": "voice/a2_bus.mp3",
+  "dur": 3.35,
+  "text": "[urgent] The road's blocked! In here, through the restaurant!"
+ },
+ "a2_backdoor": {
+  "file": "voice/a2_backdoor.mp3",
+  "dur": 1.75,
+  "text": "[urgent] Out the back! Go!"
+ },
+ "a2_lane": {
+  "file": "voice/a2_lane.mp3",
+  "dur": 2.61,
+  "text": "[breathless] The church! It's right there!"
+ },
+ "a2_run": {
+  "file": "voice/a2_run.mp3",
+  "dur": 3.89,
+  "text": "[screaming] It's open! Inside, now! Run!"
+ },
+ "v_akane_dead": {
+  "file": "voice/v_akane_dead.mp3",
+  "dur": 3.74,
+  "text": "[screaming, devastated] Akane! No... no, no, no!"
+ },
+ "v_hurt2": {
+  "file": "voice/v_hurt2.mp3",
+  "dur": 2.72,
+  "text": "[pained, scared] Sara! They're hurting me!"
+ },
+ "v_hurt3": {
+  "file": "voice/v_hurt3.mp3",
+  "dur": 3.19,
+  "text": "[screaming] Help me! Please, help me!"
+ },
+ "step_grass_1": {
+  "file": "sfx/step_grass_1.mp3",
+  "dur": 0.66
+ },
+ "step_grass_2": {
+  "file": "sfx/step_grass_2.mp3",
+  "dur": 0.66
+ },
+ "step_grass_3": {
+  "file": "sfx/step_grass_3.mp3",
+  "dur": 0.66
+ },
+ "step_gravel_1": {
+  "file": "sfx/step_gravel_1.mp3",
+  "dur": 0.66
+ },
+ "step_gravel_2": {
+  "file": "sfx/step_gravel_2.mp3",
+  "dur": 0.66
+ },
+ "step_grass_4": {
+  "file": "sfx/step_grass_4.mp3",
+  "dur": 0.66
+ },
+ "step_gravel_4": {
+  "file": "sfx/step_gravel_4.mp3",
+  "dur": 0.66
+ },
+ "step_gravel_3": {
+  "file": "sfx/step_gravel_3.mp3",
+  "dur": 0.66
+ },
+ "step_stone_1": {
+  "file": "sfx/step_stone_1.mp3",
+  "dur": 0.66
+ },
+ "step_stone_2": {
+  "file": "sfx/step_stone_2.mp3",
+  "dur": 0.66
+ },
+ "step_stone_3": {
+  "file": "sfx/step_stone_3.mp3",
+  "dur": 0.66
+ },
+ "step_stone_4": {
+  "file": "sfx/step_stone_4.mp3",
+  "dur": 0.66
+ },
+ "horde_moan": {
+  "file": "sfx/horde_moan.mp3",
+  "dur": 10.06
+ },
+ "neon_buzz": {
+  "file": "sfx/neon_buzz.mp3",
+  "dur": 8.07
+ },
+ "vending_hum": {
+  "file": "sfx/vending_hum.mp3",
+  "dur": 8.07
+ },
+ "a3_go": {
+  "file": "voice/a3_go.mp3",
+  "dur": 3.58,
+  "text": "[straining] Sara, go! See if he's alright!"
+ },
+ "p_easy": {
+  "file": "voice/p_easy.mp3",
+  "dur": 4.16,
+  "text": "[startled, then gently] Easy, child... easy. I'm not one of them."
+ },
+ "a3_hold": {
+  "file": "voice/a3_hold.mp3",
+  "dur": 7.11,
+  "text": "[straining, breathless] Don't thank me yet! There's someone up by the altar... the priest? Go, check on him! I'll hold the door!"
+ },
+ "s3_alone": {
+  "file": "voice/s3_alone.mp3",
+  "dur": 2.8,
+  "text": "[shaky, relieved] Father... are you alone here?"
+ },
+ "a3_backdoor": {
+  "file": "voice/a3_backdoor.mp3",
+  "dur": 2.07,
+  "text": "[urgent] This way! Out, out!"
+ },
+ "p_others": {
+  "file": "voice/p_others.mp3",
+  "dur": 6.3,
+  "text": "[tired, sad] The others left with the army. Someone had to stay... and keep the candles lit."
+ },
+ "a3_in": {
+  "file": "voice/a3_in.mp3",
+  "dur": 4.47,
+  "text": "[screaming] They're in! Sara, run! The back door, go!"
+ },
+ "s3_come": {
+  "file": "voice/s3_come.mp3",
+  "dur": 2.61,
+  "text": "[urgent, pleading] Father, come with us! Please!"
+ },
+ "p_go": {
+  "file": "voice/p_go.mp3",
+  "dur": 3.03,
+  "text": "[urgent] Go! Out the back... and follow the lights."
+ },
+ "p_home": {
+  "file": "voice/p_home.mp3",
+  "dur": 3.89,
+  "text": "[calm, firm] No. This is my home. I will not leave it."
+ },
+ "p_bless": {
+  "file": "voice/p_bless.mp3",
+  "dur": 2.14,
+  "text": "[softly, at peace] God keep you, child."
+ },
+ "a3_come": {
+  "file": "voice/a3_come.mp3",
+  "dur": 2.61,
+  "text": "[breathless, shaken] Come on... we can't stay here."
+ },
+ "a3_lights": {
+  "file": "voice/a3_lights.mp3",
+  "dur": 3.5,
+  "text": "[breathless] He said follow the lights... Stay with me."
+ },
+ "s3_dizzy": {
+  "file": "voice/s3_dizzy.mp3",
+  "dur": 3.74,
+  "text": "[weak, breathless] Akane... wait. Everything's spinning..."
+ },
+ "a3_further": {
+  "file": "voice/a3_further.mp3",
+  "dur": 3.27,
+  "text": "[worried] Hold on, Sara. Just a little further."
+ },
+ "a3_bridge": {
+  "file": "voice/a3_bridge.mp3",
+  "dur": 2.61,
+  "text": "[urgent] The bridge! Get across, go!"
+ },
+ "a3_house": {
+  "file": "voice/a3_house.mp3",
+  "dur": 2.46,
+  "text": "[breathless, relieved] A house... Come on."
+ },
+ "a3_open": {
+  "file": "voice/a3_open.mp3",
+  "dur": 2.88,
+  "text": "[whispering] It's open... Stay close."
+ },
+ "s3_fine": {
+  "file": "voice/s3_fine.mp3",
+  "dur": 3.27,
+  "text": "[weak] I'm okay... I'm just tired."
+ },
+ "s3_minute": {
+  "file": "voice/s3_minute.mp3",
+  "dur": 2.46,
+  "text": "[weak, fading] Just... for a minute."
+ },
+ "a3_here": {
+  "file": "voice/a3_here.mp3",
+  "dur": 2.54,
+  "text": "[softly, tenderly] Sleep. I'm right here."
+ },
+ "a3_sleep": {
+  "file": "voice/a3_sleep.mp3",
+  "dur": 7.19,
+  "text": "[worried, gently] Sara... you don't look well. You're burning up. Lie down. Sleep. I'll keep watch."
+ },
+ "church_doors_burst": {
+  "file": "sfx/church_doors_burst.mp3",
+  "dur": 3.06
+ },
+ "priest_murmur": {
+  "file": "sfx/priest_murmur.mp3",
+  "dur": 10.06
+ },
+ "stream_loop": {
+  "file": "sfx/stream_loop.mp3",
+  "dur": 10.06
+ },
+ "amb_forest": {
+  "file": "sfx/amb_forest.mp3",
+  "dur": 22.08
+ },
+ "amb_church": {
+  "file": "sfx/amb_church.mp3",
+  "dur": 22.08
+ },
+ "step_leaves_1": {
+  "file": "sfx/step_leaves_1.mp3",
+  "dur": 0.66
+ },
+ "step_leaves_2": {
+  "file": "sfx/step_leaves_2.mp3",
+  "dur": 0.66
+ },
+ "step_leaves_3": {
+  "file": "sfx/step_leaves_3.mp3",
+  "dur": 0.66
+ },
+ "step_leaves_4": {
+  "file": "sfx/step_leaves_4.mp3",
+  "dur": 0.66
+ },
+ "door_bolt": {
+  "file": "sfx/door_bolt.mp3",
+  "dur": 1.26
+ },
+ "match_strike": {
+  "file": "sfx/match_strike.mp3",
+  "dur": 2.54
+ },
+ "bed_creak": {
+  "file": "sfx/bed_creak.mp3",
+  "dur": 2.07
+ },
+ "shutter_close": {
+  "file": "sfx/shutter_close.mp3",
+  "dur": 1.54
+ },
+ "amb_house": {
+  "file": "sfx/amb_house.mp3",
+  "dur": 20.06
+ },
+ "lullaby_soft": {
+  "file": "sfx/lullaby_soft.mp3",
+  "dur": 14.06
+ },
+ "heartbeat_sick": {
+  "file": "sfx/heartbeat_sick.mp3",
+  "dur": 4.08
+ },
+ "cassock_rustle_rise": {
+  "file": "sfx/cassock_rustle_rise.mp3",
+  "dur": 2.46
+ },
+ "house_door_shut": {
+  "file": "sfx/house_door_shut.mp3",
+  "dur": 1.44
+ },
+ "house_door_creak_back": {
+  "file": "sfx/house_door_creak_back.mp3",
+  "dur": 2.07
+ },
+ "house_door_creak": {
+  "file": "sfx/house_door_creak.mp3",
+  "dur": 2.28
+ },
+ "house_bar_drop": {
+  "file": "sfx/house_bar_drop.mp3",
+  "dur": 1.44
+ },
+ "house_door_rattle": {
+  "file": "sfx/house_door_rattle.mp3",
+  "dur": 1.44
+ },
+ "house_bar_lift": {
+  "file": "sfx/house_bar_lift.mp3",
+  "dur": 1.26
+ },
+ "house_shutter_open": {
+  "file": "sfx/house_shutter_open.mp3",
+  "dur": 1.26
+ },
+ "house_shutter_close": {
+  "file": "sfx/house_shutter_close.mp3",
+  "dur": 1.44
+ },
+ "house_lamp_light": {
+  "file": "sfx/house_lamp_light.mp3",
+  "dur": 2.61
+ },
+ "house_lamp_out": {
+  "file": "sfx/house_lamp_out.mp3",
+  "dur": 1.44
+ },
+ "step_dirt_2": {
+  "file": "sfx/step_dirt_2.mp3",
+  "dur": 0.66
+ },
+ "step_dirt_1": {
+  "file": "sfx/step_dirt_1.mp3",
+  "dur": 0.66
+ },
+ "step_dirt_3": {
+  "file": "sfx/step_dirt_3.mp3",
+  "dur": 0.66
+ },
+ "lantern_snuff": {
+  "file": "sfx/lantern_snuff.mp3",
+  "dur": 1.67
+ },
+ "step_dirt_4": {
+  "file": "sfx/step_dirt_4.mp3",
+  "dur": 0.66
+ },
+ "church_backdoor_open": {
+  "file": "sfx/church_backdoor_open.mp3",
+  "dur": 2.07
+ },
+ "candle_gust": {
+  "file": "sfx/candle_gust.mp3",
+  "dur": 2.28
+ },
+ "church_backdoor_shut": {
+  "file": "sfx/church_backdoor_shut.mp3",
+  "dur": 1.83
+ },
+ "s3_out": {
+  "file": "voice/s3_out.mp3",
+  "dur": 2.8,
+  "text": "[urgent, hushed] They're breaking in. Is there another way out?"
+ },
+ "a3_go2": {
+  "file": "voice/a3_go2.mp3",
+  "dur": 3.58,
+  "text": "[straining] Sara, go! Find us a way out!"
+ },
+ "p_burning": {
+  "file": "voice/p_burning.mp3",
+  "dur": 2.14,
+  "text": "[gently, concerned] You're burning up, child."
+ },
+ "a3_hold2": {
+  "file": "voice/a3_hold2.mp3",
+  "dur": 4,
+  "text": "[straining, breathless] Sara, I'll hold the door! Go check if there's an exit!"
+ },
+ "p_back": {
+  "file": "voice/p_back.mp3",
+  "dur": 7.58,
+  "text": "[tired, sad] The door behind the altar. We barred it, the first night... It won't move for an old man."
+ },
+ "p_save": {
+  "file": "voice/p_save.mp3",
+  "dur": 2.61,
+  "text": "[softly, sadly] You can't save everyone, Sara."
+ },
+ "s3_fine0": {
+  "file": "voice/s3_fine0.mp3",
+  "dur": 4.94,
+  "text": "[shaky] I'm fine. Please... come with us. Akane can open it."
+ },
+ "s3_name": {
+  "file": "voice/s3_name.mp3",
+  "dur": 2.22,
+  "text": "[uneasy, quiet] ...How do you know my name?"
+ },
+ "p_told": {
+  "file": "voice/p_told.mp3",
+  "dur": 2.8,
+  "text": "[softly, with a sad smile] You told me. Don't you remember?"
+ },
+ "s3_stay": {
+  "file": "voice/s3_stay.mp3",
+  "dur": 2.14,
+  "text": "[determined, breathless] Father, stay behind me!"
+ },
+ "a3_blocked": {
+  "file": "voice/a3_blocked.mp3",
+  "dur": 4.39,
+  "text": "[panicked, straining] It's barricaded! Sara, keep them back! Keep them off me!"
+ },
+ "p_pray1": {
+  "file": "voice/p_pray1.mp3",
+  "dur": 4.63,
+  "text": "[praying aloud, voice shaking] Our Father, who art in heaven... hallowed be thy name..."
+ },
+ "p_pray3": {
+  "file": "voice/p_pray3.mp3",
+  "dur": 4.16,
+  "text": "[praying, trembling] Lord, have mercy. Christ, have mercy."
+ },
+ "p_pray2": {
+  "file": "voice/p_pray2.mp3",
+  "dur": 4.08,
+  "text": "[praying aloud, louder, desperate] Deliver us from evil... Deliver us from evil!"
+ },
+ "p_getback": {
+  "file": "voice/p_getback.mp3",
+  "dur": 2.38,
+  "text": "[shouting, frightened] Get back! Get back from me!"
+ },
+ "s3_father": {
+  "file": "voice/s3_father.mp3",
+  "dur": 1.83,
+  "text": "[screaming] Father!"
+ },
+ "p_cry": {
+  "file": "voice/p_cry.mp3",
+  "dur": 2.07,
+  "text": "[cries out in pain] Ahh!"
+ },
+ "a3_one": {
+  "file": "voice/a3_one.mp3",
+  "dur": 3.42,
+  "text": "[straining, breathless] One more... come on, come on!"
+ },
+ "a3_almost": {
+  "file": "voice/a3_almost.mp3",
+  "dur": 2.95,
+  "text": "[straining] Almost... Hold them, Sara!"
+ },
+ "a3_open2": {
+  "file": "voice/a3_open2.mp3",
+  "dur": 4.08,
+  "text": "[screaming] It's open! Sara, now! Come on!"
+ },
+ "p_go2": {
+  "file": "voice/p_go2.mp3",
+  "dur": 2.3,
+  "text": "[shouting] Go, child! Go!"
+ },
+ "s3_no": {
+  "file": "voice/s3_no.mp3",
+  "dur": 3.11,
+  "text": "[screaming, devastated] No! No! Father!"
+ },
+ "a3_what": {
+  "file": "voice/a3_what.mp3",
+  "dur": 3.82,
+  "text": "[screaming] Sara! What are you doing?! Come on!"
+ },
+ "s3_blame2": {
+  "file": "voice/s3_blame2.mp3",
+  "dur": 4.08,
+  "text": "[crying] It's my fault. I should have made him come..."
+ },
+ "s3_blame1": {
+  "file": "voice/s3_blame1.mp3",
+  "dur": 5.1,
+  "text": "[sobbing, breathless] I had him... He was right there, Akane... I should have..."
+ },
+ "a3_who": {
+  "file": "voice/a3_who.mp3",
+  "dur": 3.89,
+  "text": "[breathless, confused] Sara... who? Who are you talking about?"
+ },
+ "s3_priest": {
+  "file": "voice/s3_priest.mp3",
+  "dur": 4.47,
+  "text": "[upset] The priest! The old man at the altar! You saw him!"
+ },
+ "a3_nopriest": {
+  "file": "voice/a3_nopriest.mp3",
+  "dur": 6.64,
+  "text": "[quiet, scared] Sara... there was no one at the altar. There was no priest. I never saw anyone."
+ },
+ "s3_knew": {
+  "file": "voice/s3_knew.mp3",
+  "dur": 4.31,
+  "text": "[whispering, shaken] No... He talked to me. He knew my name..."
+ },
+ "a3_unwell": {
+  "file": "voice/a3_unwell.mp3",
+  "dur": 4.39,
+  "text": "[gently, worried] You were shouting at an empty church. You're not well, Sara."
+ },
+ "s3_follow": {
+  "file": "voice/s3_follow.mp3",
+  "dur": 2.61,
+  "text": "[whispering, to herself] Follow the lights... he said."
+ },
+ "a3_behind": {
+  "file": "voice/a3_behind.mp3",
+  "dur": 1.99,
+  "text": "[screaming] Behind us!"
+ },
+ "a3_lights2": {
+  "file": "voice/a3_lights2.mp3",
+  "dur": 4.86,
+  "text": "[whispering] Lanterns... Someone's been keeping these lit. Stay close to me."
+ },
+ "a3_behind3": {
+  "file": "voice/a3_behind3.mp3",
+  "dur": 2.46,
+  "text": "[urgent] They're behind us! Keep moving!"
+ },
+ "a3_right3": {
+  "file": "voice/a3_right3.mp3",
+  "dur": 1.91,
+  "text": "[urgent] Right side! Right!"
+ },
+ "a3_left3": {
+  "file": "voice/a3_left3.mp3",
+  "dur": 1.99,
+  "text": "[urgent] Left! In the trees!"
+ },
+ "a3_more": {
+  "file": "voice/a3_more.mp3",
+  "dur": 1.67,
+  "text": "[panicked] There's more of them!"
+ },
+ "a3_ahead": {
+  "file": "voice/a3_ahead.mp3",
+  "dur": 1.91,
+  "text": "[urgent] Ahead! On the path!"
+ },
+ "a3_dontstop": {
+  "file": "voice/a3_dontstop.mp3",
+  "dur": 2.8,
+  "text": "[breathless] Don't stop! Keep going!"
+ },
+ "a3_light": {
+  "file": "voice/a3_light.mp3",
+  "dur": 2.88,
+  "text": "[urgent] Sara, your light! Use your light!"
+ },
+ "a3_listen": {
+  "file": "voice/a3_listen.mp3",
+  "dur": 1.83,
+  "text": "[whispering] Wait... Listen."
+ },
+ "a3_stay": {
+  "file": "voice/a3_stay.mp3",
+  "dur": 2.07,
+  "text": "[urgent, worried] Sara! Stay with me!"
+ },
+ "a3_onyou": {
+  "file": "voice/a3_onyou.mp3",
+  "dur": 2.95,
+  "text": "[screaming] Sara, it's right on you!"
+ },
+ "s3_see": {
+  "file": "voice/s3_see.mp3",
+  "dur": 2.54,
+  "text": "[whispering, shaken] Akane... did you see that?"
+ },
+ "s3_cant": {
+  "file": "voice/s3_cant.mp3",
+  "dur": 4.47,
+  "text": "[gasping, weak] Akane... I can't... I can't see..."
+ },
+ "a3_seewhat": {
+  "file": "voice/a3_seewhat.mp3",
+  "dur": 4,
+  "text": "[whispering, worried] See what? ... There's nothing there. Keep moving."
+ },
+ "a3_house2": {
+  "file": "voice/a3_house2.mp3",
+  "dur": 3.19,
+  "text": "[screaming, breathless] A house! Run! Go, go, go!"
+ },
+ "a3_door": {
+  "file": "voice/a3_door.mp3",
+  "dur": 2.95,
+  "text": "[screaming] Sara, the door! Shut it!"
+ },
+ "a3_gotback": {
+  "file": "voice/a3_gotback.mp3",
+  "dur": 2.22,
+  "text": "[straining] I've got the back!"
+ },
+ "a3_windows": {
+  "file": "voice/a3_windows.mp3",
+  "dur": 2.3,
+  "text": "[urgent, breathless] The windows! Close the windows!"
+ },
+ "a3_bar": {
+  "file": "voice/a3_bar.mp3",
+  "dur": 2.22,
+  "text": "[urgent] The bar! Drop the bar!"
+ },
+ "a3_lampout": {
+  "file": "voice/a3_lampout.mp3",
+  "dur": 2.14,
+  "text": "[whispering, urgent] The lamp. Put it out."
+ },
+ "s3_w_there": {
+  "file": "voice/s3_w_there.mp3",
+  "dur": 1.99,
+  "text": "[whispering, terrified] They're right outside..."
+ },
+ "a3_shh": {
+  "file": "voice/a3_shh.mp3",
+  "dur": 3.74,
+  "text": "[whispering] Shh... Don't move. Don't make a sound."
+ },
+ "a3_w_gone": {
+  "file": "voice/a3_w_gone.mp3",
+  "dur": 1.67,
+  "text": "[whispering] ...They're moving on."
+ },
+ "a3_w_breathe": {
+  "file": "voice/a3_w_breathe.mp3",
+  "dur": 3.35,
+  "text": "[whispering] I know. Breathe. Slowly."
+ },
+ "s3_w_minute": {
+  "file": "voice/s3_w_minute.mp3",
+  "dur": 1.99,
+  "text": "[whispering, weak] Just for a minute..."
+ },
+ "s3_w_real": {
+  "file": "voice/s3_w_real.mp3",
+  "dur": 4,
+  "text": "[whispering, shaky] Akane... he was real. I saw him..."
+ },
+ "a3_w_here": {
+  "file": "voice/a3_w_here.mp3",
+  "dur": 2.61,
+  "text": "[whispering, tenderly] Sleep. I'm right here."
+ },
+ "a3_w_sleep": {
+  "file": "voice/a3_w_sleep.mp3",
+  "dur": 6.14,
+  "text": "[whispering, gently] Not now. You're burning up... Lie down. Sleep. I'll watch the door."
+ },
+ "pew_topple": {
+  "file": "sfx/pew_topple.mp3",
+  "dur": 2.28
+ },
+ "chest_drag": {
+  "file": "sfx/chest_drag.mp3",
+  "dur": 2.54
+ },
+ "plank_rip": {
+  "file": "sfx/plank_rip.mp3",
+  "dur": 1.67
+ },
+ "crowd_pile": {
+  "file": "sfx/crowd_pile.mp3",
+  "dur": 4.08
+ },
+ "priest_struggle": {
+  "file": "sfx/priest_struggle.mp3",
+  "dur": 3.06
+ },
+ "door_wedge": {
+  "file": "sfx/door_wedge.mp3",
+  "dur": 1.54
+ },
+ "branch_snap": {
+  "file": "sfx/branch_snap.mp3",
+  "dur": 1.26
+ },
+ "brush_rush": {
+  "file": "sfx/brush_rush.mp3",
+  "dur": 2.54
+ },
+ "birds_flee": {
+  "file": "sfx/birds_flee.mp3",
+  "dur": 3.06
+ },
+ "choir_dread": {
+  "file": "sfx/choir_dread.mp3",
+  "dur": 22.08
+ },
+ "horde_forest": {
+  "file": "sfx/horde_forest.mp3",
+  "dur": 10.06
+ },
+ "tinnitus": {
+  "file": "sfx/tinnitus.mp3",
+  "dur": 5.07
+ },
+ "heartbeat_fast": {
+  "file": "sfx/heartbeat_fast.mp3",
+  "dur": 4.08
+ },
+ "porch_steps": {
+  "file": "sfx/porch_steps.mp3",
+  "dur": 4.08
+ },
+ "board_scratch": {
+  "file": "sfx/board_scratch.mp3",
+  "dur": 3.06
+ },
+ "window_knock": {
+  "file": "sfx/window_knock.mp3",
+  "dur": 2.07
+ },
+ "zombie_breath_wall": {
+  "file": "sfx/zombie_breath_wall.mp3",
+  "dur": 4.08
+ },
+ "fever_drone": {
+  "file": "sfx/fever_drone.mp3",
+  "dur": 20.06
+ },
+ "tension_drone": {
+  "file": "sfx/tension_drone.mp3",
+  "dur": 20.06
+ },
+ "a3_lightoff": {
+  "file": "voice/a3_lightoff.mp3",
+  "dur": 2.38,
+  "text": "[whispering, urgent] Your light... Turn it off."
+ },
+ "a3_w_lamp": {
+  "file": "voice/a3_w_lamp.mp3",
+  "dur": 2.61,
+  "text": "[whispering] I'll light the lamp. Just a little."
+ },
+ "body_fall_stone": {
+  "file": "sfx/body_fall_stone.mp3",
+  "dur": 1.54
+ },
+ "priest_gasp": {
+  "file": "sfx/priest_gasp.mp3",
+  "dur": 1.26
+ },
+ "house_door_thud": {
+  "file": "sfx/house_door_thud.mp3",
+  "dur": 1.44
+ },
+ "house_door_slam": {
+  "file": "sfx/house_door_slam.mp3",
+  "dur": 1.67
+ },
+ "house_lamp_rattle": {
+  "file": "sfx/house_lamp_rattle.mp3",
+  "dur": 1.07
+ },
+ "a3_c_behind5": {
+  "file": "voice/a3_c_behind5.mp3",
+  "dur": 1.33,
+  "text": "[urgent] Watch your back!"
+ },
+ "a3_c_behind4": {
+  "file": "voice/a3_c_behind4.mp3",
+  "dur": 2.38,
+  "text": "[screaming] Sara, behind you!"
+ },
+ "p_last": {
+  "file": "voice/p_last.mp3",
+  "dur": 4.31,
+  "text": "[weak, gasping, dying] Go... child... follow... the lights..."
+ },
+ "a3_c_left3": {
+  "file": "voice/a3_c_left3.mp3",
+  "dur": 1.52,
+  "text": "[urgent] Coming from the left!"
+ },
+ "a3_c_left2": {
+  "file": "voice/a3_c_left2.mp3",
+  "dur": 1.33,
+  "text": "[urgent] On your left!"
+ },
+ "a3_c_right2": {
+  "file": "voice/a3_c_right2.mp3",
+  "dur": 1.26,
+  "text": "[urgent] On your right!"
+ },
+ "a3_c_right3": {
+  "file": "voice/a3_c_right3.mp3",
+  "dur": 1.52,
+  "text": "[urgent] Coming from the right!"
+ },
+ "a3_c_ahead2": {
+  "file": "voice/a3_c_ahead2.mp3",
+  "dur": 1.44,
+  "text": "[urgent] In front of us!"
+ },
+ "a3_c_ahead3": {
+  "file": "voice/a3_c_ahead3.mp3",
+  "dur": 1.91,
+  "text": "[urgent] There! Up ahead!"
+ },
+ "a3_c_onyou2": {
+  "file": "voice/a3_c_onyou2.mp3",
+  "dur": 2.72,
+  "text": "[screaming] Sara! Get away from it!"
+ },
+ "a3_c_onyou3": {
+  "file": "voice/a3_c_onyou3.mp3",
+  "dur": 2.22,
+  "text": "[screaming] Shoot it! Shoot it!"
+ },
+ "a3_c_cover3": {
+  "file": "voice/a3_c_cover3.mp3",
+  "dur": 2.3,
+  "text": "[straining, panicked] Sara, help me!"
+ },
+ "a3_c_cover4": {
+  "file": "voice/a3_c_cover4.mp3",
+  "dur": 1.6,
+  "text": "[panicked] Get it off me!"
+ },
+ "a3_c_cover5": {
+  "file": "voice/a3_c_cover5.mp3",
+  "dur": 2.61,
+  "text": "[shouting, straining] Sara! They're on me!"
+ },
+ "a3_c_lag1": {
+  "file": "voice/a3_c_lag1.mp3",
+  "dur": 1.83,
+  "text": "[urgent] Sara, keep up!"
+ },
+ "a3_c_lag2": {
+  "file": "voice/a3_c_lag2.mp3",
+  "dur": 1.99,
+  "text": "[breathless] Don't fall behind!"
+ },
+ "a3_c_out1": {
+  "file": "voice/a3_c_out1.mp3",
+  "dur": 3.11,
+  "text": "[screaming] Sara, now! There's no time!"
+ },
+ "a3_c_out2": {
+  "file": "voice/a3_c_out2.mp3",
+  "dur": 2.22,
+  "text": "[screaming] Get out of there!"
+ },
+ "a3_c_more2": {
+  "file": "voice/a3_c_more2.mp3",
+  "dur": 1.75,
+  "text": "[panicked] They're everywhere!"
+ },
+ "a3_c_dontlook": {
+  "file": "voice/a3_c_dontlook.mp3",
+  "dur": 2.72,
+  "text": "[whispering] Don't look. Just keep walking."
+ },
+ "a3_c_people": {
+  "file": "voice/a3_c_people.mp3",
+  "dur": 3.89,
+  "text": "[whispering, sad] People came this way... Not all of them made it."
+ },
+ "hook_creak": {
+  "file": "sfx/hook_creak.mp3",
+  "dur": 2.07
+ },
+ "s3_move": {
+  "file": "voice/s3_move.mp3",
+  "dur": 2.72,
+  "text": "[determined, breathless] It's okay. We will move it."
+ },
+ "p_back2": {
+  "file": "voice/p_back2.mp3",
+  "dur": 3.58,
+  "text": "[tired, quiet] The door behind the altar. It's barred."
+ },
+ "a3_moto": {
+  "file": "voice/a3_moto.mp3",
+  "dur": 3.5,
+  "text": "[urgent] Wait... there's a motorcycle! Come on, hurry!"
+ },
+ "s3_failed": {
+  "file": "voice/s3_failed.mp3",
+  "dur": 3.19,
+  "text": "[crying, raising her voice over the engine] I failed to save him..."
+ },
+ "s3_priest2": {
+  "file": "voice/s3_priest2.mp3",
+  "dur": 2.46,
+  "text": "[upset, shouting] The priest! You saw him!"
+ },
+ "a3_who2": {
+  "file": "voice/a3_who2.mp3",
+  "dur": 3.5,
+  "text": "[shouting over the engine, confused] Sara... who? Who are you talking about?"
+ },
+ "a3_unwell2": {
+  "file": "voice/a3_unwell2.mp3",
+  "dur": 2.22,
+  "text": "[gently, worried] You're not well, Sara."
+ },
+ "a3_r_shoot1": {
+  "file": "voice/a3_r_shoot1.mp3",
+  "dur": 1.91,
+  "text": "[shouting] Sara, shoot them!"
+ },
+ "a3_nopriest2": {
+  "file": "voice/a3_nopriest2.mp3",
+  "dur": 5.02,
+  "text": "[quiet, scared] Sara... there was no one at the altar. There was no priest."
+ },
+ "a3_r_shoot2": {
+  "file": "voice/a3_r_shoot2.mp3",
+  "dur": 2.07,
+  "text": "[shouting] Shoot! Shoot!"
+ },
+ "a3_r_shoot3": {
+  "file": "voice/a3_r_shoot3.mp3",
+  "dur": 1.99,
+  "text": "[urgent, shouting] On the path! Shoot it!"
+ },
+ "a3_r_left": {
+  "file": "voice/a3_r_left.mp3",
+  "dur": 2.14,
+  "text": "[shouting] Left side! Shoot!"
+ },
+ "a3_r_behind": {
+  "file": "voice/a3_r_behind.mp3",
+  "dur": 1.67,
+  "text": "[shouting] They're behind us!"
+ },
+ "a3_r_right": {
+  "file": "voice/a3_r_right.mp3",
+  "dur": 2.22,
+  "text": "[shouting] On the right! Shoot it!"
+ },
+ "a3_r_hold": {
+  "file": "voice/a3_r_hold.mp3",
+  "dur": 1.52,
+  "text": "[shouting] Hold on!"
+ },
+ "a3_r_hit": {
+  "file": "voice/a3_r_hit.mp3",
+  "dur": 2.07,
+  "text": "[pained cry] Agh! Sara!"
+ },
+ "a3_r_house": {
+  "file": "voice/a3_r_house.mp3",
+  "dur": 2.22,
+  "text": "[shouting] The house! Hold on!"
+ },
+ "a3_r_off": {
+  "file": "voice/a3_r_off.mp3",
+  "dur": 3.03,
+  "text": "[shouting, breathless] Off! Off! Get inside, go!"
+ },
+ "moto_start": {
+  "file": "sfx/moto_start.mp3",
+  "dur": 4.55
+ },
+ "moto_rev": {
+  "file": "sfx/moto_rev.mp3",
+  "dur": 2.54
+ },
+ "moto_hit": {
+  "file": "sfx/moto_hit.mp3",
+  "dur": 1.54
+ },
+ "moto_stop": {
+  "file": "sfx/moto_stop.mp3",
+  "dur": 3.06
+ },
+ "moto_stand": {
+  "file": "sfx/moto_stand.mp3",
+  "dur": 0.86
+ },
+ "moto_off": {
+  "file": "sfx/moto_off.mp3",
+  "dur": 3.06
+ },
+ "moto_bump": {
+  "file": "sfx/moto_bump.mp3",
+  "dur": 1.07
+ },
+ "a3_r_look": {
+  "file": "voice/a3_r_look.mp3",
+  "dur": 1.18,
+  "text": "[shouting] Look out!"
+ },
+ "a3_r_watch": {
+  "file": "voice/a3_r_watch.mp3",
+  "dur": 1.52,
+  "text": "[screaming] Watch out!"
+ },
+ "a3_window": {
+  "file": "voice/a3_window.mp3",
+  "dur": 3.35,
+  "text": "[screaming] Sara, the window! They're coming in!"
+ },
+ "moto_cruise": {
+  "file": "sfx/moto_cruise.mp3",
+  "dur": 10.06
+ },
+ "moto_cruise_b": {
+  "file": "sfx/moto_cruise_b.mp3",
+  "dur": 10.06
+ },
+ "moto_skid": {
+  "file": "sfx/moto_skid.mp3",
+  "dur": 1.54
+ },
+ "moto_land": {
+  "file": "sfx/moto_land.mp3",
+  "dur": 1.26
+ },
+ "moto_key": {
+  "file": "sfx/moto_key.mp3",
+  "dur": 0.66
+ },
+ "branch_whip": {
+  "file": "sfx/branch_whip.mp3",
+  "dur": 1.26
+ },
+ "church_window_smash": {
+  "file": "sfx/church_window_smash.mp3",
+  "dur": 3.56
+ },
+ "glass_shards_rain": {
+  "file": "sfx/glass_shards_rain.mp3",
+  "dur": 2.54
+ },
+ "zombie_climb_sill": {
+  "file": "sfx/zombie_climb_sill.mp3",
+  "dur": 0.94
+ },
+ "log_thump": {
+  "file": "sfx/log_thump.mp3",
+  "dur": 0.94
+ },
+ "s_hurt2": {
+  "file": "voice/s_hurt2.mp3",
+  "dur": 0.81,
+  "text": "[crying out in pain] Ah!"
+ },
+ "s_hurt1": {
+  "file": "voice/s_hurt1.mp3",
+  "dur": 0.71,
+  "text": "[sharp cry of pain] Agh!"
+ },
+ "s_hurt3": {
+  "file": "voice/s_hurt3.mp3",
+  "dur": 0.76,
+  "text": "[pained, through gritted teeth] Ugh!"
+ },
+ "a_hurt2": {
+  "file": "voice/a_hurt2.mp3",
+  "dur": 0.76,
+  "text": "[crying out in pain] Ah!"
+ },
+ "a_hurt1": {
+  "file": "voice/a_hurt1.mp3",
+  "dur": 0.71,
+  "text": "[sharp cry of pain] Agh!"
+ },
+ "a_hurt3": {
+  "file": "voice/a_hurt3.mp3",
+  "dur": 0.79,
+  "text": "[pained, through gritted teeth] Ugh!"
+ },
+ "p3a_wake": {
+  "file": "voice/p3a_wake.mp3",
+  "dur": 2.72,
+  "text": "[whispering, urgent] Sara. Sara! Wake up."
+ },
+ "p3s_wake": {
+  "file": "voice/p3s_wake.mp3",
+  "dur": 3.35,
+  "text": "[groggy, confused] Mm... Akane? What is it...?"
+ },
+ "p3a_trap": {
+  "file": "voice/p3a_trap.mp3",
+  "dur": 4.7,
+  "text": "[whispering, excited] I found a trapdoor under the rug. There's a ladder. It goes down."
+ },
+ "p3a_follow": {
+  "file": "voice/p3a_follow.mp3",
+  "dur": 2.38,
+  "text": "[whispering] Come on. Right behind me."
+ },
+ "p3a_hurry": {
+  "file": "voice/p3a_hurry.mp3",
+  "dur": 3.27,
+  "text": "[shouting, from below] Sara! Hurry! Get down here!"
+ },
+ "p3a_hurry2": {
+  "file": "voice/p3a_hurry2.mp3",
+  "dur": 3.03,
+  "text": "[shouting, echoing] Sara, come on! The ladder!"
+ },
+ "p3s_coming": {
+  "file": "voice/p3s_coming.mp3",
+  "dur": 1.52,
+  "text": "[breathless, scared] I'm coming!"
+ },
+ "p3s_shut": {
+  "file": "voice/p3s_shut.mp3",
+  "dur": 2.07,
+  "text": "[straining, panicked] Shut... shut!"
+ },
+ "p3a_okay": {
+  "file": "voice/p3a_okay.mp3",
+  "dur": 1.6,
+  "text": "[breathless, whispering] Are you okay?"
+ },
+ "p3s_where": {
+  "file": "voice/p3s_where.mp3",
+  "dur": 2.72,
+  "text": "[shaky] Yeah... Where are we?"
+ },
+ "p3a_clear": {
+  "file": "voice/p3a_clear.mp3",
+  "dur": 2.46,
+  "text": "[breathless] Clear... I think."
+ },
+ "p3a_platform": {
+  "file": "voice/p3a_platform.mp3",
+  "dur": 2.95,
+  "text": "[whispering, tense] There's some of them on the platform. Get ready."
+ },
+ "p3a_metro": {
+  "file": "voice/p3a_metro.mp3",
+  "dur": 5.36,
+  "text": "[whispering, amazed] A service shaft... for the metro. This line runs under the whole city."
+ },
+ "p3a_hear": {
+  "file": "voice/p3a_hear.mp3",
+  "dur": 2.46,
+  "text": "[uneasy, whispering] Wait. Do you hear that?"
+ },
+ "p3a_train": {
+  "file": "voice/p3a_train.mp3",
+  "dur": 3.19,
+  "text": "[shocked] A train? The trains are still running?!"
+ },
+ "p3a_getin": {
+  "file": "voice/p3a_getin.mp3",
+  "dur": 2.95,
+  "text": "[shouting] Get in! Get in the train!"
+ },
+ "p3a_close": {
+  "file": "voice/p3a_close.mp3",
+  "dur": 2.46,
+  "text": "[frantic, shouting] Close! Come on, close!"
+ },
+ "p3a_stairs": {
+  "file": "voice/p3a_stairs.mp3",
+  "dur": 3.19,
+  "text": "[screaming] They're coming down the stairs! Go, go!"
+ },
+ "p3s_who": {
+  "file": "voice/p3s_who.mp3",
+  "dur": 2.14,
+  "text": "[breathless] Who's driving this thing?"
+ },
+ "p3a_made": {
+  "file": "voice/p3a_made.mp3",
+  "dur": 3.89,
+  "text": "[breathless, a shaky laugh] We... we actually made it."
+ },
+ "p3a_nobody": {
+  "file": "voice/p3a_nobody.mp3",
+  "dur": 5.1,
+  "text": "[uneasy, quiet] Nobody. It just keeps running its line... like nothing happened."
+ },
+ "p3a_dontlook": {
+  "file": "voice/p3a_dontlook.mp3",
+  "dur": 3.89,
+  "text": "[scared, firm] Don't look at it. The door's locked. It can't get through."
+ },
+ "p3a_park": {
+  "file": "voice/p3a_park.mp3",
+  "dur": 5.67,
+  "text": "[determined] Parkgate comes up right under the park. We go up, and we find a way out of this city."
+ },
+ "p3a_stairs2": {
+  "file": "voice/p3a_stairs2.mp3",
+  "dur": 3.42,
+  "text": "[shouting] This way! The stairs! Go up!"
+ },
+ "p3a_keepup": {
+  "file": "voice/p3a_keepup.mp3",
+  "dur": 2.61,
+  "text": "[shouting] Keep going! Don't stop!"
+ },
+ "p3a_gates": {
+  "file": "voice/p3a_gates.mp3",
+  "dur": 2.22,
+  "text": "[breathless, shouting] Over the gates! Come on!"
+ },
+ "p3a_chopper": {
+  "file": "voice/p3a_chopper.mp3",
+  "dur": 2.38,
+  "text": "[screaming] QUICK! GET TO THE CHOPPER!"
+ },
+ "p3a_heli": {
+  "file": "voice/p3a_heli.mp3",
+  "dur": 5.51,
+  "text": "[breathless, stunned] Sara... look. Over there. Is that... a helicopter?"
+ },
+ "p3a_run1": {
+  "file": "voice/p3a_run1.mp3",
+  "dur": 2.38,
+  "text": "[shouting] Run! Don't stop!"
+ },
+ "p3a_run2": {
+  "file": "voice/p3a_run2.mp3",
+  "dur": 3.42,
+  "text": "[screaming] They're everywhere! Keep running!"
+ },
+ "p3a_almost": {
+  "file": "voice/p3a_almost.mp3",
+  "dur": 2.72,
+  "text": "[shouting, breathless] Almost there! Go, go, go!"
+ },
+ "p3a_in": {
+  "file": "voice/p3a_in.mp3",
+  "dur": 2.38,
+  "text": "[screaming] Get in! Get in!"
+ },
+ "p3s_fly": {
+  "file": "voice/p3s_fly.mp3",
+  "dur": 2.07,
+  "text": "[panicked, shouting] Can you even fly this thing?!"
+ },
+ "p3a_findout": {
+  "file": "voice/p3a_findout.mp3",
+  "dur": 1.91,
+  "text": "[frantic, shouting] We're about to find out!"
+ },
+ "p3a_start": {
+  "file": "voice/p3a_start.mp3",
+  "dur": 3.11,
+  "text": "[straining, panicked] Come on, come on... start!"
+ },
+ "p3a_up": {
+  "file": "voice/p3a_up.mp3",
+  "dur": 1.91,
+  "text": "[shouting] Hold on to something!"
+ },
+ "p3a_holdoff": {
+  "file": "voice/p3a_holdoff.mp3",
+  "dur": 3.58,
+  "text": "[screaming] Hold them off! I need ten seconds!"
+ },
+ "p3a_f_hold": {
+  "file": "voice/p3a_f_hold.mp3",
+  "dur": 1.99,
+  "text": "[screaming] Hold on!"
+ },
+ "p3a_f_watch": {
+  "file": "voice/p3a_f_watch.mp3",
+  "dur": 1.91,
+  "text": "[screaming] Watch out!"
+ },
+ "p3a_f_down": {
+  "file": "voice/p3a_f_down.mp3",
+  "dur": 2.46,
+  "text": "[shouting] Get down! Get down!"
+ },
+ "p3a_f_blind": {
+  "file": "voice/p3a_f_blind.mp3",
+  "dur": 3.19,
+  "text": "[panicked] I can't see! I can't see anything!"
+ },
+ "p3a_f_other": {
+  "file": "voice/p3a_f_other.mp3",
+  "dur": 2.8,
+  "text": "[shocked, shouting] The other chopper! It's going down!"
+ },
+ "p3a_f_pullup": {
+  "file": "voice/p3a_f_pullup.mp3",
+  "dur": 3.03,
+  "text": "[screaming] Pull up, pull up, pull up!"
+ },
+ "p3a_f_bridge": {
+  "file": "voice/p3a_f_bridge.mp3",
+  "dur": 2.54,
+  "text": "[shouting] Under the bridge! Hold on!"
+ },
+ "p3a_f_comeon": {
+  "file": "voice/p3a_f_comeon.mp3",
+  "dur": 2.3,
+  "text": "[frantic] Come on, come on, come on!"
+ },
+ "p3a_f_hit": {
+  "file": "voice/p3a_f_hit.mp3",
+  "dur": 3.11,
+  "text": "[screaming] We're hit! The tail's gone!"
+ },
+ "p3a_f_laugh": {
+  "file": "voice/p3a_f_laugh.mp3",
+  "dur": 4.86,
+  "text": "[breathless, a hysterical laugh] We're alive... we're actually alive!"
+ },
+ "p3a_f_brace": {
+  "file": "voice/p3a_f_brace.mp3",
+  "dur": 3.42,
+  "text": "[screaming] We're going down! Hold on to me!"
+ },
+ "p3a_end": {
+  "file": "voice/p3a_end.mp3",
+  "dur": 1.6,
+  "text": "[weak, faint whisper] Sara...?"
+ },
+ "p3s_close": {
+  "file": "voice/p3s_close.mp3",
+  "dur": 2.61,
+  "text": "[screaming] Too close! Too close!"
+ },
+ "p3s_akane": {
+  "file": "voice/p3s_akane.mp3",
+  "dur": 2.22,
+  "text": "[screaming] AKANE!"
+ },
+ "p3s_scream": {
+  "file": "voice/p3s_scream.mp3",
+  "dur": 1.44,
+  "text": "[terrified scream] Aaaah!"
+ },
+ "p3n_ashwood": {
+  "file": "voice/p3n_ashwood.mp3",
+  "dur": 4,
+  "text": "[calm, formal station announcement] Ashwood. The train now arriving is for Parkgate."
+ },
+ "p3n_doors": {
+  "file": "voice/p3n_doors.mp3",
+  "dur": 2.95,
+  "text": "[calm, formal announcement] Please stand clear of the closing doors."
+ },
+ "p3n_next": {
+  "file": "voice/p3n_next.mp3",
+  "dur": 4.7,
+  "text": "[calm, formal announcement] The next station is Parkgate. Parkgate is the last stop."
+ },
+ "p3_trapdoor_open": {
+  "file": "sfx/p3_trapdoor_open.mp3",
+  "dur": 2.28
+ },
+ "p3_trapdoor_slam": {
+  "file": "sfx/p3_trapdoor_slam.mp3",
+  "dur": 1.44
+ },
+ "p3n_last": {
+  "file": "voice/p3n_last.mp3",
+  "dur": 10.06,
+  "text": "[calm, formal announcement] Parkgate. This is the last stop. This train terminates here. Please make sure you have all your belongings with you. Thank you for travelling with us."
+ },
+ "p3_door_burst": {
+  "file": "sfx/p3_door_burst.mp3",
+  "dur": 2.28
+ },
+ "p3_ladder_step": {
+  "file": "sfx/p3_ladder_step.mp3",
+  "dur": 0.66
+ },
+ "p3_ladder_hands": {
+  "file": "sfx/p3_ladder_hands.mp3",
+  "dur": 0.66
+ },
+ "p3_hatch_pound": {
+  "file": "sfx/p3_hatch_pound.mp3",
+  "dur": 6.06
+ },
+ "p3_shaft_amb": {
+  "file": "sfx/p3_shaft_amb.mp3",
+  "dur": 15.08
+ },
+ "p3_tube_buzz": {
+  "file": "sfx/p3_tube_buzz.mp3",
+  "dur": 3.06
+ },
+ "p3_steel_door": {
+  "file": "sfx/p3_steel_door.mp3",
+  "dur": 2.07
+ },
+ "p3_metro_amb": {
+  "file": "sfx/p3_metro_amb.mp3",
+  "dur": 22.08
+ },
+ "p3_train_far": {
+  "file": "sfx/p3_train_far.mp3",
+  "dur": 8.07
+ },
+ "p3_train_arrive": {
+  "file": "sfx/p3_train_arrive.mp3",
+  "dur": 9.07
+ },
+ "p3_passage_amb": {
+  "file": "sfx/p3_passage_amb.mp3",
+  "dur": 12.07
+ },
+ "p3_door_chime": {
+  "file": "sfx/p3_door_chime.mp3",
+  "dur": 1.44
+ },
+ "p3_train_horn": {
+  "file": "sfx/p3_train_horn.mp3",
+  "dur": 2.07
+ },
+ "p3_doors_open": {
+  "file": "sfx/p3_doors_open.mp3",
+  "dur": 1.83
+ },
+ "p3_doors_close": {
+  "file": "sfx/p3_doors_close.mp3",
+  "dur": 2.61
+ },
+ "p3_train_depart": {
+  "file": "sfx/p3_train_depart.mp3",
+  "dur": 7.06
+ },
+ "p3_train_brake": {
+  "file": "sfx/p3_train_brake.mp3",
+  "dur": 6.06
+ },
+ "p3_pa_chime": {
+  "file": "sfx/p3_pa_chime.mp3",
+  "dur": 2.07
+ },
+ "p3_glass_bang": {
+  "file": "sfx/p3_glass_bang.mp3",
+  "dur": 3.06
+ },
+ "p3_train_ride": {
+  "file": "sfx/p3_train_ride.mp3",
+  "dur": 20.06
+ },
+ "p3_zombie_rush": {
+  "file": "sfx/p3_zombie_rush.mp3",
+  "dur": 5.07
+ },
+ "p3_generator": {
+  "file": "sfx/p3_generator.mp3",
+  "dur": 8.07
+ },
+ "p3_radio": {
+  "file": "sfx/p3_radio.mp3",
+  "dur": 10.06
+ },
+ "p3_park_amb": {
+  "file": "sfx/p3_park_amb.mp3",
+  "dur": 22.08
+ },
+ "p3_siren_chirp": {
+  "file": "sfx/p3_siren_chirp.mp3",
+  "dur": 4.08
+ },
+ "p3_flood_hum": {
+  "file": "sfx/p3_flood_hum.mp3",
+  "dur": 6.06
+ },
+ "p3_heli_switches": {
+  "file": "sfx/p3_heli_switches.mp3",
+  "dur": 3.06
+ },
+ "p3_swing": {
+  "file": "sfx/p3_swing.mp3",
+  "dur": 6.06
+ },
+ "p3_heli_start": {
+  "file": "sfx/p3_heli_start.mp3",
+  "dur": 10.06
+ },
+ "p3_heli_caution": {
+  "file": "sfx/p3_heli_caution.mp3",
+  "dur": 3.06
+ },
+ "p3_heli_inside": {
+  "file": "sfx/p3_heli_inside.mp3",
+  "dur": 20.06
+ },
+ "p3_heli_outside": {
+  "file": "sfx/p3_heli_outside.mp3",
+  "dur": 12.07
+ },
+ "p3_heli_lowrotor": {
+  "file": "sfx/p3_heli_lowrotor.mp3",
+  "dur": 3.06
+ },
+ "p3_heli_tail": {
+  "file": "sfx/p3_heli_tail.mp3",
+  "dur": 4.08
+ },
+ "p3_heli_crash": {
+  "file": "sfx/p3_heli_crash.mp3",
+  "dur": 5.07
+ },
+ "p3_whoosh_1": {
+  "file": "sfx/p3_whoosh_1.mp3",
+  "dur": 1.67
+ },
+ "p3_whoosh_2": {
+  "file": "sfx/p3_whoosh_2.mp3",
+  "dur": 1.83
+ },
+ "p3_wind_door": {
+  "file": "sfx/p3_wind_door.mp3",
+  "dur": 10.06
+ },
+ "p3_whoosh_3": {
+  "file": "sfx/p3_whoosh_3.mp3",
+  "dur": 1.83
+ },
+ "p3_scrape": {
+  "file": "sfx/p3_scrape.mp3",
+  "dur": 1.26
+ },
+ "p3_crane_groan": {
+  "file": "sfx/p3_crane_groan.mp3",
+  "dur": 4.08
+ },
+ "p3_tank_fall": {
+  "file": "sfx/p3_tank_fall.mp3",
+  "dur": 4.08
+ },
+ "p3_wires_snap": {
+  "file": "sfx/p3_wires_snap.mp3",
+  "dur": 2.54
+ },
+ "p3_heli2_down": {
+  "file": "sfx/p3_heli2_down.mp3",
+  "dur": 5.07
+ },
+ "p3_explosion": {
+  "file": "sfx/p3_explosion.mp3",
+  "dur": 5.07
+ },
+ "p3_glass_rain": {
+  "file": "sfx/p3_glass_rain.mp3",
+  "dur": 3.06
+ },
+ "p3_tinnitus": {
+  "file": "sfx/p3_tinnitus.mp3",
+  "dur": 8.07
+ },
+ "p3_action": {
+  "file": "sfx/p3_action.mp3",
+  "dur": 22.08
+ },
+ "train_motor": {
+  "file": "sfx/train_motor.mp3",
+  "dur": 10.06
+ },
+ "train_hum": {
+  "file": "sfx/train_hum.mp3",
+  "dur": 12.07
+ },
+ "train_run": {
+  "file": "sfx/train_run.mp3",
+  "dur": 12.07
+ },
+ "train_air": {
+  "file": "sfx/train_air.mp3",
+  "dur": 1.44
+ },
+ "train_door_bounce": {
+  "file": "sfx/train_door_bounce.mp3",
+  "dur": 1.54
+ },
+ "train_horn": {
+  "file": "sfx/train_horn.mp3",
+  "dur": 2.07,
+  "text": "A metro train's two-tone electric horn blaring in an underground tunnel, echoing"
+ },
+ "train_door_chime": {
+  "file": "sfx/train_door_chime.mp3",
+  "dur": 1.44,
+  "text": "A metro train's door chime: a clear two-tone electronic ding-dong"
+ },
+ "train_pa_chime": {
+  "file": "sfx/train_pa_chime.mp3",
+  "dur": 2.07,
+  "text": "A train's public address chime before an announcement: three soft rising electronic tones, slightly distorted through an old speaker"
+ },
+ "train_brake": {
+  "file": "sfx/train_brake.mp3",
+  "dur": 6.06,
+  "text": "A metro train braking: brakes squealing, the car rattling, the motors winding down, a final hiss of air"
+ },
+ "train_door_open": {
+  "file": "sfx/train_door_open.mp3",
+  "dur": 1.83,
+  "text": "Metro train sliding doors opening with a pneumatic hiss and a rumble of rollers"
+ },
+ "train_door_close": {
+  "file": "sfx/train_door_close.mp3",
+  "dur": 2.61,
+  "text": "Metro train sliding doors closing: a rapid warning beeping, then the doors thud shut with a pneumatic hiss"
+ },
+ "train_gangway_bang": {
+  "file": "sfx/train_gangway_bang.mp3",
+  "dur": 3.06,
+  "text": "Fists banging hard on the glass window of a train door, the glass rattling in its frame, close, horror"
+ },
+ "train_flange": {
+  "file": "sfx/train_flange.mp3",
+  "dur": 6.06
+ },
+ "train_light_flicker": {
+  "file": "sfx/train_light_flicker.mp3",
+  "dur": 1.26
+ },
+ "heli_turbine_in": {
+  "file": "sfx/heli_turbine_in.mp3",
+  "dur": 10.06
+ },
+ "heli_rotor_out": {
+  "file": "sfx/heli_rotor_out.mp3",
+  "dur": 12.07
+ },
+ "heli_rotor_in": {
+  "file": "sfx/heli_rotor_in.mp3",
+  "dur": 12.07
+ },
+ "heli_fire_bell": {
+  "file": "sfx/heli_fire_bell.mp3",
+  "dur": 4.08
+ },
+ "heli_turbine_out": {
+  "file": "sfx/heli_turbine_out.mp3",
+  "dur": 10.06
+ },
+ "heli_tail_grind": {
+  "file": "sfx/heli_tail_grind.mp3",
+  "dur": 6.06
+ },
+ "heli_battery": {
+  "file": "sfx/heli_battery.mp3",
+  "dur": 3.06
+ },
+ "heli_switch": {
+  "file": "sfx/heli_switch.mp3",
+  "dur": 0.55
+ },
+ "heli_starter": {
+  "file": "sfx/heli_starter.mp3",
+  "dur": 3.56
+ },
+ "heli_lightoff": {
+  "file": "sfx/heli_lightoff.mp3",
+  "dur": 3.06
+ },
+ "heli_tail_bang": {
+  "file": "sfx/heli_tail_bang.mp3",
+  "dur": 2.28
+ },
+ "heli_door_latch": {
+  "file": "sfx/heli_door_latch.mp3",
+  "dur": 1.07
+ },
+ "heli_caution": {
+  "file": "sfx/heli_caution.mp3",
+  "dur": 1.07
+ },
+ "heli_door_slide": {
+  "file": "sfx/heli_door_slide.mp3",
+  "dur": 1.83
+ },
+ "heli_glass_crack": {
+  "file": "sfx/heli_glass_crack.mp3",
+  "dur": 1.26
+ },
+ "heli_lowrpm_horn": {
+  "file": "sfx/heli_lowrpm_horn.mp3",
+  "dur": 3.06,
+  "text": "A helicopter low rotor RPM warning horn: a loud repeating whooping alarm"
+ },
+ "heli_wind": {
+  "file": "sfx/heli_wind.mp3",
+  "dur": 10.06,
+  "text": "Strong wind roaring through an open helicopter door at speed"
+ },
+ "heli_glass_bang": {
+  "file": "sfx/heli_glass_bang.mp3",
+  "dur": 0.86
+ },
+ "heli_sparks": {
+  "file": "sfx/heli_sparks.mp3",
+  "dur": 1.26
+ },
+ "metro_drinks_hum": {
+  "file": "sfx/metro_drinks_hum.mp3",
+  "dur": 8.07
+ },
+ "metro_hum_ashwood": {
+  "file": "sfx/metro_hum_ashwood.mp3",
+  "dur": 20.06
+ },
+ "metro_hum_parkgate": {
+  "file": "sfx/metro_hum_parkgate.mp3",
+  "dur": 20.06
+ },
+ "metro_gate_alarm": {
+  "file": "sfx/metro_gate_alarm.mp3",
+  "dur": 6.06
+ },
+ "metro_drip_1": {
+  "file": "sfx/metro_drip_1.mp3",
+  "dur": 1.07
+ },
+ "metro_drip_2": {
+  "file": "sfx/metro_drip_2.mp3",
+  "dur": 1.26
+ },
+ "metro_drip_3": {
+  "file": "sfx/metro_drip_3.mp3",
+  "dur": 1.07
+ },
+ "metro_exit_wind": {
+  "file": "sfx/metro_exit_wind.mp3",
+  "dur": 12.07
+ },
+ "metro_staff_door_slam": {
+  "file": "sfx/metro_staff_door_slam.mp3",
+  "dur": 1.44
+ },
+ "metro_shutter_up": {
+  "file": "sfx/metro_shutter_up.mp3",
+  "dur": 2.54
+ },
+ "metro_staff_door_shut": {
+  "file": "sfx/metro_staff_door_shut.mp3",
+  "dur": 1.67
+ },
+ "metro_shutter_rattle": {
+  "file": "sfx/metro_shutter_rattle.mp3",
+  "dur": 2.54
+ },
+ "metro_shutter_down": {
+  "file": "sfx/metro_shutter_down.mp3",
+  "dur": 2.28
+ },
+ "metro_board_tick": {
+  "file": "sfx/metro_board_tick.mp3",
+  "dur": 0.66
+ },
+ "metro_signal_click": {
+  "file": "sfx/metro_signal_click.mp3",
+  "dur": 0.66
+ },
+ "metro_surge": {
+  "file": "sfx/metro_surge.mp3",
+  "dur": 2.28
+ },
+ "metro_ladder_slide": {
+  "file": "sfx/metro_ladder_slide.mp3",
+  "dur": 1.26
+ },
+ "p3_brazier": {
+  "file": "sfx/p3_brazier.mp3",
+  "dur": 8.07
+ },
+ "p3_fire_car": {
+  "file": "sfx/p3_fire_car.mp3",
+  "dur": 10.06
+ },
+ "p3_lamp_buzz": {
+  "file": "sfx/p3_lamp_buzz.mp3",
+  "dur": 6.06
+ },
+ "step_metal_1": {
+  "file": "sfx/step_metal_1.mp3",
+  "dur": 0.55
+ },
+ "p3_flood_off": {
+  "file": "sfx/p3_flood_off.mp3",
+  "dur": 1.83
+ },
+ "step_metal_2": {
+  "file": "sfx/step_metal_2.mp3",
+  "dur": 0.55
+ },
+ "metro_tube_buzz": {
+  "file": "sfx/metro_tube_buzz.mp3",
+  "dur": 3.06,
+  "text": "A failing fluorescent tube buzzing and flickering, clicking on and off with an electrical crackle"
+ },
+ "metro_staff_door_open": {
+  "file": "sfx/metro_staff_door_open.mp3",
+  "dur": 2.07,
+  "text": "A heavy steel fire door with a push bar opened, the bar clunks and the door scrapes and booms against the wall, echoing in a concrete corridor"
+ },
+ "step_metal_3": {
+  "file": "sfx/step_metal_3.mp3",
+  "dur": 0.55
+ },
+ "step_metal_4": {
+  "file": "sfx/step_metal_4.mp3",
+  "dur": 0.55
+ },
+ "crane_pass": {
+  "file": "sfx/crane_pass.mp3",
+  "dur": 2.07
+ },
+ "glass_burst": {
+  "file": "sfx/glass_burst.mp3",
+  "dur": 3.06
+ },
+ "gap_whoosh": {
+  "file": "sfx/gap_whoosh.mp3",
+  "dur": 2.28
+ },
+ "smoke_rush": {
+  "file": "sfx/smoke_rush.mp3",
+  "dur": 2.54
+ },
+ "tank_smash": {
+  "file": "sfx/tank_smash.mp3",
+  "dur": 3.06
+ },
+ "tank_blast": {
+  "file": "sfx/tank_blast.mp3",
+  "dur": 2.07
+ },
+ "deck_whoosh": {
+  "file": "sfx/deck_whoosh.mp3",
+  "dur": 1.83
+ },
+ "impact_fire": {
+  "file": "sfx/impact_fire.mp3",
+  "dur": 5.07
+ },
+ "heli2_fall": {
+  "file": "sfx/heli2_fall.mp3",
+  "dur": 6.06
+ },
+ "bridge_whoosh": {
+  "file": "sfx/bridge_whoosh.mp3",
+  "dur": 1.83
+ },
+ "crane_groan": {
+  "file": "sfx/crane_groan.mp3",
+  "dur": 4.08,
+  "text": "A huge steel tower crane groaning and creaking as its jib swings, deep metallic stress sounds"
+ },
+ "tank_fall": {
+  "file": "sfx/tank_fall.mp3",
+  "dur": 4.08,
+  "text": "A large wooden water tower on a rooftop collapsing, its legs snapping, and crashing down with a huge splash and splintering wood"
+ },
+ "heli2_explosion": {
+  "file": "sfx/heli2_explosion.mp3",
+  "dur": 5.07,
+  "text": "A huge explosion as a helicopter slams into a building, a deep booming fireball and debris and glass raining down, distant echo"
+ },
+ "wires_snap": {
+  "file": "sfx/wires_snap.mp3",
+  "dur": 2.54,
+  "text": "High voltage power lines snapping, loud electric arcs crackling and buzzing, sparks"
+ },
+ "transformer_blast": {
+  "file": "sfx/transformer_blast.mp3",
+  "dur": 2.07
+ },
+ "clip_snap": {
+  "file": "sfx/clip_snap.mp3",
+  "dur": 1.67
+ },
+ "p3a_t_back": {
+  "file": "voice/p3a_t_back.mp3",
+  "dur": 3.11,
+  "text": "[shouting] Sara, behind you! The other end!"
+ },
+ "p3a_t_cars": {
+  "file": "voice/p3a_t_cars.mp3",
+  "dur": 3.03,
+  "text": "[panicked, shouting] They got on the train! They're in the other cars!"
+ },
+ "p3a_t_door": {
+  "file": "voice/p3a_t_door.mp3",
+  "dur": 3.35,
+  "text": "[screaming] The door! They're coming through!"
+ },
+ "p3a_ammo2": {
+  "file": "voice/p3a_ammo2.mp3",
+  "dur": 2.72,
+  "text": "[urgent] Here, take these! Make them count!"
+ },
+ "p3a_ammo": {
+  "file": "voice/p3a_ammo.mp3",
+  "dur": 2.72,
+  "text": "[urgent, shouting] Sara! Catch! My spare mags!"
+ },
+ "p3a_t_clear": {
+  "file": "voice/p3a_t_clear.mp3",
+  "dur": 2.3,
+  "text": "[breathless, shaky] Is that... all of them?"
+ },
+ "p3a_a_wall": {
+  "file": "voice/p3a_a_wall.mp3",
+  "dur": 2.88,
+  "text": "[whispering, tense] Stay behind me. Along the wall."
+ },
+ "p3a_p_this": {
+  "file": "voice/p3a_p_this.mp3",
+  "dur": 2.3,
+  "text": "[shouting, breathless] This way! Stay with me!"
+ },
+ "p3a_t_keep": {
+  "file": "voice/p3a_t_keep.mp3",
+  "dur": 1.75,
+  "text": "[panicked, shouting] They just keep coming!"
+ },
+ "p3a_p_truck": {
+  "file": "voice/p3a_p_truck.mp3",
+  "dur": 2.8,
+  "text": "[screaming] The truck! Look out!"
+ },
+ "p3a_t_inside": {
+  "file": "voice/p3a_t_inside.mp3",
+  "dur": 3.03,
+  "text": "[screaming] They're in the train! Shoot them!"
+ }
+}

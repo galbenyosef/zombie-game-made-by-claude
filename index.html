@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LULLABY</title>
+<link rel="icon" href="data:,">
+<style>
+  html, body { margin: 0; height: 100%; background: #000; overflow: hidden; color: #e9dcd0; font-family: 'Georgia', 'Times New Roman', serif; }
+  canvas#c { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+  #hud { position: fixed; inset: 0; pointer-events: none; }
+  #veil { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+          background: radial-gradient(ellipse at 50% 40%, #1a0c0c 0%, #050303 70%); z-index: 20; transition: opacity 1.2s ease; cursor: pointer; }
+  #veil.gone { opacity: 0; pointer-events: none; }
+  #veil h1 { font-weight: 400; letter-spacing: 0.55em; font-size: clamp(28px, 6vw, 84px); margin: 0 0 0.2em 0.55em; color: #d9c7b8;
+             text-shadow: 0 0 40px #7a1010; }
+  #veil .sub { font-size: 14px; letter-spacing: 0.4em; color: #8a7466; text-transform: uppercase; min-height: 1.4em; }
+  #veil .bar { width: min(340px, 60vw); height: 2px; background: #2a1a1a; margin-top: 28px; overflow: hidden; }
+  #veil .bar i { display: block; height: 100%; width: 0%; background: #a51818; transition: width 0.2s; }
+  #veil .keys { display: flex; gap: 26px; margin-top: 46px; flex-wrap: wrap; justify-content: center; max-width: 80vw; opacity: 0.85; }
+  #veil .keys div { display: flex; align-items: center; gap: 8px; font-size: 12px; letter-spacing: 0.22em; color: #8a7466; text-transform: uppercase; }
+  #veil .keys b { display: inline-flex; min-width: 26px; height: 26px; padding: 0 6px; box-sizing: border-box; align-items: center; justify-content: center; border: 1.5px solid #8a7466; border-radius: 6px; color: #d9c7b8; font: 700 12px 'Georgia', serif; letter-spacing: 0; background: rgba(255,255,255,0.03); box-shadow: 0 2px 0 #3a2a26; }
+  #veil .phones { position: absolute; bottom: 5%; font-size: 11px; letter-spacing: 0.4em; color: #5d4b44; text-transform: uppercase; }
+</style>
+  <script type="module" crossorigin src="./assets/index-DaQlAVPp.js"></script>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud"></div>
+<div id="veil"><h1>LULLABY</h1><div class="sub" id="veil-sub">loading</div><div class="bar"><i id="veil-bar"></i></div><div class="keys"><div><b>W</b><b>A</b><b>S</b><b>D</b> move</div><div><b>Shift</b> run</div><div><b>E</b> use</div><div><b>F</b> light</div><div><b>Mouse 2</b> aim</div><div><b>Mouse 1</b> fire</div><div><b>R</b> reload</div></div><div class="phones">best with headphones</div></div>
+</body>
+</html>
+<script defer src="https://static.itch.io/htmlgame.js" type="text/javascript"></script>
