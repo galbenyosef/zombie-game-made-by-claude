@@ -1,0 +1,6210 @@
+import {
+  ai as lo,
+  V as D0,
+  B as q0,
+  h as S0,
+  aK as Uo,
+  aL as xo,
+  a8 as Vo,
+  a9 as c0,
+  b as ro,
+  I as e0,
+  ah as so,
+  o as i0,
+  Q as Ot,
+  E as $o,
+  a5 as Q0,
+  aa as qo,
+  ag as F0,
+  J as Zo,
+  x as Kt,
+  M as Ko,
+  ae as Wo,
+  aM as Ho,
+  aN as _e,
+  aO as Oe,
+  aC as jo,
+  a4 as Qo,
+  a2 as Jo,
+  f as Yo,
+  g as io,
+  aw as Xo,
+  a6 as tn,
+  q as co,
+  d as en,
+  $ as Re,
+  a0 as Be,
+  G as Ge,
+  U as Ue,
+  al as xe,
+  K as on,
+  D as ie,
+  c as Ft,
+  n as nn,
+  P as Ve,
+  i as $e,
+  C as qe,
+  A as Ze,
+  m as an,
+  l as ln,
+  y as rn,
+  ar as sn,
+  aI as cn,
+  O as fn,
+} from "./index-DaQlAVPp.js";
+import { R as dn } from "./RoundedBoxGeometry-D0zz8qHa.js";
+const b = (t, e, o) => new D0(t, e, o),
+  fo = (t, e = 0, o = 1) => (t < e ? e : t > o ? o : t),
+  rt = (t, e, o) => {
+    const n = fo((o - t) / (e - t));
+    return n * n * (3 - 2 * n);
+  },
+  ce = (t) => (t <= 0.04045 ? t / 12.92 : Math.pow((t + 0.055) / 1.055, 2.4));
+function un(t) {
+  const e = parseInt(t.slice(1), 16);
+  return [
+    ce(((e >> 16) & 255) / 255),
+    ce(((e >> 8) & 255) / 255),
+    ce((e & 255) / 255),
+  ];
+}
+function _(t) {
+  return {
+    rough: 0.6,
+    metal: 0,
+    kind: 0,
+    param: 0,
+    ...t,
+    col: typeof t.col == "string" ? un(t.col) : t.col || [0.5, 0.5, 0.5],
+  };
+}
+const U0 = new D0(),
+  x0 = new D0(),
+  Ke = new lo();
+class M0 {
+  constructor(e) {
+    ((this.name = e),
+      (this.P = []),
+      (this.N = []),
+      (this.UV = []),
+      (this.C = []),
+      (this.S = []),
+      (this.A = []),
+      (this.I = []),
+      (this.nv = 0));
+  }
+  add(e, o, n, a = {}) {
+    let l = e;
+    (a.flat &&
+      ((l = l.index ? l.toNonIndexed() : l.clone()), l.computeVertexNormals()),
+      l.attributes.normal || l.computeVertexNormals());
+    const r = l.attributes.position,
+      p = l.attributes.normal,
+      f = l.attributes.uv;
+    o && Ke.getNormalMatrix(o);
+    const c = o ? o.determinant() < 0 : !1,
+      d = this.nv;
+    for (let i = 0; i < r.count; i++) {
+      (U0.fromBufferAttribute(r, i),
+        x0.fromBufferAttribute(p, i),
+        o && (U0.applyMatrix4(o), x0.applyMatrix3(Ke).normalize()),
+        this.P.push(U0.x, U0.y, U0.z),
+        this.N.push(x0.x, x0.y, x0.z));
+      let s = f ? f.getX(i) : 0,
+        m = f ? f.getY(i) : 0;
+      (a.uv && ([s, m] = a.uv(U0, x0, s, m)), this.UV.push(s, m));
+      const v = a.pick ? a.pick(U0, x0) : n,
+        y = a.col ? a.col(U0, x0) : v.col;
+      (this.C.push(y[0], y[1], y[2]),
+        this.S.push(
+          v.rough,
+          v.metal,
+          v.kind,
+          a.param ? a.param(U0, x0) : v.param,
+        ),
+        this.A.push(a.anim || 0));
+    }
+    if (l.index) {
+      const i = l.index.array;
+      for (let s = 0; s < i.length; s += 3)
+        this.I.push(d + i[s], d + i[s + (c ? 2 : 1)], d + i[s + (c ? 1 : 2)]);
+    } else
+      for (let i = 0; i + 2 < r.count; i += 3)
+        this.I.push(d + i, d + i + (c ? 2 : 1), d + i + (c ? 1 : 2));
+    if (((this.nv += r.count), a.both)) {
+      const i = d,
+        s = r.count,
+        m = this.nv;
+      for (let w = 0; w < s; w++) {
+        const M = i + w;
+        (this.P.push(this.P[M * 3], this.P[M * 3 + 1], this.P[M * 3 + 2]),
+          this.N.push(-this.N[M * 3], -this.N[M * 3 + 1], -this.N[M * 3 + 2]),
+          this.UV.push(this.UV[M * 2], this.UV[M * 2 + 1]),
+          this.C.push(this.C[M * 3], this.C[M * 3 + 1], this.C[M * 3 + 2]));
+        for (let k = 0; k < 4; k++) this.S.push(this.S[M * 4 + k]);
+        this.A.push(this.A[M]);
+      }
+      const v = this.I.length,
+        y = l.index ? l.index.count : s - (s % 3);
+      for (let w = v - y; w < v; w += 3)
+        this.I.push(
+          this.I[w] - i + m,
+          this.I[w + 2] - i + m,
+          this.I[w + 1] - i + m,
+        );
+      this.nv += s;
+    }
+    return (l !== e && l.dispose(), this);
+  }
+  merge(e) {
+    const o = this.nv;
+    for (const n of ["P", "N", "UV", "C", "S", "A"])
+      for (const a of e[n]) this[n].push(a);
+    for (const n of e.I) this.I.push(n + o);
+    return ((this.nv += e.nv), this);
+  }
+  build() {
+    const e = new q0();
+    return (
+      e.setAttribute("position", new S0(new Float32Array(this.P), 3)),
+      e.setAttribute("normal", new S0(new Float32Array(this.N), 3)),
+      e.setAttribute("uv", new S0(new Float32Array(this.UV), 2)),
+      e.setAttribute("color", new S0(new Float32Array(this.C), 3)),
+      e.setAttribute("aSurf", new S0(new Float32Array(this.S), 4)),
+      e.setAttribute("aAnim", new S0(new Float32Array(this.A), 1)),
+      e.setIndex(this.nv > 65535 ? new Uo(this.I, 1) : new xo(this.I, 1)),
+      e.computeBoundingSphere(),
+      e.computeBoundingBox(),
+      e
+    );
+  }
+  get tris() {
+    return this.I.length / 3;
+  }
+}
+const pn = new Ot(),
+  hn = new $o();
+function J0(
+  t = 0,
+  e = 0,
+  o = 0,
+  n = 0,
+  a = 0,
+  l = 0,
+  r = 1,
+  p = 1,
+  f = 1,
+  c = "XYZ",
+) {
+  return new i0().compose(
+    b(t, e, o),
+    pn.setFromEuler(hn.set(n, a, l, c)),
+    b(r, p, f),
+  );
+}
+function mn(t, e, o = 0) {
+  const n = b(e.x - t.x, e.y - t.y, e.z - t.z),
+    a = n.length(),
+    l = new Ot().setFromUnitVectors(b(0, 1, 0), n.clone().divideScalar(a));
+  return (
+    o && l.multiply(new Ot().setFromAxisAngle(b(0, 1, 0), o)),
+    new i0().compose(
+      b((t.x + e.x) / 2, (t.y + e.y) / 2, (t.z + e.z) / 2),
+      l,
+      b(1, 1, 1),
+    )
+  );
+}
+new i0().makeScale(-1, 1, 1);
+const gn = new i0().makeScale(1, 1, -1);
+function bn(t, e, o, n = 0.006, a = 1) {
+  return new dn(
+    t,
+    e,
+    o,
+    a,
+    Math.max(1e-4, Math.min(n, t / 2 - 1e-4, e / 2 - 1e-4, o / 2 - 1e-4)),
+  );
+}
+function U(t, e, o, n, a, l, r = 0.006, p = 1) {
+  const f = bn(Math.abs(n - t), Math.abs(a - e), Math.abs(l - o), r, p);
+  return (f.translate((t + n) / 2, (e + a) / 2, (o + l) / 2), f);
+}
+function s0(t, e, o, n, a, l) {
+  const r = new so(Math.abs(n - t), Math.abs(a - e), Math.abs(l - o));
+  return (r.translate((t + n) / 2, (e + a) / 2, (o + l) / 2), r);
+}
+function d0(t, e, o, n = 12, a = !0) {
+  const l = Array.isArray(o) ? o[0] : o,
+    r = Array.isArray(o) ? o[1] : o,
+    p = new ro(r, l, t.distanceTo(e), n, 1, !a);
+  return (p.applyMatrix4(mn(t, e)), p);
+}
+function L0(t, e = 24, o = 0, n = Math.PI * 2) {
+  return new Vo(
+    t.map(([a, l]) => new c0(a, l)),
+    e,
+    o,
+    n,
+  );
+}
+function uo(t, e, o = 6, n = 16, a = Math.PI * 2) {
+  return new Zo(t, e, o, n, a);
+}
+function j0(t, e, o = 10, n = {}) {
+  const a = t.length,
+    l = [],
+    r = [],
+    p = [],
+    f = [],
+    c = [];
+  for (let y = 0; y < a; y++)
+    c.push(
+      t[Math.min(a - 1, y + 1)]
+        .clone()
+        .sub(t[Math.max(0, y - 1)])
+        .normalize(),
+    );
+  const d = n.up
+      ? n.up.clone()
+      : Math.abs(c[0].y) < 0.9
+        ? b(0, 1, 0)
+        : b(1, 0, 0),
+    i = d.sub(c[0].clone().multiplyScalar(d.dot(c[0]))).normalize();
+  let s = 0;
+  for (let y = 0; y < a; y++) {
+    y > 0 &&
+      ((s += t[y].distanceTo(t[y - 1])),
+      i.sub(c[y].clone().multiplyScalar(i.dot(c[y]))).normalize());
+    const w = b().crossVectors(c[y], i),
+      M = typeof e == "function" ? e(y / (a - 1)) : e;
+    for (let k = 0; k <= o; k++) {
+      const P = (k / o) * Math.PI * 2,
+        C = Math.cos(P),
+        F = Math.sin(P),
+        D = i.x * C + w.x * F,
+        z = i.y * C + w.y * F,
+        q = i.z * C + w.z * F;
+      (l.push(t[y].x + D * M, t[y].y + z * M, t[y].z + q * M),
+        r.push(D, z, q),
+        p.push((k / o) * Math.PI * 2 * M, s));
+    }
+  }
+  for (let y = 0; y < a - 1; y++)
+    for (let w = 0; w < o; w++) {
+      const M = y * (o + 1) + w,
+        k = M + o + 1;
+      f.push(M, M + 1, k, M + 1, k + 1, k);
+    }
+  const m = (y, w) => {
+    const M = l.length / 3,
+      k = c[y].clone().multiplyScalar(w);
+    (l.push(t[y].x, t[y].y, t[y].z), r.push(k.x, k.y, k.z), p.push(0, s));
+    const P = l.length / 3;
+    for (let C = 0; C <= o; C++) {
+      const F = (y * (o + 1) + C) * 3;
+      (l.push(l[F], l[F + 1], l[F + 2]), r.push(k.x, k.y, k.z), p.push(0, 0));
+    }
+    for (let C = 0; C < o; C++)
+      w > 0 ? f.push(M, P + C, P + C + 1) : f.push(M, P + C + 1, P + C);
+  };
+  (n.cap0 && m(0, -1), n.cap1 && m(a - 1, 1));
+  const v = new q0();
+  return (
+    v.setAttribute("position", new e0(l, 3)),
+    v.setAttribute("normal", new e0(r, 3)),
+    v.setAttribute("uv", new e0(p, 2)),
+    v.setIndex(f),
+    v
+  );
+}
+function $0(t, e, o, n = {}) {
+  const a = n.nx || 1,
+    l = t.length,
+    r = n.out ?? 1,
+    p = new Set(n.hard || []),
+    f = [],
+    c = [],
+    d = [];
+  let i = 0;
+  const s = (P) => {
+    const C = t[P],
+      F = t[P + 1],
+      D = F[0] - C[0],
+      z = F[1] - C[1],
+      q = Math.hypot(D, z) || 1;
+    return [(z / q) * r, (-D / q) * r];
+  };
+  for (let P = 0; P < l; P++) {
+    P > 0 && (i += Math.hypot(t[P][0] - t[P - 1][0], t[P][1] - t[P - 1][1]));
+    const C = P > 0 ? s(P - 1) : null,
+      F = P < l - 1 ? s(P) : null;
+    if (p.has(P) && C && F)
+      (f.push(t[P]), c.push(C), d.push(i), f.push(t[P]), c.push(F), d.push(i));
+    else {
+      const D = C || F,
+        z = F || C,
+        q = D[0] + z[0],
+        Y = D[1] + z[1],
+        Z0 = Math.hypot(q, Y) || 1;
+      (f.push(t[P]), c.push([q / Z0, Y / Z0]), d.push(i));
+    }
+  }
+  const m = f.length,
+    v = [],
+    y = [],
+    w = [],
+    M = [];
+  for (let P = 0; P <= a; P++) {
+    const C = P / a,
+      F = e + (o - e) * C;
+    for (let D = 0; D < m; D++) {
+      let z = f[D][0],
+        q = f[D][1];
+      if (n.disp) {
+        const Y = n.disp(F, z, q, C, d[D]);
+        ((z += Y[0]), (q += Y[1]));
+      }
+      (v.push(F, q, z), y.push(0, c[D][1], c[D][0]), w.push(F, d[D]));
+    }
+  }
+  for (let P = 0; P < a; P++)
+    for (let C = 0; C < m - 1; C++) {
+      if (p.size && f[C] === f[C + 1]) continue;
+      const F = P * m + C,
+        D = F + m;
+      r > 0
+        ? M.push(F, D, F + 1, F + 1, D, D + 1)
+        : M.push(F, F + 1, D, F + 1, D + 1, D);
+    }
+  const k = new q0();
+  return (
+    k.setAttribute("position", new e0(v, 3)),
+    k.setAttribute("normal", new e0(y, 3)),
+    k.setAttribute("uv", new e0(w, 2)),
+    k.setIndex(M),
+    n.disp && k.computeVertexNormals(),
+    k
+  );
+}
+function y0(t, e, o, n, a, l = 4) {
+  a = Math.min(a, (o - t) / 2, (n - e) / 2);
+  const r = [],
+    p = (f, c, d) => {
+      for (let i = 0; i <= l; i++) {
+        const s = d + ((i / l) * Math.PI) / 2;
+        r.push([f + Math.cos(s) * a, c + Math.sin(s) * a]);
+      }
+    };
+  return a <= 1e-4
+    ? [
+        [t, e],
+        [o, e],
+        [o, n],
+        [t, n],
+      ]
+    : (p(o - a, e + a, -Math.PI / 2),
+      p(o - a, n - a, 0),
+      p(t + a, n - a, Math.PI / 2),
+      p(t + a, e + a, Math.PI),
+      r);
+}
+function St(t, e, o, n = 1) {
+  const a = new Q0(t.map(([c, d]) => new c0(c, d)));
+  for (const c of e)
+    a.holes.push(
+      new qo(
+        c
+          .slice()
+          .reverse()
+          .map(([d, i]) => new c0(d, i)),
+      ),
+    );
+  const l = new F0(a, 2),
+    r = l.attributes.position,
+    p = l.attributes.uv,
+    f = l.attributes.normal;
+  for (let c = 0; c < r.count; c++)
+    (r.setZ(c, o), p.setXY(c, r.getX(c), r.getY(c)), f.setXYZ(c, 0, 0, n));
+  if (n < 0) {
+    const c = l.index.array;
+    for (let d = 0; d < c.length; d += 3) {
+      const i = c[d + 1];
+      ((c[d + 1] = c[d + 2]), (c[d + 2] = i));
+    }
+  }
+  return l;
+}
+function C0(t, e, o, n = 1) {
+  const a = St(t, e, 0, 1),
+    l = a.attributes.position,
+    r = a.attributes.normal,
+    p = a.attributes.uv;
+  for (let c = 0; c < l.count; c++) {
+    const d = l.getX(c),
+      i = l.getY(c);
+    (l.setXYZ(c, o, i, d), r.setXYZ(c, n, 0, 0), p.setXY(c, d, i));
+  }
+  const f = a.index.array;
+  if (n > 0)
+    for (let c = 0; c < f.length; c += 3) {
+      const d = f[c + 1];
+      ((f[c + 1] = f[c + 2]), (f[c + 2] = d));
+    }
+  return a;
+}
+function Y0(t, e, o) {
+  const n = t.length,
+    a = [],
+    l = [],
+    r = [],
+    p = [];
+  let f = 0;
+  for (let d = 0; d <= n; d++) {
+    const i = t[d % n],
+      s = t[(d - 1 + n) % n],
+      m = t[(d + 1) % n];
+    d > 0 && (f += Math.hypot(i[0] - s[0], i[1] - s[1]));
+    const v = [i[0] - s[0], i[1] - s[1]],
+      y = [m[0] - i[0], m[1] - i[1]],
+      w = Math.hypot(...v) || 1,
+      M = Math.hypot(...y) || 1;
+    let k = -v[1] / w - y[1] / M,
+      P = v[0] / w + y[0] / M;
+    const C = Math.hypot(k, P) || 1;
+    ((k /= C),
+      (P /= C),
+      a.push(i[0], i[1], e, i[0], i[1], o),
+      l.push(k, P, 0, k, P, 0),
+      r.push(f, e, f, o));
+  }
+  for (let d = 0; d < n; d++) {
+    const i = d * 2,
+      s = i + 2;
+    o > e
+      ? p.push(i, i + 1, s, i + 1, s + 1, s)
+      : p.push(i, s, i + 1, i + 1, s, s + 1);
+  }
+  const c = new q0();
+  return (
+    c.setAttribute("position", new e0(a, 3)),
+    c.setAttribute("normal", new e0(l, 3)),
+    c.setAttribute("uv", new e0(r, 2)),
+    c.setIndex(p),
+    c
+  );
+}
+function po(t, e, o, n) {
+  const a = t.length,
+    l = [],
+    r = [],
+    p = [],
+    f = [];
+  let c = 0;
+  for (let i = 0; i <= a; i++) {
+    const s = t[i % a],
+      m = o[i % a],
+      v = t[(i - 1 + a) % a];
+    (t[(i + 1) % a],
+      i > 0 && (c += Math.hypot(s[0] - v[0], s[1] - v[1])),
+      l.push(s[0], s[1], e, m[0], m[1], n),
+      r.push(0, 0, 0, 0, 0, 0),
+      p.push(c, e, c, n));
+  }
+  for (let i = 0; i < a; i++) {
+    const s = i * 2,
+      m = s + 2;
+    f.push(s, s + 1, m, s + 1, m + 1, m);
+  }
+  const d = new q0();
+  return (
+    d.setAttribute("position", new e0(l, 3)),
+    d.setAttribute("normal", new e0(r, 3)),
+    d.setAttribute("uv", new e0(p, 2)),
+    d.setIndex(f),
+    d.computeVertexNormals(),
+    d
+  );
+}
+function h0(
+  t,
+  e,
+  o,
+  n,
+  a = [
+    [0, 0],
+    [1, 0],
+    [1, 1],
+    [0, 1],
+  ],
+) {
+  const l = new q0();
+  return (
+    l.setAttribute("position", new e0([...t, ...e, ...o, ...n], 3)),
+    l.setAttribute("uv", new e0(a.flat(), 2)),
+    l.setIndex([0, 1, 2, 0, 2, 3]),
+    l.computeVertexNormals(),
+    l
+  );
+}
+function he(t, e, o, n = !1) {
+  const a = [],
+    l = [],
+    r = [];
+  for (let f = 0; f <= o; f++)
+    for (let c = 0; c <= e; c++) {
+      const d = t(c / e, f / o);
+      (a.push(d[0], d[1], d[2]), l.push(c / e, f / o));
+    }
+  for (let f = 0; f < o; f++)
+    for (let c = 0; c < e; c++) {
+      const d = f * (e + 1) + c,
+        i = d + e + 1;
+      n
+        ? r.push(d, i, d + 1, d + 1, i, i + 1)
+        : r.push(d, d + 1, i, d + 1, i + 1, i);
+    }
+  const p = new q0();
+  return (
+    p.setAttribute("position", new e0(a, 3)),
+    p.setAttribute("uv", new e0(l, 2)),
+    p.setIndex(r),
+    p.computeVertexNormals(),
+    p
+  );
+}
+const ct = (t) => (e, o, n, a) => [
+    t[0] + (t[2] - t[0]) * n,
+    t[1] + (t[3] - t[1]) * a,
+  ],
+  O = {
+    PLAIN: 0,
+    STEEL: 1,
+    PAINT: 2,
+    RUBBER: 3,
+    FLOOR: 4,
+    FABRIC: 5,
+    LINING: 6,
+    LED: 7,
+    DECAL: 8,
+    GLOW: 9,
+    HEAD: 10,
+    TAIL: 11,
+    DOORLAMP: 12,
+    MASK: 13,
+    UNDER: 14,
+    WHEEL: 15,
+    ROUTE: 16,
+    SCROLL: 17,
+    BUTTON: 18,
+    BAND: 19,
+    FOAM: 20,
+    SMEAR: 21,
+    SLOTS: 23,
+  },
+  yn = `
+attribute vec4 aSurf;
+attribute float aAnim;
+varying vec4 trSurf;
+varying vec3 trObj;
+varying vec3 trObjN;
+uniform vec4 uDoor;          // x the car's left doors open (m of a leaf's travel), y the right's
+uniform float uWheel;        // the wheels' angle (rad)
+uniform float uKnock;        // car 2's rear gangway door: how far it is jolted along x (m) - something banging on it
+uniform float uKnockF;       // its front gangway door's (anim 8), into the car along -x
+uniform vec2 uGang;          // car 2's gangway doors slid open across the opening (m): x the rear (anim 7), y the front (anim 8)
+`,
+  vn = `
+#ifdef TR_WHEELS
+if (aAnim > 4.5 && aAnim < 6.5) { float trCs = cos(uWheel), trSn = sin(uWheel); objectNormal.xy = vec2(objectNormal.x * trCs - objectNormal.y * trSn, objectNormal.x * trSn + objectNormal.y * trCs); }
+#endif
+`,
+  wn = `
+trObjN = objectNormal; trSurf = aSurf;
+if (aAnim > 0.5 && aAnim < 4.5) {
+  float trOpen = aAnim < 2.5 ? uDoor.x : uDoor.y;
+  float trDir = (aAnim < 1.5 || (aAnim > 2.5 && aAnim < 3.5)) ? -1.0 : 1.0;
+  transformed.x += trDir * trOpen;
+}
+if (aAnim > 6.5 && aAnim < 7.5) { transformed.x += uKnock; transformed.z += uGang.x; }
+if (aAnim > 7.5 && aAnim < 8.5) { transformed.x -= uKnockF; transformed.z -= uGang.y; }
+#ifdef TR_WHEELS
+if (aAnim > 4.5 && aAnim < 6.5) {
+  vec2 trC = vec2(aAnim < 5.5 ? 1.05 : -1.05, 0.42);
+  vec2 trQ = transformed.xy - trC; float trCs = cos(uWheel), trSn = sin(uWheel);
+  transformed.xy = trC + vec2(trQ.x * trCs - trQ.y * trSn, trQ.x * trSn + trQ.y * trCs);
+}
+#endif
+trObj = transformed;
+`,
+  kn = `
+varying vec4 trSurf;
+varying vec3 trObj;
+varying vec3 trObjN;
+uniform sampler2D tDecal;
+uniform float uTime;
+uniform vec4 uDoor;          // x, y the doors open (m); z, w the red lamps over them (0..1)
+uniform vec3 uZone;          // the light of the car's three zones (front, middle, rear of the car's own frame)
+uniform float uLight;        // the car's light, all in all (the reflections and the fill follow it)
+uniform float uPower;        // the train's power (displays, buttons)
+uniform float uHead;         // headlights 0..1
+uniform float uTail;         // tail lamps 0..1
+uniform vec4 uLamps;         // the route map's four station lamps (0 dark .. 1 lit)
+uniform vec4 uCar;           // x grime, y blood / darkness (car 3), z the car's seed, w the doors' buttons lit
+uniform vec2 uBtn;           // the door buttons lit, left / right
+#ifdef TR_WHEELS
+uniform float uWheelF;       // (the wheels' angle, for their marks)
+#endif
+#ifdef TR_INT
+uniform sampler2D tMoq;
+uniform sampler2D tMoqN;
+uniform sampler2D tFloor;
+uniform sampler2D tFloorN;
+uniform sampler2D tFloorO;
+uniform mat3 uToCar;         // world -> the car's frame (its rotation)
+uniform vec3 uBoxMin;        // the inner box the interior was captured in (car frame) ...
+uniform vec3 uBoxMax;
+uniform vec3 uBoxEye;        // ... and the point it was captured from
+uniform float uEnvK;         // the captured interior's strength (follows the lights)
+uniform float uEnvD;         // ... its share as fill (diffuse)
+uniform vec3 uCarPos;        // the car's origin (world)
+uniform float uCab;          // 1: a cab car (its cab at +x, behind the partition at x 7.05)
+uniform float uStripK;       // the LED strips' light (cd per metre of strip, roughly)
+float trBand(float x, float a, float b) { return smoothstep(a - 0.015, a + 0.015, x) * (1.0 - smoothstep(b - 0.015, b + 0.015, x)); }
+/** THE CAR'S BODY IN THE WAY of a light (point / spot, its position in view space): 1 for a light inside the car (its own,
+ *  a torch carried in), else how much of it comes in through the windows and the doors on the way from this fragment to
+ *  it (the station's lamps draw the windows on the seats; the tunnel's lamps slide through the car as it passes them) */
+float trOcc(vec3 lv) {
+  vec3 lw = (vec4(lv - viewMatrix[3].xyz, 0.0) * viewMatrix).xyz;
+  vec3 lc = uToCar * (lw - uCarPos);
+  vec3 f = trObj;
+  // (a cab car's cab is its own room: the passengers' lights reach it only through its door's window)
+  if (uCab > 0.5 && (f.x > 7.07) != (lc.x > 7.07) && abs(lc.z) < 1.36 && abs(lc.x) < 8.78) return 0.05;
+  // (the car's own lights stand in for its LED strips, which face down: what is above them gets little of their light)
+  if (abs(lc.z) < 1.36 && lc.y > 0.95 && lc.y < 3.5 && abs(lc.x) < 8.78) return lc.y > 2.9 ? mix(1.0, 0.1, smoothstep(lc.y - 0.25, lc.y + 0.05, f.y)) : 1.0;
+  if (abs(lc.z) < 1.36) return 0.02;
+  float sz = lc.z > 0.0 ? 1.0 : -1.0;
+  float t = (1.36 * sz - f.z) / (lc.z - f.z);
+  vec3 q = f + (lc - f) * clamp(t, 0.0, 1.0);
+  float ax = abs(q.x);
+  float win = trBand(q.y, 1.95, 2.95) * (trBand(ax, 1.4, 2.92) + trBand(ax, 3.08, 4.6) + trBand(ax, 7.42, 8.45)) * 0.85;
+  float open = sz > 0.0 ? uDoor.y : uDoor.x, gap = min(0.65, open), door = 0.0;
+  for (int i = 0; i < 3; i++) {
+    float dx = abs(q.x - (float(i) - 1.0) * 6.0);
+    door += (1.0 - smoothstep(gap - 0.02, gap + 0.02, dx)) * step(0.01, gap) * trBand(q.y, 1.1, 3.0);
+    door += trBand(dx - open, 0.1, 0.54) * trBand(q.y, 1.96, 2.9) * 0.85 * (1.0 - smoothstep(0.63, 0.67, dx));
+  }
+  return max(0.02, clamp(win + door, 0.0, 1.0) * step(abs(q.x), 8.8));
+}
+#endif
+uniform vec2 uEnvBoost;      // the outside: the scene's environment x (specular, diffuse) - steel in a dark station
+uniform float uDirRough;     // the lamps' highlights (direct light) are never sharper than this: the train's long LED strips
+                             // are point lights here, and their true reflections come from the captured interior
+float trHash(vec3 p) { p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+float trN(vec3 x) {
+  vec3 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(mix(trHash(i), trHash(i + vec3(1.0, 0.0, 0.0)), f.x), mix(trHash(i + vec3(0.0, 1.0, 0.0)), trHash(i + vec3(1.0, 1.0, 0.0)), f.x), f.y),
+             mix(mix(trHash(i + vec3(0.0, 0.0, 1.0)), trHash(i + vec3(1.0, 0.0, 1.0)), f.x), mix(trHash(i + vec3(0.0, 1.0, 1.0)), trHash(i + vec3(1.0, 1.0, 1.0)), f.x), f.y), f.z);
+}
+float trF(vec3 p) { return 0.5 * trN(p) + 0.25 * trN(p * 2.03 + 1.7) + 0.125 * trN(p * 4.07 - 3.1) + 0.0625 * trN(p * 8.13 + 5.3); }
+// what the surface step made of this fragment (used by the roughness / metalness / normal / emissive steps)
+float trRough = 0.5, trMetal = 0.0, trH = 0.0, trSheen = 0.0, trAlpha = 1.0, trReflF = 1.0;
+vec3 trGlow = vec3(0.0);
+vec3 trTN = vec3(0.0, 0.0, 1.0); float trUseTN = 0.0; vec2 trTUV = vec2(0.0);
+// a tangent frame from the screen derivatives (no tangents on the geometry)
+vec3 trPerturb(vec3 n, vec3 mapN, vec2 uvv) {
+  vec3 q0 = dFdx(-vViewPosition), q1 = dFdy(-vViewPosition);
+  vec2 st0 = dFdx(uvv), st1 = dFdy(uvv);
+  vec3 q1p = cross(q1, n), q0p = cross(n, q0);
+  vec3 Tt = q1p * st0.x + q0p * st1.x, Bt = q1p * st0.y + q0p * st1.y;
+  float det = max(dot(Tt, Tt), dot(Bt, Bt)); float sc = det == 0.0 ? 0.0 : inversesqrt(det);
+  return normalize(Tt * (mapN.x * sc) + Bt * (mapN.y * sc) + n * mapN.z);
+}
+`,
+  Sn = `
+#ifdef USE_ENVMAP
+vec3 trBox(vec3 dirW) {
+  vec3 d = normalize(uToCar * dirW);
+  vec3 p = clamp(trObj, uBoxMin + 0.01, uBoxMax - 0.01);
+  vec3 dd = d + vec3(1e-5);
+  vec3 t1 = (uBoxMax - p) / dd, t2 = (uBoxMin - p) / dd;
+  vec3 tf = max(t1, t2);
+  float t = min(min(tf.x, tf.y), tf.z);
+  return normalize(p + d * t - uBoxEye);
+}
+float trCabEnv() { return (uCab > 0.5 && trObj.x > 7.07) ? 0.06 : 1.0; }      // (the cab is dark: its own light is off)
+vec3 getIBLIrradiance( const in vec3 normal ) {
+  vec3 worldNormal = transformNormalByInverseViewMatrix( normal, viewMatrix );
+  vec4 envMapColor = textureCubeUV( envMap, trBox( worldNormal ), 1.0 );
+  return PI * envMapColor.rgb * envMapIntensity * uEnvK * uEnvD * trCabEnv();
+}
+vec3 getIBLRadiance( const in vec3 viewDir, const in vec3 normal, const in float roughness ) {
+  vec3 reflectVec = reflect( - viewDir, normal );
+  reflectVec = normalize( mix( reflectVec, normal, pow4( roughness ) ) );
+  reflectVec = transformDirectionByInverseViewMatrix( reflectVec, viewMatrix );
+  vec4 envMapColor = textureCubeUV( envMap, trBox( reflectVec ), roughness );
+  return envMapColor.rgb * envMapIntensity * uEnvK * trCabEnv();
+}
+#endif
+`,
+  Mn = `
+{
+  vec3 P = trObj;
+  vec3 Nn = normalize(trObjN);
+  float kind = floor(trSurf.z + 0.5), prm = trSurf.w;
+  vec3 col = diffuseColor.rgb;
+  float rough = trSurf.x, metal = trSurf.y, h = 0.0;
+  float seed = uCar.z;
+  // ---- the body's side (stainless, fluted below the windows, the painted bands; prm 1 = a door leaf: flat)
+  if (kind == 19.0) {
+    float y = P.y;
+    vec3 steel = vec3(0.6, 0.6, 0.59);
+    col = steel; rough = 0.36; metal = 0.86;
+    float fl = (y > 1.0 && y < 1.68 && prm < 0.5) ? 1.0 : 0.0;
+    if (fl > 0.5) {
+      float fw = fwidth(y) / 0.042;
+      h += 0.0017 * (0.5 - 0.5 * cos(y * 6.2831853 / 0.042)) * (1.0 - smoothstep(0.25, 0.6, fw));
+    }
+    // the bands (painted): the sill, the oxblood line, the teal band, the black window band
+    float sill = 1.0 - step(1.0, y);
+    float ox = step(1.68, y) * (1.0 - step(1.71, y));
+    float teal = step(1.71, y) * (1.0 - step(1.905, y));
+    float win = step(1.95, y) * (1.0 - step(2.97, y));
+    vec3 pc = vec3(0.0); float pk = 0.0;
+    if (sill > 0.5) { pc = vec3(0.035, 0.036, 0.038); pk = 1.0; }
+    if (ox > 0.5) { pc = vec3(0.16, 0.022, 0.03); pk = 1.0; }
+    if (teal > 0.5) { pc = vec3(0.022, 0.13, 0.135); pk = 1.0; }
+    if (win > 0.5 && prm < 0.5) { pc = vec3(0.012, 0.013, 0.014); pk = 1.0; }
+    // (the cab's front, prm 2: the black mask from the band up, round the windscreen)
+    if (prm > 1.5 && y > 1.905) { pc = vec3(0.01, 0.011, 0.012); pk = 2.0; }
+    if (pk > 0.5) { col = pc; metal = 0.0; rough = pk > 1.5 ? 0.18 : 0.32; }
+    kind = 1.0;                                       // (the steel's own wear below)
+    prm = pk > 0.5 ? -1.0 : 0.0;
+  }
+  // ---- stainless steel: brushed (fine streaks along the grain: prm 0 = x, 1 = y, 2 = z), water marks, grime
+  if (kind == 1.0 && prm > -0.5) {
+    vec3 gs = prm < 0.5 ? vec3(1.5, 260.0, 260.0) : prm < 1.5 ? vec3(260.0, 1.5, 260.0) : vec3(260.0, 260.0, 1.5);
+    float fwb = length(fwidth(P * gs)) * 0.5;
+    float amp = 1.0 - smoothstep(0.35, 1.2, fwb);
+    float br = trN(P * gs) * 0.6 + trN(P * gs * 0.37 + 3.1) * 0.4;
+    col *= 1.0 + (br - 0.5) * 0.14 * amp;
+    rough = clamp(rough + (br - 0.5) * 0.08 * amp, 0.05, 1.0);
+    float wm = trF(P * vec3(3.0, 6.0, 3.0) + seed);
+    rough += smoothstep(0.5, 0.75, wm) * 0.12;
+    col *= 1.0 - smoothstep(0.55, 0.8, wm) * 0.12;
+  }
+  // ---- the front mask: glossy black GRP, a faint orange peel
+  if (kind == 13.0) {
+    rough = 0.2 + 0.05 * trN(P * 60.0);
+    h += (trN(P * 140.0) - 0.5) * 0.00012;
+  }
+  // ---- painted metal / GRP: a little chipping on edges is too fine to see; a mottle of wear
+  if (kind == 2.0) {
+    float m = trF(P * 4.0 + seed * 3.0);
+    col *= 0.92 + 0.16 * m;
+    rough = clamp(rough + (m - 0.5) * 0.12, 0.05, 1.0);
+  }
+  // ---- underframe and bogies: dark paint under brake dust (red-brown), grime, a rust spot
+  if (kind == 14.0) {
+    float d = trF(P * vec3(3.0, 5.0, 3.0) + 7.0);
+    vec3 dust = vec3(0.075, 0.042, 0.028);
+    col = mix(col, dust, smoothstep(0.35, 0.8, d) * 0.75);
+    float rs = smoothstep(0.7, 0.78, trF(P * 9.0 + 2.0));
+    col = mix(col, vec3(0.1, 0.035, 0.015), rs * 0.6);
+    rough = clamp(0.7 + d * 0.25, 0.0, 1.0); metal = mix(metal, 0.0, d);
+    h += (trN(P * 90.0) - 0.5) * 0.0003;
+  }
+  // ---- the wheels: the bright tread, the web brown with brake dust
+  if (kind == 15.0) {
+    float ax = P.x > 0.0 ? 1.05 : -1.05;
+    vec2 q = P.xy - vec2(ax, 0.42);
+    float r = length(q);
+#ifdef TR_WHEELS
+    // (back into the wheel's own frame: the marks turn with it)
+    float wc = cos(-uWheelF), ws = sin(-uWheelF); q = vec2(q.x * wc - q.y * ws, q.x * ws + q.y * wc);
+#endif
+    float ang = atan(q.y, q.x);
+    float tread = smoothstep(0.405, 0.412, r) * (1.0 - smoothstep(0.43, 0.44, r));
+    vec3 web = mix(vec3(0.06, 0.04, 0.03), vec3(0.11, 0.055, 0.03), trN(vec3(q * 30.0, P.z * 30.0)));
+    col = mix(web, vec3(0.62, 0.61, 0.6), tread);
+    // the hub's six bolts (dark dots) and a painted index line on the web: they show it turning
+    float bk = floor(ang / 1.0471976 + 0.5) * 1.0471976;
+    float bolts = 1.0 - smoothstep(0.016, 0.022, length(q - 0.2 * vec2(cos(bk), sin(bk))));
+    col = mix(col, vec3(0.012), bolts * 0.85);
+    float line = (1.0 - smoothstep(0.012, 0.02, abs(q.y))) * step(0.0, q.x) * smoothstep(0.12, 0.14, r) * (1.0 - smoothstep(0.34, 0.36, r));
+    col = mix(col, vec3(0.5, 0.48, 0.42), line * 0.8);
+    rough = mix(0.75, 0.22, tread); metal = mix(0.3, 1.0, tread);
+  }
+  // ---- rubber: a dusty black
+  if (kind == 3.0) {
+    float d = trF(P * 7.0);
+    col = mix(col, col * 1.6 + 0.01, smoothstep(0.55, 0.8, d) * 0.6);
+    rough = clamp(0.75 + d * 0.2, 0.0, 1.0);
+  }
+  // ---- the inside's lining (GRP panels, ivory): grime low down and round the doors, scuffs, hand marks
+  if (kind == 6.0) {
+    float low = 1.0 - smoothstep(1.1, 1.55, P.y);
+    float g = trF(P * vec3(2.0, 4.0, 2.0) + seed);
+    col *= 1.0 - low * (0.25 + 0.25 * g) * uCar.x;
+    float sc = smoothstep(0.72, 0.8, trN(P * vec3(40.0, 4.0, 40.0) + 1.3)) * low;
+    col *= 1.0 - sc * 0.3;
+    float dx = abs(fract((P.x + 6.0 + 3.0) / 6.0) * 6.0 - 3.0);           // (distance to the nearest door's middle)
+    float hand = (1.0 - smoothstep(0.6, 1.1, dx)) * smoothstep(1.4, 1.8, P.y) * (1.0 - smoothstep(2.4, 2.8, P.y)) * smoothstep(0.55, 0.7, trF(P * 9.0 + 4.0));
+    col *= 1.0 - hand * 0.18 * uCar.x;
+    rough = clamp(rough + g * 0.1 + hand * 0.15, 0.0, 1.0);
+  }
+  // ---- a grille: dark slots every 3.5 cm across x (prm 0) or z (prm 1), anti-aliased
+  if (kind == 23.0) {
+    float cc = (prm < 0.5 ? P.x : P.z) / 0.035;
+    float f = fract(cc), w = fwidth(cc) * 1.2;
+    float slot = smoothstep(0.38 - w, 0.38 + w, f) * (1.0 - smoothstep(0.78 - w, 0.78 + w, f));
+    slot = mix(slot, 0.4, smoothstep(0.3, 0.7, w));
+    col = mix(col, vec3(0.008), slot * 0.92); rough = mix(rough, 0.9, slot); metal = mix(metal, 0.0, slot);
+  }
+  // ---- seat foam (a torn seat)
+  if (kind == 20.0) {
+    float c = trF(P * 40.0);
+    col = mix(vec3(0.3, 0.25, 0.14), vec3(0.5, 0.43, 0.27), c);
+    rough = 0.95; h += (c - 0.5) * 0.004;
+  }
+#ifdef TR_INT
+  // ---- the floor: the speckled rubber (its map), the worn path down the aisle, dirt along the walls, scuffs, gum
+  if (kind == 4.0) {
+    vec2 fu = vec2(P.x, P.z) / 1.2;
+    vec3 fa = texture2D(tFloor, fu).rgb;
+    col = fa * col * 2.6;
+    vec3 fo = texture2D(tFloorO, fu).rgb;
+    rough = fo.g;
+    trTN = texture2D(tFloorN, fu).xyz * 2.0 - 1.0; trTN.xy *= 0.6; trUseTN = 1.0; trTUV = fu;
+    float az = abs(P.z);
+    float wall = smoothstep(0.85, 1.28, az);
+    float g = trF(vec3(P.x * 1.5, 0.0, P.z * 3.0) + seed);
+    col *= 1.0 - wall * (0.3 + 0.3 * g) * uCar.x;
+    float path = (1.0 - smoothstep(0.25, 0.7, az)) * (0.6 + 0.4 * g);
+    rough = mix(rough, rough * 0.72, path);
+    col *= 1.0 + path * 0.06;
+    float sk = smoothstep(0.83, 0.86, trN(vec3(P.x * 7.0, 0.0, P.z * 22.0) + 3.0)) * (0.4 + 0.6 * smoothstep(0.4, 0.8, g));
+    col *= 1.0 - sk * 0.55;
+    float gum = smoothstep(0.93, 0.95, trN(vec3(P.x * 23.0, 1.0, P.z * 23.0)));
+    col = mix(col, vec3(0.02), gum * 0.9);
+    // the door vestibules: a grey-blue field (footfall: dirtier)
+    float dx = abs(fract((P.x + 9.0) / 6.0) * 6.0 - 3.0);
+    float vest = (1.0 - smoothstep(0.62, 0.66, dx));
+    col *= 1.0 - vest * 0.12 * (0.6 + g) * uCar.x;
+  }
+  // ---- the moquette (its map), worn lighter and flatter where people sat, a velvet sheen at grazing angles
+  if (kind == 5.0) {
+    vec2 mu = vUv / 0.36;
+    vec3 ma = texture2D(tMoq, mu).rgb;
+    col = ma * (col / 0.5);
+    trTN = texture2D(tMoqN, mu).xyz * 2.0 - 1.0; trTN.xy *= 1.0; trUseTN = 1.0; trTUV = mu;
+    float w = smoothstep(0.5, 0.85, trF(P * vec3(3.0, 6.0, 6.0) + seed));
+    col = mix(col, col * 1.18 + vec3(0.01), w * 0.35);
+    rough = 0.9; trSheen = 0.55;
+  }
+#endif
+  // ---- the LED strips: a milky diffuser, lit by its zone (the car's own frame: front x > 3, middle, rear x < -3)
+  if (kind == 7.0) {
+    float zl = P.x > 3.0 ? uZone.x : (P.x < -3.0 ? uZone.z : uZone.y);
+    float across = vUv.y;
+    float core = 0.65 + 0.35 * sin(clamp(across, 0.0, 1.0) * 3.14159);
+    col = vec3(0.7, 0.72, 0.7); rough = 0.35;
+    trGlow = vec3(0.96, 1.0, 0.95) * 2.5 * zl * core;
+  }
+  // ---- pictures from the atlas: plain, and glowing ones (displays, the console, screens: alpha = what lights up)
+  if (kind == 8.0 || kind == 9.0 || kind == 16.0 || kind == 17.0 || kind == 18.0) {
+    vec4 tx;
+    if (kind == 17.0) {
+      // the next-stop display: a window onto the strip, scrolling (the strip's uv runs on: no seam)
+      float su = vUv.x * 0.22 + uTime * 0.035;
+      vec2 cuv = vec2(mix(0.0, 1.0, su), vUv.y);
+      tx = textureGrad(tDecal, vec2(fract(cuv.x), cuv.y), dFdx(cuv), dFdy(cuv));
+    } else tx = texture2D(tDecal, vUv);
+    col = tx.rgb;
+    float gm = smoothstep(0.62, 0.95, tx.a);
+    if (kind == 9.0 || kind == 17.0) trGlow = tx.rgb * gm * prm * uPower;
+    if (kind == 18.0) trGlow = tx.rgb * gm * 2.2 * uPower * (prm < 0.5 ? uBtn.x : uBtn.y);
+    if (kind == 16.0) {
+      // the route map's four station lamps (atlas.js ROUTE: the route rect is the atlas's top-left 1024 x 128 px)
+      vec2 lc = vec2(vUv.x / 0.5, (vUv.y - 0.9375) / 0.0625);
+      float lit = 0.0;
+      for (int i = 0; i < 4; i++) {
+        float lu = i == 0 ? 0.16 : (i == 1 ? 0.39 : (i == 2 ? 0.62 : 0.85));
+        float st = i == 0 ? uLamps.x : (i == 1 ? uLamps.y : (i == 2 ? uLamps.z : uLamps.w));
+        float d = length(vec2((lc.x - lu) * 1024.0, (lc.y - 0.53) * 128.0));
+        lit += st * (1.0 - smoothstep(10.0, 13.5, d));
+      }
+      col = mix(col, vec3(0.5, 0.08, 0.03), clamp(lit, 0.0, 1.0));
+      trGlow = vec3(1.0, 0.16, 0.04) * lit * 3.2 * uPower;
+    }
+    rough = kind == 8.0 ? 0.45 : 0.3;
+    metal = 0.0;
+  }
+  // ---- lamps: the headlights (a reflector behind clear glass), the tail lamps, the red lamps over the doors
+  if (kind == 10.0 || kind == 11.0 || kind == 12.0) {
+    vec2 q = vUv * 2.0 - 1.0; float r = length(q);
+    float rings = 0.5 + 0.5 * cos(r * 26.0);
+    rough = 0.1; metal = 0.0;
+    if (kind == 10.0) { col = vec3(0.32, 0.32, 0.3) * (0.8 + 0.2 * rings); metal = 0.8; trGlow = vec3(1.0, 0.9, 0.72) * uHead * (3.6 + 6.0 * (1.0 - smoothstep(0.0, 0.5, r))); }
+    if (kind == 11.0) { col = vec3(0.16, 0.012, 0.01) * (0.8 + 0.3 * rings); trGlow = vec3(1.0, 0.04, 0.02) * uTail * (2.8 + 2.0 * (1.0 - smoothstep(0.0, 0.6, r))); }
+    if (kind == 12.0) { col = vec3(0.2, 0.015, 0.01); trGlow = vec3(1.0, 0.06, 0.02) * 3.4 * (prm < 0.5 ? uDoor.z : uDoor.w); }
+  }
+  // ---- grime on the outside: dark toward the bottom, streaks running down (a factor on the albedo)
+#ifndef TR_INT
+  if (kind == 1.0 || kind == 2.0 || kind == 13.0 || kind == 19.0) {
+    float low = 1.0 - smoothstep(0.95, 1.9, P.y);
+    float st = trF(P * vec3(7.0, 0.7, 7.0) + seed);
+    float g = clamp(low * 0.55 + smoothstep(0.55, 0.85, st) * 0.35, 0.0, 1.0) * uCar.x;
+    col *= 1.0 - g * 0.45;
+    col = mix(col, vec3(0.06, 0.04, 0.03), g * 0.25 * (1.0 - low * 0.3));
+    rough = clamp(rough + g * 0.3, 0.0, 1.0);
+    float roof = smoothstep(3.3, 3.55, P.y);
+    col = mix(col, vec3(0.05, 0.05, 0.048), roof * 0.6); rough = mix(rough, 0.75, roof);
+  }
+#endif
+  diffuseColor.rgb = col;
+  trRough = clamp(rough, 0.04, 1.0); trMetal = clamp(metal, 0.0, 1.0); trH = h;
+}
+`,
+  An = `
+{
+  if (trUseTN > 0.5) normal = trPerturb(normal, trTN, trTUV);
+  // the bump from the surface step's height (metres): screen-space derivatives
+  vec3 sx = dFdx(-vViewPosition), sy = dFdy(-vViewPosition);
+  vec3 r1 = cross(sy, normal), r2 = cross(normal, sx);
+  float det = dot(sx, r1) * faceDirection;
+  vec2 dh = vec2(dFdx(trH), dFdy(trH));
+  vec3 grad = sign(det) * (dh.x * r1 + dh.y * r2);
+  normal = normalize(abs(det) * normal - grad);
+}
+`,
+  Tn = `
+if (trSheen > 0.0) { float nv = clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0); diffuseColor.rgb *= 1.0 + trSheen * pow(1.0 - nv, 3.0) * 1.6; }
+totalEmissiveRadiance += trGlow;
+`,
+  Ln = `
+#ifdef TR_INT
+{
+  vec3 nC = normalize(uToCar * inverseTransformDirection(normal, viewMatrix));
+  vec3 P = trObj;
+  float cabK = (uCab > 0.5 && P.x > 7.07) ? 0.0 : 1.0;
+  float xe = uCab > 0.5 ? 7.0 : 8.6;
+  float ends = smoothstep(-8.75, -8.1, P.x) * (1.0 - smoothstep(xe - 0.6, xe + 0.05, P.x));
+  float zl = P.x > 3.0 ? uZone.x : (P.x < -3.0 ? uZone.z : uZone.y);
+  float sum = 0.0;
+  for (int i = 0; i < 2; i++) {
+    float sd = i == 0 ? 1.0 : -1.0;
+    vec2 d2 = vec2(0.9 * sd, 3.282) - P.zy;
+    float dist = length(d2);
+    vec3 l = vec3(0.0, d2.y, d2.x) / max(dist, 1e-3);
+    float ndl = max(dot(nC, l), 0.0);
+    float emit = max(dot(-l, normalize(vec3(0.0, -1.0, -0.25 * sd))), 0.0);
+    sum += ndl * (0.25 + 0.75 * emit) / max(dist, 0.34);
+  }
+  reflectedLight.directDiffuse += sum * uStripK * zl * cabK * ends * BRDF_Lambert(material.diffuseColor) * vec3(0.95, 1.0, 0.96);
+}
+#endif
+`,
+  Pn = `
+{
+  vec3 P = trObj;
+  float kind = floor(trSurf.z + 0.5), prm = trSurf.w;
+  float sm = trF(P * vec3(9.0, 9.0, 9.0) + uCar.z);
+  float rough = mix(0.03, 0.16, smoothstep(0.55, 0.8, sm));
+  float a = prm;
+  if (kind == 1.0) { a = mix(a, a + 0.35, smoothstep(2.9, 3.2, P.y)); }       // (the windscreen's tinted top)
+  if (kind == 2.0) trReflF = 0.35;                                                // (a draft screen: a plain pane, not a night window)
+  if (kind == 3.0) {
+    // a layer of scratches over a pane: only the scratches show (no second reflection)
+    vec4 sc = texture2D(tDecal, vUv);
+    rough = 0.6; a = sc.a * 0.4; diffuseColor.rgb = vec3(0.55); trReflF = 0.0;
+  }
+  diffuseColor.a = a;
+  trRough = rough; trMetal = 0.0; trH = 0.0;
+}
+`,
+  In = `
+{
+  vec3 spec = reflectedLight.directSpecular + reflectedLight.indirectSpecular;
+  vec3 diff = reflectedLight.directDiffuse + reflectedLight.indirectDiffuse + totalEmissiveRadiance;
+  gl_FragColor = vec4((reflectedLight.directSpecular + reflectedLight.indirectSpecular * uReflK) * trReflF + diff * diffuseColor.a, diffuseColor.a);
+}
+`,
+  zn = `
+{
+  vec4 tx = texture2D(tDecal, vUv);
+  diffuseColor.rgb = tx.rgb * diffuseColor.rgb * 2.0;
+  diffuseColor.a = tx.a * trSurf.w;
+  trRough = trSurf.x; trMetal = 0.0; trH = 0.0;
+  if (diffuseColor.a < 0.01) discard;
+}
+`;
+let vt = null;
+function it() {
+  return (
+    vt ||
+    ((vt = {
+      uTime: { value: 0 },
+      uLamps: { value: new Kt(0, 0, 1, 0) },
+      uPower: { value: 1 },
+      uWheel: { value: 0 },
+    }),
+    (vt.uWheelF = vt.uWheel),
+    vt)
+  );
+}
+function fe(t = 0) {
+  return {
+    uDoor: { value: new Kt(0, 0, 0, 0) },
+    uZone: { value: new D0(1, 1, 1) },
+    uLight: { value: 1 },
+    uHead: { value: 0 },
+    uTail: { value: 0 },
+    uCar: { value: new Kt(0.8, 0, t, 0) },
+    uBtn: { value: new c0(0, 0) },
+    uToCar: { value: new lo() },
+    uCarPos: { value: new D0() },
+    uCab: { value: 0 },
+    uKnock: { value: 0 },
+    uKnockF: { value: 0 },
+    uGang: { value: new c0(0, 0) },
+    uStripK: { value: 1.75 },
+    uEnvK: { value: 1 },
+    uReflK: { value: 1 },
+    uEnvD: { value: 0.36 },
+    uEnvBoost: { value: new c0(4, 2) },
+  };
+}
+function st(t, e, o, n = {}) {
+  const a = t === "glassIn" || t === "glassOut",
+    l = t === "decal",
+    r = t === "int" || t === "glassIn" || l,
+    p = new Ko({
+      vertexColors: !0,
+      roughness: 1,
+      metalness: 0,
+      envMapIntensity: 1,
+      transparent: a || l,
+      depthWrite: !(a || l),
+      side: Wo,
+    });
+  ((p.name = "train_" + t),
+    a &&
+      ((p.opacity = 1),
+      (p.blending = Ho),
+      (p.blendSrc = _e),
+      (p.blendDst = Oe),
+      (p.blendSrcAlpha = _e),
+      (p.blendDstAlpha = Oe)),
+    l &&
+      ((p.polygonOffset = !0),
+      (p.polygonOffsetFactor = -2),
+      (p.polygonOffsetUnits = -2)));
+  const c = {
+    ...it(),
+    ...e,
+    tDecal: { value: o.atlas },
+    ...(a ? { uReflK: { value: t === "glassIn" ? 3.2 : 1 } } : {}),
+    uDirRough: { value: t === "int" || t === "decal" ? 0.5 : a ? 0.32 : 0.36 },
+    uBoxMin: { value: o.box?.min || new D0() },
+    uBoxMax: { value: o.box?.max || new D0() },
+    uBoxEye: { value: o.box?.eye || new D0() },
+  };
+  return (
+    r &&
+      Object.assign(c, {
+        tMoq: { value: o.moq },
+        tMoqN: { value: o.moqN },
+        tFloor: { value: o.floor },
+        tFloorN: { value: o.floorN },
+        tFloorO: { value: o.floorO },
+      }),
+    (p.userData.U = c),
+    (p.defines = { USE_UV: "" }),
+    r && (p.defines.TR_INT = ""),
+    n.wheels && (p.defines.TR_WHEELS = ""),
+    (p.onBeforeCompile = (d) => {
+      (Object.assign(d.uniforms, c),
+        (d.vertexShader = d.vertexShader
+          .replace(
+            "#include <common>",
+            `#include <common>
+` + yn,
+          )
+          .replace(
+            "#include <beginnormal_vertex>",
+            `#include <beginnormal_vertex>
+` + vn,
+          )
+          .replace(
+            "#include <begin_vertex>",
+            `#include <begin_vertex>
+` + wn,
+          )));
+      let i = d.fragmentShader.replace(
+        "#include <common>",
+        `#include <common>
+` +
+          kn +
+          (a
+            ? `uniform float uReflK;
+`
+            : ""),
+      );
+      (r
+        ? ((i = i.replace("#include <envmap_physical_pars_fragment>", Sn)),
+          a ||
+            (i = i.replace(
+              "#include <lights_fragment_maps>",
+              `#include <lights_fragment_maps>
+` + Ln,
+            )),
+          (i = i.replace(
+            "#include <lights_pars_begin>",
+            jo.lights_pars_begin
+              .replace(
+                "light.color *= getDistanceAttenuation( lightDistance, pointLight.distance, pointLight.decay );",
+                "light.color *= getDistanceAttenuation( lightDistance, pointLight.distance, pointLight.decay ) * trOcc( pointLight.position );",
+              )
+              .replace(
+                "light.color *= getDistanceAttenuation( lightDistance, spotLight.distance, spotLight.decay );",
+                "light.color *= getDistanceAttenuation( lightDistance, spotLight.distance, spotLight.decay ) * trOcc( spotLight.position );",
+              ),
+          )))
+        : (i = i.replace(
+            "#include <lights_fragment_maps>",
+            `#include <lights_fragment_maps>
+radiance *= uEnvBoost.x; iblIrradiance *= uEnvBoost.y;`,
+          )),
+        (i = i
+          .replace(
+            "#include <color_fragment>",
+            `#include <color_fragment>
+` + (a ? Pn : l ? zn : Mn),
+          )
+          .replace(
+            "#include <roughnessmap_fragment>",
+            `#include <roughnessmap_fragment>
+roughnessFactor = trRough;`,
+          )
+          .replace(
+            "#include <metalnessmap_fragment>",
+            `#include <metalnessmap_fragment>
+metalnessFactor = trMetal;`,
+          )
+          .replace(
+            "#include <normal_fragment_maps>",
+            `#include <normal_fragment_maps>
+` + An,
+          )
+          .replace(
+            "#include <emissivemap_fragment>",
+            `#include <emissivemap_fragment>
+` + Tn,
+          )
+          .replace(
+            "#include <lights_fragment_begin>",
+            `float trRK = material.roughness; material.roughness = max(material.roughness, uDirRough);
+#include <lights_fragment_begin>
+material.roughness = trRK;`,
+          )),
+        a && (i = i.replace("#include <opaque_fragment>", In)),
+        (d.fragmentShader = i));
+    }),
+    (p.customProgramCacheKey = () =>
+      "train3_" + t + (n.wheels ? "_w" : "") + "_v3"),
+    p
+  );
+}
+function En(t) {
+  const e = it(),
+    o = (n) => {
+      const a = new n();
+      return (
+        (a.onBeforeCompile = (l) => {
+          (Object.assign(l.uniforms, { uDoor: t.uDoor, uWheel: e.uWheel }),
+            (l.vertexShader = l.vertexShader
+              .replace(
+                "#include <common>",
+                `#include <common>
+attribute float aAnim;
+uniform vec4 uDoor;
+uniform float uWheel;
+`,
+              )
+              .replace(
+                "#include <begin_vertex>",
+                `#include <begin_vertex>
+if (aAnim > 0.5 && aAnim < 4.5) { float trOpen = aAnim < 2.5 ? uDoor.x : uDoor.y; float trDir = (aAnim < 1.5 || (aAnim > 2.5 && aAnim < 3.5)) ? -1.0 : 1.0; transformed.x += trDir * trOpen; }
+`,
+              )));
+        }),
+        (a.customProgramCacheKey = () => "train3_depth_" + n.name),
+        a
+      );
+    };
+  return { depth: o(Jo), distance: o(Qo) };
+}
+const ft = 2048,
+  V = (t, e, o, n) => [t / ft, 1 - (e + n) / ft, (t + o) / ft, 1 - e / ft],
+  R = {
+    route: V(0, 0, 1024, 128),
+    dest: V(1024, 0, 1024, 128),
+    scroll: V(0, 128, 2048, 64),
+    car4012: V(0, 192, 256, 64),
+    car4013: V(256, 192, 256, 64),
+    car4014: V(512, 192, 256, 64),
+    roundel: V(768, 192, 64, 64),
+    nosmoke: V(832, 192, 192, 64),
+    priority: V(1024, 192, 256, 64),
+    gap: V(1280, 192, 256, 64),
+    lean: V(1536, 192, 256, 64),
+    alarm: V(1792, 192, 256, 64),
+    ad0: V(0, 256, 512, 192),
+    ad1: V(512, 256, 512, 192),
+    ad2: V(1024, 256, 512, 192),
+    ad3: V(1536, 256, 512, 192),
+    ad4: V(0, 448, 512, 192),
+    ad5: V(512, 448, 512, 192),
+    ad6: V(1024, 448, 512, 192),
+    ad7: V(1536, 448, 512, 192),
+    paper: V(0, 640, 512, 384),
+    phone: V(512, 640, 192, 384),
+    hand: V(704, 640, 320, 384),
+    pool: V(1024, 640, 512, 384),
+    drag: V(1536, 640, 512, 384),
+    console: V(0, 1024, 1024, 256),
+    extLabel: V(1024, 1024, 128, 256),
+    intercom: V(1152, 1024, 256, 256),
+    btnOpen: V(1408, 1024, 128, 128),
+    btnBlank: V(1408, 1152, 128, 128),
+    bag: V(1536, 1024, 256, 256),
+    can: V(1792, 1024, 256, 128),
+    box: V(1792, 1152, 256, 128),
+    scratch: V(0, 1280, 512, 256),
+    logo: V(512, 1280, 256, 128),
+    sideDest: V(768, 1280, 512, 64),
+    exitSign: V(768, 1344, 256, 64),
+    notice: V(1280, 1280, 384, 256),
+    extTag: V(1664, 1280, 384, 128),
+    cabScreen: V(1664, 1408, 384, 128),
+    staff: V(768, 1408, 256, 76),
+    spatter: V(0, 1536, 512, 512),
+    grime: V(512, 1536, 512, 512),
+    palm: V(1024, 1536, 256, 256),
+    smear2: V(1280, 1536, 768, 256),
+  },
+  We = {
+    names: ["MILLBANK", "ST. AGNES", "ASHWOOD", "PARKGATE"],
+    lampU: [0.16, 0.39, 0.62, 0.85],
+  };
+let de = null;
+function Nn() {
+  if (de) return de;
+  const t = document.createElement("canvas");
+  t.width = t.height = ft;
+  const e = t.getContext("2d");
+  Fn(e);
+  const o = new Yo(t);
+  return (
+    (o.colorSpace = io),
+    (o.anisotropy = 8),
+    (o.premultiplyAlpha = !1),
+    (o.generateMipmaps = !0),
+    (o.minFilter = Xo),
+    (de = o),
+    o
+  );
+}
+function Cn(t) {
+  let e = t >>> 0;
+  return () => {
+    e = (e + 1831565813) >>> 0;
+    let o = Math.imul(e ^ (e >>> 15), 1 | e);
+    return (
+      (o = (o + Math.imul(o ^ (o >>> 7), 61 | o)) ^ o),
+      ((o ^ (o >>> 14)) >>> 0) / 4294967296
+    );
+  };
+}
+const x = '"Helvetica Neue", Helvetica, Arial, sans-serif',
+  Wt = '"Arial Narrow", "Roboto Condensed", Arial, sans-serif',
+  N0 = 'Georgia, "Times New Roman", serif';
+function Fn(t) {
+  t.clearRect(0, 0, ft, ft);
+  const e = Cn(4041);
+  (_n(t, 0, 0, 1024, 128),
+    me(t, 1024, 0, 1024, 128, "4  PARKGATE", {
+      color: [255, 170, 40],
+      rows: 16,
+      bg: "#060403",
+      glow: !0,
+      roundel: !0,
+    }),
+    On(t, 0, 128, 2048, 64));
+  for (const [o, n] of [
+    [0, "4012"],
+    [1, "4013"],
+    [2, "4014"],
+  ])
+    Rn(t, o * 256, 192, 256, 64, n);
+  (J(t, 768, 192, 64, 64, "#245a60"),
+    Qt(t, 768, 192, 64, 64),
+    wt(t, 832, 192, 192, 64, "NO SMOKING", { icon: "nosmoke" }),
+    wt(t, 1024, 192, 256, 64, "PRIORITY SEATING", {
+      sub: "Please offer this seat",
+      bg: "#1c4a52",
+    }),
+    wt(t, 1280, 192, 256, 64, "MIND THE GAP", { bg: "#e8c228", fg: "#151515" }),
+    wt(t, 1536, 192, 256, 64, "DO NOT LEAN ON DOORS", {
+      bg: "#e8c228",
+      fg: "#151515",
+      small: !0,
+    }),
+    wt(t, 1792, 192, 256, 64, "EMERGENCY ALARM", {
+      sub: "Pull handle - speak to driver",
+      bg: "#a3201c",
+    }),
+    Bn(t, e),
+    Gn(t, 0, 640, 512, 384, e),
+    Un(t, 512, 640, 192, 384),
+    xn(t, 704, 640, 320, 384, e),
+    Vn(t, 1024, 640, 512, 384, e),
+    $n(t, 1536, 640, 512, 384, e),
+    qn(t, 0, 1024, 1024, 256),
+    Zn(t, 1024, 1024, 128, 256),
+    Kn(t, 1152, 1024, 256, 256),
+    je(t, 1408, 1024, 128, 128, !0),
+    je(t, 1408, 1152, 128, 128, !1),
+    Wn(t, 1536, 1024, 256, 256),
+    Hn(t, 1792, 1024, 256, 128),
+    jn(t, 1792, 1152, 256, 128),
+    Qn(t, 0, 1280, 512, 256, e),
+    Jn(t, 512, 1280, 256, 128),
+    me(t, 768, 1280, 512, 64, "4 PARKGATE", {
+      color: [255, 170, 40],
+      rows: 9,
+      bg: "#050403",
+      glow: !0,
+    }),
+    Yn(t, 768, 1344, 256, 64),
+    wt(t, 768, 1408, 256, 76, "STAFF ONLY", {
+      sub: "No entry - driving cab",
+      bg: "#a3201c",
+    }),
+    Xn(t, 1280, 1280, 384, 256, e),
+    ta(t, 1664, 1280, 384, 128),
+    ea(t, 1664, 1408, 384, 128),
+    oa(t, 0, 1536, 512, 512, e),
+    na(t, 512, 1536, 512, 512, e),
+    aa(t, 1024, 1536, 256, 256, e),
+    la(t, 1280, 1536, 768, 256, e));
+}
+function J(t, e, o, n, a, l) {
+  ((t.globalAlpha = 1), (t.fillStyle = l), t.fillRect(e, o, n, a));
+}
+function E0(t, e, o, n, a, l, r = 1) {
+  (t.save(),
+    t.beginPath(),
+    t.rect(e, o, n, a),
+    t.clip(),
+    (t.globalCompositeOperation = "source-atop"));
+  const p = t.createLinearGradient(0, o, 0, o + a);
+  (p.addColorStop(0, "rgba(40,32,22,0)"),
+    p.addColorStop(1, `rgba(40,32,22,${0.18 * r})`),
+    (t.fillStyle = p),
+    t.fillRect(e, o, n, a));
+  for (let f = 0; f < 14 * r; f++) {
+    const c = e + l() * n,
+      d = o + l() * a,
+      i = 4 + l() * 24,
+      s = t.createRadialGradient(c, d, 0, c, d, i);
+    (s.addColorStop(0, `rgba(30,24,18,${0.1 * r})`),
+      s.addColorStop(1, "rgba(30,24,18,0)"),
+      (t.fillStyle = s),
+      t.fillRect(c - i, d - i, i * 2, i * 2));
+  }
+  ((t.strokeStyle = `rgba(255,255,255,${0.12 * r})`), (t.lineWidth = 1));
+  for (let f = 0; f < 8 * r; f++) {
+    const c = e + l() * n,
+      d = o + l() * a,
+      i = l() * Math.PI,
+      s = 8 + l() * 50;
+    (t.beginPath(),
+      t.moveTo(c, d),
+      t.lineTo(c + Math.cos(i) * s, d + Math.sin(i) * s),
+      t.stroke());
+  }
+  t.restore();
+}
+function Mt(t, e, o, n, a, l) {
+  const r = t.getImageData(e, o, n, a),
+    p = r.data;
+  for (let f = 0; f < a; f++)
+    for (let c = 0; c < n; c++) {
+      const d = (f * n + c) * 4;
+      p[d + 3] = l(p[d], p[d + 1], p[d + 2], c, f) ? 255 : 128;
+    }
+  t.putImageData(r, e, o);
+}
+function Dn(t, e, o, n, a) {
+  let l = a;
+  do {
+    if (((t.font = n.replace("%", String(l))), t.measureText(e).width <= o))
+      break;
+    l -= 1;
+  } while (l > 6);
+  return l;
+}
+function _n(t, e, o, n, a) {
+  J(t, e, o, n, a, "#ece6d6");
+  const l = o + a * 0.47;
+  ((t.fillStyle = "#1f5e66"),
+    t.fillRect(e + n * 0.1, l - 7, n * 0.8, 14),
+    (t.fillStyle = "#6e1c22"),
+    t.fillRect(e + n * 0.1, l + 9, n * 0.8, 3),
+    Qt(t, e + 10, o + 24, 80, 80),
+    (t.fillStyle = "#1f5e66"),
+    t.beginPath(),
+    t.moveTo(e + n * 0.93, l - 16),
+    t.lineTo(e + n * 0.975, l),
+    t.lineTo(e + n * 0.93, l + 16),
+    t.fill(),
+    We.names.forEach((r, p) => {
+      const f = e + n * We.lampU[p];
+      ((t.fillStyle = "#ffffff"),
+        t.beginPath(),
+        t.arc(f, l, 21, 0, 7),
+        t.fill(),
+        (t.fillStyle = "#1f5e66"),
+        t.beginPath(),
+        t.arc(f, l, 18, 0, 7),
+        t.fill(),
+        (t.fillStyle = "#2a1210"),
+        t.beginPath(),
+        t.arc(f, l, 13, 0, 7),
+        t.fill(),
+        (t.fillStyle = "#1b1b1b"),
+        (t.textAlign = "center"),
+        (t.textBaseline = "alphabetic"),
+        (t.font = `bold 21px ${x}`),
+        t.fillText(r, f, o + 28),
+        p === 3 &&
+          ((t.font = `bold 13px ${x}`),
+          (t.fillStyle = "#6e1c22"),
+          t.fillText("TERMINUS", f, o + a - 14)),
+        p === 2 &&
+          ((t.font = `12px ${x}`),
+          (t.fillStyle = "#444"),
+          t.fillText("Ashwood Park", f, o + a - 14)));
+    }),
+    (t.font = `bold 13px ${x}`),
+    (t.fillStyle = "#1f5e66"),
+    (t.textAlign = "left"),
+    t.fillText("LINE 4", e + 98, o + a - 14),
+    (t.fillStyle = "#555"),
+    (t.font = `11px ${x}`),
+    (t.textAlign = "right"),
+    t.fillText(
+      "Trains every 4 min  -  Last train 00:40",
+      e + n - 12,
+      o + a - 14,
+    ));
+}
+function Qt(t, e, o, n, a) {
+  const l = e + n / 2,
+    r = o + a / 2,
+    p = Math.min(n, a) * 0.46;
+  ((t.fillStyle = "#1f5e66"),
+    t.beginPath(),
+    t.arc(l, r, p, 0, 7),
+    t.fill(),
+    (t.strokeStyle = "#ece6d6"),
+    (t.lineWidth = p * 0.12),
+    t.beginPath(),
+    t.arc(l, r, p * 0.82, 0, 7),
+    t.stroke(),
+    (t.fillStyle = "#ece6d6"),
+    (t.font = `bold ${Math.round(p * 1.25)}px ${x}`),
+    (t.textAlign = "center"),
+    (t.textBaseline = "middle"),
+    t.fillText("4", l, r + p * 0.06),
+    (t.textBaseline = "alphabetic"));
+}
+function me(t, e, o, n, a, l, r) {
+  J(t, e, o, n, a, r.bg || "#050403");
+  const p = r.rows || 16,
+    f = a / p,
+    c = Math.floor(n / f),
+    d = document.createElement("canvas");
+  ((d.width = c), (d.height = p));
+  const i = d.getContext("2d");
+  ((i.fillStyle = "#000"),
+    i.fillRect(0, 0, c, p),
+    (i.fillStyle = "#fff"),
+    (i.textBaseline = "middle"),
+    (i.textAlign = r.align || "center"),
+    (i.font = `bold ${Math.round(p * 0.82)}px ${Wt}`));
+  let s = r.align === "left" ? 2 : c / 2;
+  (r.roundel && (i.font = `bold ${Math.round(p * 0.82)}px ${Wt}`),
+    i.fillText(l, s, p / 2 + 0.5));
+  const m = i.getImageData(0, 0, c, p).data,
+    [v, y, w] = r.color;
+  for (let M = 0; M < p; M++)
+    for (let k = 0; k < c; k++) {
+      const P = m[(M * c + k) * 4] / 255,
+        C = e + (k + 0.5) * f,
+        F = o + (M + 0.5) * f;
+      (P > 0.35
+        ? ((t.fillStyle = `rgb(${v},${y},${w})`), (t.globalAlpha = 1))
+        : ((t.fillStyle = "rgb(40,24,8)"), (t.globalAlpha = 1)),
+        t.beginPath(),
+        t.arc(C, F, f * 0.36, 0, 7),
+        t.fill());
+    }
+  ((t.globalAlpha = 1), r.glow && Mt(t, e, o, n, a, (M) => M > 120));
+}
+function On(t, e, o, n, a) {
+  me(
+    t,
+    e,
+    o,
+    n,
+    a,
+    "LINE 4 TO PARKGATE   -   NEXT STOP: PARKGATE   -   THIS TRAIN TERMINATES AT PARKGATE   -   PLEASE TAKE ALL YOUR BELONGINGS   -   ",
+    { color: [255, 160, 36], rows: 12, bg: "#040302", glow: !0, align: "left" },
+  );
+}
+function Rn(t, e, o, n, a, l) {
+  (J(t, e, o, n, a, "#d8d2c2"),
+    (t.fillStyle = "#1a1a1a"),
+    (t.font = `bold ${a * 0.62}px ${Wt}`),
+    (t.textAlign = "center"),
+    (t.textBaseline = "middle"),
+    t.fillText(l, e + n / 2, o + a / 2 + 2),
+    (t.textBaseline = "alphabetic"));
+}
+function wt(t, e, o, n, a, l, r = {}) {
+  J(t, e, o, n, a, r.bg || "#f0ebe0");
+  const p = r.fg || (r.bg ? "#f4efe4" : "#1a1a1a");
+  let f = e + n / 2;
+  if (r.icon === "nosmoke") {
+    const d = e + a / 2,
+      i = o + a / 2,
+      s = a * 0.38;
+    ((t.fillStyle = "#222"),
+      t.fillRect(d - s * 0.7, i - 3, s * 1.2, 7),
+      (t.strokeStyle = "#c0201c"),
+      (t.lineWidth = 6),
+      t.beginPath(),
+      t.arc(d, i, s, 0, 7),
+      t.stroke(),
+      t.beginPath(),
+      t.moveTo(d - s * 0.7, i - s * 0.7),
+      t.lineTo(d + s * 0.7, i + s * 0.7),
+      t.stroke(),
+      (f = e + a + (n - a) / 2));
+  }
+  ((t.fillStyle = p), (t.textAlign = "center"), (t.textBaseline = "middle"));
+  const c = Dn(
+    t,
+    l,
+    (r.icon ? n - a : n) - 16,
+    `bold %px ${x}`,
+    r.small ? 22 : 28,
+  );
+  ((t.font = `bold ${c}px ${x}`),
+    t.fillText(l, f, o + a / 2 - (r.sub ? 8 : 0)),
+    r.sub &&
+      ((t.font = `${Math.round(c * 0.55)}px ${x}`),
+      t.fillText(r.sub, f, o + a / 2 + 16)),
+    (t.textBaseline = "alphabetic"));
+}
+function Bn(t, e) {
+  const o = (n) => [(n % 4) * 512, 256 + Math.floor(n / 4) * 192, 512, 192];
+  {
+    const [n, a, l, r] = o(0),
+      p = t.createLinearGradient(n, a, n + l, a + r);
+    (p.addColorStop(0, "#13233d"),
+      p.addColorStop(1, "#0a1424"),
+      J(t, n, a, l, r, "#13233d"),
+      (t.fillStyle = p),
+      t.fillRect(n, a, l, r),
+      (t.strokeStyle = "#c9a75a"),
+      (t.lineWidth = 3));
+    for (let f = 0; f < 6; f++)
+      (t.beginPath(),
+        t.arc(n + l * 0.8, a + r * 1.1, 60 + f * 26, Math.PI, Math.PI * 1.5),
+        t.stroke());
+    ((t.fillStyle = "#c9a75a"),
+      (t.font = `bold 46px ${N0}`),
+      (t.textAlign = "left"),
+      t.fillText("ARCADIA BANK", n + 28, a + 78),
+      (t.fillStyle = "#e6dcc4"),
+      (t.font = `italic 24px ${N0}`),
+      t.fillText("Your future, safely kept.", n + 30, a + 118),
+      (t.font = `14px ${x}`),
+      (t.fillStyle = "#9aa4b8"),
+      t.fillText("Savings  -  Mortgages  -  Since 1891", n + 30, a + 160),
+      E0(t, n, a, l, r, e, 0.8));
+  }
+  {
+    const [n, a, l, r] = o(1);
+    J(t, n, a, l, r, "#4a0e14");
+    const p = t.createRadialGradient(
+      n + l * 0.25,
+      a + r * 0.5,
+      4,
+      n + l * 0.25,
+      a + r * 0.5,
+      170,
+    );
+    (p.addColorStop(0, "rgba(255,190,120,0.55)"),
+      p.addColorStop(1, "rgba(255,190,120,0)"),
+      (t.fillStyle = p),
+      t.fillRect(n, a, l, r),
+      (t.fillStyle = "#120406"),
+      t.beginPath(),
+      t.ellipse(n + 128, a + 62, 13, 15, 0, 0, 7),
+      t.fill(),
+      t.beginPath(),
+      t.moveTo(n + 120, a + 76),
+      t.lineTo(n + 138, a + 76),
+      t.lineTo(n + 150, a + 118),
+      t.quadraticCurveTo(n + 200, a + 160, n + 230, a + 178),
+      t.lineTo(n + 40, a + 178),
+      t.quadraticCurveTo(n + 80, a + 150, n + 108, a + 118),
+      t.closePath(),
+      t.fill(),
+      (t.strokeStyle = "#120406"),
+      (t.lineWidth = 7),
+      t.beginPath(),
+      t.moveTo(n + 136, a + 82),
+      t.lineTo(n + 190, a + 40),
+      t.stroke(),
+      (t.fillStyle = "#f1d9a8"),
+      (t.textAlign = "center"),
+      (t.font = `italic bold 44px ${N0}`),
+      t.fillText("The Last Waltz", n + 360, a + 80),
+      (t.font = `16px ${x}`),
+      (t.fillStyle = "#e8b9a0"),
+      t.fillText('"Unforgettable" - The Herald', n + 360, a + 112),
+      (t.font = `bold 15px ${x}`),
+      (t.fillStyle = "#f1d9a8"),
+      t.fillText("NOW PLAYING  -  REGENT THEATRE", n + 360, a + 156),
+      E0(t, n, a, l, r, e, 1));
+  }
+  {
+    const [n, a, l, r] = o(2);
+    (J(t, n, a, l, r, "#f2efe6"),
+      (t.fillStyle = "#2f7a3a"),
+      t.fillRect(n, a, l, 54),
+      (t.fillStyle = "#f2efe6"),
+      (t.font = `bold 38px ${x}`),
+      (t.textAlign = "left"),
+      t.fillText("freshway", n + 22, a + 40),
+      (t.fillStyle = "#e07a1c"),
+      t.beginPath(),
+      t.arc(n + 430, a + 118, 48, 0, 7),
+      t.fill(),
+      (t.fillStyle = "#c4581a"),
+      t.beginPath(),
+      t.arc(n + 418, a + 106, 10, 0, 7),
+      t.fill(),
+      (t.fillStyle = "#3a7a2a"),
+      t.beginPath(),
+      t.ellipse(n + 440, a + 70, 14, 6, -0.6, 0, 7),
+      t.fill(),
+      (t.fillStyle = "#23361f"),
+      (t.font = `bold 34px ${x}`),
+      t.fillText("Fresh every day.", n + 24, a + 106),
+      (t.font = `20px ${x}`),
+      (t.fillStyle = "#3c3c34"),
+      t.fillText("Open late. Always local.", n + 26, a + 138),
+      (t.font = `bold 15px ${x}`),
+      (t.fillStyle = "#2f7a3a"),
+      t.fillText("Next to Parkgate station", n + 26, a + 172),
+      E0(t, n, a, l, r, e, 1.1));
+  }
+  {
+    const [n, a, l, r] = o(3),
+      p = t.createLinearGradient(n, a, n + l, a);
+    (p.addColorStop(0, "#2b1046"),
+      p.addColorStop(1, "#5a1f6e"),
+      J(t, n, a, l, r, "#2b1046"),
+      (t.fillStyle = p),
+      t.fillRect(n, a, l, r),
+      (t.strokeStyle = "rgba(255,255,255,0.25)"),
+      (t.lineWidth = 2));
+    for (let f = 1; f < 5; f++)
+      (t.beginPath(), t.arc(n + 70, a + 120, f * 22, -1.1, -0.2), t.stroke());
+    ((t.fillStyle = "#ffffff"),
+      (t.font = `bold 50px ${x}`),
+      (t.textAlign = "left"),
+      t.fillText("NOVA", n + 150, a + 84),
+      (t.font = `22px ${x}`),
+      (t.fillStyle = "#e4cdf0"),
+      t.fillText("Always connected.", n + 152, a + 120),
+      (t.font = `bold 14px ${x}`),
+      (t.fillStyle = "#c99ade"),
+      t.fillText("5G NOW ON EVERY LINE 4 PLATFORM", n + 152, a + 160),
+      E0(t, n, a, l, r, e, 0.9));
+  }
+  {
+    const [n, a, l, r] = o(4);
+    (J(t, n, a, l, r, "#ece6d6"),
+      (t.fillStyle = "#1f5e66"),
+      t.fillRect(n, a, l, 36),
+      Qt(t, n + 6, a + 3, 30, 30),
+      (t.fillStyle = "#ece6d6"),
+      (t.font = `bold 20px ${x}`),
+      (t.textAlign = "left"),
+      t.fillText("PUBLIC NOTICE", n + 44, a + 26),
+      (t.fillStyle = "#1a1a1a"),
+      (t.font = `bold 19px ${x}`),
+      t.fillText("In an emergency", n + 18, a + 66),
+      (t.font = `15px ${x}`),
+      [
+        "Stay inside the train unless told to leave.",
+        "Use the alarm handle to speak to the driver.",
+        "Do not walk on the tracks: the rail is live.",
+      ].forEach((p, f) => t.fillText("- " + p, n + 18, a + 94 + f * 24)),
+      (t.fillStyle = "#6e1c22"),
+      t.fillRect(n, a + r - 8, l, 8),
+      E0(t, n, a, l, r, e, 0.7));
+  }
+  {
+    const [n, a, l, r] = o(5);
+    (J(t, n, a, l, r, "#f0c419"),
+      (t.fillStyle = "#151515"),
+      (t.font = `bold 40px ${x}`),
+      (t.textAlign = "left"),
+      t.fillText("SEE SOMETHING?", n + 24, a + 66),
+      t.fillText("SAY SOMETHING.", n + 24, a + 112),
+      (t.font = `bold 18px ${x}`),
+      t.fillText("Text 61016  -  Line 4 Transit Police", n + 26, a + 156),
+      (t.fillStyle = "#151515"),
+      t.beginPath(),
+      t.arc(n + 440, a + 86, 44, 0, 7),
+      t.fill(),
+      (t.fillStyle = "#f0c419"),
+      t.beginPath(),
+      t.ellipse(n + 440, a + 86, 30, 18, 0, 0, 7),
+      t.fill(),
+      (t.fillStyle = "#151515"),
+      t.beginPath(),
+      t.arc(n + 440, a + 86, 10, 0, 7),
+      t.fill(),
+      E0(t, n, a, l, r, e, 1));
+  }
+  {
+    const [n, a, l, r] = o(6),
+      p = t.createLinearGradient(n, a, n, a + r);
+    (p.addColorStop(0, "#ffb43a"),
+      p.addColorStop(1, "#f07a12"),
+      J(t, n, a, l, r, "#ffb43a"),
+      (t.fillStyle = p),
+      t.fillRect(n, a, l, r),
+      (t.fillStyle = "rgba(255,240,200,0.6)"),
+      t.beginPath(),
+      t.arc(n + 90, a + 60, 70, 0, 7),
+      t.fill(),
+      (t.fillStyle = "#fff6e0"),
+      (t.font = `bold italic 46px ${N0}`),
+      (t.textAlign = "left"),
+      t.fillText("Sunny Days", n + 170, a + 82),
+      (t.font = `20px ${x}`),
+      (t.fillStyle = "#5a2a06"),
+      t.fillText("100% squeezed sunshine", n + 174, a + 118),
+      (t.fillStyle = "rgba(255,255,255,0.5)"),
+      t.fillRect(n + 60, a + 90, 56, 84),
+      (t.fillStyle = "#f58a1a"),
+      t.fillRect(n + 64, a + 104, 48, 66),
+      E0(t, n, a, l, r, e, 0.8));
+  }
+  {
+    const [n, a, l, r] = o(7);
+    (J(t, n, a, l, r, "#1d2a1e"),
+      (t.fillStyle = "#3e5a36"),
+      t.beginPath(),
+      t.ellipse(n + 110, a + 100, 70, 42, -0.2, 0, 7),
+      t.fill(),
+      (t.fillStyle = "#1d2a1e"),
+      t.beginPath(),
+      t.ellipse(n + 90, a + 92, 14, 10, 0, 0, 7),
+      t.fill(),
+      (t.fillStyle = "#d6cfae"));
+    for (let p = 0; p < 7; p++)
+      (t.beginPath(),
+        t.moveTo(n + 120 + p * 12, a + 128),
+        t.lineTo(n + 126 + p * 12, a + 148),
+        t.lineTo(n + 132 + p * 12, a + 128),
+        t.fill());
+    ((t.fillStyle = "#d6cfae"),
+      (t.font = `bold 40px ${N0}`),
+      (t.textAlign = "left"),
+      t.fillText("DINOSAURS", n + 220, a + 76),
+      (t.font = `italic 24px ${N0}`),
+      t.fillText("Back from the dead!", n + 222, a + 112),
+      (t.font = `bold 14px ${x}`),
+      (t.fillStyle = "#9fb38e"),
+      t.fillText("CITY MUSEUM  -  ST. AGNES", n + 222, a + 158),
+      E0(t, n, a, l, r, e, 1));
+  }
+}
+function Gn(t, e, o, n, a, l) {
+  (J(t, e, o, n, a, "#d9d3c3"),
+    (t.fillStyle = "#1a1a1a"),
+    (t.textAlign = "center"),
+    (t.font = `bold 40px ${N0}`),
+    t.fillText("The City Herald", e + n / 2, o + 46),
+    t.fillRect(e + 16, o + 56, n - 32, 2),
+    (t.font = `11px ${N0}`),
+    t.fillText("SUNDAY EDITION   -   50p", e + n / 2, o + 70),
+    t.fillRect(e + 16, o + 76, n - 32, 1),
+    (t.font = `bold 42px ${x}`),
+    t.fillText("CITY SEALED", e + n / 2, o + 122),
+    (t.font = `bold 18px ${x}`),
+    t.fillText("Army closes bridges as outbreak spreads", e + n / 2, o + 148),
+    (t.fillStyle = "#6c6a64"),
+    t.fillRect(e + 16, o + 162, 250, 160),
+    (t.fillStyle = "#4a4844"));
+  for (let p = 0; p < 26; p++)
+    (t.beginPath(),
+      t.ellipse(e + 24 + l() * 236, o + 250 + l() * 60, 7, 16, 0, 0, 7),
+      t.fill());
+  ((t.fillStyle = "#8a8880"),
+    t.fillRect(e + 16, o + 240, 250, 6),
+    (t.fillStyle = "#2a2a2a"));
+  const r = (p, f, c, d) => {
+    for (let i = 0; i < d; i++)
+      t.fillRect(p, f + i * 9, c * (i % 7 === 6 ? 0.6 : 0.92 + l() * 0.08), 4);
+  };
+  (r(e + 280, o + 166, 100, 17),
+    r(e + 392, o + 166, 100, 17),
+    r(e + 16, o + 334, 120, 5),
+    r(e + 150, o + 334, 120, 5),
+    r(e + 280, o + 334, 220, 5),
+    (t.font = `bold 13px ${x}`),
+    (t.textAlign = "left"),
+    t.fillText("Stay indoors, say officials", e + 280, o + 160),
+    E0(t, e, o, n, a, l, 1.6),
+    (t.fillStyle = "rgba(0,0,0,0.12)"),
+    t.fillRect(e + n / 2 - 1, o, 2, a),
+    (t.fillStyle = "rgba(60,45,30,0.32)"),
+    t.beginPath(),
+    t.ellipse(e + 360, o + 270, 40, 90, 0.4, 0, 7),
+    t.fill());
+}
+function Un(t, e, o, n, a) {
+  J(t, e, o, n, a, "#05060a");
+  const l = t.createLinearGradient(e, o, e + n, o + a);
+  (l.addColorStop(0, "#1b2a4a"),
+    l.addColorStop(1, "#3a1a3a"),
+    (t.fillStyle = l),
+    t.fillRect(e + 6, o + 6, n - 12, a - 12),
+    (t.fillStyle = "#ffffff"),
+    (t.textAlign = "center"),
+    (t.font = `200 54px ${x}`),
+    t.fillText("4:12", e + n / 2, o + 78),
+    (t.font = `13px ${x}`),
+    t.fillText("Sunday 14 October", e + n / 2, o + 100));
+  const r = (p, f, c, d) => {
+    ((t.fillStyle = "rgba(235,235,240,0.85)"),
+      t.fillRect(e + 12, p, n - 24, 52),
+      (t.fillStyle = d ? "#b01818" : "#222"),
+      (t.textAlign = "left"),
+      (t.font = `bold 11px ${x}`),
+      t.fillText(f, e + 18, p + 16),
+      (t.fillStyle = "#222"),
+      (t.font = `11px ${x}`),
+      c.forEach((i, s) => t.fillText(i, e + 18, p + 31 + s * 13)));
+  };
+  (r(
+    o + 120,
+    "EMERGENCY ALERT",
+    ["Shelter in place. Do not", "travel. Await instructions."],
+    !0,
+  ),
+    r(
+      o + 180,
+      "Mum  (14 missed calls)",
+      ["where are you??", "please call me back"],
+      !1,
+    ),
+    r(
+      o + 240,
+      "Dan",
+      ["the trains are still running", "meet me at parkgate"],
+      !1,
+    ),
+    (t.strokeStyle = "rgba(255,255,255,0.6)"),
+    (t.lineWidth = 1.2),
+    t.beginPath(),
+    t.moveTo(e + 20, o + 330),
+    t.lineTo(e + 80, o + 300),
+    t.lineTo(e + 120, o + 318),
+    t.lineTo(e + 180, o + 270),
+    t.moveTo(e + 80, o + 300),
+    t.lineTo(e + 70, o + 250),
+    t.stroke(),
+    Mt(
+      t,
+      e,
+      o,
+      n,
+      a,
+      (p, f, c, d, i) => d > 5 && d < n - 6 && i > 5 && i < a - 6,
+    ));
+}
+function _0(t, e, o, n, a) {
+  t.clearRect(e, o, n, a);
+}
+function He(t) {
+  return `rgba(70,7,5,${t})`;
+}
+function xn(t, e, o, n, a, l) {
+  (_0(t, e, o, n, a),
+    t.save(),
+    t.translate(e + n * 0.5, o + a * 0.36),
+    t.rotate(-0.12));
+  const r = (d, i, s, m, v, y = 0) => {
+    ((t.fillStyle = He(v)),
+      t.beginPath(),
+      t.ellipse(d, i, s, m, y, 0, 7),
+      t.fill());
+  };
+  for (let d = 0; d < 14; d++)
+    r(
+      (l() - 0.5) * 70,
+      18 + (l() - 0.5) * 60,
+      22 + l() * 30,
+      18 + l() * 30,
+      0.16 + l() * 0.2,
+      l() * 3,
+    );
+  r(-6, 26, 54, 48, 0.42);
+  const p = [
+    [-62, -38, -0.5],
+    [-30, -74, -0.16],
+    [4, -84, 0.02],
+    [36, -74, 0.18],
+    [66, -22, 0.7],
+  ];
+  for (const [d, i, s] of p) {
+    r(d, i, 13, 20, 0.5, s);
+    for (let m = 0; m < 9; m++) {
+      const v = m / 8;
+      r(
+        d + Math.sin(s) * 8 * v + (l() - 0.5) * 3,
+        i + 18 + v * 70,
+        10 - v * 5,
+        12,
+        0.22 * (1 - v) + 0.05,
+        0,
+      );
+    }
+  }
+  for (let d = 0; d < 7; d++)
+    ((t.fillStyle = He(0.18 + l() * 0.2)),
+      t.fillRect(-48 + d * 14 + l() * 6, 64, 5 + l() * 4, 70 + l() * 110));
+  t.restore();
+  const f = t.getImageData(e, o, n, a),
+    c = f.data;
+  for (let d = 0; d < c.length; d += 4)
+    if (c[d + 3] > 0) {
+      const i = l();
+      ((c[d + 3] = Math.max(
+        0,
+        c[d + 3] * (0.75 + 0.25 * i) - (i < 0.1 ? 60 : 0),
+      )),
+        (c[d] = 64 + ((i * 16) | 0)),
+        (c[d + 1] = 6),
+        (c[d + 2] = 5));
+    }
+  t.putImageData(f, e, o);
+}
+function Vn(t, e, o, n, a, l) {
+  _0(t, e, o, n, a);
+  const r = e + n / 2,
+    p = o + a / 2;
+  for (let f = 0; f < 26; f++) {
+    const c = l() * 7,
+      d = l() * 110,
+      i = 36 + l() * 80,
+      s = 28 + l() * 60;
+    ((t.fillStyle = `rgba(48,6,4,${0.45 + l() * 0.3})`),
+      t.beginPath(),
+      t.ellipse(
+        r + Math.cos(c) * d,
+        p + Math.sin(c) * d * 0.7,
+        i,
+        s,
+        l() * 3,
+        0,
+        7,
+      ),
+      t.fill());
+  }
+  ((t.fillStyle = "rgba(38,3,3,0.96)"),
+    t.beginPath(),
+    t.ellipse(r, p, 150, 100, 0.2, 0, 7),
+    t.fill(),
+    (t.fillStyle = "rgba(30,2,2,0.98)"),
+    t.beginPath(),
+    t.ellipse(r + 10, p - 5, 110, 70, 0.3, 0, 7),
+    t.fill());
+  for (let f = 0; f < 46; f++) {
+    const c = l() * 7,
+      d = 165 + l() * 70;
+    ((t.fillStyle = `rgba(50,6,4,${0.6 + l() * 0.35})`),
+      t.beginPath(),
+      t.arc(r + Math.cos(c) * d, p + Math.sin(c) * d * 0.72, 2 + l() * 7, 0, 7),
+      t.fill());
+  }
+}
+function $n(t, e, o, n, a, l) {
+  _0(t, e, o, n, a);
+  for (let r = 0; r < 70; r++) {
+    const p = r / 70,
+      f = o + a / 2 + Math.sin(p * 3) * 20,
+      c = 90 * (1 - p * 0.65);
+    ((t.fillStyle = `rgba(52,6,4,${0.3 + 0.35 * (1 - p)})`),
+      t.fillRect(e + 20 + p * (n - 60), f - c / 2, 12, c));
+  }
+  for (let r = 0; r < 34; r++) {
+    const p = o + a / 2 + (l() - 0.5) * 76;
+    ((t.fillStyle = `rgba(40,4,3,${0.35 + l() * 0.35})`),
+      t.fillRect(e + 20, p, n * (0.35 + l() * 0.55), 2 + l() * 3));
+  }
+  ((t.fillStyle = "rgba(38,3,3,0.95)"),
+    t.beginPath(),
+    t.ellipse(e + 62, o + a / 2, 58, 74, 0, 0, 7),
+    t.fill());
+}
+function qn(t, e, o, n, a) {
+  (J(t, e, o, n, a, "#2a2c2e"),
+    (t.fillStyle = "#1e2022"),
+    t.fillRect(e + 8, o + 8, n - 16, a - 16));
+  const l = [],
+    r = (c, d, i, s, m, v) => {
+      ((t.fillStyle = "#111"),
+        t.beginPath(),
+        t.arc(c, d, i + 4, 0, 7),
+        t.fill(),
+        (t.fillStyle = m ? s : "#3a3a3a"),
+        t.beginPath(),
+        t.arc(c, d, i, 0, 7),
+        t.fill(),
+        m && l.push([c, d, i]),
+        v &&
+          ((t.fillStyle = "#b8b8b0"),
+          (t.font = `bold 11px ${x}`),
+          (t.textAlign = "center"),
+          t.fillText(v, c, d + i + 16)));
+    };
+  (r(e + 60, o + 70, 16, "#3cff6a", !0, "ATO"),
+    r(e + 120, o + 70, 16, "#ffb020", !1, "MAN"),
+    r(e + 60, o + 170, 18, "#ffb020", !1, "DOORS L"),
+    r(e + 130, o + 170, 18, "#ffb020", !1, "DOORS R"),
+    r(e + 200, o + 70, 14, "#e82020", !0, "FAULT"),
+    r(e + 250, o + 70, 14, "#3cff6a", !0, "PWR"),
+    r(e + 940, o + 70, 22, "#e82020", !1, "EMERG"),
+    r(e + 880, o + 170, 14, "#e8e8e0", !0, "HL"),
+    r(e + 930, o + 170, 14, "#3c8cff", !1, "CAB"));
+  const p = (c, d, i, s) => {
+    ((t.fillStyle = "#020403"),
+      t.fillRect(c, d, i, s),
+      l.push(["r", c, d, i, s]));
+  };
+  (p(e + 320, o + 40, 280, 170),
+    (t.fillStyle = "#3cff6a"),
+    (t.font = 'bold 20px "Courier New", monospace'),
+    (t.textAlign = "left"),
+    [
+      "ATO   AUTO",
+      "LINE 4  -> PARKGATE",
+      "SPD   0 km/h",
+      "DOORS CLOSED",
+      "NO DRIVER",
+    ].forEach((c, d) => t.fillText(c, e + 336, o + 72 + d * 30)),
+    p(e + 630, o + 40, 200, 170));
+  const f = t.createLinearGradient(0, o + 40, 0, o + 210);
+  (f.addColorStop(0, "#1a1e1c"),
+    f.addColorStop(1, "#3a403c"),
+    (t.fillStyle = f),
+    t.fillRect(e + 634, o + 44, 192, 162),
+    (t.fillStyle = "#0c0e0d"),
+    t.fillRect(e + 700, o + 120, 60, 86),
+    (t.fillStyle = "#9a9a92"),
+    (t.font = `10px ${x}`),
+    t.fillText("CAM 2 - PLATFORM", e + 638, o + 58),
+    Mt(t, e, o, n, a, (c, d, i, s, m) =>
+      l.some((v) =>
+        v[0] === "r"
+          ? s + e >= v[1] &&
+            s + e < v[1] + v[3] &&
+            m + o >= v[2] &&
+            m + o < v[2] + v[4]
+          : Math.hypot(s + e - v[0], m + o - v[1]) < v[2],
+      ),
+    ));
+}
+function Zn(t, e, o, n, a) {
+  (J(t, e, o, n, a, "#b3201c"),
+    (t.fillStyle = "#f2ece0"),
+    t.fillRect(e + 14, o + 60, n - 28, 120),
+    (t.fillStyle = "#1a1a1a"),
+    (t.font = `bold 16px ${x}`),
+    (t.textAlign = "center"),
+    t.fillText("FIRE", e + n / 2, o + 90),
+    t.fillText("EXT.", e + n / 2, o + 110),
+    (t.font = `10px ${x}`),
+    t.fillText("6 kg  ABC", e + n / 2, o + 134),
+    t.fillText("PULL PIN", e + n / 2, o + 152),
+    t.fillText("SQUEEZE", e + n / 2, o + 166));
+}
+function Kn(t, e, o, n, a) {
+  (J(t, e, o, n, a, "#c9c4b8"),
+    (t.fillStyle = "#a3201c"),
+    t.fillRect(e, o, n, 54),
+    (t.fillStyle = "#f4efe4"),
+    (t.font = `bold 20px ${x}`),
+    (t.textAlign = "center"),
+    t.fillText("EMERGENCY", e + n / 2, o + 34),
+    (t.fillStyle = "#2a2a2a"));
+  for (let l = 0; l < 6; l++)
+    for (let r = 0; r < 9; r++)
+      (t.beginPath(),
+        t.arc(e + 64 + r * 16, o + 84 + l * 14, 3.5, 0, 7),
+        t.fill());
+  ((t.fillStyle = "#1a1a1a"),
+    (t.font = `bold 14px ${x}`),
+    t.fillText("PRESS AND SPEAK", e + n / 2, o + 186),
+    (t.fillStyle = "#e8c228"),
+    t.beginPath(),
+    t.arc(e + n / 2, o + 222, 22, 0, 7),
+    t.fill(),
+    (t.fillStyle = "#151515"),
+    (t.font = `bold 11px ${x}`),
+    t.fillText("TALK", e + n / 2, o + 226));
+}
+function je(t, e, o, n, a, l) {
+  (J(t, e, o, n, a, "#b8b6b0"),
+    (t.fillStyle = "#2a2a2a"),
+    t.beginPath(),
+    t.arc(e + n / 2, o + a / 2, n * 0.4, 0, 7),
+    t.fill(),
+    (t.strokeStyle = l ? "#3cff6a" : "#e8e8e0"),
+    (t.lineWidth = 9),
+    t.beginPath(),
+    t.arc(e + n / 2, o + a / 2, n * 0.32, 0, 7),
+    t.stroke(),
+    (t.fillStyle = "#d8d8d0"),
+    (t.font = `bold 20px ${x}`),
+    (t.textAlign = "center"),
+    (t.textBaseline = "middle"),
+    l &&
+      (t.beginPath(),
+      t.moveTo(e + n / 2 - 22, o + a / 2),
+      t.lineTo(e + n / 2 - 6, o + a / 2 - 12),
+      t.lineTo(e + n / 2 - 6, o + a / 2 + 12),
+      t.fill(),
+      t.beginPath(),
+      t.moveTo(e + n / 2 + 22, o + a / 2),
+      t.lineTo(e + n / 2 + 6, o + a / 2 - 12),
+      t.lineTo(e + n / 2 + 6, o + a / 2 + 12),
+      t.fill()),
+    (t.textBaseline = "alphabetic"),
+    Mt(t, e, o, n, a, (r, p) => l && p > 200 && r < 120));
+}
+function Wn(t, e, o, n, a) {
+  (J(t, e, o, n, a, "#e9e5da"),
+    (t.fillStyle = "#2f7a3a"),
+    (t.font = `bold 46px ${x}`),
+    (t.textAlign = "center"),
+    t.fillText("freshway", e + n / 2, o + a / 2 + 10),
+    (t.fillStyle = "#e07a1c"),
+    t.beginPath(),
+    t.arc(e + n / 2, o + 60, 20, 0, 7),
+    t.fill(),
+    (t.fillStyle = "#5a5a50"),
+    (t.font = `14px ${x}`),
+    t.fillText("Fresh every day.", e + n / 2, o + 186));
+}
+function Hn(t, e, o, n, a) {
+  (J(t, e, o, n, a, "#b3261e"),
+    (t.fillStyle = "#f4efe4"),
+    t.fillRect(e, o + 40, n, 48),
+    (t.fillStyle = "#b3261e"),
+    (t.font = `bold 26px ${N0}`),
+    (t.textAlign = "center"),
+    t.fillText("TOMATO SOUP", e + n / 2, o + 74));
+}
+function jn(t, e, o, n, a) {
+  (J(t, e, o, n, a, "#e8c440"),
+    (t.fillStyle = "#7a2410"),
+    (t.font = `bold 30px ${x}`),
+    (t.textAlign = "center"),
+    t.fillText("CORN FLAKES", e + n / 2, o + 56),
+    (t.fillStyle = "#ffffff"),
+    t.beginPath(),
+    t.ellipse(e + n / 2, o + 96, 50, 20, 0, 0, 7),
+    t.fill());
+}
+function Qn(t, e, o, n, a, l) {
+  (_0(t, e, o, n, a),
+    (t.strokeStyle = "rgba(255,255,255,0.85)"),
+    (t.lineWidth = 2),
+    (t.lineCap = "round"),
+    (t.font = `italic 64px ${N0}`),
+    t.save(),
+    t.translate(e + 40, o + 150),
+    t.rotate(-0.12),
+    (t.lineWidth = 1.6),
+    t.strokeText("KRAY 07", 0, 0),
+    t.restore());
+  for (let r = 0; r < 9; r++) {
+    const p = e + 20 + l() * (n - 40),
+      f = o + 20 + l() * (a - 40),
+      c = l() * Math.PI,
+      d = 30 + l() * 140;
+    (t.beginPath(),
+      t.moveTo(p, f),
+      t.lineTo(p + Math.cos(c) * d, f + Math.sin(c) * d),
+      t.stroke());
+  }
+  (t.beginPath(), t.arc(e + 420, o + 70, 30, 0.3, 5.9), t.stroke());
+}
+function Jn(t, e, o, n, a) {
+  (_0(t, e, o, n, a),
+    Qt(t, e + 4, o + 4, a - 8, a - 8),
+    (t.fillStyle = "#ece6d6"),
+    (t.font = `bold 34px ${x}`),
+    (t.textAlign = "left"),
+    t.fillText("LINE 4", e + a + 4, o + a / 2 + 12));
+}
+function Yn(t, e, o, n, a) {
+  (J(t, e, o, n, a, "#0f7a3a"),
+    (t.fillStyle = "#eaf6ea"),
+    (t.font = `bold 34px ${x}`),
+    (t.textAlign = "center"),
+    t.fillText("EXIT", e + n / 2 + 30, o + 46),
+    t.fillRect(e + 40, o + 18, 10, 28),
+    Mt(t, e, o, n, a, () => !0));
+}
+function Xn(t, e, o, n, a, l) {
+  (J(t, e, o, n, a, "#e9e4d6"),
+    (t.fillStyle = "#161616"),
+    (t.textAlign = "center"),
+    (t.font = `bold 40px "Comic Sans MS", "Segoe Print", ${x}`),
+    t.fillText("SERVICE", e + n / 2, o + 74),
+    t.fillText("SUSPENDED", e + n / 2, o + 122),
+    (t.font = `22px "Comic Sans MS", "Segoe Print", ${x}`),
+    t.fillText("until further notice", e + n / 2, o + 166),
+    t.fillText("- Line 4 staff", e + n / 2 + 60, o + 212),
+    (t.fillStyle = "rgba(220,210,170,0.7)"),
+    t.fillRect(e + 10, o, 80, 26),
+    t.fillRect(e + n - 90, o, 80, 26),
+    E0(t, e, o, n, a, l, 1.4));
+}
+function ta(t, e, o, n, a) {
+  (_0(t, e, o, n, a),
+    (t.fillStyle = "#e8ecea"),
+    (t.font = `bold 44px ${Wt}`),
+    (t.textAlign = "left"),
+    t.fillText("4 0 1 3", e + 8, o + 50),
+    (t.font = `bold 22px ${x}`),
+    t.fillText("METRO  -  LINE 4", e + 10, o + 100));
+}
+function ea(t, e, o, n, a) {
+  (J(t, e, o, n, a, "#020403"),
+    (t.fillStyle = "#ffb020"),
+    (t.font = 'bold 22px "Courier New", monospace'),
+    (t.textAlign = "left"),
+    t.fillText("AUTOMATIC  OPERATION", e + 12, o + 40),
+    t.fillText("NEXT: PARKGATE", e + 12, o + 78),
+    t.fillText("DWELL  25 s", e + 12, o + 112),
+    Mt(t, e, o, n, a, (l) => l > 80));
+}
+function oa(t, e, o, n, a, l) {
+  _0(t, e, o, n, a);
+  const r = e + n * 0.3,
+    p = o + a * 0.5;
+  for (let f = 0; f < 160; f++) {
+    const c = (l() - 0.5) * 1.2,
+      d = l() * n * 0.8,
+      i = (1 - d / (n * 0.8)) * 9 * l() + 1;
+    ((t.fillStyle = `rgba(80,6,6,${0.5 + l() * 0.45})`),
+      t.beginPath(),
+      t.ellipse(r + Math.cos(c) * d, p + Math.sin(c) * d, i * 1.8, i, c, 0, 7),
+      t.fill());
+  }
+  ((t.fillStyle = "rgba(70,5,5,0.9)"),
+    t.beginPath(),
+    t.ellipse(r, p, 40, 30, 0, 0, 7),
+    t.fill());
+}
+function na(t, e, o, n, a, l) {
+  _0(t, e, o, n, a);
+  for (let r = 0; r < 60; r++) {
+    const p = e + l() * n,
+      f = o + l() * a,
+      c = 20 + l() * 80,
+      d = t.createRadialGradient(p, f, 0, p, f, c);
+    (d.addColorStop(0, `rgba(30,24,16,${0.15 + l() * 0.2})`),
+      d.addColorStop(1, "rgba(30,24,16,0)"),
+      (t.fillStyle = d),
+      t.fillRect(p - c, f - c, c * 2, c * 2));
+  }
+}
+function aa(t, e, o, n, a, l) {
+  (_0(t, e, o, n, a), t.save(), t.translate(e + n / 2, o + a * 0.35));
+  for (let r = 0; r < 4; r++)
+    ((t.fillStyle = `rgba(88,8,6,${0.6 - r * 0.1})`),
+      t.beginPath(),
+      t.ellipse(-36 + r * 24, -40, 12, 30, 0, 0, 7),
+      t.fill());
+  ((t.fillStyle = "rgba(88,8,6,0.75)"),
+    t.beginPath(),
+    t.ellipse(0, 20, 50, 48, 0, 0, 7),
+    t.fill());
+  for (let r = 0; r < 5; r++)
+    ((t.fillStyle = `rgba(88,8,6,${0.3 + l() * 0.3})`),
+      t.fillRect(-40 + r * 18, 40, 8, 60 + l() * 60));
+  t.restore();
+}
+function la(t, e, o, n, a, l) {
+  (_0(t, e, o, n, a),
+    (t.fillStyle = "rgba(75,6,6,0.85)"),
+    t.fillRect(e + 20, o + 20, n - 40, 22));
+  for (let r = 0; r < 26; r++) {
+    const p = e + 30 + l() * (n - 60),
+      f = 30 + l() * (a - 70),
+      c = 3 + l() * 8;
+    (t.fillRect(p, o + 30, c, f),
+      t.beginPath(),
+      t.arc(p + c / 2, o + 30 + f, c * 0.8, 0, 7),
+      t.fill());
+  }
+}
+const h = {
+    HL: 8.8,
+    HW: 1.4,
+    FL: 1.1,
+    IW: 1.3,
+    CEIL: 3.32,
+    END: 8.75,
+    doors: [-6, 0, 6],
+    DW: 1.3,
+    DHEAD: 3,
+    LEAF: 0.67,
+    TRAVEL: 0.68,
+    LZ0: 1.336,
+    LZ1: 1.37,
+    winY0: 1.95,
+    winY1: 2.95,
+    gIn: 1.372,
+    gOut: 1.384,
+    cabX: 7.05,
+    bogieX: 6.25,
+    wheelR: 0.42,
+    axle: 1.05,
+    seatY: 1.55,
+    seatZ: 0.82,
+    railY: 3.03,
+    railZ: 0.8,
+    cove: [
+      [1.04, 3.27],
+      [1.3, 3.06],
+    ],
+    led: [
+      [0.76, 3.3],
+      [1.04, 3.27],
+    ],
+  },
+  be = [
+    [-8.45, -7.42],
+    [-4.6, -3.08],
+    [-2.92, -1.4],
+    [1.4, 2.92],
+    [3.08, 4.6],
+    [7.42, 8.45],
+  ],
+  ho = (t) =>
+    t === "mid"
+      ? [
+          [-8.62, -6.83, 3],
+          [-5.17, -0.83, 8],
+          [0.83, 5.17, 8],
+          [6.83, 8.62, 3],
+        ]
+      : [
+          [-8.62, -6.83, 3],
+          [-5.17, -0.83, 8],
+          [0.83, 5.17, 8],
+        ],
+  Qe = (t) => [t, t, t],
+  g = {
+    side: _({ col: "#909090", rough: 0.3, metal: 1, kind: O.BAND }),
+    front: _({ col: "#909090", rough: 0.3, metal: 1, kind: O.BAND, param: 2 }),
+    leafOut: _({
+      col: "#909090",
+      rough: 0.3,
+      metal: 1,
+      kind: O.BAND,
+      param: 1,
+    }),
+    steel: _({ col: "#a2a2a0", rough: 0.28, metal: 1, kind: O.STEEL }),
+    steelY: _({
+      col: "#a2a2a0",
+      rough: 0.26,
+      metal: 1,
+      kind: O.STEEL,
+      param: 1,
+    }),
+    steelZ: _({
+      col: "#a2a2a0",
+      rough: 0.28,
+      metal: 1,
+      kind: O.STEEL,
+      param: 2,
+    }),
+    pole: _({ col: "#b4b4b2", rough: 0.18, metal: 1, kind: O.STEEL, param: 1 }),
+    railS: _({
+      col: "#b4b4b2",
+      rough: 0.18,
+      metal: 1,
+      kind: O.STEEL,
+      param: 0,
+    }),
+    roof: _({ col: "#7a7b79", rough: 0.45, metal: 0.85, kind: O.STEEL }),
+    alu: _({ col: "#8c8c88", rough: 0.4, metal: 1, kind: O.PLAIN }),
+    mask: _({ col: "#0a0b0c", rough: 0.2, kind: O.MASK }),
+    under: _({ col: "#17181a", rough: 0.7, metal: 0.3, kind: O.UNDER }),
+    underG: _({ col: "#2a2c2e", rough: 0.65, metal: 0.4, kind: O.UNDER }),
+    rubber: _({ col: "#0c0c0d", rough: 0.8, kind: O.RUBBER }),
+    black: _({ col: "#0e0e0f", rough: 0.5, kind: O.PAINT }),
+    lining: _({ col: "#a19e92", rough: 0.42, kind: O.LINING }),
+    liningG: _({ col: "#9c9a92", rough: 0.45, kind: O.LINING }),
+    cabLin: _({ col: "#3c3e40", rough: 0.55, kind: O.LINING }),
+    floor: _({ col: Qe(0.385), rough: 0.7, kind: O.FLOOR }),
+    cabFloor: _({ col: "#232426", rough: 0.8, kind: O.PAINT }),
+    fabric: _({ col: Qe(0.5), rough: 0.9, kind: O.FABRIC }),
+    shell: _({ col: "#3b3e41", rough: 0.45, kind: O.PAINT }),
+    kick: _({ col: "#8e8e8a", rough: 0.35, metal: 1, kind: O.STEEL }),
+    grille: _({ col: "#151617", rough: 0.6, metal: 0.4, kind: O.PAINT }),
+    slots: _({ col: "#b2ada0", rough: 0.45, kind: O.SLOTS, param: 0 }),
+    heater: _({
+      col: "#8e8e8a",
+      rough: 0.4,
+      metal: 1,
+      kind: O.SLOTS,
+      param: 0,
+    }),
+    slotsExt: _({
+      col: "#2a2c2e",
+      rough: 0.6,
+      metal: 0.4,
+      kind: O.SLOTS,
+      param: 0,
+    }),
+    led: _({ col: "#b8bab6", rough: 0.35, kind: O.LED }),
+    decal: _({ col: "#ffffff", rough: 0.45, kind: O.DECAL }),
+    route: _({ col: "#ffffff", rough: 0.35, kind: O.ROUTE }),
+    scroll: _({ col: "#ffffff", rough: 0.3, kind: O.SCROLL, param: 2.6 }),
+    dispGlow: (t) => _({ col: "#ffffff", rough: 0.3, kind: O.GLOW, param: t }),
+    head: _({ col: "#ffffff", rough: 0.1, kind: O.HEAD }),
+    tail: _({ col: "#ffffff", rough: 0.1, kind: O.TAIL }),
+    doorLamp: (t) =>
+      _({ col: "#ffffff", rough: 0.1, kind: O.DOORLAMP, param: t > 0 ? 1 : 0 }),
+    button: (t) =>
+      _({ col: "#ffffff", rough: 0.3, kind: O.BUTTON, param: t > 0 ? 1 : 0 }),
+    yellow: _({ col: "#c8a020", rough: 0.5, kind: O.PAINT }),
+    red: _({ col: "#9a1a16", rough: 0.35, kind: O.PAINT }),
+    seatBlack: _({ col: "#151515", rough: 0.55, kind: O.PAINT }),
+    console: _({ col: "#2a2c2e", rough: 0.5, kind: O.PAINT }),
+    glass: _({ col: "#2a3432", rough: 0.04, kind: 0, param: 0.12 }),
+    screen: _({ col: "#3a4442", rough: 0.04, kind: 2, param: 0.05 }),
+    wind: _({ col: "#1c2422", rough: 0.03, kind: 1, param: 0.16 }),
+  },
+  At = (t) => (t > 0 ? null : gn);
+function Ht(t, e) {
+  if (!e) return t;
+  const o = t.index.array;
+  for (let n = 0; n < o.length; n += 3) {
+    const a = o[n + 1];
+    ((o[n + 1] = o[n + 2]), (o[n + 2] = a));
+  }
+  return t;
+}
+function X(t, e, o, n, a, l, r, p, f = {}) {
+  const c = (i, s) => [
+      e.x + o.x * i + n.x * s,
+      e.y + o.y * i + n.y * s,
+      e.z + o.z * i + n.z * s,
+    ],
+    d = h0(
+      c(-a / 2, -l / 2),
+      c(a / 2, -l / 2),
+      c(a / 2, l / 2),
+      c(-a / 2, l / 2),
+    );
+  t.add(d, null, p, { uv: ct(r), ...f });
+}
+const mo = [
+    [0, 0.93],
+    [1.33, 0.93],
+    [1.36, 0.935],
+    [1.4, 0.97],
+  ],
+  go = [
+    [1.4, 3.1],
+    [1.395, 3.2],
+    [1.376, 3.29],
+    [1.337, 3.37],
+    [1.272, 3.445],
+    [1.18, 3.51],
+    [1.06, 3.556],
+    [0.9, 3.592],
+    [0.7, 3.612],
+    [0.4, 3.62],
+    [0, 3.62],
+  ],
+  ra = [
+    [0, 3.32],
+    [0.76, 3.32],
+    [0.76, 3.3],
+  ];
+function ge() {
+  const t = [...mo.slice(1), ...go.slice(0, -1)],
+    e = t
+      .slice()
+      .reverse()
+      .map(([o, n]) => [-o, n]);
+  return [[-1.33, 0.93], ...t, [0, 3.62], ...e];
+}
+function jt(t = 0, e = 0) {
+  const o = [
+    [1.3, 3.06],
+    [1.04, 3.27],
+    [0.76, 3.3],
+    [0.76, 3.32],
+    [-0.76, 3.32],
+    [-0.76, 3.3],
+    [-1.04, 3.27],
+    [-1.3, 3.06],
+  ];
+  return [
+    ...(t > 0
+      ? [
+          [-1.3, 1.1],
+          [-t, 1.1],
+          [-t, e],
+          [t, e],
+          [t, 1.1],
+          [1.3, 1.1],
+        ]
+      : [
+          [-1.3, 1.1],
+          [1.3, 1.1],
+        ]),
+    ...o,
+  ];
+}
+function Je(t, e, o) {
+  const n = new M0("ext"),
+    a = new M0("int"),
+    l = new M0("gIn"),
+    r = new M0("gOut"),
+    p = new M0("dec"),
+    f = {
+      type: t,
+      lod: e,
+      hi: e === "hi",
+      rng: o,
+      x0: -8.75,
+      x1: t === "cab" ? h.cabX : h.END,
+    };
+  for (const c of [1, -1]) (sa(n, a, l, r, c, f), ia(n, a, l, r, c));
+  return (
+    ca(n),
+    da(a, l, r, p, f),
+    fa(n, a, l, r, f),
+    t === "cab" && ba(n, a, l, r),
+    va(n),
+    { ext: n, int: a, gIn: l, gOut: r, dec: p, info: f }
+  );
+}
+function sa(t, e, o, n, a, l) {
+  const r = At(a),
+    p = be.map(([s, m]) => y0(s, h.winY0, m, h.winY1, 0.09, 3)),
+    f = h.doors.map((s) => [
+      [s - 0.65, 1.1],
+      [s + 0.65, 1.1],
+      [s + 0.65, h.DHEAD],
+      [s - 0.65, h.DHEAD],
+    ]);
+  t.add(
+    St(
+      [
+        [-8.8, 0.97],
+        [h.HL, 0.97],
+        [h.HL, 3.1],
+        [-8.8, 3.1],
+      ],
+      [...p, ...f],
+      h.HW,
+      1,
+    ),
+    r,
+    g.side,
+  );
+  for (const s of p) {
+    t.add(Y0(s, h.gOut - 0.004, h.HW), r, g.black);
+    const m = new Q0(s.map(([P, C]) => new c0(P, C))),
+      v = new F0(m, 3),
+      y = v.clone();
+    (y.translate(0, 0, h.gOut), n.add(y, r, g.glass));
+    const w = v.clone();
+    w.translate(0, 0, h.gIn);
+    const M = w.index.array;
+    for (let P = 0; P < M.length; P += 3) {
+      const C = M[P + 1];
+      ((M[P + 1] = M[P + 2]), (M[P + 2] = C));
+    }
+    const k = w.attributes.normal;
+    for (let P = 0; P < k.count; P++) k.setXYZ(P, 0, 0, -1);
+    o.add(w, r, g.glass);
+  }
+  for (const s of h.doors) {
+    const m = [
+      [s - 0.65, 1.1],
+      [s + 0.65, 1.1],
+      [s + 0.65, h.DHEAD],
+      [s - 0.65, h.DHEAD],
+    ];
+    (t.add(Y0(m, h.IW, h.HW), r, g.steelY, {
+      pick: (v) => (v.y < 1.105 ? g.alu : g.steelY),
+    }),
+      t.add(
+        U(s - 0.65, 1.085, h.IW - 0.01, s + 0.65, 1.102, h.HW + 0.03, 0.004),
+        r,
+        g.alu,
+      ),
+      t.add(
+        s0(s - 0.65, 1.1, h.HW - 0.02, s + 0.65, 1.103, h.HW + 0.03),
+        r,
+        g.yellow,
+      ),
+      t.add(
+        U(s - 0.09, 3.035, h.HW - 0.01, s + 0.09, 3.085, h.HW + 0.022, 0.008),
+        r,
+        g.black,
+      ),
+      t.add(
+        h0(
+          [s - 0.07, 3.042, h.HW + 0.0225],
+          [s + 0.07, 3.042, h.HW + 0.0225],
+          [s + 0.07, 3.078, h.HW + 0.0225],
+          [s - 0.07, 3.078, h.HW + 0.0225],
+        ),
+        r,
+        g.doorLamp(a),
+        { uv: (v, y, w, M) => [w, M] },
+      ));
+  }
+  const c = a * (h.HW + 0.003),
+    d = b(a, 0, 0),
+    i = b(0, 1, 0);
+  (X(t, b(7.95, 1.805, c), d, i, 0.3, 0.075, R[l.number || "car4013"], g.decal),
+    X(
+      t,
+      b(-7.95, 1.805, c),
+      d,
+      i,
+      0.3,
+      0.075,
+      R[l.number || "car4013"],
+      g.decal,
+    ),
+    X(t, b(0.95 * a, 1.805, c), d, i, 0.17, 0.17, R.roundel, g.decal));
+}
+function ia(t, e, o, n, a, l) {
+  const r = At(a);
+  for (const p of h.doors)
+    for (const f of [-1, 1]) {
+      const c = (a < 0 ? 1 : 3) + (f > 0 ? 1 : 0),
+        d = f < 0 ? p - h.LEAF : p,
+        i = f < 0 ? p : p + h.LEAF,
+        s = f < 0 ? i : d,
+        m = f < 0 ? d + 0.13 : d + 0.1,
+        v = f < 0 ? i - 0.1 : i - 0.13,
+        y = y0(m, 1.96, v, 2.9, 0.06, 3),
+        w = [
+          [d, 1.105],
+          [i, 1.105],
+          [i, 3.02],
+          [d, 3.02],
+        ];
+      (t.add(St(w, [y], h.LZ1, 1), r, g.leafOut, { anim: c }),
+        e.add(St(w, [y], h.LZ0, -1), r, g.steel, { anim: c }));
+      const M = Y0(w.slice().reverse(), h.LZ0, h.LZ1);
+      (t.add(M, r, g.steel, {
+        anim: c,
+        pick: (z) => (Math.abs(z.x - s) < 0.002 ? g.rubber : g.steel),
+      }),
+        t.add(
+          U(
+            s - 0.012,
+            1.105,
+            h.LZ0 - 0.004,
+            s + 0.012,
+            3.02,
+            h.LZ1 + 0.004,
+            0.01,
+          ),
+          r,
+          g.rubber,
+          { anim: c },
+        ),
+        t.add(Y0(y, h.LZ0, h.LZ1), r, g.rubber, { anim: c }));
+      const k = new Q0(y.map(([z, q]) => new c0(z, q))),
+        P = new F0(k, 3);
+      (P.translate(0, 0, (h.LZ0 + h.LZ1) / 2 + 0.006),
+        n.add(P, r, g.glass, { anim: c }));
+      const C = new F0(k, 3);
+      C.translate(0, 0, (h.LZ0 + h.LZ1) / 2 - 0.006);
+      const F = C.index.array;
+      for (let z = 0; z < F.length; z += 3) {
+        const q = F[z + 1];
+        ((F[z + 1] = F[z + 2]), (F[z + 2] = q));
+      }
+      const D = C.attributes.normal;
+      for (let z = 0; z < D.count; z++) D.setXYZ(z, 0, 0, -1);
+      if ((o.add(C, r, g.glass, { anim: c }), f > 0)) {
+        const z = a * (h.LZ0 - 0.002),
+          q = b(-a, 0, 0);
+        X(
+          e,
+          b((d + i) / 2, 1.78, z),
+          q,
+          b(0, 1, 0),
+          0.3,
+          0.075,
+          R.lean,
+          g.decal,
+          { anim: c },
+        );
+      }
+    }
+}
+function ca(t, e) {
+  for (const o of [1, -1]) {
+    const n = At(o);
+    (t.add($0(mo, -8.8, h.HL, { out: 1, hard: [1] }), n, g.under, {
+      pick: (a) => (a.y < 0.935 ? g.under : g.black),
+    }),
+      t.add($0(go, -8.8, h.HL, { out: 1, nx: 1 }), n, g.roof, {
+        pick: (a) => (a.y > 3.2 ? g.roof : g.steel),
+      }),
+      t.add(
+        $0(
+          [
+            [1.405, 3.13],
+            [1.418, 3.135],
+            [1.42, 3.16],
+          ],
+          -8.8,
+          h.HL,
+          { out: 1 },
+        ),
+        n,
+        g.steel,
+      ));
+  }
+  for (const o of [-5.8, 5.8]) {
+    (t.add(
+      U(o - 1.5, 3.54, -0.82, o + 1.5, 3.655, 0.82, 0.04, 2),
+      null,
+      g.roof,
+    ),
+      t.add(s0(o - 1.1, 3.655, -0.55, o - 0.1, 3.66, 0.55), null, g.slotsExt));
+    for (const n of [-0.62, 0.62])
+      t.add(
+        d0(b(o + 0.9, 3.655, n), b(o + 0.9, 3.665, n), 0.2, 16),
+        null,
+        g.grille,
+      );
+  }
+}
+function fa(t, e, o, n, a) {
+  const l = ge(),
+    r = y0(-0.56, 1.08, 0.56, 3.08, 0.12, 3),
+    p = (f, c) => {
+      t.add(C0(l, [r], f, c), null, g.steelZ);
+      const d = Y0(
+          r.map(([m, v]) => [m, v]),
+          0,
+          0.06,
+        ),
+        i = d.attributes.position,
+        s = d.attributes.normal;
+      for (let m = 0; m < i.count; m++) {
+        const v = i.getX(m),
+          y = i.getY(m),
+          w = i.getZ(m);
+        i.setXYZ(m, f - c * w, y, v);
+        const M = s.getX(m),
+          k = s.getY(m);
+        s.setXYZ(m, 0, k, M);
+      }
+      (Ht(d, c < 0), t.add(d, null, g.black));
+      for (const m of [-0.9, 0.9])
+        t.add(
+          d0(b(f + c * 0.03, 1.3, m), b(f + c * 0.03, 2.4, m), 0.016, 8),
+          null,
+          g.steel,
+        );
+      for (const m of [-0.95, 0.95])
+        t.add(
+          U(f, 0.95, m - 0.14, f + c * 0.07, 1.06, m + 0.14, 0.01),
+          null,
+          g.underG,
+        );
+    };
+  (a.type === "mid" && p(h.HL, 1), p(-8.8, -1));
+}
+function da(t, e, o, n, a) {
+  const { x0: l, x1: r } = a;
+  t.add(
+    h0([l, h.FL, h.IW], [r, h.FL, h.IW], [r, h.FL, -1.3], [l, h.FL, -1.3]),
+    null,
+    g.floor,
+    { uv: (p) => [p.x, p.z] },
+  );
+  for (const p of [1, -1]) {
+    const f = At(p),
+      c = [[l, 1.1]];
+    for (const s of h.doors)
+      c.push(
+        [s - 0.65, 1.1],
+        [s - 0.65, h.DHEAD],
+        [s + 0.65, h.DHEAD],
+        [s + 0.65, 1.1],
+      );
+    c.push([r, 1.1], [r, 3.06], [l, 3.06]);
+    const d = be.filter(([s, m]) => m < r - 0.05),
+      i = d.map(([s, m]) =>
+        y0(s - 0.035, h.winY0 - 0.035, m + 0.035, h.winY1 + 0.035, 0.12, 3),
+      );
+    (t.add(St(c, i, h.IW, -1), f, g.lining),
+      d.forEach(([s, m], v) => {
+        const y = i[v],
+          w = y0(s, h.winY0, m, h.winY1, 0.09, 3);
+        t.add(po(y, h.IW, w, h.gIn - 0.002), f, g.liningG, {
+          pick: (M) => (Math.abs(M.z) > h.gIn - 0.03 ? g.rubber : g.liningG),
+        });
+      }),
+      t.add($0(h.cove, l, r, { out: 1 }), f, g.lining),
+      t.add($0(ra, l, r, { out: 1, hard: [1] }), f, g.lining));
+  }
+  (ua(t, a),
+    t.add(
+      h0(
+        [l + 0.3, h.CEIL - 0.003, -0.12],
+        [l + 0.3, h.CEIL - 0.003, 0.12],
+        [r - 0.3, h.CEIL - 0.003, 0.12],
+        [r - 0.3, h.CEIL - 0.003, -0.12],
+      ),
+      null,
+      g.slots,
+    ));
+  for (const p of [1, -1])
+    t.add(
+      s0(l + 0.28, h.CEIL - 0.006, p * 0.12, r - 0.28, h.CEIL, p * 0.145),
+      null,
+      g.alu,
+    );
+  for (const p of [-3, 3])
+    p > r ||
+      t.add(
+        L0(
+          [
+            [0, 0],
+            [0.11, 0],
+            [0.12, 0.006],
+            [0, 0.006],
+          ],
+          20,
+        )
+          .translate(0, -0.006, 0)
+          .applyMatrix4(J0(p, h.CEIL, 0.45)),
+        null,
+        g.grille,
+      );
+  (pa(t, a), ha(t, e, a), ga(t, e, o, a));
+}
+function ua(t, e) {
+  const { x0: o, x1: n } = e,
+    [a, l] = h.led;
+  for (const r of [1, -1]) {
+    const p = n - o - 0.3,
+      f = Math.max(1, Math.round(p / 1.2)),
+      c = p / f;
+    for (let d = 0; d < f; d++) {
+      const i = o + 0.15 + d * c + 0.03,
+        s = o + 0.15 + (d + 1) * c - 0.03,
+        m = r * (a[0] + 0.02),
+        v = r * (l[0] - 0.02),
+        y = a[1] - 0.004 + 0.001,
+        w = l[1] - 0.003,
+        M =
+          r > 0
+            ? h0(
+                [s, y, m],
+                [s, w, v],
+                [i, w, v],
+                [i, y, m],
+                [
+                  [0, 0],
+                  [0, 1],
+                  [1, 1],
+                  [1, 0],
+                ],
+              )
+            : h0(
+                [i, y, m],
+                [i, w, v],
+                [s, w, v],
+                [s, y, m],
+                [
+                  [0, 0],
+                  [0, 1],
+                  [1, 1],
+                  [1, 0],
+                ],
+              );
+      t.add(M, null, g.led);
+    }
+    t.add(
+      $0(
+        [
+          [r * (a[0] + 0.01), a[1] - 0.004],
+          [r * (a[0] + 0.01), a[1] + 0.006],
+        ],
+        o,
+        n,
+        { out: -r },
+      ),
+      null,
+      g.grille,
+    );
+  }
+}
+function pa(t, e) {
+  const { x1: o, rng: n } = e,
+    [a, l] = h.cove,
+    r = ["ad0", "ad1", "ad2", "ad3", "ad4", "ad5", "ad6", "ad7"];
+  let p = Math.floor(n() * 8);
+  for (const f of [1, -1]) {
+    const c = b(0, a[1] - l[1], f * (a[0] - l[0])).normalize(),
+      d = b(0, -(l[0] - a[0]), -f * (a[1] - l[1])).normalize(),
+      i = b(-f, 0, 0),
+      s = (m) => b(0, l[1] + (a[1] - l[1]) * m, f * (l[0] + (a[0] - l[0]) * m));
+    for (const [m, v] of be) {
+      if (v > o - 0.05) continue;
+      const w =
+        v - m > 1.2 ? [(m + v) / 2 - 0.35, (m + v) / 2 + 0.35] : [(m + v) / 2];
+      for (const M of w) {
+        const k = s(0.5);
+        ((k.x = M), k.addScaledVector(d, 0.004));
+        let P = R[r[p++ % r.length]];
+        (e.type === "mid" && f < 0 && Math.abs(M - 2.5) < 0.6 && (P = R.notice),
+          t.add(
+            U(-0.33, -0.125, -0.006, 0.33, 0.125, 0, 0.004).applyMatrix4(
+              new i0()
+                .makeBasis(i, c, d.clone())
+                .setPosition(k.clone().addScaledVector(d, -0.002)),
+            ),
+            null,
+            g.steel,
+          ),
+          X(
+            t,
+            k.clone().addScaledVector(d, 0.001),
+            i,
+            c,
+            0.62,
+            0.232,
+            P,
+            g.decal,
+          ));
+      }
+    }
+    for (const m of h.doors) {
+      const v = s(0.52);
+      ((v.x = m),
+        v.addScaledVector(d, 0.004),
+        X(t, v, i, c, 1.02, 0.1275, R.route, g.route));
+      const y = b(m, 3.035, f * (h.IW - 0.0205));
+      (t.add(
+        U(m - 0.08, 3.02, f * (h.IW - 0.02), m + 0.08, 3.05, f * h.IW, 0.006),
+        null,
+        g.black,
+      ),
+        X(
+          t,
+          y,
+          i,
+          b(0, 1, 0),
+          0.13,
+          0.022,
+          [0.45, 0.45, 0.55, 0.55],
+          g.doorLamp(f),
+          { uv: (w, M, k, P) => [k, P] },
+        ));
+      for (const w of [m - 0.72, m + 0.72])
+        w > e.x1 - 0.05 ||
+          (t.add(
+            U(
+              w - 0.045,
+              2.1,
+              f * (h.IW - 0.012),
+              w + 0.045,
+              2.19,
+              f * h.IW,
+              0.008,
+            ),
+            null,
+            g.alu,
+          ),
+          X(
+            t,
+            b(w, 2.145, f * (h.IW - 0.0132)),
+            i,
+            b(0, 1, 0),
+            0.07,
+            0.07,
+            R.btnOpen,
+            g.button(f),
+          ));
+    }
+  }
+}
+const Ye = [
+    [0.86, 1.47],
+    [1.2, 1.465],
+    [1.228, 1.49],
+    [1.232, 1.52],
+    [1.215, 1.538],
+    [1.1, 1.545],
+    [0.95, 1.552],
+    [0.875, 1.553],
+    [0.842, 1.547],
+    [0.824, 1.53],
+    [0.82, 1.505],
+    [0.828, 1.483],
+    [0.845, 1.472],
+    [0.86, 1.47],
+  ],
+  Xe = [
+    [1.165, 1.585],
+    [1.245, 1.575],
+    [1.275, 1.6],
+    [1.29, 1.98],
+    [1.28, 2],
+    [1.255, 2.008],
+    [1.228, 2],
+    [1.205, 1.96],
+    [1.175, 1.66],
+    [1.163, 1.61],
+    [1.165, 1.585],
+  ];
+function ha(t, e, o) {
+  const { hi: n, x1: a } = o,
+    l = ho(o.type),
+    r = n ? 6 : 3;
+  for (const p of [1, -1]) {
+    const f = At(p);
+    for (const [d, i, s] of l) {
+      const m = (i - d) / s,
+        v = (F) => {
+          const D = ((F - d) / m) % 1;
+          return Math.sin(Math.PI * fo(D));
+        },
+        y = (F) => {
+          const D = ((F - d) / m) % 1,
+            z = Math.min(D, 1 - D) * m;
+          return 1 - rt(0, 0.03, z);
+        },
+        w = (F, D, z) => [
+          0,
+          -(rt(1.53, 1.55, z) * rt(0.83, 0.9, D) * (1 - rt(1.18, 1.23, D))) *
+            (0.012 * v(F) + 0.01 * y(F)),
+        ],
+        M = (F, D, z) => [
+          (1 - rt(1.2, 1.24, D)) *
+            rt(1.6, 1.7, z) *
+            (1 - rt(1.93, 1.99, z)) *
+            (0.01 * v(F) + 0.008 * y(F)),
+          0,
+        ],
+        k = $0(Ye, d + 0.01, i - 0.01, { out: 1, nx: s * r, disp: w }),
+        P = $0(Xe, d + 0.01, i - 0.01, { out: 1, nx: s * r, disp: M }),
+        C = (F) => [F.x, F.y + F.z * 1];
+      (t.add(k, f, g.fabric, { uv: (F, D, z, q) => [F.x, q] }),
+        t.add(P, f, g.fabric, { uv: (F, D, z, q) => [F.x, q + 0.3] }));
+      for (const F of [d + 0.01, i - 0.01])
+        (t.add(to(Ye, F, F < (d + i) / 2 ? -1 : 1), f, g.fabric, { uv: C }),
+          t.add(to(Xe, F, F < (d + i) / 2 ? -1 : 1), f, g.fabric, { uv: C }));
+      (t.add(U(d, 1.43, 0.84, i, 1.47, 1.25, 0.012), f, g.shell),
+        t.add(U(d + 0.02, h.FL, 0.9, i - 0.02, 1.44, 0.93, 0.006), f, g.kick),
+        t.add(
+          s0(d + 0.08, h.FL + 0.04, 0.897, i - 0.08, h.FL + 0.13, 0.9),
+          f,
+          g.heater,
+        ),
+        t.add(U(d, 1.56, 1.27, i, 2, 1.3, 0.01), f, g.shell));
+    }
+    const c = [];
+    for (const [d, i] of l)
+      for (const s of [d, i]) Math.abs(Math.abs(s) - h.END) > 0.3 && c.push(s);
+    for (const d of c) {
+      const i =
+          c.includes(d) && l.some(([M]) => Math.abs(M - d) < 1e-6) ? -1 : 1,
+        s = d + i * 0.015,
+        m = h.railZ;
+      (t.add(
+        U(s - 0.012, 1.18, 0.86, s + 0.012, 1.75, h.IW - 0.005, 0.01),
+        f,
+        g.shell,
+      ),
+        t.add(
+          j0(
+            [b(s, 1.75, h.IW - 0.005), b(s, 1.75, 0.86), b(s, 1.79, 0.82)],
+            0.013,
+            8,
+          ),
+          f,
+          g.railS,
+        ),
+        t.add(
+          j0(
+            [b(s, 2.36, h.IW - 0.005), b(s, 2.36, 0.86), b(s, 2.32, 0.82)],
+            0.013,
+            8,
+          ),
+          f,
+          g.railS,
+        ));
+      const v = new en(h.IW - 0.86 - 0.005, 2.35 - 1.76);
+      (v.rotateY(Math.PI / 2),
+        v.translate(s, (1.76 + 2.35) / 2, (h.IW + 0.86) / 2),
+        e.add(v, f, g.screen, { both: !0 }));
+      const y = h.railY,
+        w = [
+          b(s, h.FL, m),
+          b(s, y - 0.12, m),
+          b(s + i * -0.02, y - 0.04, m),
+          b(s + i * -0.1, y, m),
+        ];
+      (t.add(j0(w, 0.0175, n ? 12 : 8, { cap0: !1 }), f, g.pole),
+        t.add(
+          L0(
+            [
+              [0, 0],
+              [0.04, 0],
+              [0.042, 0.01],
+              [0.022, 0.03],
+              [0, 0.03],
+            ],
+            12,
+          ).applyMatrix4(J0(s, h.FL, m)),
+          f,
+          g.steel,
+        ));
+    }
+    for (const [d, i] of l) {
+      const s = Math.max(d, o.x0 + 0.15),
+        m = Math.min(i, a - 0.15);
+      t.add(
+        j0(
+          [b(s - 0.1, h.railY, h.railZ), b(m + 0.1, h.railY, h.railZ)],
+          0.0165,
+          n ? 12 : 8,
+          { cap0: !0, cap1: !0 },
+        ),
+        f,
+        g.railS,
+      );
+      const v = Math.max(2, Math.round((m - s) / 1.3) + 1);
+      for (let y = 0; y < v; y++) {
+        const w = s + ((m - s) * y) / (v - 1);
+        (t.add(
+          d0(b(w, h.railY, h.railZ), b(w, 3.29, h.railZ - 0.01), 0.012, 8),
+          f,
+          g.railS,
+        ),
+          t.add(
+            L0(
+              [
+                [0, 0],
+                [0.03, 0],
+                [0.03, 0.01],
+                [0, 0.01],
+              ],
+              10,
+            ).applyMatrix4(J0(w, 3.282, h.railZ - 0.01)),
+            f,
+            g.steel,
+          ));
+      }
+      if (o.hi)
+        for (let y = s + 0.22; y < m - 0.1; y += 0.42) ma(t, f, y, o.rng);
+    }
+  }
+}
+function to(t, e, o) {
+  const n = new Q0(t.map(([f, c]) => new c0(f, c))),
+    a = new F0(n, 2),
+    l = a.attributes.position,
+    r = a.attributes.normal;
+  for (let f = 0; f < l.count; f++) {
+    const c = l.getX(f),
+      d = l.getY(f);
+    (l.setXYZ(f, e, d, c), r.setXYZ(f, o, 0, 0));
+  }
+  const p = a.index.array;
+  if (o > 0)
+    for (let f = 0; f < p.length; f += 3) {
+      const c = p[f + 1];
+      ((p[f + 1] = p[f + 2]), (p[f + 2] = c));
+    }
+  return a;
+}
+function ma(t, e, o, n) {
+  const l = h.railY,
+    r = 0.2 + n() * 0.02,
+    p = h.railZ,
+    f = (n() - 0.5) * 0.04,
+    c = _({ col: "#2a2b2c", rough: 0.7, kind: O.PAINT });
+  t.add(
+    s0(o - 0.025 / 2, l - r, p - 0.004, o + 0.025 / 2, l + 0.02, p + 0.004),
+    e,
+    c,
+  );
+  const d = uo(0.062, 0.0105, 6, 18);
+  (d.rotateY(Math.PI / 2),
+    t.add(
+      d.applyMatrix4(J0(o, l - r - 0.06, p + f * 0)),
+      e,
+      _({ col: "#c9c0a8", rough: 0.4, kind: O.PAINT }),
+    ));
+}
+function ga(t, e, o, n) {
+  const { type: a } = n,
+    l = (f, c, d) => {
+      t.add(C0(jt(0.42, 3.02), [], f, c), null, g.lining);
+    },
+    r = (f, c, d = 0) => {
+      const i = f - c * 0.02,
+        s = { anim: d },
+        m = C0(
+          [
+            [-0.42, 1.1],
+            [0.42, 1.1],
+            [0.42, 3.02],
+            [-0.42, 3.02],
+          ],
+          [y0(-0.23, 1.95, 0.23, 2.85, 0.06, 3)],
+          i,
+          c,
+        );
+      t.add(m, null, g.steel, s);
+      const v = C0(
+        [
+          [-0.42, 1.1],
+          [0.42, 1.1],
+          [0.42, 3.02],
+          [-0.42, 3.02],
+        ],
+        [y0(-0.23, 1.95, 0.23, 2.85, 0.06, 3)],
+        i - c * 0.04,
+        -c,
+      );
+      t.add(v, null, g.steel, s);
+      const y = y0(-0.23, 1.95, 0.23, 2.85, 0.06, 3),
+        w = Y0(y, 0, 0.04),
+        M = w.attributes.position,
+        k = w.attributes.normal;
+      for (let D = 0; D < M.count; D++) {
+        const z = M.getX(D),
+          q = M.getY(D),
+          Y = M.getZ(D);
+        (M.setXYZ(D, i - c * Y, q, z), k.setXYZ(D, 0, k.getY(D), k.getX(D)));
+      }
+      (Ht(w, c < 0), t.add(w, null, g.rubber, s));
+      const P = new Q0(y.map(([D, z]) => new c0(D, z))),
+        C = new F0(P, 3),
+        F = (D, z, q) => {
+          const Y = D.attributes.position,
+            Z0 = D.attributes.normal;
+          for (let Q = 0; Q < Y.count; Q++) {
+            const O0 = Y.getX(Q),
+              X0 = Y.getY(Q);
+            (Y.setXYZ(Q, z, X0, O0), Z0.setXYZ(Q, q, 0, 0));
+          }
+          const m0 = D.index.array;
+          if (q > 0)
+            for (let Q = 0; Q < m0.length; Q += 3) {
+              const O0 = m0[Q + 1];
+              ((m0[Q + 1] = m0[Q + 2]), (m0[Q + 2] = O0));
+            }
+          return D;
+        };
+      (e.add(F(C.clone(), i - c * 0.015, c), null, g.glass, s),
+        e.add(F(C.clone(), i - c * 0.025, -c), null, g.glass, s),
+        t.add(
+          U(i + c * 0.005 - 0.01, 2.12, 0.3, i + c * 0.04, 2.16, 0.36, 0.008),
+          null,
+          g.steel,
+          s,
+        ),
+        t.add(
+          U(i - 0.002, 1.1, -0.4, i + c * 0.003, 1.35, 0.4, 0.004),
+          null,
+          g.kick,
+          s,
+        ));
+      for (const D of [-0.45, 0.45])
+        t.add(
+          U(f - 0.01, 1.1, D - 0.03, f + c * 0.02, 3.05, D + 0.03, 0.008),
+          null,
+          g.steel,
+        );
+      t.add(
+        U(f - 0.01, 3.02, -0.48, f + c * 0.02, 3.08, 0.48, 0.008),
+        null,
+        g.steel,
+      );
+    },
+    p = (f, c, d) => {
+      const i = f + c * 0.01;
+      t.add(
+        U(i - c * 0, 3.1, -0.5, i + c * 0.07, 3.24, 0.5, 0.01),
+        null,
+        g.grille,
+      );
+      const s = b(0, 0, c > 0 ? -1 : 1);
+      X(
+        t,
+        b(i + c * 0.071, 3.17, 0),
+        s,
+        b(0, 1, 0),
+        0.92,
+        0.1,
+        [0, 0, 1, 1],
+        g.scroll,
+        {
+          uv: (w, M, k, P) => [
+            k,
+            R.scroll[1] + (R.scroll[3] - R.scroll[1]) * P,
+          ],
+        },
+      );
+      const m = c > 0 ? 0.66 : -0.66,
+        v = f + c * 0.12;
+      (t.add(
+        L0(
+          [
+            [0, 0],
+            [0.075, 0],
+            [0.08, 0.02],
+            [0.08, 0.5],
+            [0.06, 0.56],
+            [0.025, 0.6],
+            [0, 0.6],
+          ],
+          16,
+        ).applyMatrix4(J0(v, 1.28, m)),
+        null,
+        g.red,
+      ),
+        t.add(
+          U(v - 0.03, 1.86, m - 0.02, v + 0.03, 1.94, m + 0.02, 0.01),
+          null,
+          g.black,
+        ),
+        t.add(
+          j0(
+            [
+              b(v, 1.9, m + 0.02),
+              b(v + c * 0.04, 1.8, m + 0.09),
+              b(v + c * 0.05, 1.5, m + 0.1),
+            ],
+            0.008,
+            6,
+          ),
+          null,
+          g.black,
+        ),
+        X(
+          t,
+          b(v + c * 0.081, 1.62, m),
+          b(0, 0, c > 0 ? -1 : 1),
+          b(0, 1, 0),
+          0.07,
+          0.14,
+          R.extLabel,
+          g.decal,
+          { col: () => [1, 1, 1] },
+        ),
+        t.add(
+          U(f, 1.2, m - 0.1, f + c * 0.03, 1.9, m + 0.1, 0.01),
+          null,
+          g.liningG,
+        ));
+      const y = -m;
+      (X(
+        t,
+        b(f + c * 0.012, 2.25, y),
+        s,
+        b(0, 1, 0),
+        0.22,
+        0.22,
+        R.intercom,
+        g.decal,
+      ),
+        t.add(
+          U(f, 1.85, y - 0.08, f + c * 0.06, 1.95, y + 0.08, 0.02),
+          null,
+          g.red,
+        ),
+        X(
+          t,
+          b(f + c * 0.012, 2.5, y),
+          s,
+          b(0, 1, 0),
+          0.26,
+          0.065,
+          R.alarm,
+          g.decal,
+        ),
+        X(
+          t,
+          b(f + c * 0.012, 2.78, m),
+          s,
+          b(0, 1, 0),
+          0.2,
+          0.067,
+          R.nosmoke,
+          g.decal,
+        ),
+        d &&
+          X(
+            t,
+            b(f + c * 0.012, 2.95, -m),
+            s,
+            b(0, 1, 0),
+            0.24,
+            0.06,
+            R.car4013,
+            g.decal,
+          ));
+    };
+  if (a === "mid")
+    (l(h.END, -1),
+      r(h.END, -1, 8),
+      p(h.END, -1, !0),
+      l(-8.75, 1),
+      r(-8.75, 1, 7),
+      p(-8.75, 1, !0));
+  else {
+    t.add(C0(jt(0.5, 3.04), [], -8.75, 1), null, g.lining);
+    for (const f of [-0.53, 0.53])
+      t.add(
+        U(-8.75 - 0.05, 1.1, f - 0.03, -8.75 + 0.02, 3.07, f + 0.03, 0.008),
+        null,
+        g.steel,
+      );
+    (t.add(
+      U(-8.75 - 0.05, 3.04, -0.56, -8.75 + 0.02, 3.1, 0.56, 0.008),
+      null,
+      g.steel,
+    ),
+      p(-8.75, 1, !1));
+  }
+}
+function ba(t, e, o, n, a) {
+  const l = h.cabX,
+    r = h.HL,
+    p = (s, m, v) => {
+      const y = s.attributes.position,
+        w = s.attributes.normal;
+      for (let M = 0; M < y.count; M++) {
+        const k = y.getX(M),
+          P = y.getY(M);
+        (y.setXYZ(M, m, P, k), w.setXYZ(M, v, 0, 0));
+      }
+      return Ht(s, v > 0);
+    },
+    f = y0(-0.2, 1.86, 0.2, 2.84, 0.05, 3);
+  (e.add(C0(jt(0.36, 3), [], l, -1), null, g.lining),
+    e.add(C0(jt(0.36, 3), [], l + 0.04, 1), null, g.cabLin),
+    e.add(
+      C0(
+        [
+          [-0.36, 1.1],
+          [0.36, 1.1],
+          [0.36, 3],
+          [-0.36, 3],
+        ],
+        [f],
+        l + 0.01,
+        -1,
+      ),
+      null,
+      g.steel,
+    ),
+    e.add(
+      C0(
+        [
+          [-0.36, 1.1],
+          [0.36, 1.1],
+          [0.36, 3],
+          [-0.36, 3],
+        ],
+        [f],
+        l + 0.035,
+        1,
+      ),
+      null,
+      g.cabLin,
+    ));
+  {
+    const s = new Q0(f.map(([w, M]) => new c0(w, M)));
+    (o.add(p(new F0(s, 3), l + 0.015, -1), null, g.glass),
+      o.add(p(new F0(s, 3), l + 0.03, 1), null, g.glass));
+    const m = Y0(f, 0, 0.025),
+      v = m.attributes.position,
+      y = m.attributes.normal;
+    for (let w = 0; w < v.count; w++) {
+      const M = v.getX(w),
+        k = v.getY(w),
+        P = v.getZ(w);
+      (v.setXYZ(w, l + 0.01 + P, k, M), y.setXYZ(w, 0, y.getY(w), y.getX(w)));
+    }
+    e.add(Ht(m, !0), null, g.rubber);
+  }
+  (e.add(U(l - 0.012, 2.12, 0.25, l + 0.002, 2.16, 0.32, 0.006), null, g.steel),
+    e.add(
+      d0(b(l - 0.006, 2.02, 0.29), b(l - 0.012, 2.02, 0.29), 0.02, 12),
+      null,
+      g.alu,
+    ),
+    X(
+      e,
+      b(l - 0.002, 1.62, 0),
+      b(0, 0, 1),
+      b(0, 1, 0),
+      0.34,
+      0.1,
+      R.staff,
+      g.decal,
+    ));
+  for (const s of [-0.39, 0.39])
+    e.add(
+      U(l - 0.02, 1.1, s - 0.025, l + 0.005, 3.03, s + 0.025, 0.006),
+      null,
+      g.steel,
+    );
+  (e.add(U(l - 0.02, 3, -0.415, l + 0.005, 3.05, 0.415, 0.006), null, g.steel),
+    e.add(U(l - 0.07, 3.08, -0.5, l, 3.24, 0.5, 0.01), null, g.grille),
+    X(
+      e,
+      b(l - 0.071, 3.16, 0),
+      b(0, 0, 1),
+      b(0, 1, 0),
+      0.4,
+      0.133,
+      R.cabScreen,
+      g.dispGlow(1.4),
+    ));
+  {
+    const m = l - 0.12;
+    (e.add(
+      L0(
+        [
+          [0, 0],
+          [0.075, 0],
+          [0.08, 0.02],
+          [0.08, 0.5],
+          [0.06, 0.56],
+          [0.025, 0.6],
+          [0, 0.6],
+        ],
+        16,
+      ).applyMatrix4(J0(m, 1.28, -0.72)),
+      null,
+      g.red,
+    ),
+      e.add(
+        U(m - 0.03, 1.86, -0.72 - 0.02, m + 0.03, 1.94, -0.72 + 0.02, 0.01),
+        null,
+        g.black,
+      ),
+      e.add(
+        j0(
+          [
+            b(m, 1.9, -0.72 + 0.02),
+            b(m - 0.04, 1.8, -0.72 + 0.09),
+            b(m - 0.05, 1.5, -0.72 + 0.1),
+          ],
+          0.008,
+          6,
+        ),
+        null,
+        g.black,
+      ),
+      X(
+        e,
+        b(m - 0.081, 1.62, -0.72),
+        b(0, 0, 1),
+        b(0, 1, 0),
+        0.07,
+        0.14,
+        R.extLabel,
+        g.decal,
+      ),
+      e.add(
+        U(l - 0.03, 1.2, -0.72 - 0.1, l, 1.9, -0.72 + 0.1, 0.01),
+        null,
+        g.liningG,
+      ),
+      X(
+        e,
+        b(l - 0.003, 2.25, 0.72),
+        b(0, 0, 1),
+        b(0, 1, 0),
+        0.22,
+        0.22,
+        R.intercom,
+        g.decal,
+      ),
+      e.add(U(l - 0.06, 1.85, 0.64, l, 1.95, 0.8, 0.02), null, g.red),
+      X(
+        e,
+        b(l - 0.003, 2.5, 0.72),
+        b(0, 0, 1),
+        b(0, 1, 0),
+        0.26,
+        0.065,
+        R.alarm,
+        g.decal,
+      ),
+      e.add(U(l - 0.02, 2, -1.22, l, 2.62, -0.88, 0.006), null, g.steel),
+      X(
+        e,
+        b(l - 0.021, 2.31, -1.05),
+        b(0, 0, 1),
+        b(0, 1, 0),
+        0.32,
+        0.6,
+        R.ad4,
+        g.decal,
+      ));
+  }
+  e.add(
+    h0(
+      [l + 0.04, h.FL + 0.05, h.IW],
+      [r - 0.02, h.FL + 0.05, h.IW],
+      [r - 0.02, h.FL + 0.05, -1.3],
+      [l + 0.04, h.FL + 0.05, -1.3],
+    ),
+    null,
+    g.cabFloor,
+  );
+  for (const s of [1, -1]) {
+    const m = At(s),
+      v = y0(7.42 - 0.03, h.winY0 - 0.03, 8.45 + 0.03, h.winY1 + 0.03, 0.12, 3);
+    (e.add(
+      St(
+        [
+          [l + 0.04, 1.1],
+          [r - 0.02, 1.1],
+          [r - 0.02, 3.06],
+          [l + 0.04, 3.06],
+        ],
+        [v],
+        h.IW,
+        -1,
+      ),
+      m,
+      g.cabLin,
+    ),
+      e.add(
+        po(v, h.IW, y0(7.42, h.winY0, 8.45, h.winY1, 0.09, 3), h.gIn - 0.002),
+        m,
+        g.rubber,
+      ),
+      e.add(
+        $0(
+          [
+            [1.3, 3.06],
+            [1, 3.28],
+            [0, 3.3],
+          ],
+          l + 0.04,
+          r - 0.02,
+          { out: -1 },
+        ),
+        m,
+        g.cabLin,
+      ));
+  }
+  {
+    const s = h.FL + 0.84,
+      m = h.FL + 1.02,
+      v = 8.12,
+      y = 8.62,
+      w = new Q0([
+        new c0(v, h.FL + 0.05),
+        new c0(8.72, h.FL + 0.05),
+        new c0(8.72, m),
+        new c0(y, m),
+        new c0(v, s),
+      ]),
+      M = new tn(w, {
+        depth: 2.5,
+        bevelEnabled: !0,
+        bevelThickness: 0.012,
+        bevelSize: 0.012,
+        bevelSegments: 1,
+        curveSegments: 1,
+      });
+    (M.translate(0, 0, -1.25), e.add(M, null, g.console));
+    const k = b(y - v, m - s, 0).normalize(),
+      P = b(-k.y, k.x, 0),
+      C = b((v + y) / 2, (s + m) / 2, 0).addScaledVector(P, 0.014);
+    X(
+      e,
+      C,
+      b(0, 0, 1),
+      k,
+      1.7,
+      Math.hypot(y - v, m - s) * 0.94,
+      R.console,
+      g.dispGlow(1.7),
+    );
+  }
+  (e.add(
+    d0(b(8.2, h.FL + 0.93, -0.42), b(8.2, h.FL + 1.06, -0.42), 0.012, 8),
+    null,
+    g.steel,
+  ),
+    e.add(
+      U(8.18, h.FL + 1.06, -0.5, 8.22, h.FL + 1.09, -0.34, 0.01),
+      null,
+      g.seatBlack,
+    ),
+    e.add(
+      d0(b(7.66, h.FL + 0.05, 0), b(7.66, h.FL + 0.44, 0), 0.05, 12),
+      null,
+      g.steel,
+    ),
+    e.add(
+      L0(
+        [
+          [0, 0],
+          [0.28, 0],
+          [0.3, 0.02],
+          [0, 0.02],
+        ],
+        16,
+      ).applyMatrix4(J0(7.66, h.FL + 0.05, 0)),
+      null,
+      g.steel,
+    ),
+    e.add(
+      U(7.42, h.FL + 0.44, -0.27, 7.92, h.FL + 0.56, 0.27, 0.05, 2),
+      null,
+      g.seatBlack,
+    ),
+    e.add(
+      U(7.36, h.FL + 0.54, -0.25, 7.46, h.FL + 1.22, 0.25, 0.05, 2),
+      null,
+      g.seatBlack,
+    ),
+    e.add(
+      U(7.3, h.FL + 1.24, -0.14, 7.4, h.FL + 1.4, 0.14, 0.04, 2),
+      null,
+      g.seatBlack,
+    ));
+  for (const s of [-0.3, 0.3])
+    e.add(
+      U(7.5, h.FL + 0.72, s - 0.03, 7.86, h.FL + 0.77, s + 0.03, 0.015),
+      null,
+      g.seatBlack,
+    );
+  e.add(d0(b(8.7, 3.2, -1.1), b(8.7, 3.2, 1.1), 0.03, 12), null, g.grille);
+  const c = y0(-1.06, 2.02, 1.06, 3.26, 0.14, 4),
+    d = new Q0(c.map(([s, m]) => new c0(s, m)));
+  (n.add(p(new F0(d, 4), r - 0.012, 1), null, g.wind),
+    o.add(p(new F0(d, 4), r - 0.02, -1), null, g.wind),
+    t.add(C0(ge(), [c], r, 1), null, g.front));
+  {
+    const s = Y0(c, 0, 0.03),
+      m = s.attributes.position,
+      v = s.attributes.normal;
+    for (let y = 0; y < m.count; y++) {
+      const w = m.getX(y),
+        M = m.getY(y),
+        k = m.getZ(y);
+      (m.setXYZ(y, r - k, M, w), v.setXYZ(y, 0, v.getY(y), v.getX(y)));
+    }
+    t.add(s, null, g.rubber);
+  }
+  (e.add(U(r - 0.12, 3.03, -0.8, r - 0.04, 3.24, 0.8, 0.01), null, g.grille),
+    X(
+      e,
+      b(r - 0.039, 3.135, 0),
+      b(0, 0, -1),
+      b(0, 1, 0),
+      1.5,
+      0.1875,
+      R.dest,
+      g.dispGlow(2.4),
+    ));
+  const i = ge();
+  {
+    const s = [];
+    for (const [m, v] of i) s.push(b(r + 0.004, v, m));
+    (s.push(s[0].clone()), t.add(j0(s, 0.014, 6), null, g.steel));
+  }
+  for (const s of [1, -1]) {
+    const m = s * 1;
+    t.add(
+      U(r - 0.02, 1.46, m - 0.32, r + 0.035, 1.76, m + 0.32, 0.05, 3),
+      null,
+      g.black,
+    );
+    for (const [v, y, w] of [
+      [s * 0.84, 0.1, g.head],
+      [s * 1.17, 0.075, g.tail],
+    ]) {
+      const M = uo(y + 0.012, 0.012, 6, 24);
+      (M.rotateY(Math.PI / 2),
+        M.translate(r + 0.038, 1.61, v),
+        t.add(M, null, g.steel));
+      const k = new co(y, 24);
+      (k.rotateY(Math.PI / 2),
+        k.translate(r + 0.04, 1.61, v),
+        t.add(k, null, w, { uv: (P, C, F, D) => [F, D] }));
+    }
+  }
+  t.add(U(r - 0.01, 1.28, -0.24, r + 0.012, 1.44, 0.24, 0.02), null, g.grille);
+  for (let s = 0; s < 5; s++)
+    t.add(
+      U(
+        r + 0.004,
+        1.3 + s * 0.03,
+        -0.22,
+        r + 0.02,
+        1.312 + s * 0.03,
+        0.22,
+        0.004,
+      ),
+      null,
+      g.black,
+    );
+  X(
+    t,
+    b(r + 0.003, 1.92, 0),
+    b(0, 0, -1),
+    b(0, 1, 0),
+    0.16,
+    0.16,
+    R.roundel,
+    g.decal,
+  );
+  for (const s of [-0.55, 0.45])
+    t.add(
+      U(r + 0.004, 2.05, s - 0.4, r + 0.02, 2.07, s + 0.4, 0.006),
+      null,
+      g.black,
+    );
+  t.add(U(r - 0.05, 0.94, -1.05, r + 0.09, 1.07, 1.05, 0.015), null, g.underG);
+  for (let s = 0; s < 3; s++)
+    t.add(
+      U(r + 0.07, 0.96 + s * 0.04, -1, r + 0.1, 0.975 + s * 0.04, 1, 0.005),
+      null,
+      g.underG,
+    );
+  (ya(t, r, 1),
+    t.add(
+      h0(
+        [r + 0.16, 0.2, -1.2],
+        [r + 0.16, 0.2, 1.2],
+        [r + 0.04, 0.93, 1.25],
+        [r + 0.04, 0.93, -1.25],
+      ),
+      null,
+      g.underG,
+      { uv: (s) => [s.z, s.y] },
+    ),
+    t.add(
+      h0(
+        [r + 0.04, 0.93, -1.25],
+        [r + 0.04, 0.93, 1.25],
+        [r + 0.16, 0.2, 1.2],
+        [r + 0.16, 0.2, -1.2],
+      ),
+      null,
+      g.under,
+      { uv: (s) => [s.z, s.y] },
+    ));
+}
+function ya(t, e, o) {
+  (t.add(
+    d0(b(e - o * 0.5, 0.76, 0), b(e + o * 0.08, 0.76, 0), 0.06, 12),
+    null,
+    g.underG,
+  ),
+    t.add(
+      U(
+        e + o * 0.06,
+        0.76 - 0.12,
+        -0.15,
+        e + o * 0.22,
+        0.76 + 0.12,
+        0.15,
+        0.02,
+      ),
+      null,
+      g.underG,
+    ),
+    t.add(
+      d0(
+        b(e + o * 0.22, 0.76 + 0.03, -0.07),
+        b(e + o * 0.3, 0.76 + 0.03, -0.07),
+        [0.035, 0.02],
+        10,
+      ),
+      null,
+      g.underG,
+    ),
+    t.add(
+      U(
+        e + o * 0.215,
+        0.76 - 0.08,
+        0.02,
+        e + o * 0.225,
+        0.76 + 0.1,
+        0.13,
+        0.004,
+      ),
+      null,
+      g.black,
+    ),
+    t.add(
+      U(e + o * 0.06, 0.76 + 0.12, -0.12, e + o * 0.2, 0.76 + 0.2, 0.12, 0.01),
+      null,
+      g.black,
+    ));
+}
+function va(t, e) {
+  t.add(
+    h0(
+      [-8.8, 0.93, -1.33],
+      [h.HL, 0.93, -1.33],
+      [h.HL, 0.93, 1.33],
+      [-8.8, 0.93, 1.33],
+    ),
+    null,
+    g.under,
+    { uv: (n) => [n.x, n.z] },
+  );
+  const o = [
+    [-4.9, -2.6, 0.42, 1.12, "inv"],
+    [-2.4, -1, 0.5, 1.08, "bat"],
+    [-0.8, 1.6, 0.38, 1.14, "inv"],
+    [1.8, 2.9, 0.55, 1, "comp"],
+    [3.1, 4.9, 0.45, 1.1, "res"],
+  ];
+  for (const n of [1, -1]) {
+    for (const [a, l, r, p, f] of o) {
+      const c = n > 0 ? 0.25 : -p,
+        d = n > 0 ? p : -0.25,
+        i = n > 0 ? a : -l,
+        s = n > 0 ? l : -a;
+      if ((t.add(U(i, r, c, s, 0.93, d, 0.02), null, g.underG), f === "res"))
+        t.add(
+          s0(
+            i + 0.06,
+            r + 0.04,
+            n > 0 ? d : c - 0.006,
+            s - 0.06,
+            0.88,
+            n > 0 ? d + 0.006 : c,
+          ),
+          null,
+          g.slotsExt,
+        );
+      else
+        for (const m of [i + 0.15, s - 0.15])
+          t.add(
+            s0(
+              m - 0.01,
+              r + 0.05,
+              n > 0 ? d - 0.003 : c - 0.005,
+              m + 0.01,
+              0.9,
+              n > 0 ? d + 0.005 : c + 0.003,
+            ),
+            null,
+            g.under,
+          );
+    }
+    t.add(
+      d0(b(-4.6, 0.72, n * 0.1), b(-2.8, 0.72, n * 0.1), 0.13, 14),
+      null,
+      g.underG,
+    );
+  }
+}
+function wa() {
+  const t = new M0("bogie"),
+    e = h.wheelR,
+    o = h.axle,
+    n = _({ col: "#555555", rough: 0.5, metal: 0.8, kind: O.WHEEL });
+  for (const [a, l] of [
+    [o, 5],
+    [-o, 6],
+  ]) {
+    for (const r of [1, -1]) {
+      const p = r * 0.7175,
+        f = [
+          [0.1, -0.075],
+          [0.3, -0.05],
+          [0.36, -0.065],
+          [e + 0.03, -0.06],
+          [e + 0.03, -0.042],
+          [e, -0.035],
+          [e - 0.004, 0.065],
+          [0.36, 0.06],
+          [0.3, 0.035],
+          [0.1, 0.07],
+        ],
+        c = L0(
+          f.map(([d, i]) => [d, r > 0 ? i : -i]),
+          24,
+        );
+      (c.rotateX(Math.PI / 2),
+        c.translate(a, e, p),
+        t.add(c, null, n, { anim: l }));
+    }
+    t.add(d0(b(a, e, -1.06), b(a, e, 1.06), 0.075, 8), null, g.underG, {
+      anim: l,
+    });
+    for (const r of [1, -1]) {
+      t.add(
+        s0(a - 0.14, e - 0.13, r * 0.98, a + 0.14, e + 0.13, r * 1.18),
+        null,
+        g.underG,
+      );
+      for (const p of [-0.17, 0.17])
+        t.add(
+          s0(
+            a + p - 0.05,
+            e + 0.06,
+            r * 0.99,
+            a + p + 0.05,
+            e + 0.22,
+            r * 1.17,
+          ),
+          null,
+          g.rubber,
+        );
+    }
+  }
+  for (const a of [1, -1]) {
+    const l = a * 1.08,
+      r = [
+        [-1.42, 0.68],
+        [-1.05, 0.74],
+        [-0.55, 0.6],
+        [0.55, 0.6],
+        [1.05, 0.74],
+        [1.42, 0.68],
+      ];
+    for (let p = 0; p < r.length - 1; p++)
+      t.add(
+        s0(
+          r[p][0],
+          Math.min(r[p][1], r[p + 1][1]) - 0.06,
+          l - 0.09,
+          r[p + 1][0],
+          Math.max(r[p][1], r[p + 1][1]) + 0.1,
+          l + 0.09,
+        ),
+        null,
+        g.under,
+      );
+    (t.add(
+      L0(
+        [
+          [0, 0],
+          [0.2, 0],
+          [0.24, 0.05],
+          [0.22, 0.12],
+          [0.2, 0.16],
+          [0, 0.16],
+        ],
+        12,
+      ).applyMatrix4(J0(0, 0.7, l)),
+      null,
+      g.rubber,
+    ),
+      t.add(s0(-0.26, 0.86, l - 0.24, 0.26, 0.9, l + 0.24), null, g.underG));
+    for (const p of [-1.35, 1.35])
+      (t.add(
+        s0(p - 0.06, 0.38, a * 1.12, p + 0.06, 0.62, a * 1.24),
+        null,
+        g.under,
+      ),
+        t.add(
+          s0(p - 0.05, 0.2, a * 1.2, p + 0.05, 0.4, a * 1.34),
+          null,
+          g.under,
+        ),
+        t.add(
+          s0(p - 0.16, 0.16, a * 1.3, p + 0.16, 0.2, a * 1.52),
+          null,
+          g.underG,
+        ));
+    t.add(
+      d0(b(0.4, 0.42, l + a * 0.12), b(0.4, 0.86, l + a * 0.12), 0.035, 6),
+      null,
+      g.underG,
+    );
+    for (const p of [o, -o])
+      t.add(
+        s0(
+          p - Math.sign(p) * 0.42 - 0.06,
+          e - 0.1,
+          a * 0.62,
+          p - Math.sign(p) * 0.42 + 0.06,
+          e + 0.12,
+          a * 0.84,
+        ),
+        null,
+        g.underG,
+      );
+  }
+  for (const a of [-0.32, 0.32])
+    t.add(s0(a - 0.09, 0.5, -1, a + 0.09, 0.66, 1), null, g.under);
+  for (const [a, l] of [
+    [0.62, 1],
+    [-0.62, -1],
+  ])
+    (t.add(d0(b(a, 0.42, -0.45), b(a, 0.42, 0.45), 0.23, 12), null, g.underG),
+      t.add(
+        s0(a + l * 0.1, 0.25, 0.2, a + l * 0.32, 0.6, 0.48),
+        null,
+        g.underG,
+      ));
+  return (t.add(d0(b(0, 0.62, 0), b(0, 0.9, 0), 0.14, 10), null, g.underG), t);
+}
+function ka() {
+  return { sec: y0(-0.72, 1, 0.72, 3.18, 0.22, 3), folds: 9, depth: 0.05 };
+}
+const qt = (t, e = 0, o = 1) => (t < e ? e : t > o ? o : t),
+  V0 = (t, e, o) => {
+    const n = qt((o - t) / (e - t));
+    return n * n * (3 - 2 * n);
+  },
+  kt = (t, e, o, n) => t + (e - t) * (1 - Math.exp(-o * n));
+function Sa(t) {
+  const e = t.getChannelData(0),
+    o = e.length,
+    n = t.sampleRate;
+  let a = 0;
+  for (; a < o && Math.abs(e[a]) < 0.001;) a++;
+  const l = Math.round(n * 0.03),
+    r = Math.min(o - 1, a + Math.round(n * 0.04)),
+    p = Math.round(n * 0.02);
+  let f = 0;
+  for (let s = 0; s < p; s++) f += e[r + s] * e[r + s];
+  let c = -2,
+    d = o - p - 1;
+  for (
+    let s = Math.max(r + p * 4, o - Math.round(n * 0.6));
+    s < o - p - 1;
+    s += 2
+  ) {
+    let m = 0,
+      v = 0;
+    for (let w = 0; w < p; w += 2)
+      ((m += e[r + w] * e[s + w]), (v += e[s + w] * e[s + w]));
+    const y = m / Math.sqrt(f * v * 0.5 + 1e-12);
+    y > c && ((c = y), (d = s));
+  }
+  const i = new AudioBuffer({
+    length: o,
+    numberOfChannels: t.numberOfChannels,
+    sampleRate: n,
+  });
+  for (let s = 0; s < t.numberOfChannels; s++) {
+    const m = t.getChannelData(s),
+      v = i.getChannelData(s);
+    v.set(m);
+    for (let y = 0; y < l; y++) {
+      const w = Math.sin((((y + 0.5) / l) * Math.PI) / 2) ** 2;
+      v[d - l + y] = m[d - l + y] * (1 - w) + m[r - l + y] * w;
+    }
+  }
+  return { buf: i, start: r / n, end: d / n };
+}
+const Ma = ["train_run", "train_motor", "train_hum", "train_flange"];
+function Aa(t, e) {
+  const o = t.audio,
+    n = { nodes: null, building: !1, t: 0, now: 0 },
+    a = (d, i, s = 0.05) => {
+      try {
+        d.setTargetAtTime(i, n.now, s);
+      } catch {}
+    },
+    l = { run: 0.8, motor: 0.55, hum: 0.35, flange: 0.4 },
+    r = {
+      run: 0,
+      motor: 0,
+      hum: 0,
+      flange: 0,
+      rRun: 1,
+      rMotor: 1,
+      ob: 0,
+      duck: 0,
+    },
+    p = new D0(),
+    f = async () => {
+      if (!(n.nodes || n.building || !o?.ctx || !o.buffer)) {
+        n.building = !0;
+        try {
+          const d = o.ctx,
+            i = d.createGain();
+          i.gain.value = 1;
+          const s = d.createPanner();
+          ((s.panningModel = "HRTF"),
+            (s.distanceModel = "inverse"),
+            (s.refDistance = 4),
+            (s.rolloffFactor = 1),
+            (s.maxDistance = 120));
+          const m = d.createGain(),
+            v = d.createGain();
+          ((m.gain.value = 1),
+            (v.gain.value = 0),
+            i.connect(m),
+            m.connect(s),
+            s.connect(o.bus.sfx),
+            i.connect(v),
+            v.connect(o.bus.sfx));
+          const y = {};
+          for (const w of Ma) {
+            const M = await o.buffer(w);
+            if (!M) continue;
+            const k = M._seam || (M._seam = Sa(M)),
+              P = d.createBufferSource();
+            ((P.buffer = k.buf),
+              (P.loop = !0),
+              (P.loopStart = k.start),
+              (P.loopEnd = k.end));
+            const C = d.createGain();
+            ((C.gain.value = 0),
+              P.connect(C),
+              C.connect(i),
+              P.start(
+                d.currentTime + 0.02,
+                k.start + Math.random() * (k.end - k.start),
+              ),
+              (y[w] = { s: P, g: C, norm: M._norm ?? 1 }));
+          }
+          n.nodes = { c: d, out: i, pan: s, gP: m, gD: v, layers: y };
+        } catch {
+          n.nodes = null;
+        }
+        n.building = !1;
+      }
+    };
+  return {
+    shot: (d, i, s = 0.8, m = {}) => {
+      if (!o?.play) return null;
+      try {
+        return o.play(d, {
+          ...(e.onboard
+            ? {}
+            : { pos: [i.x, i.y, i.z], ref: m.ref ?? 4, rolloff: 1 }),
+          vol: s,
+          ...m,
+        });
+      } catch {
+        return null;
+      }
+    },
+    update(d, i) {
+      ((n.t += d), !n.nodes && !n.building && o?.ctx && f());
+      const s = n.nodes;
+      if (!s) return;
+      const m = Math.abs(i.speed);
+      ((r.run = kt(r.run, V0(0.2, 5, m) * (0.45 + 0.55 * V0(4, 16, m)), 3, d)),
+        (r.rRun = 0.6 + 0.6 * qt(m / 17)));
+      const v = V0(0.1, 0.6, i.accel),
+        y = V0(0.1, 0.6, -i.accel);
+      ((r.motor = kt(
+        r.motor,
+        i.power * V0(0.05, 1.2, m) * (0.3 + 0.7 * Math.max(v, y * 0.85)) +
+          i.power * v * (1 - V0(0, 0.5, m)) * 0.6,
+        2.5,
+        d,
+      )),
+        (r.rMotor = 0.55 + 0.75 * qt(m / 18) + 0.06 * v),
+        (r.hum = kt(
+          r.hum,
+          i.power * (0.7 + 0.3 * (1 - V0(0.5, 5, m))),
+          1.5,
+          d,
+        )),
+        (r.flange = kt(
+          r.flange,
+          V0(0.0016, 0.004, Math.abs(i.curve)) * V0(3, 9, m),
+          2,
+          d,
+        )),
+        (r.ob = kt(r.ob, e.onboard ? 1 : 0, 6, d)),
+        (r.duck = kt(r.duck, o.speaking ? 1 : 0, o.speaking ? 10 : 2.2, d)));
+      const w = s.c.currentTime;
+      n.now = w;
+      const M = (e.engineVol ?? 1) * (1 - 0.45 * r.duck),
+        k = s.layers;
+      (k.train_run &&
+        (a(k.train_run.g.gain, k.train_run.norm * l.run * r.run * M),
+        a(k.train_run.s.playbackRate, r.rRun, 0.15)),
+        k.train_motor &&
+          (a(k.train_motor.g.gain, k.train_motor.norm * l.motor * r.motor * M),
+          a(k.train_motor.s.playbackRate, r.rMotor, 0.12)),
+        k.train_hum &&
+          a(k.train_hum.g.gain, k.train_hum.norm * l.hum * r.hum * M),
+        k.train_flange &&
+          (a(
+            k.train_flange.g.gain,
+            k.train_flange.norm * l.flange * r.flange * M,
+          ),
+          a(k.train_flange.s.playbackRate, 0.9 + 0.2 * qt(m / 15), 0.3)),
+        a(s.gP.gain, 1 - r.ob, 0.08),
+        a(s.gD.gain, r.ob, 0.08),
+        p.copy(i.near));
+      const P = s.pan;
+      ((P.positionX.value = p.x),
+        (P.positionY.value = p.y),
+        (P.positionZ.value = p.z));
+    },
+    mix: l,
+    dispose() {
+      const d = n.nodes;
+      if (d) {
+        n.nodes = null;
+        try {
+          for (const i of Object.values(d.layers)) i.s.stop();
+          (d.out.disconnect(), d.pan.disconnect());
+        } catch {}
+      }
+    },
+  };
+}
+const K = {
+  paper: _({ col: "#b4b0a6", rough: 0.9, kind: O.DECAL }),
+  paperBack: _({ col: "#b8b2a2", rough: 0.9, kind: O.PAINT }),
+  canopy: _({ col: "#1a2233", rough: 0.55, kind: O.PAINT }),
+  shaft: _({ col: "#2a2a2c", rough: 0.4, metal: 0.8, kind: O.PLAIN }),
+  wood: _({ col: "#3b2416", rough: 0.45, kind: O.PAINT }),
+  phone: _({ col: "#0c0d0f", rough: 0.25, metal: 0.4, kind: O.PLAIN }),
+  screen: _({ col: "#ffffff", rough: 0.15, kind: O.GLOW, param: 1.6 }),
+  bag: _({ col: "#c4bcac", rough: 0.85, kind: O.DECAL }),
+  bagIn: _({ col: "#9a8f78", rough: 0.9, kind: O.PAINT }),
+  orange: _({ col: "#c4560e", rough: 0.55, kind: O.PAINT }),
+  apple: _({ col: "#7a1410", rough: 0.4, kind: O.PAINT }),
+  can: _({ col: "#ffffff", rough: 0.35, metal: 0.3, kind: O.DECAL }),
+  tin: _({ col: "#8a8a86", rough: 0.3, metal: 1, kind: O.PLAIN }),
+  box: _({ col: "#ffffff", rough: 0.6, kind: O.DECAL }),
+  cup: _({ col: "#d8d0bc", rough: 0.6, kind: O.PAINT }),
+  lid: _({ col: "#222222", rough: 0.5, kind: O.PAINT }),
+  fabric: _({ col: [0.5, 0.5, 0.5], rough: 0.9, kind: O.FABRIC }),
+  foam: _({ col: "#8a7a52", rough: 0.95, kind: O.FOAM }),
+  shoe: _({ col: "#1c1512", rough: 0.45, kind: O.PAINT }),
+  sole: _({ col: "#2a2724", rough: 0.85, kind: O.RUBBER }),
+  blood: _({ col: [0.42, 0.38, 0.38], rough: 0.3, kind: O.SMEAR, param: 1 }),
+  bloodDry: _({
+    col: [0.36, 0.33, 0.33],
+    rough: 0.62,
+    kind: O.SMEAR,
+    param: 0.95,
+  }),
+};
+function ue(t, e, o, n, a, l, r, p, f = {}) {
+  const c = f.lift ?? 0.004,
+    d = f.crumple ?? 0.01,
+    i = h.FL + c,
+    s = Math.cos(l),
+    m = Math.sin(l),
+    v = (k, P) => {
+      const C = (k - 0.5) * n,
+        F = (P - 0.5) * a,
+        D =
+          d *
+            (Math.sin(k * 7.1 + P * 2.3) * 0.5 +
+              Math.sin(P * 9.7 - k * 3.1) * 0.35 +
+              (f.fold ? Math.abs(k - 0.5) * -1.2 + 0.6 : 0)) +
+          d * 0.6;
+      return [e + C * s - F * m, i + Math.max(0, D), o + C * m + F * s];
+    },
+    y = he(v, 8, 6, !0),
+    w = ct(r);
+  t.add(y, null, f.surf || K.paper, { uv: (k, P, C, F) => w(k, P, C, 1 - F) });
+  const M = he(v, 8, 6, !1);
+  t.add(M, null, K.paperBack);
+}
+function T0(t, e, o, n, a, l, r, p, f = 0) {
+  const c = (d, i) => [
+    e.x + o.x * d + n.x * i,
+    e.y + o.y * d + n.y * i,
+    e.z + o.z * d + n.z * i,
+  ];
+  t.add(
+    h0(c(-a / 2, -l / 2), c(a / 2, -l / 2), c(a / 2, l / 2), c(-a / 2, l / 2)),
+    null,
+    p,
+    { uv: ct(r), anim: f },
+  );
+}
+function Ta(t) {
+  const e = new M0("props"),
+    o = new M0("midDec"),
+    n = new M0("midGlass"),
+    a = new M0("dmg"),
+    l = new M0("dmgDec"),
+    r = new M0("cab1"),
+    p = h.FL;
+  (ue(e, 1.75, 0.42, 0.58, 0.43, 0.35, R.paper, t, {
+    crumple: 0.012,
+    fold: !0,
+  }),
+    ue(
+      e,
+      2.55,
+      -0.25,
+      0.42,
+      0.31,
+      -0.9,
+      [
+        R.paper[0] + (R.paper[2] - R.paper[0]) * 0.5,
+        R.paper[1],
+        R.paper[2],
+        R.paper[3],
+      ],
+      t,
+      { crumple: 0.008 },
+    ));
+  {
+    const f = new i0()
+        .makeRotationY(0.18)
+        .setPosition(3.95, h.seatY + 0.042, 1.03),
+      c = L0(
+        [
+          [0, 0],
+          [0.012, 0.02],
+          [0.034, 0.18],
+          [0.04, 0.42],
+          [0.032, 0.58],
+          [0.016, 0.66],
+          [0.006, 0.7],
+          [0, 0.7],
+        ],
+        9,
+      );
+    (c.rotateZ(-Math.PI / 2),
+      c.applyMatrix4(f),
+      e.add(c, null, K.canopy, { flat: !0 }));
+    const d = d0(b(0.69, 0, 0), b(0.8, 0, 0), 0.005, 6);
+    (d.applyMatrix4(f), e.add(d, null, K.shaft));
+    const i = d0(b(-0.12, 0, 0), b(0, 0, 0), 0.012, 8);
+    (i.applyMatrix4(f), e.add(i, null, K.wood));
+    const s = j0(
+      [
+        b(-0.12, 0, 0),
+        b(-0.2, 0, -0.01),
+        b(-0.25, 0, -0.05),
+        b(-0.25, 0, -0.1),
+        b(-0.21, 0, -0.13),
+      ],
+      0.011,
+      8,
+      { cap1: !0 },
+    );
+    (s.applyMatrix4(f), e.add(s, null, K.wood));
+    const m = U(0.3, -0.02, -0.042, 0.34, 0.02, 0.042, 0.006);
+    (m.applyMatrix4(f), e.add(m, null, K.lid));
+  }
+  {
+    const f = new i0().makeRotationY(-0.6).setPosition(-0.35, p, 0.42),
+      c = U(-0.036, 0, -0.076, 0.036, 0.009, 0.076, 0.006);
+    (c.applyMatrix4(f), e.add(c, null, K.phone));
+    const d = h0(
+      [-0.033, 0.0095, 0.072],
+      [0.033, 0.0095, 0.072],
+      [0.033, 0.0095, -0.072],
+      [-0.033, 0.0095, -0.072],
+    );
+    (d.applyMatrix4(f), e.add(d, null, K.screen, { uv: ct(R.phone) }));
+  }
+  {
+    const d = new i0()
+        .makeRotationY(0.5)
+        .multiply(new i0().makeRotationX(Math.PI / 2))
+        .setPosition(-2.35, p + 0.12, -0.6),
+      i = 0.3,
+      s = 0.17,
+      m = 0.36,
+      v = [
+        [
+          [-i / 2, 0, s / 2],
+          [i / 2, 0, s / 2],
+          [i / 2, m, s / 2],
+          [-i / 2, m, s / 2],
+          !0,
+        ],
+        [
+          [i / 2, 0, -s / 2],
+          [-i / 2, 0, -s / 2],
+          [-i / 2, m, -s / 2],
+          [i / 2, m, -s / 2],
+          !0,
+        ],
+        [
+          [i / 2, 0, s / 2],
+          [i / 2, 0, -s / 2],
+          [i / 2, m, -s / 2],
+          [i / 2, m, s / 2],
+          !1,
+        ],
+        [
+          [-i / 2, 0, -s / 2],
+          [-i / 2, 0, s / 2],
+          [-i / 2, m, s / 2],
+          [-i / 2, m, -s / 2],
+          !1,
+        ],
+        [
+          [-i / 2, 0, -s / 2],
+          [i / 2, 0, -s / 2],
+          [i / 2, 0, s / 2],
+          [-i / 2, 0, s / 2],
+          !1,
+        ],
+      ];
+    for (const [M, k, P, C, F] of v) {
+      const D = h0(M, k, P, C);
+      (D.translate(0, -m / 2, 0),
+        D.applyMatrix4(d),
+        e.add(D, null, F ? K.bag : K.bagIn, {
+          uv: F ? ct(R.bag) : void 0,
+          both: !0,
+        }));
+    }
+    const y = (M) => b(-2.35 + Math.sin(0.5) * M, 0, -0.6 + Math.cos(0.5) * M),
+      w = (M, k, P) => {
+        const C = new Re(k, 12, 8);
+        (C.translate(M.x, p + k * 0.96, M.z), e.add(C, null, P));
+      };
+    (w(y(0.42).add(b(0.05, 0, 0)), 0.04, K.orange),
+      w(y(0.62).add(b(-0.12, 0, 0.05)), 0.041, K.orange),
+      w(y(0.95).add(b(0.25, 0, 0.1)), 0.038, K.apple));
+    {
+      const M = y(0.75).add(b(0.35, 0, -0.05)),
+        k = new ro(0.037, 0.037, 0.11, 16, 1, !0);
+      (k.rotateZ(Math.PI / 2),
+        k.rotateY(0.7),
+        k.translate(M.x, p + 0.037, M.z),
+        e.add(k, null, K.can, {
+          uv: (P, C, F, D) => [
+            R.can[0] + (R.can[2] - R.can[0]) * F,
+            R.can[1] + (R.can[3] - R.can[1]) * D,
+          ],
+        }));
+      for (const P of [-1, 1]) {
+        const C = new co(0.037, 16);
+        (C.rotateY((Math.PI / 2) * P),
+          C.translate(0.055 * P, 0, 0),
+          C.rotateY(0.7),
+          C.translate(M.x, p + 0.037, M.z),
+          e.add(C, null, K.tin));
+      }
+    }
+    {
+      const M = new i0()
+          .makeRotationY(1.2)
+          .multiply(new i0().makeRotationZ(Math.PI / 2 - 0.15))
+          .setPosition(-2.17, p + 0.035, -0.38),
+        k = new so(0.28, 0.07, 0.2);
+      (k.applyMatrix4(M), e.add(k, null, K.box, { uv: ct(R.box) }));
+    }
+  }
+  {
+    const f = h.gIn - 0.003,
+      c = b(2.25, 2.42, f);
+    (T0(o, c, b(-1, 0, 0), b(0, 1, 0), 0.26, 0.31, R.hand, K.blood),
+      T0(
+        o,
+        b(2.1, 1.5, h.IW - 0.003),
+        b(-1, 0, 0),
+        b(0, 1, 0),
+        0.2,
+        0.2,
+        R.palm,
+        K.bloodDry,
+      ));
+  }
+  {
+    const c = _({ col: "#2a3432", rough: 0.3, kind: 3, param: 0.1 });
+    n.add(
+      h0(
+        [-2.85, 2.08, -1.3705],
+        [-1.95, 2.08, -1.3705],
+        [-1.95, 2.53, -1.3705],
+        [-2.85, 2.53, -1.3705],
+      ),
+      null,
+      c,
+      { uv: ct(R.scratch) },
+    );
+  }
+  for (const f of [7.93, -7.93])
+    for (const c of [1, -1]) {
+      const d = c * (h.gIn - 0.0015),
+        i = b(-c, 0, 0);
+      T0(o, b(f, 2.82, d), i, b(0, 1, 0), 0.34, 0.085, R.priority, {
+        ...K.paper,
+        col: [0.5, 0.5, 0.5],
+        param: 1,
+      });
+    }
+  T0(
+    o,
+    b(0.35, p + 0.002, 0.7),
+    b(1, 0, 0),
+    b(0, 0, -1),
+    0.45,
+    0.45,
+    R.spatter,
+    { ...K.bloodDry, param: 0.55 },
+  );
+  {
+    const m = new Re(1, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2),
+      v = m.attributes.position;
+    for (let y = 0; y < v.count; y++) {
+      const w = v.getX(y),
+        M = v.getY(y),
+        k = v.getZ(y),
+        P =
+          0.82 +
+          0.22 * Math.sin(w * 9.1 + k * 4.3) * Math.cos(k * 7.7 - w * 2.1) +
+          0.08 * Math.sin(w * 23 + k * 19);
+      v.setXYZ(
+        y,
+        2.25 + w * 0.2 * (0.92 + 0.1 * P),
+        1.551 - 0.016 + M * 0.03 * P,
+        -1.02 + k * 0.11 * (0.92 + 0.1 * P),
+      );
+    }
+    (m.computeVertexNormals(), a.add(m, null, K.foam));
+    for (let y = 0; y < 9; y++) {
+      const w = (y / 9) * Math.PI * 2 + t() * 0.3,
+        M = 0.07 + t() * 0.05,
+        k = 0.08 + t() * 0.07,
+        P = 1.4 + t() * 1.3,
+        C = 2.25 + Math.cos(w) * 0.2 * 1.02,
+        F = -1.02 + Math.sin(w) * 0.11 * 1.02,
+        D = Math.cos(w),
+        z = Math.sin(w),
+        q = -z,
+        Y = D,
+        Z0 = (m0, Q) => {
+          const O0 = Q * P,
+            X0 = k / Math.max(P, 0.1),
+            u0 = Math.sin(O0) * X0,
+            Tt = (1 - Math.cos(O0)) * X0,
+            Rt = (m0 - 0.5) * M * (1 - Q * 0.35);
+          return [C + D * u0 + q * Rt, 1.551 + 0.002 + Tt, F + z * u0 + Y * Rt];
+        };
+      a.add(he(Z0, 2, 4, !1), null, K.fabric, {
+        uv: (m0) => [m0.x, m0.z],
+        both: !0,
+      });
+    }
+    for (let y = 0; y < 4; y++) {
+      const w = new Be(0.025 + t() * 0.02, 1);
+      (w.scale(1.3, 0.7, 1),
+        w.translate(2 + t() * 0.7, 1.551 + 0.012, -0.95 - t() * 0.15),
+        a.add(w, null, K.foam));
+    }
+    for (let y = 0; y < 9; y++) {
+      const w = new Be(0.015 + t() * 0.02, 0);
+      (w.translate(1.75 + t() * 1.2, p + 0.012, -0.62 + t() * 0.42),
+        a.add(w, null, K.foam, { flat: !0 }));
+    }
+  }
+  {
+    const f = new i0()
+        .makeRotationY(2.2)
+        .multiply(new i0().makeRotationX(0.35))
+        .setPosition(-1.4, p + 0.03, 0.25),
+      c = U(-0.12, 0, -0.042, 0.12, 0.055, 0.042, 0.03, 2);
+    (c.applyMatrix4(f), a.add(c, null, K.shoe));
+    const d = U(-0.125, -0.008, -0.045, 0.125, 0.004, 0.045, 0.012);
+    (d.applyMatrix4(f), a.add(d, null, K.sole));
+  }
+  (T0(
+    l,
+    b(2.25, h.seatY + 0.0035, -1.02),
+    b(1, 0, 0),
+    b(0, 0, -1),
+    0.6,
+    0.36,
+    R.grime,
+    { ...K.bloodDry, col: [0.05, 0.05, 0.05], param: 1 },
+  ),
+    T0(
+      l,
+      b(1.2, p + 0.002, -0.15),
+      b(1, 0, 0),
+      b(0, 0, -1),
+      1.3,
+      0.98,
+      R.pool,
+      K.blood,
+    ),
+    T0(
+      l,
+      b(0.3, p + 0.0025, 0.5),
+      b(-0.8, 0, 0.6),
+      b(0.6, 0, 0.8),
+      1.5,
+      0.9,
+      R.drag,
+      K.bloodDry,
+    ),
+    T0(
+      l,
+      b(-3, 1.8, 1.176),
+      b(-1, 0, 0),
+      b(0, 0.995, 0.1).normalize(),
+      0.9,
+      0.3,
+      R.smear2,
+      K.bloodDry,
+    ),
+    T0(
+      l,
+      b(-4.95, 2.3, -1.3 + 0.003),
+      b(1, 0, 0),
+      b(0, 1, 0),
+      0.24,
+      0.24,
+      R.palm,
+      K.blood,
+    ),
+    T0(
+      l,
+      b(-8.75 + 0.004, 2, 0.85),
+      b(0, 0, -1),
+      b(0, 1, 0),
+      0.7,
+      0.7,
+      R.spatter,
+      K.bloodDry,
+    ),
+    T0(
+      l,
+      b(-6.3, 2.25, h.LZ0 - 0.003),
+      b(-1, 0, 0),
+      b(0, 1, 0),
+      0.25,
+      0.3,
+      R.hand,
+      K.blood,
+      3,
+    ));
+  {
+    const f = b(-3.6, h.seatY + 0.002, -1);
+    (r.add(
+      L0(
+        [
+          [0, 0],
+          [0.03, 0],
+          [0.042, 0.14],
+          [0, 0.14],
+        ],
+        14,
+      ).translate(f.x, f.y, f.z),
+      null,
+      K.cup,
+    ),
+      r.add(
+        L0(
+          [
+            [0, 0],
+            [0.044, 0],
+            [0.044, 0.008],
+            [0.03, 0.016],
+            [0, 0.016],
+          ],
+          14,
+        ).translate(f.x, f.y + 0.14, f.z),
+        null,
+        K.lid,
+      ),
+      ue(
+        r,
+        -1.9,
+        0.3,
+        0.42,
+        0.31,
+        0.6,
+        [
+          R.paper[0],
+          R.paper[1],
+          R.paper[0] + (R.paper[2] - R.paper[0]) * 0.5,
+          R.paper[3],
+        ],
+        t,
+        { crumple: 0.01 },
+      ));
+  }
+  return { mid: e, midDec: o, midGlass: n, dmg: a, dmgDec: l, cab1: r };
+}
+const W = D0,
+  k0 = (t, e = 0, o = 1) => (t < e ? e : t > o ? o : t),
+  Dt = (t, e, o) => {
+    const n = k0((o - t) / (e - t));
+    return n * n * (3 - 2 * n);
+  },
+  _t = (t, e, o, n) => t + (e - t) * (1 - Math.exp(-o * n)),
+  H0 = 18,
+  Zt = 3,
+  pe = H0 * Zt,
+  eo = 15134697,
+  oo = 8,
+  no = 9.5,
+  ao = [5.4, 0, -5.4],
+  La = [4.3, -0.8, -5.9],
+  Pa = `
+attribute vec3 aCenter; attribute vec3 aCol; attribute float aSize; attribute float aKind;
+uniform float uHead; uniform float uTail;
+varying vec2 vUv; varying vec3 vCol; varying float vF;
+void main() {
+  vUv = uv; vCol = aCol;
+  vec4 c = modelMatrix * vec4(aCenter, 1.0);
+  vec3 fwd = normalize((modelMatrix * vec4(1.0, 0.0, 0.0, 0.0)).xyz);
+  vec3 toCam = normalize(cameraPosition - c.xyz);
+  float k = clamp(dot(fwd, toCam), 0.0, 1.0);
+  float on = aKind < 0.5 ? uHead : uTail;
+  vF = (pow(k, 6.0) * 1.5 + pow(k, 1.5) * 0.12) * on;
+  vec4 mv = viewMatrix * c;
+  mv.xyz += normalize(-mv.xyz) * 0.08;
+  mv.xy += position.xy * aSize * (0.5 + 0.7 * k);
+  gl_Position = projectionMatrix * mv;
+}`,
+  Ia = `
+varying vec2 vUv; varying vec3 vCol; varying float vF;
+void main() {
+  vec2 p = vUv * 2.0 - 1.0; float r = length(p);
+  float glow = exp(-r * r * 12.0) * 1.4 + exp(-r * 4.0) * 0.2;
+  float streak = exp(-abs(p.y) * 48.0) * exp(-abs(p.x) * 1.8) * 0.5;
+  float a = (glow + streak) * vF * smoothstep(1.0, 0.65, r);
+  gl_FragColor = vec4(vCol * a, a);
+}`,
+  za = `
+varying vec3 vLocal; varying vec3 vWorld;
+void main() { vLocal = position; vec4 w = modelMatrix * vec4(position, 1.0); vWorld = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`,
+  Ea = `
+varying vec3 vLocal; varying vec3 vWorld;
+uniform float uTime; uniform float uK; uniform vec3 uColor;
+float bh(vec3 p) { p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+float bn(vec3 x) { vec3 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);
+  return mix(mix(mix(bh(i), bh(i + vec3(1,0,0)), f.x), mix(bh(i + vec3(0,1,0)), bh(i + vec3(1,1,0)), f.x), f.y),
+             mix(mix(bh(i + vec3(0,0,1)), bh(i + vec3(1,0,1)), f.x), mix(bh(i + vec3(0,1,1)), bh(i + vec3(1,1,1)), f.x), f.y), f.z); }
+void main() {
+  float t = clamp(vLocal.x, 0.0, 1.0);
+  vec2 q = vLocal.yz / max(t, 1e-3);
+  float rad = length(q);
+  float core = pow(1.0 - smoothstep(0.0, 1.0, rad), 2.0);
+  float nearF = smoothstep(0.0, 0.05, t);
+  float farF = exp(-t * 3.2);
+  float dust = 0.5 + 0.7 * bn(vWorld * 1.6 + vec3(uTime * 0.05, uTime * 0.03, 0.0)) * bn(vWorld * 4.3 - vec3(0.0, uTime * 0.04, 0.0));
+  float a = core * nearF * farF * dust * uK;
+  gl_FragColor = vec4(uColor * a, a);
+}`;
+function Da(t, e = {}) {
+  const o = t.game || t;
+  t.scene || o.scene;
+  const n = t.renderer || o.renderer,
+    a =
+      e.rng ||
+      (
+        (u) => () =>
+          (u = (u * 16807) % 2147483647) / 2147483647
+      )(5303),
+    l = performance.now(),
+    r = new Ge();
+  r.name = "train";
+  const p = (u, S) => {
+      try {
+        const T = t.mats?.get?.(u);
+        return (T && T[S]) || null;
+      } catch {
+        return null;
+      }
+    },
+    f = new Ue(new Uint8Array([128, 128, 255, 255]), 1, 1);
+  f.needsUpdate = !0;
+  const c = new Ue(new Uint8Array([120, 120, 120, 255]), 1, 1);
+  ((c.needsUpdate = !0), (c.colorSpace = io));
+  const d = {
+    atlas: Nn(),
+    moq: p("train_moquette", "map") || c,
+    moqN: p("train_moquette", "normalMap") || f,
+    floor: p("train_floor", "map") || c,
+    floorN: p("train_floor", "normalMap") || f,
+    floorO: p("train_floor", "aoMap") || c,
+  };
+  for (const u of ["moq", "moqN", "floor", "floorN", "floorO"])
+    ((d[u].wrapS = d[u].wrapT = xe), d[u].repeat?.set?.(1, 1));
+  const i = [
+      ["moq", "tMoq", "train_moquette", "map"],
+      ["moqN", "tMoqN", "train_moquette", "normalMap"],
+      ["floor", "tFloor", "train_floor", "map"],
+      ["floorN", "tFloorN", "train_floor", "normalMap"],
+      ["floorO", "tFloorO", "train_floor", "aoMap"],
+    ].filter(([u]) => d[u] === c || d[u] === f),
+    s = () => {
+      for (let u = i.length - 1; u >= 0; u--) {
+        const [S, T, A, E] = i[u],
+          I = p(A, E);
+        if (I) {
+          ((I.wrapS = I.wrapT = xe), (d[S] = I));
+          for (const N of q) N.userData.U?.[T] && (N.userData.U[T].value = I);
+          i.splice(u, 1);
+        }
+      }
+    },
+    m = performance.now(),
+    v = Je("mid", "hi", a),
+    y = Je("cab", "lo", a),
+    w = Ta(a),
+    M = (u) => (u.nv > 0 ? u.build() : null),
+    k = {
+      mid: {
+        ext: v.ext.build(),
+        int: v.int.merge(w.mid).build(),
+        gIn: v.gIn.merge(w.midGlass).build(),
+        gOut: v.gOut.build(),
+        dec: M(w.midDec),
+      },
+      cab: {
+        ext: y.ext.build(),
+        int: y.int.build(),
+        gIn: y.gIn.build(),
+        gOut: y.gOut.build(),
+      },
+      dmg: { int: M(w.dmg), dec: M(w.dmgDec) },
+      car1: { int: M(w.cab1) },
+    },
+    P = wa().build(),
+    C = Math.round(performance.now() - m),
+    F = {
+      min: new W(-8.75, h.FL, -1.3),
+      max: new W(h.END, h.CEIL, h.IW),
+      eye: new W(0, 2.65, 0),
+    },
+    D = {
+      min: new W(-8.75, h.FL, -1.3),
+      max: new W(h.cabX, h.CEIL, h.IW),
+      eye: new W(0, 2.65, 0),
+    },
+    z = [],
+    q = [],
+    Y = (u, S, T, A, E = !0) => {
+      const I = new Ft(u, S);
+      return (
+        (I.name = T),
+        (I.castShadow = E),
+        (I.receiveShadow = !0),
+        (I.onBeforeShadow = () => {}),
+        A.add(I),
+        I
+      );
+    };
+  for (let u = 0; u < Zt; u++) {
+    const S = u === 1 ? "mid" : "cab",
+      T = u === 2 ? -1 : 1,
+      A = fe(u * 17.3 + 3.1);
+    ((A.uCab.value = S === "cab" ? 1 : 0),
+      A.uCar.value.set(u === 2 ? 1 : 0.8, u === 2 ? 1 : 0, u * 17.3 + 3.1, 0));
+    const E = { ...d, box: S === "mid" ? F : D },
+      I = {
+        ext: st("ext", A, E),
+        int: st("int", A, E),
+        gIn: st("glassIn", A, E),
+        gOut: st("glassOut", A, E),
+        dec: st("decal", A, E),
+      };
+    ((I.gIn.opacity = 1), (I.gOut.opacity = 1), q.push(...Object.values(I)));
+    const N = En(A),
+      B = new Ge();
+    ((B.name = "train_car" + (u + 1)), r.add(B));
+    const $ = k[S],
+      G = {
+        ext: Y($.ext, I.ext, "train_car" + (u + 1) + "_body", B),
+        int: Y($.int, I.int, "train_car" + (u + 1) + "_inside", B),
+        gOut: Y($.gOut, I.gOut, "train_car" + (u + 1) + "_glass_out", B, !1),
+        gIn: Y($.gIn, I.gIn, "train_car" + (u + 1) + "_glass_in", B, !1),
+      };
+    for (const Z of ["ext", "int"])
+      ((G[Z].customDepthMaterial = N.depth),
+        (G[Z].customDistanceMaterial = N.distance));
+    ((G.gOut.renderOrder = 1),
+      (G.gIn.renderOrder = 1),
+      S === "mid" &&
+        k.mid.dec &&
+        ((G.dec = Y(k.mid.dec, I.dec, "train_car2_smears", B, !1)),
+        (G.dec.renderOrder = 2)),
+      u === 0 &&
+        k.car1.int &&
+        (G.props = Y(k.car1.int, I.int, "train_car1_things", B)),
+      u === 2 &&
+        (k.dmg.int && (G.dmg = Y(k.dmg.int, I.int, "train_car3_damage", B)),
+        k.dmg.dec &&
+          ((G.dec = Y(k.dmg.dec, I.dec, "train_car3_smears", B, !1)),
+          (G.dec.renderOrder = 2))),
+      z.push({
+        i: u,
+        type: S,
+        dir: T,
+        group: B,
+        U: A,
+        mats: I,
+        meshes: G,
+        zones: [0, 1, 2].map(() => ({
+          lvl: 1,
+          on: !0,
+          t: 0.5 + a() * 2,
+          base: 1,
+        })),
+        flick: 0,
+        roll: 0,
+        lat: 0,
+        ph: a() * 10,
+        ph2: a() * 10,
+        light: 1,
+        matrix: new i0(),
+      }));
+  }
+  ((z[2].zones[0].base = 0),
+    (z[2].zones[1].base = 0.38),
+    (z[2].zones[2].base = 0.6),
+    (z[2].flick = 0.4));
+  const Z0 = fe(0),
+    m0 = st("ext", Z0, { ...d }, { wheels: !0 });
+  q.push(m0);
+  const Q = new on(P, m0, Zt * 2);
+  ((Q.name = "train_bogies"),
+    (Q.castShadow = !0),
+    (Q.receiveShadow = !0),
+    (Q.frustumCulled = !1),
+    Q.instanceMatrix.setUsage(ie),
+    (Q.onBeforeShadow = () => {}),
+    r.add(Q));
+  const O0 = [0, 1].map((u) => ko(u)),
+    X0 = st("ext", fe(5), { ...d });
+  q.push(X0);
+  for (const u of O0)
+    ((u.mesh = new Ft(u.geo, X0)),
+      (u.mesh.name = "train_gangway" + (u.k + 1)),
+      (u.mesh.frustumCulled = !1),
+      (u.mesh.castShadow = !0),
+      (u.mesh.receiveShadow = !0),
+      (u.mesh.onBeforeShadow = () => {}),
+      r.add(u.mesh));
+  const u0 = new nn(16773596, 0, 60, 0.42, 0.55, 2);
+  ((u0.name = "train_headlight"),
+    (u0.castShadow = !1),
+    (u0.userData.noShadowBudget = !0),
+    r.add(u0, u0.target));
+  const Tt = ao.map((u, S) => {
+      const T = new Ve(eo, 0, no, 2);
+      return (
+        (T.name = "train_light_" + S),
+        (T.castShadow = !1),
+        (T.userData.noShadowBudget = !0),
+        r.add(T),
+        { l: T, x: u, k: 0 }
+      );
+    }),
+    Rt = (u) =>
+      new $e({
+        vertexShader: Pa,
+        fragmentShader: Ia,
+        transparent: !0,
+        depthWrite: !1,
+        depthTest: !0,
+        blending: Ze,
+        fog: !1,
+        toneMapped: !1,
+        uniforms: { uHead: u.uHead, uTail: u.uTail },
+      });
+  for (const u of [z[0], z[2]]) {
+    const S = new Ft(Na(), Rt(u.U));
+    ((S.name = "train_flares" + (u.i + 1)),
+      (S.frustumCulled = !1),
+      (S.renderOrder = 22),
+      u.group.add(S),
+      (u.flares = S));
+  }
+  const ye = new $e({
+      vertexShader: za,
+      fragmentShader: Ea,
+      transparent: !0,
+      depthWrite: !1,
+      depthTest: !0,
+      side: an,
+      blending: Ze,
+      fog: !1,
+      toneMapped: !1,
+      uniforms: {
+        uTime: it().uTime,
+        uK: { value: 0 },
+        uColor: { value: new qe(1, 0.9, 0.75) },
+      },
+    }),
+    Jt = new ln(1, 1, 40, 1, !0);
+  (Jt.translate(0, -0.5, 0), Jt.rotateZ(Math.PI / 2));
+  const tt = new Ft(Jt, ye);
+  ((tt.name = "train_beam"),
+    (tt.frustumCulled = !1),
+    (tt.renderOrder = 21),
+    tt.position.set(h.HL + 0.08, 1.62, 0),
+    tt.scale.set(32, 32 * Math.tan(0.3), 32 * Math.tan(0.36)),
+    z[0].group.add(tt));
+  const bo = z[1].group,
+    et = (u, S, T, A, E = 0) => {
+      const I = new fn();
+      return (
+        (I.name = "train_spot_" + u),
+        I.position.set(S, T, A),
+        (I.rotation.y = E),
+        bo.add(I),
+        I
+      );
+    },
+    yo = 0.83 - 0.015,
+    P0 = {
+      sara: et("sara", 0.44, h.FL + 1.62, -0.98, 0),
+      akane: et("akane", 0.42, h.FL, 0.93, Math.PI),
+      akanePole: et("akanePole", yo, h.FL + 1.45, h.railZ),
+      akaneSeat: et(
+        "akaneSeat",
+        0.83 + 3.5 * ((5.17 - 0.83) / 8),
+        h.FL + 0.45,
+        h.seatZ,
+        Math.PI,
+      ),
+      gangway: et("gangway", -8.75 - 0.04, 2.4, 0, Math.PI / 2),
+      gangwayDead: et("gangwayDead", -8.75 - 0.48, h.FL, 0, Math.PI / 2),
+      gangwayF: et("gangwayF", h.END + 0.04, 2.4, 0, -Math.PI / 2),
+    },
+    vo = { root: P0.akane, pose: "stand", hands: { R: P0.akanePole, L: null } },
+    f0 = { p: null, s: null, n: 0, len: 0 },
+    ve = (u) => {
+      const S = u.length;
+      ((f0.p = new Float64Array(S * 3)),
+        (f0.s = new Float64Array(S)),
+        (f0.n = S));
+      let T = 0;
+      for (let A = 0; A < S; A++) {
+        const E = u[A];
+        ((f0.p[A * 3] = E[0]),
+          (f0.p[A * 3 + 1] = E[1]),
+          (f0.p[A * 3 + 2] = E[2]),
+          A > 0 &&
+            (T += Math.hypot(
+              E[0] - u[A - 1][0],
+              E[1] - u[A - 1][1],
+              E[2] - u[A - 1][2],
+            )),
+          (f0.s[A] = T));
+      }
+      ((f0.len = T), (L.seg = 0));
+    },
+    Lt = (u, S) => {
+      const T = f0.n;
+      if (T < 2) return S.set(u, 0, 0);
+      let A;
+      if (u <= 0) A = 0;
+      else if (u >= f0.len) A = T - 2;
+      else {
+        for (A = k0(L.seg | 0, 0, T - 2); A < T - 2 && f0.s[A + 1] < u;) A++;
+        for (; A > 0 && f0.s[A] > u;) A--;
+        L.seg = A;
+      }
+      const E = f0.s[A + 1] - f0.s[A] || 1,
+        I = (u - f0.s[A]) / E,
+        N = A * 3,
+        B = N + 3,
+        $ = f0.p;
+      return S.set(
+        $[N] + ($[B] - $[N]) * I,
+        $[N + 1] + ($[B + 1] - $[N + 1]) * I,
+        $[N + 2] + ($[B + 2] - $[N + 2]) * I,
+      );
+    },
+    we = new W(),
+    ke = new W(),
+    Yt = (u, S) => (
+      Lt(u + 1, we),
+      Lt(u - 1, ke),
+      S.subVectors(we, ke).normalize()
+    ),
+    Xt = new W(),
+    te = new W(),
+    wo = (u) => (Yt(u + 3, Xt), Yt(u - 3, te), (te.z * Xt.x - te.x * Xt.z) / 6),
+    L = {
+      s: 0,
+      seg: 0,
+      t: 0,
+      speed: 0,
+      lastS: null,
+      accel: 0,
+      wheel: 0,
+      power: 1,
+      powerGoal: 1,
+      door: { left: Se("left"), right: Se("right") },
+      lastSide: "left",
+      stopped: !0,
+      stopT: 0,
+      curve: 0,
+      station: [2, 3],
+      lamps: new Kt(),
+      poolCar: 1,
+      poolNext: -1,
+      poolK: 0,
+      flickSnd: 0,
+      knock: 0,
+      knockV: 0,
+      knockF: 0,
+      knockVF: 0,
+      gang: {
+        rear: { k: 0, goal: 0, rate: 1 },
+        front: { k: 0, goal: 0, rate: 1 },
+      },
+    };
+  function Se(u) {
+    return {
+      side: u,
+      k: 0,
+      from: 0,
+      to: 0,
+      t: 0,
+      T: 1,
+      mode: "idle",
+      hold: 0,
+      lamp: 0,
+    };
+  }
+  const ee = new W(),
+    oe = new W(),
+    I0 = new W(),
+    K0 = new W(),
+    Pt = new W(),
+    ne = new W(),
+    ae = new W(),
+    dt = new W(),
+    Me = new W(),
+    Ae = new W(),
+    le = new i0(),
+    Te = new i0(),
+    re = () => {
+      for (const u of z) {
+        const S = L.s - H0 / 2 - H0 * u.i;
+        (Lt(S + h.bogieX, ee),
+          Lt(S - h.bogieX, oe),
+          I0.subVectors(ee, oe).normalize(),
+          K0.set(0, 1, 0).addScaledVector(I0, -I0.y).normalize(),
+          Pt.crossVectors(I0, K0).normalize());
+        const T = u.roll,
+          A = Math.cos(T),
+          E = Math.sin(T);
+        (ne.copy(K0).multiplyScalar(A).addScaledVector(Pt, E),
+          ae.copy(Pt).multiplyScalar(A).addScaledVector(K0, -E),
+          dt
+            .addVectors(ee, oe)
+            .multiplyScalar(0.5)
+            .addScaledVector(K0, 1)
+            .addScaledVector(ne, -1)
+            .addScaledVector(ae, u.lat),
+          Me.copy(I0).multiplyScalar(u.dir),
+          Ae.copy(ae).multiplyScalar(u.dir),
+          le.makeBasis(Me, ne, Ae).setPosition(dt),
+          u.matrix.copy(le),
+          le.decompose(u.group.position, u.group.quaternion, u.group.scale));
+      }
+      for (let u = 0; u < Zt * 2; u++) {
+        const S =
+          L.s -
+          H0 / 2 -
+          H0 * Math.floor(u / 2) +
+          (u % 2 === 0 ? h.bogieX : -6.25);
+        (Lt(S, dt),
+          Yt(S, I0),
+          K0.set(0, 1, 0).addScaledVector(I0, -I0.y).normalize(),
+          Pt.crossVectors(I0, K0).normalize(),
+          Te.makeBasis(I0, K0, Pt).setPosition(dt),
+          Q.setMatrixAt(u, Te));
+      }
+      ((Q.instanceMatrix.needsUpdate = !0), r.updateMatrixWorld(!0));
+      for (const u of O0) So(u);
+    };
+  function ko(u) {
+    const { sec: S, folds: T, depth: A } = ka(),
+      E = S.length,
+      I = S.map((H, a0) => {
+        const A0 = S[(a0 - 1 + E) % E],
+          j = S[(a0 + 1) % E],
+          r0 = j[0] - A0[0],
+          l0 = j[1] - A0[1],
+          t0 = Math.hypot(r0, l0) || 1;
+        return [l0 / t0, -r0 / t0];
+      }),
+      N = T + 1,
+      B = E + 1,
+      $ = _({ col: "#17181a", rough: 0.8, kind: O.RUBBER }),
+      G = [],
+      Z = [],
+      o0 = [],
+      W0 = [],
+      w0 = [],
+      Et = 0.4 / T,
+      ht = (H, a0) => {
+        const A0 = Z.length / 3;
+        if (!a0) {
+          for (let j = 0; j < T; j++) {
+            const r0 = j % 2 === 1 ? A : 0,
+              l0 = (j + 1) % 2 === 1 ? A : 0,
+              t0 = Math.atan2(l0 - r0, Et),
+              at = Math.sin(t0),
+              z0 = Math.cos(t0),
+              Go = Z.length / 3;
+            for (const [yt, lt] of [
+              [j, r0],
+              [j + 1, l0],
+            ])
+              for (let G0 = 0; G0 < B; G0++) {
+                const De = S[G0 % E],
+                  $t = I[G0 % E];
+                (G.push([
+                  De[0] + $t[0] * (lt - H),
+                  De[1] + $t[1] * (lt - H),
+                  yt / T,
+                ]),
+                  Z.push(0, 0, 0),
+                  o0.push(at, $t[1] * z0, $t[0] * z0),
+                  W0.push(G0 / E, yt / T));
+              }
+            for (let yt = 0; yt < E; yt++) {
+              const lt = Go + yt,
+                G0 = lt + B;
+              w0.push(lt, lt + 1, G0, lt + 1, G0 + 1, G0);
+            }
+          }
+          return;
+        }
+        for (let j = 0; j < N; j++) {
+          const r0 = j / T,
+            l0 = (j % 2 === 1 ? A : 0) - H;
+          for (let t0 = 0; t0 < B; t0++) {
+            const at = S[t0 % E],
+              z0 = I[t0 % E];
+            (G.push([at[0] + z0[0] * l0, at[1] + z0[1] * l0, r0]),
+              Z.push(0, 0, 0),
+              o0.push(0, -z0[1], -z0[0]),
+              W0.push(t0 / E, r0));
+          }
+        }
+        for (let j = 0; j < T; j++)
+          for (let r0 = 0; r0 < E; r0++) {
+            const l0 = A0 + j * B + r0,
+              t0 = l0 + B;
+            w0.push(l0, t0, l0 + 1, l0 + 1, t0, t0 + 1);
+          }
+      };
+    (ht(0, !1),
+      ht(0.04, !0),
+      ((H, a0, A0) => {
+        const j = Z.length / 3;
+        for (const [r0, l0] of [
+          [H, 0],
+          [a0, 0],
+          [a0, 1],
+          [H, 1],
+        ])
+          (G.push([r0, A0, l0]),
+            Z.push(0, 0, 0),
+            o0.push(0, 1, 0),
+            W0.push(r0, l0));
+        w0.push(j, j + 1, j + 2, j, j + 2, j + 3);
+      })(0.5, -0.5, h.FL + 0.012));
+    const Vt = Z.length / 3,
+      Nt = [
+        [-0.07, 0.69],
+        [0.07, 0.69],
+        [0.07, 0.83],
+        [-0.07, 0.83],
+      ];
+    for (let H = 0; H < 4; H++) {
+      const a0 = Nt[H],
+        A0 = Nt[(H + 1) % 4],
+        j = (a0[0] + A0[0]) / 2,
+        r0 = (a0[1] + A0[1]) / 2 - 0.76,
+        l0 = Math.hypot(j, r0) || 1;
+      for (const [at, z0] of [
+        [a0, 0],
+        [A0, 0],
+        [A0, 1],
+        [a0, 1],
+      ])
+        (G.push([at[0], at[1], z0]),
+          Z.push(0, 0, 0),
+          o0.push(0, r0 / l0, j / l0),
+          W0.push(0, z0));
+      const t0 = Vt + H * 4;
+      w0.push(t0, t0 + 1, t0 + 2, t0, t0 + 2, t0 + 3);
+    }
+    const b0 = new q0(),
+      mt = Z.length / 3;
+    (b0.setAttribute("position", new S0(new Float32Array(Z), 3)),
+      b0.setAttribute("normal", new S0(new Float32Array(o0), 3)),
+      b0.setAttribute("uv", new S0(new Float32Array(W0), 2)));
+    const gt = new Float32Array(mt * 3),
+      nt = new Float32Array(mt * 4),
+      Ct = new Float32Array(mt),
+      bt = T * 2 * B + N * B;
+    for (let H = 0; H < mt; H++) {
+      const a0 =
+        H < bt
+          ? $
+          : H < bt + 4
+            ? _({ col: "#7c7c78", rough: 0.45, metal: 1, kind: O.PLAIN })
+            : _({ col: "#232527", rough: 0.6, metal: 0.4, kind: O.UNDER });
+      ((gt[H * 3] = a0.col[0]),
+        (gt[H * 3 + 1] = a0.col[1]),
+        (gt[H * 3 + 2] = a0.col[2]),
+        (nt[H * 4] = a0.rough),
+        (nt[H * 4 + 1] = a0.metal),
+        (nt[H * 4 + 2] = a0.kind),
+        (nt[H * 4 + 3] = 0));
+    }
+    return (
+      b0.setAttribute("color", new S0(gt, 3)),
+      b0.setAttribute("aSurf", new S0(nt, 4)),
+      b0.setAttribute("aAnim", new S0(Ct, 1)),
+      b0.setIndex(w0),
+      b0.attributes.position.setUsage(ie),
+      b0.attributes.normal.setUsage(ie),
+      { k: u, geo: b0, rest: G, nrm0: Float32Array.from(o0), A: u, B: u + 1 }
+    );
+  }
+  function So(u) {
+    const S = z[u.A],
+      T = z[u.B],
+      A = -8.8 * S.dir,
+      E = h.HL * T.dir,
+      I = u.geo.attributes.position.array,
+      N = u.geo.attributes.normal.array,
+      B = u.rest,
+      $ = u.nrm0,
+      G = S.matrix.elements,
+      Z = T.matrix.elements;
+    for (let o0 = 0; o0 < B.length; o0++) {
+      const [W0, w0, Et] = B[o0],
+        ht = W0 * S.dir,
+        xt = W0 * T.dir,
+        Vt = G[0] * A + G[4] * w0 + G[8] * ht + G[12],
+        Nt = G[1] * A + G[5] * w0 + G[9] * ht + G[13],
+        b0 = G[2] * A + G[6] * w0 + G[10] * ht + G[14],
+        mt = Z[0] * E + Z[4] * w0 + Z[8] * xt + Z[12],
+        gt = Z[1] * E + Z[5] * w0 + Z[9] * xt + Z[13],
+        nt = Z[2] * E + Z[6] * w0 + Z[10] * xt + Z[14];
+      ((I[o0 * 3] = Vt + (mt - Vt) * Et),
+        (I[o0 * 3 + 1] = Nt + (gt - Nt) * Et),
+        (I[o0 * 3 + 2] = b0 + (nt - b0) * Et));
+      const Ct = $[o0 * 3],
+        bt = $[o0 * 3 + 1],
+        H = $[o0 * 3 + 2] * S.dir;
+      ((N[o0 * 3] = G[0] * Ct * S.dir + G[4] * bt + G[8] * H),
+        (N[o0 * 3 + 1] = G[1] * Ct * S.dir + G[5] * bt + G[9] * H),
+        (N[o0 * 3 + 2] = G[2] * Ct * S.dir + G[6] * bt + G[10] * H));
+    }
+    ((u.geo.attributes.position.needsUpdate = !0),
+      (u.geo.attributes.normal.needsUpdate = !0));
+  }
+  const se = (u, S) => (u.dir > 0 ? S : S === "left" ? "right" : "left"),
+    Le = (u) => u * u * (3 - 2 * u),
+    Pe = 0.1 / h.TRAVEL,
+    Mo = (u) =>
+      u < 0.68 ? 1 - (1 - Pe) * Dt(0, 0.68, u) : Pe * (1 - Dt(0.68, 1, u));
+  function Ao(u, S, T) {
+    const A = L.door[u];
+    if (A)
+      if (((L.lastSide = u), S)) {
+        if (A.mode === "opening" || (A.k > 0.999 && A.mode === "idle")) return;
+        ((A.mode = "opening"),
+          (A.from = A.k),
+          (A.t = 0),
+          (A.T = (T ?? 2) * Math.max(0.25, 1 - A.k)),
+          pt("train_door_chime", u, 0.42),
+          pt("train_door_open", u, 0.75));
+      } else {
+        if (A.mode === "closing" || (A.k < 0.001 && A.mode === "idle")) return;
+        ((A.mode = "closing"),
+          (A.from = A.k),
+          (A.t = 0),
+          (A.T = (T ?? 2.5) * Math.max(0.3, A.k)),
+          pt("train_door_chime", u, 0.45),
+          pt("train_door_close", u, 0.48, 0.35));
+      }
+  }
+  function To(u) {
+    const S = L.door[u];
+    S &&
+      ((S.mode !== "closing" &&
+        !(S.mode === "idle" && S.k < 0.02 && L.t - (S.shutAt ?? -9) < 0.3)) ||
+        ((S.mode = "bounce"),
+        (S.from = S.k),
+        (S.to = Math.min(1, S.k + 0.45)),
+        (S.t = 0),
+        (S.T = 0.35),
+        (S.hold = 0.9),
+        pt("train_door_bounce", u, 0.85)));
+  }
+  const Ie = (u, S) => {
+      if (u.mode === "idle") {
+        u.lamp = 0;
+        return;
+      }
+      u.t += S;
+      const T = k0(u.t / Math.max(0.05, u.T));
+      u.mode === "opening"
+        ? ((u.k = u.from + (1 - u.from) * Le(T)),
+          (u.lamp = 0),
+          T >= 1 && ((u.k = 1), (u.mode = "idle")))
+        : u.mode === "closing"
+          ? ((u.k = u.from * Mo(T)),
+            (u.lamp = Math.sin(L.t * Math.PI * 2 * 2.2) > -0.1 ? 1 : 0),
+            T >= 1 &&
+              ((u.k = 0), (u.mode = "idle"), (u.lamp = 0), (u.shutAt = L.t)))
+          : u.mode === "bounce" &&
+            ((u.lamp = Math.sin(L.t * Math.PI * 2 * 2.2) > -0.1 ? 1 : 0),
+            T < 1
+              ? (u.k = u.from + (u.to - u.from) * Le(T))
+              : ((u.k = u.to),
+                (u.hold -= S),
+                u.hold <= 0 &&
+                  ((u.mode = "closing"),
+                  (u.from = u.k),
+                  (u.t = 0),
+                  (u.T = 2.5 * Math.max(0.3, u.k)),
+                  pt("train_door_close", u.side, 0.42))));
+    },
+    R0 = a,
+    Lo = (u, S) => {
+      const T = u.flick;
+      let A = 0;
+      for (let E = 0; E < 3; E++) {
+        const I = u.zones[E];
+        T < 0.01
+          ? ((I.on = !0), (I.lvl = _t(I.lvl, 1, 20, S)))
+          : ((I.t -= S),
+            I.t <= 0 &&
+              (I.on
+                ? ((I.on = !1),
+                  (I.t =
+                    T > 0.85
+                      ? 0.3 + R0() * 2.4 * T
+                      : 0.035 + R0() * 0.1 * (1 + T * 2.5)),
+                  T > 0.5 && R0() < 0.3 && (I.t += R0() * 0.5))
+                : ((I.on = !0),
+                  (I.t =
+                    T > 0.85
+                      ? 0.04 + R0() * 0.15
+                      : (1 - T) * (0.4 + R0() * 3.5) +
+                        0.04 +
+                        (R0() < T * 0.6 ? 0 : R0() * 0.4))),
+              z.indexOf(u) === L.poolCar &&
+                L.flickSnd <= 0 &&
+                ((L.flickSnd = 0.22), Eo(u))),
+            (I.lvl = I.on
+              ? 1 - T * 0.2 * R0()
+              : T > 0.85
+                ? 0
+                : (u.flickFloor ?? 0.04)));
+        const N = I.lvl * I.base * L.power;
+        (u.U.uZone.value.setComponent(E, N), (A += N));
+      }
+      ((u.light = A / 3),
+        (u.U.uLight.value = u.light),
+        (u.U.uEnvK.value = 0.04 + 0.96 * Math.pow(u.light, 1.6)));
+    },
+    ot = new W(),
+    Bt = new W(),
+    ze = new i0(),
+    Po = () => {
+      const u = o.camera;
+      if (!u) return 1;
+      u.getWorldPosition(ot);
+      let S = 1,
+        T = 1e9;
+      for (const A of z) {
+        (ze.copy(A.group.matrixWorld).invert(), Bt.copy(ot).applyMatrix4(ze));
+        const E = Math.max(0, Math.abs(Bt.x) - h.HL),
+          I = Math.max(0, Math.abs(Bt.z) - h.HW),
+          N = Math.max(0, Math.abs(Bt.y - 2.2) - 1.4),
+          B = Math.hypot(E, N, I) + (A.i === L.poolCar ? -0.5 : 0);
+        B < T && ((T = B), (S = A.i));
+      }
+      return S;
+    },
+    Io = (u) => {
+      const S = Po();
+      (S !== L.poolCar && L.poolNext !== S && (L.poolNext = S),
+        L.poolNext >= 0
+          ? ((L.poolK = Math.max(0, L.poolK - u * 5)),
+            L.poolK === 0 && ((L.poolCar = L.poolNext), (L.poolNext = -1)))
+          : (L.poolK = Math.min(1, L.poolK + u * 4)));
+      const T = z[L.poolCar];
+      for (let A = 0; A < Tt.length; A++) {
+        const E = Tt[A],
+          I = T.dir > 0 ? A : 2 - A;
+        (dt
+          .set((T.type === "cab" ? La[A] : E.x) * T.dir, 3.08, 0)
+          .applyMatrix4(T.group.matrixWorld),
+          E.l.position.copy(dt),
+          (E.l.intensity = oo * L.poolK * T.U.uZone.value.getComponent(I)));
+      }
+    },
+    Ee = new W(),
+    Ne = new W(),
+    zo = () => {
+      const u = L.power;
+      ((z[0].U.uHead.value = u),
+        (z[0].U.uTail.value = 0),
+        (z[2].U.uHead.value = 0),
+        (z[2].U.uTail.value = u));
+      const S = z[0];
+      (Ee.set(h.HL + 0.12, 1.61, 0).applyMatrix4(S.group.matrixWorld),
+        Ne.set(h.HL + 40, 0.6, 0).applyMatrix4(S.group.matrixWorld),
+        u0.position.copy(Ee),
+        u0.target.position.copy(Ne),
+        (u0.intensity = v0.headIntensity * u),
+        u0.updateMatrixWorld(),
+        u0.target.updateMatrixWorld(),
+        (ye.uniforms.uK.value = v0.beamK * u));
+      const [T, A] = L.station,
+        E = Math.sin(L.t * Math.PI * 2 * 0.9) > 0 ? 1 : 0.15;
+      for (let I = 0; I < 4; I++)
+        L.lamps.setComponent(
+          I,
+          (I === T ? 1 : 0) + (I === A && A !== T ? E : 0),
+        );
+      (it().uLamps.value.copy(L.lamps), (it().uPower.value = u));
+    },
+    p0 = Aa(o, {
+      get onboard() {
+        return v0.onboard;
+      },
+      get engineVol() {
+        return v0.engineVol;
+      },
+    }),
+    B0 = new W(),
+    Ce = new W(),
+    ut = new W(),
+    n0 = new W(),
+    It = { speed: 0, accel: 0, curve: 0, power: 1, near: B0 },
+    zt = (u) => {
+      const S = o.camera;
+      if (!S) return u.set(0, 0, 0);
+      (S.getWorldPosition(ot),
+        Ce.set(h.HL, 2, 0).applyMatrix4(z[0].group.matrixWorld),
+        ut.set(h.HL, 2, 0).applyMatrix4(z[2].group.matrixWorld),
+        n0.subVectors(Ce, ut));
+      const T = n0.length() || 1;
+      n0.divideScalar(T);
+      const A = k0(
+        (ot.x - ut.x) * n0.x + (ot.y - ut.y) * n0.y + (ot.z - ut.z) * n0.z,
+        0,
+        T,
+      );
+      return u.copy(ut).addScaledVector(n0, A);
+    },
+    pt = (u, S, T, A = 0) => {
+      zt(B0);
+      const E = S === "left" ? -1 : 1,
+        I = z[L.poolCar];
+      (n0.set(0, 2, E * h.HW * I.dir).applyMatrix4(I.group.matrixWorld),
+        p0.shot(u, n0, T, A ? { delay: A } : {}));
+    },
+    Eo = (u) => {
+      (n0.set(0, 3, 0).applyMatrix4(u.group.matrixWorld),
+        !(
+          !v0.onboard &&
+          (!o.camera || o.camera.getWorldPosition(ot).distanceTo(n0) > 28)
+        ) && p0.shot("train_light_flicker", n0, 0.35 + 0.3 * u.flick));
+    },
+    Gt = [];
+  for (const u of z) {
+    const S = [],
+      T = [
+        [-8.8, -6.65],
+        [-5.35, -0.65],
+        [0.65, 5.35],
+        [6.65, h.HL],
+      ];
+    for (const [A, E] of T)
+      for (const I of [1, -1])
+        S.push([
+          A,
+          E,
+          h.FL,
+          h.FL + 2.2,
+          I > 0 ? 1.27 : -1.43,
+          I > 0 ? 1.43 : -1.27,
+        ]);
+    for (const [A, E] of ho(u.type))
+      for (const I of [1, -1])
+        S.push([
+          A - 0.04,
+          E + 0.04,
+          h.FL,
+          h.FL + 0.6,
+          I > 0 ? 0.78 : -1.3,
+          I > 0 ? 1.3 : -0.78,
+        ]);
+    u.type === "mid"
+      ? (S.push([h.END - 0.05, h.HL + 0.05, h.FL, h.FL + 2.3, -1.4, 1.4]),
+        S.push([-8.8 - 0.05, -8.75 + 0.05, h.FL, h.FL + 2.3, -1.4, 1.4]))
+      : (S.push([h.cabX - 0.03, h.HL + 0.05, h.FL, h.FL + 2.3, -1.4, 1.4]),
+        S.push([-8.8 - 0.05, -8.75 + 0.05, h.FL, h.FL + 2.3, -1.4, 1.4]));
+    for (const A of S) Gt.push({ c: u, b: A });
+    for (const A of h.doors)
+      for (const E of [1, -1])
+        Gt.push({
+          c: u,
+          b: [
+            A - h.DW / 2 - 0.02,
+            A + h.DW / 2 + 0.02,
+            h.FL,
+            h.FL + 2.2,
+            E > 0 ? 1.27 : -1.43,
+            E > 0 ? 1.43 : -1.27,
+          ],
+          plug: E > 0 ? "right" : "left",
+        });
+  }
+  const Ut = Gt.map((u) => ({
+      x0: 0,
+      x1: 0,
+      z0: 0,
+      z1: 0,
+      y0: 0,
+      y1: 0,
+      on: !0,
+      plug: u.plug ? { car: u.c, side: u.plug } : null,
+    })),
+    g0 = new W();
+  function Fe() {
+    return (
+      r.updateMatrixWorld(!0),
+      Gt.forEach(({ c: u, b: S }, T) => {
+        const A = Ut[T];
+        let E = 1e9,
+          I = -1e9,
+          N = 1e9,
+          B = -1e9,
+          $ = 1e9,
+          G = -1e9;
+        for (let Z = 0; Z < 8; Z++)
+          (g0
+            .set(Z & 1 ? S[1] : S[0], Z & 2 ? S[3] : S[2], Z & 4 ? S[5] : S[4])
+            .applyMatrix4(u.group.matrixWorld),
+            (E = Math.min(E, g0.x)),
+            (I = Math.max(I, g0.x)),
+            (N = Math.min(N, g0.y)),
+            (B = Math.max(B, g0.y)),
+            ($ = Math.min($, g0.z)),
+            (G = Math.max(G, g0.z)));
+        ((A.x0 = E),
+          (A.x1 = I),
+          (A.y0 = N),
+          (A.y1 = B),
+          (A.z0 = $),
+          (A.z1 = G));
+      }),
+      Ut
+    );
+  }
+  function No(u = "left") {
+    r.updateMatrixWorld(!0);
+    let S = 1e9,
+      T = -1e9,
+      A = 1e9,
+      E = -1e9,
+      I = 0;
+    const N = u === "right" ? 1 : -1;
+    for (const B of z) {
+      const G = B.type === "cab" ? h.cabX : h.END;
+      for (const [Z, o0] of [
+        [-8.75, -1.3],
+        [G, -1.3],
+        [-8.75, h.IW],
+        [G, h.IW],
+        [-8.75, N * B.dir * (h.HW + 0.02)],
+        [G, N * B.dir * (h.HW + 0.02)],
+      ])
+        (g0.set(Z, h.FL, o0).applyMatrix4(B.group.matrixWorld),
+          (S = Math.min(S, g0.x)),
+          (T = Math.max(T, g0.x)),
+          (A = Math.min(A, g0.z)),
+          (E = Math.max(E, g0.z)),
+          (I = g0.y));
+    }
+    return { x0: S, x1: T, z0: A, z1: E, y: I, y0: I - 0.05, y1: I + 2.2 };
+  }
+  const v0 = {
+      root: r,
+      cars: z,
+      spots: P0,
+      rider: vo,
+      colliders: Ut,
+      headlight: u0,
+      pool: Tt.map((u) => u.l),
+      bogies: Q,
+      beam: tt,
+      length: pe,
+      headIntensity: 5200,
+      beamK: 0.07,
+      engineVol: 1,
+      onboard: !1,
+      collidersOn: !1,
+      get s() {
+        return L.s;
+      },
+      get speed() {
+        return L.speed;
+      },
+      get doorsK() {
+        return L.door[L.lastSide].k;
+      },
+      doorsOf: (u) => L.door[u]?.k ?? 0,
+      setLine: ve,
+      place(u) {
+        ((L.s = u), re());
+      },
+      doors: Ao,
+      bounce: To,
+      refreshColliders: Fe,
+      floorBox: No,
+      lights(u) {
+        L.powerGoal = k0(+u || 0);
+      },
+      flicker(u, S, T = 0.04) {
+        const A = z[u | 0];
+        A && ((A.flick = k0(+S || 0)), (A.flickFloor = k0(+T)));
+      },
+      horn() {
+        const u = new W(h.HL + 0.3, 1.5, 0).applyMatrix4(
+          z[0].group.matrixWorld,
+        );
+        p0.shot("train_horn", u, 0.6, { ref: 7 });
+      },
+      chime() {
+        const u = z[L.poolCar];
+        p0.shot(
+          "train_pa_chime",
+          new W(0, 3.2, 0).applyMatrix4(u.group.matrixWorld),
+          0.8,
+          { reverb: 0.15 },
+        );
+      },
+      bang(u = 1) {
+        ((u = k0(+u || 0)),
+          (L.knockV += 0.55 * u),
+          P0.gangway.getWorldPosition(n0),
+          p0.shot("train_gangway_bang", n0, 0.5 + 0.5 * u, { ref: 3 }));
+      },
+      bangFront(u = 1) {
+        ((u = k0(+u || 0)),
+          (L.knockVF += 0.55 * u),
+          P0.gangwayF.getWorldPosition(n0),
+          p0.shot("train_gangway_bang", n0, 0.5 + 0.5 * u, { ref: 3 }));
+      },
+      gangway(u, S, T = 1.2, A = !1) {
+        const E = L.gang[u];
+        E &&
+          ((E.goal = S ? 1 : 0),
+          (E.rate = 1 / Math.max(0.05, T)),
+          !A &&
+            ((u === "front" ? P0.gangwayF : P0.gangway).getWorldPosition(n0),
+            S && T < 0.4
+              ? (p0.shot("train_gangway_bang", n0, 1, { ref: 4 }),
+                p0.shot("train_door_bounce", n0, 0.9, { ref: 4 }))
+              : p0.shot(S ? "train_door_open" : "train_door_close", n0, 0.6, {
+                  ref: 3,
+                })));
+      },
+      gangwayK: (u) => L.gang[u]?.k ?? 0,
+      lockCar(u, S = !0) {
+        const T = z[u | 0];
+        T && (T.locked = !!S);
+      },
+      dims: {
+        END: h.END,
+        IW: h.IW,
+        FL: h.FL,
+        CAR: H0,
+        doors: h.doors,
+        DW: h.DW,
+      },
+      setStation(u, S = -1) {
+        L.station = [u, S];
+      },
+      carryCamera(u, S = 0, T = 0) {
+        (P0.sara.updateMatrixWorld(!0),
+          P0.sara.getWorldPosition(u.position),
+          P0.sara.getWorldQuaternion(u.quaternion),
+          u.quaternion
+            .multiply(Co.setFromAxisAngle(Do, Math.PI + S))
+            .multiply(Fo.setFromAxisAngle(_o, T)),
+          u.updateMatrixWorld());
+      },
+      update: Oo,
+      sound: p0,
+      tris: 0,
+      buildMs: 0,
+    },
+    Co = new Ot(),
+    Fo = new Ot(),
+    Do = new W(0, 1, 0),
+    _o = new W(1, 0, 0);
+  function Oo(u, S = {}) {
+    ((u = Math.min(Math.max(u || 0, 0), 0.1)),
+      (L.t += u),
+      i.length && (L.mapT = (L.mapT || 0) + u) > 0.5 && ((L.mapT = 0), s()),
+      (it().uTime.value = L.t));
+    let T = S.speed;
+    (T == null && (T = L.lastS == null || u <= 0 ? 0 : (L.s - L.lastS) / u),
+      (L.lastS = L.s),
+      (L.accel = _t(L.accel, u > 0 ? (T - L.speed) / u : 0, 4, u)));
+    const A = L.speed;
+    ((L.speed = T),
+      (L.wheel = (L.wheel - (T * u) / h.wheelR) % (Math.PI * 2)),
+      (it().uWheel.value = L.wheel));
+    const E = Math.abs(T),
+      I = Dt(1, 14, E);
+    for (const N of z) {
+      const B = L.s - H0 / 2 - H0 * N.i,
+        $ = wo(B);
+      N.i === 1 && (L.curve = $);
+      const G = k0($ * T * T * 0.0125, -0.014, 0.014),
+        Z =
+          I *
+          (0.0032 * Math.sin(L.t * 4.4 + N.ph) +
+            0.0016 * Math.sin(L.t * 7.3 + N.ph2) +
+            8e-4 * Math.sin(L.t * 13.1 + N.ph * 2));
+      ((N.roll = _t(N.roll, G + Z, 6, u)),
+        (N.lat = _t(
+          N.lat,
+          I *
+            (0.004 * Math.sin(L.t * 2.1 + N.ph2) +
+              0.002 * Math.sin(L.t * 5.7 + N.ph)),
+          6,
+          u,
+        )));
+    }
+    (re(), Ie(L.door.left, u), Ie(L.door.right, u));
+    {
+      const N = Math.max(1, Math.ceil(u / 0.004)),
+        B = u / N;
+      for (let $ = 0; $ < N; $++)
+        ((L.knockV += (-1600 * L.knock - 18 * L.knockV) * B),
+          (L.knock += L.knockV * B));
+    }
+    z[1].U.uKnock.value = k0(L.knock, -0.004, 0.014);
+    {
+      const N = Math.max(1, Math.ceil(u / 0.004)),
+        B = u / N;
+      for (let $ = 0; $ < N; $++)
+        ((L.knockVF += (-1600 * L.knockF - 18 * L.knockVF) * B),
+          (L.knockF += L.knockVF * B));
+    }
+    z[1].U.uKnockF.value = k0(L.knockF, -0.004, 0.014);
+    for (const N of [L.gang.rear, L.gang.front])
+      if (N.k !== N.goal) {
+        const B = N.goal - N.k;
+        N.k += Math.sign(B) * Math.min(Math.abs(B), N.rate * u);
+      }
+    z[1].U.uGang.value.set(
+      Dt(0, 1, L.gang.rear.k) * 0.86,
+      Dt(0, 1, L.gang.front.k) * 0.86,
+    );
+    for (const N of Ut)
+      if (N.plug) {
+        const B = L.door[se(N.plug.car, N.plug.side)];
+        N.on = !!v0.collidersOn && (!!N.plug.car.locked || B.k < 0.25);
+      }
+    for (const N of z) {
+      const B = L.door[se(N, "left")],
+        $ = L.door[se(N, "right")],
+        G = N.locked ? 0 : 1;
+      (N.U.uDoor.value.set(
+        B.k * h.TRAVEL * G,
+        $.k * h.TRAVEL * G,
+        B.lamp * G,
+        $.lamp * G,
+      ),
+        N.U.uBtn.value.set(B.k > 0.5 && G ? 1 : 0, $.k > 0.5 && G ? 1 : 0),
+        N.U.uToCar.value.setFromMatrix4(N.group.matrixWorld).transpose(),
+        N.U.uCarPos.value.setFromMatrixPosition(N.group.matrixWorld));
+    }
+    ((L.power = _t(L.power, L.powerGoal, 9, u)), (L.flickSnd -= u));
+    for (const N of z) Lo(N, u);
+    (Io(u),
+      zo(),
+      A > 3.2 &&
+        E <= 3.2 &&
+        L.accel < -0.2 &&
+        (zt(B0), p0.shot("train_brake", B0, 0.75)),
+      !L.stopped && E < 0.02 && ((L.stopped = !0), (L.stopT = 0.6)),
+      L.stopped &&
+        E > 0.15 &&
+        ((L.stopped = !1), zt(B0), p0.shot("train_air", B0, 0.45)),
+      L.stopT > 0 &&
+        ((L.stopT -= u),
+        L.stopT <= 0 && (zt(B0), p0.shot("train_air", B0, 0.7))),
+      zt(B0),
+      (It.speed = T),
+      (It.accel = L.accel),
+      (It.curve = L.curve),
+      (It.power = L.power),
+      p0.update(u, It));
+  }
+  const Ro = Bo();
+  function Bo() {
+    const u = performance.now();
+    try {
+      const S = new rn();
+      S.background = new qe(0);
+      const T = z[1],
+        A = new Ft(T.meshes.int.geometry, T.mats.int);
+      S.add(A);
+      for (const N of ao) {
+        const B = new Ve(eo, oo, no, 2);
+        (B.position.set(N, 3.08, 0), S.add(B));
+      }
+      (S.add(new sn(3818056, 1710102, 0.4)),
+        T.U.uZone.value.set(1, 1, 1),
+        (T.U.uEnvK.value = 0),
+        T.U.uToCar.value.identity(),
+        T.U.uCarPos.value.set(0, 0, 0));
+      const E = new cn(n),
+        I = E.fromScene(S, 0, 0.05, 40, { size: 256, position: F.eye.clone() });
+      E.dispose();
+      for (const N of q)
+        N.defines?.TR_INT !== void 0 &&
+          ((N.envMap = I.texture),
+          (N.envMapIntensity = 1),
+          (N.needsUpdate = !0));
+      v0.envTexture = I.texture;
+    } catch (S) {
+      console.warn("[train] interior capture failed", S);
+    }
+    return Math.round(performance.now() - u);
+  }
+  return (
+    ve([
+      [0, 0, 0],
+      [pe + 10, 0, 0],
+    ]),
+    (L.s = pe),
+    re(),
+    Fe(),
+    (v0.tris = [k.mid.ext, k.mid.int, k.cab.ext, k.cab.int].reduce(
+      (u, S) => u + S.index.count / 3,
+      0,
+    )),
+    (v0.buildMs = Math.round(performance.now() - l)),
+    (v0.partsMs = C),
+    (v0.captureMs = Ro),
+    v0
+  );
+}
+function Na() {
+  const t = [],
+    e = [],
+    o = [],
+    n = [],
+    a = [],
+    l = [],
+    r = [],
+    p = [
+      [0.84, 0, [1, 0.88, 0.7], 0.9],
+      [-0.84, 0, [1, 0.88, 0.7], 0.9],
+      [1.17, 1, [1, 0.05, 0.03], 0.45],
+      [-1.17, 1, [1, 0.05, 0.03], 0.45],
+    ];
+  for (const [c, d, i, s] of p) {
+    const m = t.length / 3;
+    for (const [v, y, w, M] of [
+      [-1, -1, 0, 0],
+      [1, -1, 1, 0],
+      [1, 1, 1, 1],
+      [-1, 1, 0, 1],
+    ])
+      (t.push(v, y, 0),
+        e.push(w, M),
+        o.push(...i),
+        n.push(s),
+        a.push(d),
+        l.push(h.HL + 0.05, 1.61, c));
+    r.push(m, m + 1, m + 2, m, m + 2, m + 3);
+  }
+  const f = new q0();
+  return (
+    f.setAttribute("position", new e0(t, 3)),
+    f.setAttribute("uv", new e0(e, 2)),
+    f.setAttribute("aCol", new e0(o, 3)),
+    f.setAttribute("aSize", new e0(n, 1)),
+    f.setAttribute("aKind", new e0(a, 1)),
+    f.setAttribute("aCenter", new e0(l, 3)),
+    f.setIndex(r),
+    f
+  );
+}
+export { Da as c };

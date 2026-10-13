@@ -1,0 +1,96 @@
+// assets__bedroom-Se-_w21f 19 — anim
+// Lines 4872-4965 of readable/assets__bedroom-Se-_w21f.pretty.js (statement-aligned).
+function re(N, t, w, e) {
+  const o = new w0(...N),
+    M = new w0(...t),
+    s = o.distanceTo(M),
+    h = R(-e / 2, 0, -w / 2, e / 2, s, w / 2, 0.004, "y"),
+    i = M.clone().sub(o).normalize(),
+    z = new Ft().setFromUnitVectors(new w0(0, 1, 0), i);
+  return (h.applyQuaternion(z), h.translate(o.x, o.y, o.z), h);
+}
+async function Je(N) {
+  const t = new u0();
+  ((t.name = "bedroom"), N.scene.add(t));
+  const w = await Ee(N),
+    e = { ...N, scene: t },
+    o = Ie(e, w),
+    M = Ze(e, w),
+    s = Be(e, w),
+    h = Ge(e, w),
+    i = De(e, w),
+    z = Fe(e, w),
+    D = We(e, w),
+    C = Oe(e, w),
+    V = await je(e, w, { candles: M.api }),
+    A = [
+      ...o.colliders,
+      ...s.colliders,
+      ...h.colliders,
+      ...i.colliders,
+      ...z.colliders,
+      ...D.colliders,
+      ...C.colliders,
+      ...V.colliders,
+    ],
+    x = [
+      M.anim,
+      s.anim,
+      h.anim,
+      i.anim,
+      z.anim,
+      D.anim,
+      ...(V.anim ? [V.anim] : []),
+    ],
+    k = {
+      pillow: [0.55, 0.78, 2.4],
+      bedside: [2.75, 0, 2.4],
+      flashlightSpot: s.flashlightSpot,
+      flashlightStand: [1.15, 0, 0.95],
+      lockLook: [5.25, 1, 4.21],
+      lockSpot: [4.75, 0, 4.05],
+      windowStand: [2.6, 0, 0.62],
+      pianoFront: [3.07, 0, 3.55],
+      pianoKeys: [3.07, 0.74, 4.23],
+      wardrobeFront: [1.1, 0, 3.95],
+      dollShelf: [0.7, 1.55, 0.14],
+      mirror: [4.62, 1.45, 0.12],
+      painting: [5.16, 1.7, 2],
+    },
+    _ = s.flashlight,
+    y = N.interact.add({
+      id: "flashlight",
+      pos: s.flashlightSpot,
+      radius: 1.5,
+      prompt: "take",
+      enabled: () => _.visible,
+      onUse: (X) => X.events.emit("use", "flashlight"),
+    }),
+    L = {
+      bed: o.group,
+      flashlight: _,
+      lamp: s.lamp,
+      candles: M.api,
+      piano: i.api,
+      wardrobe: z.api,
+      dolls: D.api,
+      curtains: h.curtains,
+      painting: V.painting,
+      mirror: C.mirror,
+      clock: s.clock,
+      radiator: h.radiator,
+      chair: V.chair,
+      rug: V.rug,
+      bulb: V.bulb,
+    },
+    W = { lamp: s.light, lampFill: s.fill, lampUp: s.up, candles: M.lights };
+  return {
+    group: t,
+    colliders: A,
+    anim: x,
+    points: k,
+    props: L,
+    lights: W,
+    interact: { flashlight: y },
+  };
+}

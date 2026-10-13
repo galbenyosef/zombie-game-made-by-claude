@@ -1,0 +1,208 @@
+import { m as D } from "./labkit-ElMHH8EU.js";
+import { M as P, b as A } from "./metro-xgLUk92P.js";
+import { H as s } from "./hatch-Vg74Rrkt.js";
+import { E as M } from "./plan3-BlRgM2iV.js";
+import {
+  G,
+  c as v,
+  d as b,
+  p as y,
+  m as I,
+  C as L,
+  aj as C,
+  $ as E,
+  i as O,
+  am as Z,
+  M as H,
+} from "./index-DaQlAVPp.js";
+import "./looks-DR2oSjqf.js";
+import "./RoundedBoxGeometry-D0zz8qHa.js";
+import "./furniture-BraVmmRV.js";
+import "./kit-CFeM0oZ2.js";
+async function W(m) {
+  const o = P,
+    a = -7.38,
+    z = {
+      shaft_top: {
+        cam: [s.x, -0.55, s.ladderZ + 0.35, 0, -64],
+        fov: 75,
+        look: o.shaft,
+      },
+      shaft_mid: {
+        cam: [s.x, -3.6, s.ladderZ + 0.35, 0, -12],
+        fov: 75,
+        look: o.shaft,
+      },
+      shaft_up: {
+        cam: [s.x, -5.2, s.ladderZ + 0.35, 0, 74],
+        fov: 75,
+        look: o.shaft,
+      },
+      shaft_bottom: {
+        cam: [s.x, a, s.z + 0.2, 180, -14],
+        fov: 75,
+        look: o.shaft,
+      },
+      pass_s: { cam: [s.x, a, 206, 180, -3], fov: 72, look: o.passage },
+      pass_n: { cam: [s.x, a, 212.35, 0, -3], fov: 72, look: o.passage },
+      ash_door: { cam: [6.9, a, 213.9, -104, -3], fov: 75, look: o.ashwood },
+      ash_door_w: { cam: [6.9, a, 213.9, 104, -3], fov: 75, look: o.ashwood },
+      ash_nt: {
+        cam: [6.9, a, 213.9, -104, -3],
+        fov: 75,
+        look: o.ashwood,
+        torch: !1,
+      },
+      ash_mid_nt: {
+        cam: [24, a, 214.2, -118, -6],
+        fov: 75,
+        look: o.ashwood,
+        torch: !1,
+      },
+      ash_drinks: { cam: [11.6, a, 216.6, 40, -10], fov: 70, look: o.ashwood },
+      ash_board_close: {
+        cam: [12.5, -7.2, 216, -84, 10],
+        fov: 60,
+        look: o.ashwood,
+      },
+      pg_door_nt: {
+        cam: [422.5, a, 232.5, 8, 3],
+        fov: 75,
+        look: o.parkgate,
+        torch: !1,
+      },
+      pg_entrance: {
+        cam: [430, 1.62, 190, 180, 4],
+        fov: 70,
+        look: o.stairs,
+        torch: !1,
+      },
+      ash_east: { cam: [48.6, a, 216.7, 94, -2], fov: 72, look: o.ashwood },
+      ash_across: { cam: [19, a, 216.2, 180, -4], fov: 75, look: o.ashwood },
+      ash_board: { cam: [20, a, 217.3, -90, -1], fov: 72, look: o.ashwood },
+      ash_stairs: { cam: [47, a, 214.9, -90, 6], fov: 72, look: o.ashwood },
+      ash_upper: {
+        cam: [54.4, -5.17, 214.8, -90, 10],
+        fov: 72,
+        look: o.ashwood,
+      },
+      west_tunnel: { cam: [-30, -7.2, 219.5, 90, -2], fov: 72, look: o.tunnel },
+      ride: {
+        cam: [100, -7.2, 219.5, -90, 0],
+        fov: 72,
+        look: o.tunnel,
+        ride: { x0: 100, speed: 15 },
+      },
+      pg_door: { cam: [422.5, a, 232.5, 8, 3], fov: 75, look: o.parkgate },
+      pg_hall: { cam: [440, a, 231.8, 60, 4], fov: 75, look: o.parkgate },
+      pg_stairs: { cam: [428.2, a, 229.4, 0, 14], fov: 72, look: o.parkgate },
+      pg_concourse: {
+        cam: [436.5, -2.88, 217.6, 40, 0],
+        fov: 75,
+        look: o.concourse,
+      },
+      pg_exit: { cam: [430, -2.88, 213.4, 0, 12], fov: 72, look: o.stairs },
+      pg_top: { cam: [430, 1.62, 202.6, 180, -28], fov: 72, look: o.stairs },
+    };
+  let p = null;
+  const i = D(m, {
+      name: "metro",
+      look: o.ashwood,
+      views: z,
+      onView: (e, n) => {
+        p = n.ride ? { ...n.ride, t0: m.game.time } : null;
+      },
+    }),
+    r = await A(m, { rng: m.rng(5301), hatch: s });
+  (i.group.add(r.group), (i.rig.key.shadow.autoUpdate = !1));
+  {
+    let e = 0;
+    i.anim.push(() => {
+      ++e % 30 === 0 && (i.rig.key.shadow.needsUpdate = !0);
+    });
+  }
+  const d = new G();
+  ((d.name = "lab_standins"), i.group.add(d));
+  {
+    const e = new v(
+      new b(4, 4),
+      new y({ color: new L(0.55, 0.32, 0.16), side: I }),
+    );
+    ((e.rotation.x = Math.PI / 2), e.position.set(s.x, 2.4, s.z), d.add(e));
+    const n = new v(
+      new C(0.42, 2, 4, 1, Math.PI / 4),
+      new y({ color: 328707 }),
+    );
+    ((n.rotation.x = -Math.PI / 2), n.position.set(s.x, 0, s.z), d.add(n));
+    const l = new v(
+      new E(300, 32, 16),
+      new O({
+        side: Z,
+        depthWrite: !1,
+        fog: !1,
+        vertexShader:
+          "varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+        fragmentShader:
+          "varying vec3 vD; void main(){ float h = clamp(vD.y, 0.0, 1.0); vec3 top = vec3(0.012, 0.03, 0.075), hor = vec3(0.16, 0.2, 0.28); float e = pow(max(0.0, vD.x), 3.0) * 0.5; vec3 c = mix(hor, top, pow(h, 0.45)) + vec3(0.1, 0.09, 0.08) * e * (1.0 - h); if (vD.y < 0.0) c = vec3(0.01); gl_FragColor = vec4(c, 1.0); }",
+      }),
+    );
+    (l.position.set(M[0], 0, M[2] - 60), (l.renderOrder = -10), d.add(l));
+    const h = new H({ color: 1711384, roughness: 1 });
+    for (const [t, c, u, x] of [
+      [230, -50, 630, 196],
+      [230, 212, 630, 260],
+      [230, 196, 424, 212],
+      [436, 196, 630, 212],
+    ]) {
+      const k = new v(new b(u - t, x - c), h);
+      ((k.rotation.x = -Math.PI / 2),
+        k.position.set((t + u) / 2, -0.02, (c + x) / 2),
+        d.add(k));
+    }
+  }
+  const f = r.line,
+    g = f.length - 1,
+    w = r.lineLength,
+    S = (e) => {
+      const n = Math.max(0, Math.min(g - 1e-6, (e / w) * g)),
+        l = Math.floor(n),
+        h = n - l,
+        t = f[l],
+        c = f[l + 1];
+      return [
+        t[0] + (c[0] - t[0]) * h,
+        t[2] + (c[2] - t[2]) * h,
+        Math.atan2(-(c[0] - t[0]), -(c[2] - t[2])),
+      ];
+    };
+  let _ = 0;
+  for (let e = 0; e < f.length; e++)
+    if (f[e][0] >= 100) {
+      _ = (e / g) * w;
+      break;
+    }
+  return (
+    i.anim.push(() => {
+      if (!p) return;
+      const e = _ + (p.x0 - 100) + (m.game.time - p.t0) * p.speed,
+        [n, l, h] = S(e),
+        t = m.game.camera;
+      (t.position.set(n, -10.1 + 2.9, l),
+        (t.rotation.order = "YXZ"),
+        t.rotation.set(-0.02, h, 0));
+    }),
+    i.setLook(o.ashwood),
+    {
+      group: i.group,
+      colliders: r.colliders,
+      circles: r.circles,
+      anim: [...i.anim, ...r.anim],
+      points: r.points,
+      props: { ...r.props, lab: i, metro: r },
+      start: [20, 215],
+      roomAt: r.zoneAt,
+      surfaceAt: r.surfaceAt,
+    }
+  );
+}
+export { W as build };

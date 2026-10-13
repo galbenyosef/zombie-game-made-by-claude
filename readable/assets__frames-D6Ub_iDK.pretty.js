@@ -1,0 +1,943 @@
+import { R as nt } from "./RoundedBoxGeometry-D0zz8qHa.js";
+import { m as at, t as rt } from "./BufferGeometryUtils-Qxvmd-vM.js";
+import {
+  o as Q,
+  ak as it,
+  c as lt,
+  E as ct,
+  Q as et,
+  V as P,
+  a5 as ut,
+  a9 as R,
+  aa as ht,
+  a6 as ft,
+  B as j,
+  I as L,
+  p as pt,
+  d as U,
+  ab as dt,
+  m as st,
+  h as ot,
+  ah as mt,
+  G as C,
+  b as Y,
+  af as wt,
+  a7 as bt,
+} from "./index-DaQlAVPp.js";
+const z = (o = 0, e = 0, t = 0) => new P(o, e, t),
+  yt = { x: z(1, 0, 0), y: z(0, 1, 0), z: z(0, 0, 1) },
+  q = new ct(),
+  H = new et(),
+  D = new P(),
+  xt = new P();
+function T(o = [0, 0, 0], e = [0, 0, 0], t = 1) {
+  return (
+    q.set(e[0] || 0, e[1] || 0, e[2] || 0, e[3] || "XYZ"),
+    H.setFromEuler(q),
+    typeof t == "number" ? D.set(t, t, t) : D.set(t[0], t[1], t[2]),
+    new Q().compose(xt.set(o[0], o[1], o[2]), H, D)
+  );
+}
+function gt(o) {
+  o = o.index ? o.toNonIndexed() : o.clone();
+  for (const e of Object.keys(o.attributes))
+    e !== "position" && e !== "normal" && e !== "uv" && o.deleteAttribute(e);
+  return (
+    o.attributes.normal || o.computeVertexNormals(),
+    o.attributes.uv ||
+      o.setAttribute(
+        "uv",
+        new ot(new Float32Array(o.attributes.position.count * 2), 2),
+      ),
+    o.clearGroups(),
+    o
+  );
+}
+class J {
+  constructor(e = "batch") {
+    ((this.name = e), (this.buckets = new Map()), (this.stack = [new Q()]));
+  }
+  get top() {
+    return this.stack[this.stack.length - 1];
+  }
+  push(e) {
+    return (this.stack.push(this.top.clone().multiply(e)), this);
+  }
+  pop() {
+    return (this.stack.pop(), this);
+  }
+  at(e, t, s) {
+    this.push(T(e, typeof t == "number" ? [0, t, 0] : t || [0, 0, 0]));
+    try {
+      s();
+    } finally {
+      this.pop();
+    }
+  }
+  add(
+    e,
+    t,
+    {
+      m: s = null,
+      uv: i = "world",
+      uvScale: c = 1,
+      uvRot: f = 0,
+      shadow: h = !0,
+    } = {},
+  ) {
+    let u = gt(e);
+    const r = s ? this.top.clone().multiply(s) : this.top;
+    if (
+      (u.applyMatrix4(r),
+      i === "world"
+        ? it(u, null, f)
+        : i && i.isVector3 && Mt(u, i.clone().transformDirection(r), f),
+      c !== 1)
+    ) {
+      const w = u.attributes.uv.array;
+      for (let l = 0; l < w.length; l++) w[l] *= c;
+    }
+    const d = t.uuid + (h ? "" : ":ns");
+    return (
+      this.buckets.has(d) ||
+        this.buckets.set(d, { mat: t, shadow: h, list: [] }),
+      this.buckets.get(d).list.push(u),
+      u
+    );
+  }
+  box(
+    e,
+    t,
+    s,
+    i,
+    c,
+    {
+      rot: f = null,
+      r: h = 0.006,
+      seg: u = 1,
+      grain: r = "x",
+      shadow: d = !0,
+    } = {},
+  ) {
+    const w = vt(t, s, i, h, u),
+      l = r == null ? "world" : typeof r == "string" ? yt[r] : r;
+    return this.add(w, e, { m: T(c, f || [0, 0, 0]), uv: l, shadow: d });
+  }
+  flush(e, { cast: t = !0, receive: s = !0 } = {}) {
+    const i = [];
+    for (const { mat: c, shadow: f, list: h } of this.buckets.values()) {
+      const u = h.length === 1 ? h[0] : at(h, !1);
+      (u.computeBoundingBox(), u.computeBoundingSphere());
+      const r = new lt(u, c);
+      ((r.name = this.name + ":" + (c.userData.catalog || c.name || "mat")),
+        (r.castShadow = t && f && !c.transparent),
+        (r.receiveShadow = s),
+        e.add(r),
+        i.push(r));
+    }
+    return (this.buckets.clear(), i);
+  }
+}
+function vt(o, e, t, s = 0.006, i = 1) {
+  return (
+    (s = Math.min(s, o / 2 - 1e-4, e / 2 - 1e-4, t / 2 - 1e-4)),
+    s <= 5e-4 ? new mt(o, e, t) : new nt(o, e, t, i, s)
+  );
+}
+const I = new P(),
+  W = new P(),
+  K = new P(),
+  N = new P(),
+  Z = new P();
+function Mt(o, e, t = 0) {
+  e = e.clone().normalize();
+  const s = o.attributes.position,
+    i = o.attributes.normal,
+    c = new Float32Array(s.count * 2);
+  (N.set(0, 1, 0),
+    Math.abs(e.y) > 0.9 && N.set(1, 0, 0),
+    Z.crossVectors(e, N).normalize(),
+    N.crossVectors(Z, e).normalize());
+  const f = Math.cos(t),
+    h = Math.sin(t);
+  for (let u = 0; u < s.count; u++) {
+    (W.fromBufferAttribute(s, u), I.fromBufferAttribute(i, u));
+    let r, d;
+    (Math.abs(I.dot(e)) < 0.92
+      ? ((r = W.dot(e)), K.crossVectors(I, e).normalize(), (d = W.dot(K)))
+      : ((r = W.dot(N)), (d = W.dot(Z))),
+      (c[u * 2] = r * f - d * h),
+      (c[u * 2 + 1] = r * h + d * f));
+  }
+  return (o.setAttribute("uv", new ot(c, 2)), o);
+}
+function Wt(
+  o,
+  e = 24,
+  { phi0: t = 0, phi: s = Math.PI * 2, uvRef: i = null } = {},
+) {
+  const c = o.map((n) => new R(n[0], n[1])),
+    f = c.length,
+    h = [];
+  for (let n = 0; n < f - 1; n++) {
+    const b = c[n + 1].x - c[n].x,
+      y = c[n + 1].y - c[n].y,
+      x = Math.hypot(b, y);
+    h.push(x < 1e-7 ? null : new R(y / x, -b / x));
+  }
+  const u = [];
+  for (let n = 0; n < f; n++) {
+    let b = n > 0 ? h[n - 1] : null,
+      y = n < f - 1 ? h[n] : null;
+    (n > 0 && !h[n - 1] && (b = null),
+      n < f - 1 && !h[n] && (y = null),
+      n > 0 && !h[n - 1] && n > 1 && (b = null));
+    const x =
+      b && y
+        ? b.clone().add(y)
+        : (b || y || (n > 0 ? h[n - 2] : h[n + 1]) || new R(1, 0)).clone();
+    u.push(x.normalize());
+  }
+  const r = [0];
+  for (let n = 1; n < f; n++) r.push(r[n - 1] + c[n].distanceTo(c[n - 1]));
+  const d = i ?? Math.max(...c.map((n) => n.x), 0.01),
+    w = [],
+    l = [],
+    a = [],
+    m = [];
+  for (let n = 0; n <= e; n++) {
+    const b = t + (n / e) * s,
+      y = Math.sin(b),
+      x = Math.cos(b);
+    for (let g = 0; g < f; g++)
+      (w.push(c[g].x * y, c[g].y, c[g].x * x),
+        l.push(u[g].x * y, u[g].y, u[g].x * x),
+        a.push((n / e) * s * d, r[g]));
+  }
+  for (let n = 0; n < e; n++)
+    for (let b = 0; b < f - 1; b++) {
+      const y = n * f + b,
+        x = (n + 1) * f + b,
+        g = (n + 1) * f + b + 1,
+        _ = n * f + b + 1;
+      m.push(y, x, _, x, g, _);
+    }
+  const p = new j();
+  return (
+    p.setAttribute("position", new L(w, 3)),
+    p.setAttribute("normal", new L(l, 3)),
+    p.setAttribute("uv", new L(a, 2)),
+    p.setIndex(m),
+    p
+  );
+}
+function kt(o, { capStart: e = !1, capEnd: t = !1 } = {}) {
+  const s = o.length,
+    i = o[0].length,
+    c = [],
+    f = [],
+    h = [];
+  let u = 0;
+  for (let a = 0; a < s; a++) {
+    if (a > 0) {
+      let p = 0;
+      for (let n = 0; n < i; n++) p += o[a][n].distanceTo(o[a - 1][n]);
+      u += p / i;
+    }
+    let m = 0;
+    for (let p = 0; p <= i; p++) {
+      const n = o[a][p % i];
+      (p > 0 && (m += n.distanceTo(o[a][p - 1])),
+        c.push(n.x, n.y, n.z),
+        f.push(m, u));
+    }
+  }
+  const r = i + 1;
+  for (let a = 0; a < s - 1; a++)
+    for (let m = 0; m < i; m++) {
+      const p = a * r + m,
+        n = a * r + m + 1,
+        b = (a + 1) * r + m + 1,
+        y = (a + 1) * r + m;
+      h.push(p, n, y, n, b, y);
+    }
+  const d = (a, m) => {
+      const p = new P();
+      for (const y of o[a]) p.add(y);
+      p.divideScalar(i);
+      const n = c.length / 3;
+      (c.push(p.x, p.y, p.z), f.push(0, 0));
+      const b = c.length / 3;
+      for (let y = 0; y < i; y++) {
+        const x = o[a][y];
+        (c.push(x.x, x.y, x.z), f.push(x.x - p.x, x.y - p.y));
+      }
+      for (let y = 0; y < i; y++) {
+        const x = b + y,
+          g = b + ((y + 1) % i);
+        m ? h.push(n, g, x) : h.push(n, x, g);
+      }
+    },
+    w = new j();
+  (e && d(0, !0),
+    t && d(s - 1, !1),
+    w.setAttribute("position", new L(c, 3)),
+    w.setAttribute("uv", new L(f, 2)),
+    w.setIndex(h),
+    w.computeVertexNormals());
+  const l = w.attributes.normal;
+  for (let a = 0; a < s; a++) {
+    const m = a * r,
+      p = a * r + i;
+    (I.set(
+      l.getX(m) + l.getX(p),
+      l.getY(m) + l.getY(p),
+      l.getZ(m) + l.getZ(p),
+    ).normalize(),
+      l.setXYZ(m, I.x, I.y, I.z),
+      l.setXYZ(p, I.x, I.y, I.z));
+  }
+  return w;
+}
+function _t(o, e, t, s, i, c = 16, f = null) {
+  const h = [];
+  for (let u = 0; u < c; u++) {
+    const r = (u / c) * Math.PI * 2,
+      d = Math.cos(r),
+      w = Math.sin(r),
+      l = f ? f(r) : 1;
+    h.push(
+      new P()
+        .copy(o)
+        .addScaledVector(e, d * s * l)
+        .addScaledVector(t, w * i * l),
+    );
+  }
+  return h;
+}
+function Nt(o, e, t = 24, s = 10, { capEnd: i = !0, uvMetres: c = !1 } = {}) {
+  const f = o.computeFrenetFrames(t, !1),
+    h = [];
+  for (let r = 0; r <= t; r++) {
+    const d = r / t,
+      w = o.getPointAt(d),
+      l = e(d);
+    h.push(_t(w, f.normals[r], f.binormals[r], l, l, s));
+  }
+  const u = kt(h, { capEnd: i });
+  if (!c) {
+    const r = u.attributes.uv,
+      d = s + 1;
+    for (let w = 0; w <= t; w++)
+      for (let l = 0; l <= s; l++) r.setXY(w * d + l, l / s, w / t);
+  }
+  return u;
+}
+function zt(o, e, t) {
+  const s = o / 2,
+    i = e / 2,
+    c = [
+      [-s, -i],
+      [s, -i],
+      [s, i],
+      [-s, i],
+    ],
+    f = [
+      [0, -1],
+      [1, 0],
+      [0, 1],
+      [-1, 0],
+    ],
+    h = [];
+  for (let u = 0; u < 4; u++) {
+    const r = c[u],
+      d = c[(u + 1) % 4],
+      w = f[u],
+      l = f[(u + 3) % 4],
+      a = f[(u + 1) % 4],
+      m = [],
+      p = (A, M, B, v) => [
+        A[0] + (w[0] + M[0]) * B,
+        A[1] + (w[1] + M[1]) * B,
+        v,
+      ];
+    for (let A = 0; A < t.length - 1; A++) {
+      const [M, B] = t[A],
+        [v, k] = t[A + 1],
+        S = p(r, l, M, B),
+        F = p(d, a, M, B),
+        E = p(r, l, v, k),
+        G = p(d, a, v, k);
+      m.push(...S, ...G, ...F, ...S, ...E, ...G);
+    }
+    const [n] = t[t.length - 1],
+      [b] = t[0],
+      y = p(r, l, b, 0),
+      x = p(d, a, b, 0),
+      g = p(r, l, n, 0),
+      _ = p(d, a, n, 0);
+    m.push(...y, ...x, ..._, ...y, ..._, ...g);
+    let V = new j();
+    (V.setAttribute("position", new L(m, 3)),
+      V.computeVertexNormals(),
+      (V = rt(V, 0.6)),
+      (V.userData.axis = new P(d[0] - r[0], d[1] - r[1], 0).normalize()),
+      h.push(V));
+  }
+  return h;
+}
+function At(o, e, t = 0.001, { seg: s = 2, curveSegments: i = 12 } = {}) {
+  const c = new ft(o, {
+    depth: Math.max(1e-4, e - 2 * t),
+    bevelEnabled: t > 0,
+    bevelThickness: t,
+    bevelSize: t,
+    bevelOffset: -t * 0,
+    bevelSegments: s,
+    curveSegments: i,
+    steps: 1,
+  });
+  return (c.translate(0, 0, -(e - 2 * t) / 2), c);
+}
+function Bt(o, e = []) {
+  const t = new ut(o.map((s) => new R(s[0], s[1])));
+  for (const s of e) t.holes.push(new ht(s.map((i) => new R(i[0], i[1]))));
+  return t;
+}
+function Rt(o, e, t, s = {}) {
+  const i = new pt({ toneMapped: !1, ...s });
+  return (i.color.setRGB(o, e, t), (i.name = s.name || "glow"), i);
+}
+function Pt(o = 12110020, e = 0.16, t = {}) {
+  const s = new dt({
+    color: o,
+    roughness: 0.06,
+    metalness: 0,
+    transparent: !0,
+    opacity: e,
+    clearcoat: 1,
+    clearcoatRoughness: 0.05,
+    depthWrite: !1,
+    side: st,
+    envMapIntensity: 1.6,
+    ...t,
+  });
+  return ((s.name = t.name || "glass"), s);
+}
+function $(o, e, t) {
+  const s = new U(o, e),
+    i = s.attributes.uv;
+  for (let c = 0; c < i.count; c++)
+    i.setXY(
+      c,
+      t[0] + i.getX(c) * (t[2] - t[0]),
+      t[1] + i.getY(c) * (t[3] - t[1]),
+    );
+  return s;
+}
+function tt(o, e, t = "L", s = 0) {
+  const c = o * 683,
+    f = e * 683;
+  let h, u, r, d;
+  return (
+    t === "L"
+      ? ((h = c), (u = f + 85), (r = 682), (d = 512))
+      : ((h = c + 85), (u = f), (r = 512), (d = 682)),
+    (h += r * s),
+    (u += d * s),
+    (r *= 1 - 2 * s),
+    (d *= 1 - 2 * s),
+    [h / 2048, 1 - (u + d) / 2048, (h + r) / 2048, 1 - u / 2048]
+  );
+}
+class Xt {
+  constructor(e, { amount: t = 0.4, rate: s = 1 } = {}) {
+    ((this.rng = e),
+      (this.amount = t),
+      (this.rate = s),
+      (this.on = !0),
+      (this.t = 0),
+      (this.next = 0.22),
+      (this.burst = 0),
+      (this.burstT = 0),
+      (this.dip = 0),
+      (this.dipV = 0),
+      (this.snapT = 0),
+      (this.level = 1),
+      (this.hum = 0));
+  }
+  snap(e = 0.3) {
+    this.snapT = e;
+  }
+  update(e) {
+    const t = this.rng,
+      s = this.amount;
+    if (((this.t += e), this.snapT > 0))
+      return ((this.snapT -= e), (this.level = 0), 0);
+    if (!this.on) return ((this.level = 0), 0);
+    if (s <= 0.001) return ((this.level = 1), 1);
+    ((this.next -= e * this.rate),
+      this.next <= 0 &&
+        (t() < 0.45 * s + 0.08
+          ? ((this.burst = 0.2 + t() * 0.5 * (0.4 + s)), (this.burstT = 0))
+          : ((this.dipV = 0.2 + t() * 0.5 * s), (this.dip = 0.08 + t() * 0.25)),
+        (this.next = (0.6 + t() * 3.2) / (0.35 + s))));
+    let i = 1;
+    return (
+      this.burst > 0
+        ? ((this.burst -= e),
+          (this.burstT -= e),
+          this.burstT <= 0 &&
+            ((this.hum = t() < 0.5 ? 0.15 + t() * 0.3 : 0.78 + t() * 0.22),
+            (this.burstT = 0.05 + t() * 0.1)),
+          (i = this.hum))
+        : this.dip > 0 && ((this.dip -= e), (i = 1 - this.dipV)),
+      (i *=
+        1 -
+        s *
+          0.06 *
+          (0.5 + 0.5 * Math.sin(this.t * 47) * Math.sin(this.t * 13.3))),
+      (this.level += (i - this.level) * Math.min(1, e * 20)),
+      this.level
+    );
+  }
+}
+function Yt(o, e, t) {
+  if (!(typeof location > "u" || !/[?&]solo=/.test(location.search))) {
+    if (!o.__hsBeats) {
+      o.__hsBeats = {};
+      const s = o.beats;
+      o.beats = {
+        goto: async (i) => (o.__hsBeats[i] ? o.__hsBeats[i]() : s?.goto?.(i)),
+      };
+    }
+    o.__hsBeats[e] = t;
+  }
+}
+class Vt {
+  constructor(e = 30, t = 2.5) {
+    ((this.k = e), (this.d = t), (this.x = 0), (this.v = 0));
+  }
+  kick(e) {
+    this.v += e;
+  }
+  update(e) {
+    const t = Math.max(1, Math.ceil(e / 0.01)),
+      s = e / t;
+    for (let i = 0; i < t; i++)
+      ((this.v += (-this.k * this.x - this.d * this.v) * s),
+        (this.x += this.v * s));
+    return this.x;
+  }
+}
+const O = {
+    plain: [
+      [0, 0],
+      [0, 0.011],
+      [0.003, 0.014],
+      [0.006, 0.015],
+      [0.016, 0.02],
+      [0.026, 0.019],
+      [0.032, 0.014],
+      [0.034, 0.008],
+      [0.034, 0],
+    ],
+    wide: [
+      [0, 0],
+      [0, 0.01],
+      [0.005, 0.012],
+      [0.007, 0.017],
+      [0.013, 0.019],
+      [0.028, 0.027],
+      [0.044, 0.029],
+      [0.053, 0.025],
+      [0.058, 0.017],
+      [0.058, 0],
+    ],
+    gilt: [
+      [0, 0],
+      [0, 0.012],
+      [0.004, 0.014],
+      [0.006, 0.019],
+      [0.011, 0.021],
+      [0.018, 0.019],
+      [0.026, 0.028],
+      [0.038, 0.034],
+      [0.05, 0.033],
+      [0.058, 0.027],
+      [0.062, 0.029],
+      [0.068, 0.023],
+      [0.068, 0],
+    ],
+  },
+  St = { W: { x: 5.4, rot: Math.PI / 2 }, E: { x: 6.8, rot: -Math.PI / 2 } },
+  It = [
+    {
+      id: "man",
+      wall: "W",
+      z: 4.975,
+      y: 1.64,
+      w: 0.24,
+      h: 0.32,
+      cell: [0, 1, "P"],
+      prof: "wide",
+      fm: "wood_ebony",
+      mat: 0.035,
+    },
+    {
+      id: "family",
+      wall: "W",
+      z: 7.45,
+      y: 1.6,
+      w: 0.48,
+      h: 0.36,
+      cell: [0, 0, "L"],
+      prof: "wide",
+      fm: "wood_walnut",
+      mat: 0.045,
+    },
+    {
+      id: "girl",
+      wall: "W",
+      z: 8.66,
+      y: 1.76,
+      w: 0.18,
+      h: 0.24,
+      cell: [1, 1, "P"],
+      prof: "plain",
+      fm: "wood_ebony",
+      mat: 0.026,
+    },
+    {
+      id: "baby",
+      wall: "W",
+      z: 8.66,
+      y: 1.36,
+      w: 0.18,
+      h: 0.24,
+      cell: [1, 2, "P"],
+      prof: "plain",
+      fm: "wood_ebony",
+      mat: 0.026,
+    },
+    {
+      id: "wedding",
+      wall: "W",
+      z: 11.72,
+      y: 1.62,
+      w: 0.3,
+      h: 0.4,
+      cell: [1, 0, "P"],
+      prof: "wide",
+      fm: "wood_ebony",
+      mat: 0.04,
+      crooked: -0.085,
+    },
+    {
+      id: "couple",
+      wall: "E",
+      z: 3.78,
+      y: 1.63,
+      w: 0.24,
+      h: 0.32,
+      cell: [0, 2, "P"],
+      prof: "plain",
+      fm: "wood_walnut",
+      mat: 0.032,
+    },
+    {
+      id: "pony",
+      wall: "E",
+      z: 5.1,
+      y: 1.57,
+      w: 0.28,
+      h: 0.21,
+      cell: [2, 0, "L"],
+      prof: "plain",
+      fm: "wood_ebony",
+      mat: 0.03,
+    },
+    {
+      id: "painting",
+      wall: "E",
+      z: 8.78,
+      y: 1.62,
+      w: 0.44,
+      h: 0.33,
+      cell: [2, 1, "L"],
+      prof: "gilt",
+      fm: "brass_aged",
+      mat: 0,
+    },
+  ],
+  Tt = {
+    wall: "E",
+    z: 10.4,
+    y: 1.62,
+    w: 0.2,
+    h: 0.26,
+    prof: "plain",
+    mat: 0.03,
+  };
+function Ft(o, e, t, s, i) {
+  const c = O[e.prof],
+    f = e.w + 2 * e.mat,
+    h = e.h + 2 * e.mat,
+    u = c[c.length - 1][0];
+  for (const r of zt(f, h, c)) o.add(r, t, { uv: r.userData.axis });
+  if (e.mat > 0) {
+    const r = f / 2 + 0.003,
+      d = h / 2 + 0.003,
+      w = e.w / 2,
+      l = e.h / 2,
+      a = Bt(
+        [
+          [-r, -d],
+          [r, -d],
+          [r, d],
+          [-r, d],
+        ],
+        [
+          [
+            [-w, -l],
+            [-w, l],
+            [w, l],
+            [w, -l],
+          ],
+        ],
+      );
+    (o.add(At(a, 0.0026, 8e-4, { seg: 1 }), i, { m: T([0, 0, 0.0072]) }),
+      o.add($(e.w + 0.012, e.h + 0.012, e.rect), s, {
+        m: T([0, 0, 0.0056]),
+        uv: "keep",
+      }));
+  } else
+    o.add($(f + 0.006, h + 0.006, e.rect), s, {
+      m: T([0, 0, 0.0065]),
+      uv: "keep",
+    });
+  return { w: f + 2 * u, h: h + 2 * u, T: Math.max(...c.map((r) => r[1])) };
+}
+function Ot(o, e) {
+  const t = (l, a) => o.mats.get(l, a),
+    s = o.rng(4711),
+    i = t("hall_photos", {
+      extra: { clearcoat: 0.85, clearcoatRoughness: 0.07 },
+    }),
+    c = t("paper_old"),
+    f = t("iron_black"),
+    h = t("brass_aged"),
+    u = [],
+    r = {},
+    d = (l, a, m) => Ft(l, a, m, i, c);
+  for (const l of It) {
+    const a = { ...l, rect: tt(l.cell[0], l.cell[1], l.cell[2]) },
+      m = St[a.wall],
+      p = t(a.fm, a.fm === "brass_aged" ? { rough: 0.32 } : {}),
+      n = new C();
+    n.name = "photo_" + a.id;
+    const b = new J("photo_" + a.id),
+      y = 0.028 + s() * 0.02;
+    let x;
+    const g = a.h + 2 * a.mat + 2 * O[a.prof][O[a.prof].length - 1][0],
+      _ = g / 2 + 0.055;
+    b.at([0, -_ - g / 2, 0], [y, 0, 0], () => {
+      b.at([0, g / 2, 0], 0, () => {
+        x = d(b, a, p);
+      });
+    });
+    const V = -_ + g / 2 - 0.012,
+      A = Math.sin(y) * g + 0.004;
+    for (const v of [-1, 1]) {
+      const k = z(v * x.w * 0.22, V, A * 0.9),
+        S = z(0, 0, 0.004),
+        F = k.distanceTo(S),
+        E = k.clone().add(S).multiplyScalar(0.5),
+        G = new Y(7e-4, 7e-4, F, 5, 1),
+        X = new et().setFromUnitVectors(
+          z(0, 1, 0),
+          S.clone().sub(k).normalize(),
+        );
+      b.add(G, h, {
+        m: new Q().compose(E, X, z(1, 1, 1)),
+        uv: "keep",
+        shadow: !1,
+      });
+    }
+    (b.add(new Y(0.0035, 0.0035, 0.004, 10), f, {
+      m: T([0, 0.001, 0.006], [Math.PI / 2, 0, 0]),
+      uv: "keep",
+    }),
+      b.add(new Y(0.0012, 0.0012, 0.012, 6), f, {
+        m: T([0, 0, 0.002], [Math.PI / 2 - 0.3, 0, 0]),
+        uv: "keep",
+      }));
+    const M = new C();
+    ((M.name = "swing"),
+      b.flush(M),
+      n.add(M),
+      n.position.set(m.x + (a.wall === "W" ? 0.001 : -0.001), a.y + _, a.z),
+      (n.rotation.y = m.rot),
+      (M.rotation.z = a.crooked || 0),
+      e.add(n));
+    const B = {
+      id: a.id,
+      group: n,
+      swing: M,
+      base: a.crooked || 0,
+      spring: new Vt(22, 1.1),
+      active: !1,
+      size: x,
+      center: [n.position.x, a.y, a.z],
+    };
+    (u.push(B), (r[a.id] = B));
+  }
+  {
+    const l = { ...Tt, rect: tt(2, 0, "L") },
+      a = new J("photo_fallen"),
+      m = t("wood_walnut");
+    let p;
+    const n = Math.max(...O[l.prof].map((v) => v[1]));
+    a.at(
+      [6.8 - 0.19, n + 5e-4, l.z + 0.02],
+      [Math.PI / 2, 0.21, 0, "YXZ"],
+      () => {
+        p = d(a, l, m);
+        const v = l.w + 2 * l.mat,
+          k = l.h + 2 * l.mat;
+        a.box(
+          t("paper_old", { color: "#9c7b58" }),
+          v + 0.006,
+          k + 0.006,
+          0.003,
+          [0, 0, -0.0012],
+          { r: 8e-4, grain: null },
+        );
+        for (const [F, E] of [
+          [0, k / 2 - 0.004],
+          [0, -k / 2 + 0.004],
+          [v / 2 - 0.004, 0],
+          [-v / 2 + 0.004, 0],
+        ])
+          a.box(h, 0.012, 0.006, 0.002, [F, E, -0.003], {
+            r: 8e-4,
+            grain: null,
+          });
+        const S = [
+          z(-v * 0.3, k * 0.18, -0.0035),
+          z(-v * 0.1, k * 0.26, -0.0035),
+          z(v * 0.12, k * 0.24, -0.0035),
+          z(v * 0.3, k * 0.18, -0.0035),
+        ];
+        a.add(new wt(new bt(S), 16, 8e-4, 4, !1), h, {
+          uv: "keep",
+          shadow: !1,
+        });
+      },
+    );
+    const b = Pt(13161680, 0.35, { name: "hall_shards", side: st }),
+      y = [];
+    for (let v = 0; v < 9; v++) {
+      const k = 6.68 - s() * 0.32,
+        S = l.z - 0.25 + s() * 0.55,
+        F = 0.012 + s() * 0.03,
+        E = s() * 6.28,
+        G = [0, 1, 2].map((X) =>
+          z(
+            k + Math.cos(E + X * 2.1 + s() * 0.6) * F,
+            0.0012,
+            S + Math.sin(E + X * 2.1 + s() * 0.6) * F * (0.5 + s()),
+          ),
+        );
+      y.push(...G[0].toArray(), ...G[2].toArray(), ...G[1].toArray());
+    }
+    const x = new j();
+    (x.setAttribute("position", new L(y, 3)),
+      x.computeVertexNormals(),
+      a.add(x, b, { uv: "world", shadow: !1 }));
+    const g = p.w + 0.004,
+      _ = p.h + 0.004,
+      V = new U(g, _),
+      A = t("wallpaper_hall", {
+        color: "#f2d0cc",
+        extra: {
+          polygonOffset: !0,
+          polygonOffsetFactor: -1,
+          polygonOffsetUnits: -4,
+        },
+      });
+    (a.add(V, A, {
+      m: T([6.8 - 6e-4, l.y, l.z], [0, -Math.PI / 2, 0]),
+      uv: "world",
+      shadow: !1,
+    }),
+      a.add(
+        new U(g, 0.004),
+        t("plaster_bare", {
+          color: "#6e6660",
+          extra: {
+            polygonOffset: !0,
+            polygonOffsetFactor: -2,
+            polygonOffsetUnits: -6,
+          },
+        }),
+        {
+          m: T([6.8 - 8e-4, l.y + _ / 2, l.z], [0, -Math.PI / 2, 0]),
+          uv: "world",
+          shadow: !1,
+        },
+      ),
+      a.add(new Y(0.0035, 0.0035, 0.004, 10), f, {
+        m: T([6.8 - 0.006, l.y + _ / 2 + 0.05, l.z], [0, 0, Math.PI / 2]),
+        uv: "keep",
+      }));
+    const M = new C();
+    ((M.name = "photo_fallen"), a.flush(M), e.add(M));
+    const B = { id: "fallen", group: M, fallen: !0, center: [6.62, 0.02, l.z] };
+    (u.push(B), (r.fallen = B));
+  }
+  const w = [];
+  return {
+    list: u,
+    byId: r,
+    swing(l, a = 1) {
+      const m = r[l];
+      !m ||
+        !m.spring ||
+        (m.spring.kick(a * (s() < 0.5 ? -1 : 1) * 0.9),
+        w.includes(m) || w.push(m));
+    },
+    update(l) {
+      for (let a = w.length - 1; a >= 0; a--) {
+        const m = w[a],
+          p = m.spring.update(l);
+        ((m.swing.rotation.z = m.base + p),
+          Math.abs(p) < 1e-4 &&
+            Math.abs(m.spring.v) < 0.001 &&
+            ((m.swing.rotation.z = m.base), w.splice(a, 1)));
+      }
+    },
+  };
+}
+export {
+  yt as A,
+  J as B,
+  Xt as F,
+  Vt as S,
+  z as V,
+  _t as a,
+  kt as b,
+  Pt as c,
+  Ot as d,
+  At as e,
+  Yt as f,
+  Rt as g,
+  tt as h,
+  $ as i,
+  Ft as j,
+  Wt as l,
+  T as m,
+  vt as r,
+  Bt as s,
+  Nt as t,
+};

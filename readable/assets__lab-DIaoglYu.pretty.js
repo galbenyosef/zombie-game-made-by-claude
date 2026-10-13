@@ -1,0 +1,601 @@
+import {
+  getKit as lt,
+  KINDS as ct,
+  createZombie as tt,
+} from "./index-Db-AsSxU.js";
+import {
+  G as pt,
+  c as M,
+  ap as et,
+  V as y,
+  d as dt,
+  p as q,
+  C as X,
+  aq as ft,
+  P as ot,
+  $ as st,
+  n as ut,
+  a1 as ht,
+  M as bt,
+} from "./index-DaQlAVPp.js";
+import { S as wt } from "./anim-B86X8yU9.js";
+import "./lightrig-BOum5aAY.js";
+const F = Math.PI / 180;
+async function yt(_) {
+  const { game: d, mats: Y } = _,
+    f = new pt();
+  ((f.name = "zombies_lab"), _.scene.add(f));
+  const i = new y(60, 0, 60),
+    W = Object.keys(ct),
+    nt = performance.now(),
+    Z = {};
+  for (const e of W) {
+    const s = lt(e);
+    Z[e] = s.buildMs;
+  }
+  const it = Math.round(performance.now() - nt),
+    A = new M(
+      et(i.x - 9, -0.05, i.z - 6, i.x + 9, 0, i.z + 9),
+      Y.get("floor_oak_dark"),
+    );
+  ((A.receiveShadow = !0), (A.name = "stage_floor"), f.add(A));
+  const x = new M(
+    et(i.x - 9, 0, i.z - 3.2, i.x + 9, 3.2, i.z - 3),
+    Y.get("wallpaper_hall"),
+  );
+  ((x.receiveShadow = !0), f.add(x));
+  const S = new M(
+    new dt(14, 5),
+    new q({ color: new X(0.75, 0.72, 0.66), toneMapped: !1 }),
+  );
+  (S.position.set(i.x, 2.4, i.z - 2.9), (S.visible = !1), f.add(S));
+  const p = new ft(9086719, 0.5);
+  (p.position.set(i.x - 4, 7, i.z - 6),
+    p.target.position.copy(i),
+    (p.castShadow = !0),
+    p.shadow.mapSize.set(2048, 2048));
+  {
+    const e = p.shadow.camera;
+    ((e.left = -6),
+      (e.right = 6),
+      (e.top = 6),
+      (e.bottom = -6),
+      (e.near = 1),
+      (e.far = 30));
+  }
+  ((p.shadow.bias = -4e-4),
+    (p.shadow.normalBias = 0.02),
+    (p.name = "lab_moon"),
+    f.add(p, p.target));
+  const c = new ot(16756848, 55, 11, 2);
+  (c.position.set(i.x + 2.6, 1.7, i.z + 1.2), (c.name = "lab_lamp"), f.add(c));
+  const z = new M(
+    new st(0.05, 16, 12),
+    new q({ color: new X(3, 1.7, 0.7), toneMapped: !1 }),
+  );
+  (z.position.copy(c.position), f.add(z));
+  const l = new ut(16773336, 180, 25, 0.42, 0.6, 2);
+  ((l.castShadow = !0),
+    l.shadow.mapSize.set(1024, 1024),
+    (l.shadow.bias = -5e-4),
+    (l.shadow.camera.near = 0.2),
+    (l.name = "lab_flashlight"),
+    f.add(l, l.target),
+    d.weapons || (d.weapons = { torch: l }));
+  const u = [],
+    C = new Map();
+  let at = 1;
+  function w() {
+    for (const e of u) e.z.dispose();
+    ((u.length = 0), C.clear());
+  }
+  function g(e, s, n, a = 0, t) {
+    const o = tt(_, { kind: e, seed: t ?? at++ });
+    (o.root.position.set(i.x + s, 0, i.z + n),
+      (o.root.rotation.y = a * F),
+      f.add(o.root));
+    const h = { z: o, kind: e };
+    return (u.push(h), o.lookAt(d.camera.position), o);
+  }
+  function L(e, s = {}) {
+    for (const n of u) n.z.setState(e, { ...s, instant: s.instant ?? !0 });
+  }
+  const r = (e, s, n, a, t, o, h) =>
+      d.debug.lookAtCam(i.x + e, s, i.z + n, i.x + a, t, i.z + o, h),
+    T = (e) => {
+      ((p.visible = e), (c.visible = e), (z.visible = e));
+    },
+    $ = { update: 0, prepare: 0, n: 0 };
+  _.onFrame((e) => {
+    const s = performance.now();
+    for (const n of u) {
+      n.z.update(e);
+      const a = C.get(n.z);
+      a &&
+        ((n.z.root.position.x += a[0] * n.z.groundSpeed * e),
+        (n.z.root.position.z += a[1] * n.z.groundSpeed * e));
+    }
+    (($.update = performance.now() - s), ($.n = u.length));
+  });
+  const D = new y(),
+    H = new y();
+  _.beforeRender((e) => {
+    l.visible &&
+      (e.getWorldDirection(D),
+      H.crossVectors(D, e.up).normalize(),
+      l.position
+        .copy(e.position)
+        .addScaledVector(H, 0.16)
+        .addScaledVector(e.up, -0.1),
+      l.target.position.copy(e.position).addScaledVector(D, 6),
+      l.updateMatrixWorld(!0),
+      l.target.updateMatrixWorld(!0));
+    const s = performance.now();
+    for (const n of u) n.z.prepare(e);
+    $.prepare = performance.now() - s;
+  });
+  const m = new M(
+    new ht(0.17, 0.95, 6, 16),
+    new bt({ color: 1842210, roughness: 0.8 }),
+  );
+  (m.scale.set(1, 1, 0.7),
+    (m.castShadow = !0),
+    (m.visible = !1),
+    (m.name = "victim"),
+    f.add(m));
+  const G = { lanky: -1.25, brute: 0, gown: 1.25 };
+  ((G.soldier = -2.5), (G.nun = 2.5), (G.priest = 3.75));
+  function P(e = "idle", s = {}) {
+    w();
+    for (const n of W) g(n, G[n], 0, 0);
+    L(e, s);
+    for (const n of u)
+      n.kind === "priest" &&
+        e === "idle" &&
+        n.z.setState("stand", { instant: !0 });
+  }
+  function B(e) {
+    (w(),
+      [0, 45, 90, 180].forEach((s, n) => g(e, -1.65 + n * 1.1, 0, s, 3)),
+      L("idle"),
+      r(0, 1.3, 5.6, 0, 0.95, 0, 40));
+  }
+  function K(e, s, n = "34", a = {}) {
+    w();
+    const t = g(e, 0, 0, 0, 3);
+    t.setState(s, { instant: !0, ...a });
+    const o = t.height;
+    return (
+      n === "side"
+        ? r(3.6, 1, 0.25, 0, o * 0.45, 0.25, 40)
+        : n === "front"
+          ? r(0, 1.35, 3.8, 0, o * 0.5, 0, 40)
+          : r(2.2, 1.45, 2.9, 0, o * 0.48, 0.1, 42),
+      t
+    );
+  }
+  const J = c.position.clone();
+  function R(e) {
+    ((S.visible = !1),
+      T(!0),
+      (l.visible = !0),
+      (x.visible = !0),
+      (m.visible = !1),
+      (l.intensity = 180),
+      (p.intensity = 0.5),
+      (c.intensity = 55),
+      (c.distance = 11),
+      c.position.copy(J),
+      z.position.copy(J));
+    for (const t of u) t.z.setSilhouette(!1);
+    const s = e.replace(/^zombies:/, ""),
+      n = s.match(/^candle_(\w+)$/);
+    if (n) {
+      const t = K(n[1], "idle", "front");
+      ((l.intensity = 0),
+        (p.intensity = 0.05),
+        (c.intensity = 5),
+        (c.distance = 3.5),
+        c.position.set(i.x + 0.4, 1, i.z + 0.42),
+        z.position.copy(c.position),
+        t.root.updateMatrixWorld(!0));
+      const o = t.headWorld(new y());
+      d.debug.lookAtCam(
+        o.x - 0.3,
+        o.y - 0.05,
+        o.z + 1.5,
+        o.x,
+        o.y - 0.22,
+        o.z,
+        45,
+      );
+      return;
+    }
+    if (rt(s)) return;
+    if (s === "lineup" || s === "zombies") {
+      (P(), r(0, 1.45, 5.2, 0, 0.95, 0, 42));
+      return;
+    }
+    if (s === "lineup34") {
+      (P(), r(3.4, 1.5, 4.2, -0.1, 0.95, 0, 42));
+      return;
+    }
+    if (s === "sil") {
+      (P(), (S.visible = !0), (x.visible = !1), T(!1), (l.visible = !1));
+      for (const t of u) t.z.setSilhouette(!0);
+      r(0, 1.1, 6, 0, 0.95, 0, 40);
+      return;
+    }
+    if (s === "crowd") {
+      w();
+      for (let t = 0; t < 10; t++) {
+        const o = W[t % W.length];
+        g(
+          o,
+          -2.4 + (t % 5) * 1.2,
+          -1.5 + Math.floor(t / 5) * 1.6,
+          0,
+          10 + t,
+        ).setState(t % 4 === 3 ? "reach" : "shamble", {
+          instant: !0,
+          speed: 0.8 + (t % 3) * 0.15,
+        });
+      }
+      r(0, 1.8, 6.5, 0, 0.9, -0.5, 50);
+      return;
+    }
+    if (s === "hall") {
+      (w(), T(!1));
+      const t = tt(_, { kind: "lanky", seed: 5 });
+      (t.root.position.set(6.1, 0, 6),
+        (t.root.rotation.y = 0),
+        f.add(t.root),
+        u.push({ z: t, kind: "lanky" }),
+        t.lookAt(d.camera.position),
+        t.setState("shamble", { instant: !0, speed: 0.7 }),
+        d.debug.lookAtCam(6.1, 1.62, 9, 6.1, 1.25, 6, 72));
+      return;
+    }
+    let a = s.match(/^turn_(\w+)$/);
+    if (a) {
+      B(a[1]);
+      return;
+    }
+    if (((a = s.match(/^face_(\w+)$/)), a)) {
+      const t = K(a[1], "idle", "front");
+      t.root.updateMatrixWorld(!0);
+      const o = t.headWorld(new y());
+      d.debug.lookAtCam(
+        o.x + 0.05,
+        o.y + 0.02,
+        o.z + 1,
+        o.x,
+        o.y - 0.02,
+        o.z,
+        40,
+      );
+      return;
+    }
+    if (((a = s.match(/^walkside_(\w+)$/)), a)) {
+      w();
+      const t = g(a[1], -0.75, 0, 90, 3);
+      (t.setState("shamble", { instant: !0, speed: 1 }),
+        t.lookAt(null),
+        C.set(t, [1, 0]),
+        r(0.1, 0.95, 3.3, 0.1, 0.85, 0, 40));
+      return;
+    }
+    if (
+      ((a = s.match(new RegExp("^(\\w+?)(?:[_:](" + W.join("|") + "))?$"))), a)
+    ) {
+      let t = a[1];
+      if (
+        (t === "walk" && (t = "shamble"),
+        t === "grab" && (t = "grab_hold"),
+        !wt.includes(t))
+      ) {
+        console.warn("[zlab] unknown beat", e);
+        return;
+      }
+      if (a[2]) {
+        const o =
+            t.startsWith("die_") ||
+            t === "run" ||
+            t === "emerge" ||
+            t === "shamble" ||
+            t === "reach" ||
+            t === "grab_hold" ||
+            t.startsWith("stagger_front") ||
+            t.startsWith("stagger_back"),
+          h = K(a[2], t, o ? "side" : "34", { speed: 1 });
+        (t === "grab_hold" &&
+          ((m.visible = !0),
+          m.position.set(i.x, 0.8, i.z + 0.46),
+          h.lookAt(m.position.clone().setY(1.45))),
+          (t.startsWith("die_") || t === "run" || t === "emerge") &&
+            h.lookAt(null));
+      } else
+        (P(t, { speed: 1 }),
+          t.startsWith("die_")
+            ? r(0, 2.6, 5.2, 0, 0.3, 0, 45)
+            : r(0, 1.45, 5.2, 0, 0.95, 0, 42));
+      return;
+    }
+  }
+  const k = new ot(16751176, 0, 3.5, 2);
+  ((k.name = "lab_priest_candle"), f.add(k));
+  const v = new M(
+    new st(0.012, 10, 8),
+    new q({ color: new X(3, 1.4, 0.45), toneMapped: !1 }),
+  );
+  ((v.visible = !1), f.add(v));
+  const V = new Map(),
+    j = new Set();
+  _.onFrame((e, s) => {
+    for (const [n, a] of V) n.root.rotation.y = a + n.riseTurn;
+    for (const n of j)
+      n.setMouth(
+        Math.max(
+          0,
+          Math.sin(s * 9.1) * 0.5 +
+            Math.sin(s * 13.7 + 1) * 0.35 +
+            Math.sin(s * 3.1) * 0.3,
+        ),
+      );
+  });
+  const I = [
+    "pray",
+    "still",
+    "look_back",
+    "rise",
+    "stand",
+    "talk",
+    "point",
+    "refuse",
+    "walk",
+    "face",
+  ];
+  (I.push("pray_stand", "shield", "flinch", "grabbed", "taken", "lantern"),
+    I.push("strange"));
+  function N(e) {
+    ((p.intensity = e ? 0.05 : 0.5),
+      (c.intensity = e ? 0 : 55),
+      (z.visible = !e),
+      c.position.set(i.x + 2.6, 1.7, i.z + 1.2),
+      (l.intensity = 180),
+      (k.intensity = e ? 5 : 0),
+      (v.visible = e),
+      k.position.set(i.x - 0.22, 0.32, i.z - 0.55),
+      v.position.copy(k.position));
+  }
+  const E = (e, s, n, a, t, o, h) => r(-e, s, -n, -a, t, -o, h);
+  function b(e, s = {}) {
+    w();
+    const n = g("priest", s.x ?? 0, s.z ?? 0, s.yaw ?? 0, 3);
+    return (
+      n.setState(e, { instant: !0, speed: 1 }),
+      V.set(n, (s.yaw ?? 0) * F),
+      (e === "talk" || s.talk) && j.add(n),
+      n
+    );
+  }
+  let O = null;
+  const Q = (e) => {
+    O ||
+      (O = ["moon", "fire", "hemi"]
+        .map((s) => d.lighting?.[s])
+        .filter((s) => s && s.isLight)
+        .map((s) => [s, s.intensity]));
+    for (const [s, n] of O) s.intensity = e ? n : 0;
+  };
+  function rt(e) {
+    (V.clear(), j.clear(), N(!1), (A.visible = !0), Q(!0));
+    const s = -0.38;
+    if (e === "lineup_priest") {
+      (w(),
+        [
+          ["lanky", -1.9],
+          ["brute", -0.65],
+          ["gown", 0.6],
+          ["priest", 1.85],
+        ].forEach(([t, o]) => g(t, o, 0, 0)),
+        L("idle"));
+      for (const t of u)
+        t.kind === "priest" && t.z.setState("stand", { instant: !0 });
+      return (r(0, 1.45, 6.2, 0, 0.95, 0, 42), !0);
+    }
+    if (e === "turn_priest") return (B("priest"), L("stand"), !0);
+    if (e === "pr_head" || e === "pr_head34" || e === "pr_headside") {
+      const t = b("stand");
+      ((S.visible = !0),
+        (x.visible = !1),
+        (l.intensity = 0),
+        (z.visible = !1),
+        (p.intensity = 0.25),
+        c.position.set(i.x + 0.8, 1.95, i.z + 1.3),
+        t.update(0.001));
+      const o = t.headWorld(new y()),
+        h = (e === "pr_head34" ? 38 : e === "pr_headside" ? 90 : 0) * F;
+      return (
+        d.debug.lookAtCam(
+          o.x + Math.sin(h) * 0.62,
+          o.y + 0.01,
+          o.z + Math.cos(h) * 0.62,
+          o.x,
+          o.y - 0.01,
+          o.z,
+          30,
+        ),
+        !0
+      );
+    }
+    if (e === "face_priest") {
+      const t = b("talk");
+      (t.root.updateMatrixWorld(!0), t.update(0.001));
+      const o = t.headWorld(new y());
+      return (
+        d.debug.lookAtCam(
+          o.x + 0.05,
+          o.y + 0.02,
+          o.z + 1,
+          o.x,
+          o.y - 0.02,
+          o.z,
+          40,
+        ),
+        !0
+      );
+    }
+    if (
+      e === "pr_back8" ||
+      e === "pr_back" ||
+      e === "pr_lookback" ||
+      e === "pr_rise" ||
+      e === "pr_top"
+    ) {
+      const t =
+        e === "pr_lookback"
+          ? "look_back"
+          : e === "pr_rise" || e === "pr_top"
+            ? "rise"
+            : "pray";
+      if (t === "rise") {
+        const o = b("look_back", { yaw: 180 });
+        (o.update(2), o.setState("rise"));
+      } else b(t, { yaw: 180 });
+      return (
+        N(!0),
+        e === "pr_back8"
+          ? E(-0.35, 1.62, s - 8, 0, 0.75, s, 50)
+          : e === "pr_top"
+            ? E(0, 2.7, -1, 0, 0, -0.1, 55)
+            : e === "pr_lookback"
+              ? E(-0.12, 1.6, s - 1.45, 0.05, 1.02, s, 50)
+              : E(-0.12, 1.6, s - 1.45, 0, 0.85, s + 0.1, 60),
+        !0
+      );
+    }
+    if (e === "pr_talk") {
+      const t = b("talk");
+      (N(!0),
+        k.position.set(i.x + 0.45, 0.95, i.z + 0.9),
+        v.position.copy(k.position),
+        t.update(0.001));
+      const o = t.headWorld(new y());
+      return (
+        d.debug.lookAtCam(o.x - 0.06, 1.6, o.z + 1, o.x, o.y - 0.03, o.z, 45),
+        !0
+      );
+    }
+    let n = e.match(/^pr_ghost(\d+)(w?)(?:f(\d+))?$/);
+    if (n) {
+      const t = b("lantern");
+      (t.holdLantern(!0),
+        t.selfLight(1),
+        n[3] && t.setFade(+n[3] / 100),
+        (p.intensity = 0),
+        (c.intensity = 0),
+        (z.visible = !1),
+        (l.intensity = 0),
+        (k.intensity = 0),
+        (v.visible = !1),
+        (A.visible = !1),
+        (x.visible = !1),
+        Q(!1));
+      const o = +n[1];
+      return (r(0.35, 1.62, o, 0, 1.3, 0, n[2] ? 70 : o > 6 ? 30 : 50), !0);
+    }
+    if (((n = e.match(/^pr_fade(\d+)$/)), n)) {
+      const t = b("lantern");
+      return (
+        t.holdLantern(!0),
+        t.selfLight(1),
+        t.setFade(+n[1] / 100),
+        r(2, 1.45, 3.1, 0.35, 0.7, 0.25, 46),
+        !0
+      );
+    }
+    if (e === "pr_taken" || e === "pr_takenpov") {
+      const t = b("grabbed");
+      return (
+        t.update(0.6),
+        t.setState("taken"),
+        e === "pr_taken"
+          ? r(3.4, 1.15, -0.45, 0, 0.6, -0.55, 45)
+          : r(0.25, 1.6, 2.4, 0, 0.3, -0.6, 55),
+        !0
+      );
+    }
+    const a = e.match(/^(\w+)_priest$/);
+    if (a && (I.includes(a[1]) || a[1] === "facing")) {
+      const t = a[1] === "facing" ? "face" : a[1];
+      if (t === "flinch" || t === "taken") {
+        const h = b(t === "flinch" ? "shield" : "grabbed");
+        return (
+          h.update(0.6),
+          h.setState(t),
+          t === "taken"
+            ? r(3.4, 1.15, -0.45, 0, 0.6, -0.55, 45)
+            : r(1.6, 1.5, 2.6, 0, 0.95, 0, 42),
+          !0
+        );
+      }
+      const o = b(t);
+      return (
+        t === "lantern" && (o.holdLantern(!0), o.selfLight(1)),
+        t === "walk"
+          ? (C.set(o, [1, 0]),
+            (o.root.rotation.y = 90 * F),
+            V.clear(),
+            (o.root.position.x = i.x - 0.9),
+            r(0.1, 1, 3.6, 0.1, 0.85, 0, 40))
+          : t === "pray" || t === "still" || t === "look_back"
+            ? r(-1.3, 1.45, s - 2.2, 0, 0.7, s, 42)
+            : t === "rise"
+              ? r(3.2, 1.2, -0.2, 0, 0.8, -0.2, 45)
+              : r(1.6, 1.5, 2.6, 0, 0.95, 0, 42),
+        !0
+      );
+    }
+    return !1;
+  }
+  const U = d.beats;
+  return (
+    (d.beats = {
+      goto(e) {
+        if (e.startsWith("zombies")) return R(e);
+        if (U?.goto) return U.goto(e);
+      },
+    }),
+    (d.zlab = {
+      spawn: g,
+      all: u,
+      setAll: L,
+      turnaround: B,
+      clear: w,
+      beat: R,
+      O: i,
+      flash: l,
+      moon: p,
+      lamp: c,
+      stats: () => ({
+        buildMs: Z,
+        kitsMs: it,
+        update: $,
+        perf: d.perf(),
+        zombies: u.length,
+        create: u.map((e) => +e.z.createMs.toFixed(2)),
+      }),
+    }),
+    R("lineup"),
+    {
+      group: f,
+      colliders: [],
+      anim: [],
+      points: {},
+      props: { zlab: d.zlab },
+      lights: { moon: p, lamp: c, flash: l },
+    }
+  );
+}
+export { yt as build };

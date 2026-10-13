@@ -1,0 +1,30 @@
+{
+  "note": "Content blocks of every inline <script>/<style> in the captured HTML documents. byteStart/byteEnd are content offsets (tags excluded, end exclusive) into the source document; sha256 is over those exact bytes. Blocks that are real JS/CSS were rendered to a readable twin with pinned prettier 3.9.6 (module API, rendered to fixpoint); typed data blocks (JSON-LD / application/json / importmap) would be recorded with their range + hash and never rendered — they are data, not code.",
+  "sources": [
+    {
+      "source": "index.html",
+      "sourceBytes": 2738,
+      "sourceSha256": "4eb83a57c9e5d9b92807fb8a0d133c4d8882eb336bebe7c763b0afa38e13726a",
+      "scripts": 0,
+      "styles": 1,
+      "dataBlocks": 0,
+      "blocks": [
+        {
+          "kind": "style",
+          "tagOpen": "<style>",
+          "byteStart": 194,
+          "byteEnd": 2082,
+          "bytes": 1888,
+          "sha256": "52046c1e0a89bbeb2d900919a5f3f0b4185588cd2afa038d0b5e0b9a3b386e20",
+          "file": "readable/index-inline-1.pretty.css",
+          "parsedAs": "css",
+          "prettyPasses": 2,
+          "prettyLines": 110,
+          "prettyBytes": 2011,
+          "prettySha256": "4ac8985476baa65a4985faa081d99447d9ecc2f272cf3ffb5f4f4cc57f90c620",
+          "note": "110 lines prettified from 1888 B of inline style #1 (capture bytes 194-2082 of index.html)"
+        }
+      ]
+    }
+  ]
+}
