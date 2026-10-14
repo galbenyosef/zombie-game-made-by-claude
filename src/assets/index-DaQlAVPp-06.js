@@ -1,0 +1,313 @@
+// assets/index-DaQlAVPp 06 — fallback
+// Lines 36691-37001 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
+const Xh = {
+  floor_oak_dark: {
+    tile: 2,
+    rough: 0.5,
+    bk: 0.35,
+    fallback: "#2d1b12",
+    extra: { clearcoat: 0.25, clearcoatRoughness: 0.5 },
+  },
+  floor_parquet: {
+    tile: 2.4,
+    rough: 0.5,
+    bk: 0.35,
+    fallback: "#3a2618",
+    extra: { clearcoat: 0.25, clearcoatRoughness: 0.5 },
+  },
+  wallpaper_bedroom: { tile: 0.64, rough: 0.9, bk: 0.6, fallback: "#22403b" },
+  wallpaper_hall: { tile: 0.64, rough: 0.9, bk: 0.6, fallback: "#4d2226" },
+  wallpaper_living: {
+    tile: 0.64,
+    rough: 0.9,
+    bk: 0.6,
+    ceilH: 3.2,
+    fallback: "#5c5533",
+  },
+  wainscot_wood: {
+    tile: 1,
+    rough: 0.55,
+    bk: 0.3,
+    fallback: "#2b1b13",
+    extra: { clearcoat: 0.15 },
+  },
+  ceiling_plaster: { tile: 2, rough: 0.95, bk: 0.6, fallback: "#b9b09a" },
+  trim_ivory: { tile: 1, rough: 0.6, bk: 0.35, fallback: "#cbc3b0" },
+  door_wood: {
+    tile: 1,
+    rough: 0.5,
+    fallback: "#35221a",
+    extra: { clearcoat: 0.2, clearcoatRoughness: 0.4 },
+  },
+  ext_brick: { tile: 2, rough: 0.95, bk: 0.4, fallback: "#2a2321" },
+  dark_room: { tile: 2, rough: 1, fallback: "#0a0908" },
+  boards_barricade: { tile: 0.6, rough: 0.95, fallback: "#4a3b2c" },
+  brass_aged: { tile: 0.5, rough: 0.4, metal: 1, fallback: "#8a6a32" },
+  iron_black: { tile: 0.5, rough: 0.55, metal: 1, fallback: "#1c1b1a" },
+  steel_gun: { tile: 0.3, rough: 0.35, metal: 1, fallback: "#25272a" },
+  paper_old: { tile: 0.3, rough: 0.95, fallback: "#c4b48e" },
+  wood_walnut: {
+    tile: 0.8,
+    rough: 0.42,
+    fallback: "#3b2517",
+    extra: { clearcoat: 0.35, clearcoatRoughness: 0.4 },
+  },
+  wood_oak_pale: {
+    tile: 0.8,
+    rough: 0.55,
+    fallback: "#7a5c3a",
+    extra: { clearcoat: 0.2 },
+  },
+  wood_painted_white: { tile: 0.8, rough: 0.6, fallback: "#b9b2a2" },
+  wood_ebony: {
+    tile: 0.8,
+    rough: 0.35,
+    fallback: "#151011",
+    extra: { clearcoat: 0.5 },
+  },
+  velvet_red: {
+    tile: 0.5,
+    rough: 0.9,
+    fallback: "#4a0f14",
+    extra: { sheen: 1, sheenColor: "#a03040", sheenRoughness: 0.5 },
+  },
+  linen_stained: {
+    tile: 0.5,
+    rough: 0.9,
+    fallback: "#b8ad95",
+    extra: { sheen: 0.4, sheenColor: "#d8ccb0", sheenRoughness: 0.6 },
+  },
+  wool_grey: {
+    tile: 0.5,
+    rough: 1,
+    fallback: "#4c4a48",
+    extra: { sheen: 0.6, sheenColor: "#8a8580", sheenRoughness: 0.7 },
+  },
+  upholstery_green: {
+    tile: 0.5,
+    rough: 0.95,
+    fallback: "#2f4636",
+    extra: { sheen: 0.6, sheenColor: "#6a8a70", sheenRoughness: 0.6 },
+  },
+  leather_brown: {
+    tile: 0.6,
+    rough: 0.5,
+    fallback: "#3c2416",
+    extra: { clearcoat: 0.3, clearcoatRoughness: 0.55 },
+  },
+  rug_persian: {
+    tile: 2,
+    rough: 1,
+    fallback: "#5a2a24",
+    extra: { sheen: 0.5, sheenColor: "#a06050", sheenRoughness: 0.8 },
+  },
+  porcelain_cracked: {
+    tile: 0.3,
+    rough: 0.25,
+    fallback: "#d8d2c6",
+    extra: { clearcoat: 0.8, clearcoatRoughness: 0.15 },
+  },
+  wax_candle: { tile: 0.3, rough: 0.45, fallback: "#d9cfb6" },
+  rust_metal: { tile: 0.5, rough: 0.8, metal: 0.6, fallback: "#5a3220" },
+  plaster_bare: { tile: 1, rough: 0.95, fallback: "#8f877a" },
+  concrete_grey: { tile: 2, rough: 0.95, fallback: "#55534f" },
+  blood_dark: {
+    tile: 0.5,
+    rough: 0.3,
+    fallback: "#2a0507",
+    extra: { clearcoat: 0.6 },
+  },
+  hall_photos: {
+    tile: 1,
+    rough: 0.45,
+    fallback: "#6b5a48",
+    extra: { clearcoat: 0 },
+  },
+  hall_footprints: { tile: 1, rough: 0.3, fallback: "#3a120c" },
+  hall_clockface: { tile: 1, rough: 0.5, fallback: "#d8ccb0" },
+  study_books: { tile: 1, rough: 0.55, fallback: "#3a2418" },
+  study_paper: { tile: 1, rough: 0.85, fallback: "#c4b48e" },
+  study_globe: {
+    tile: 1,
+    rough: 0.45,
+    fallback: "#b09a6a",
+    extra: { clearcoat: 0.4, clearcoatRoughness: 0.3 },
+  },
+  study_fur: {
+    tile: 0.25,
+    rough: 0.8,
+    fallback: "#6b5140",
+    extra: { sheen: 0.5, sheenColor: "#a08870", sheenRoughness: 0.6 },
+  },
+  study_antler: { tile: 1, rough: 0.6, fallback: "#7a6650" },
+  study_grip: {
+    tile: 0.05,
+    rough: 0.55,
+    fallback: "#3a2214",
+    extra: { clearcoat: 0.3, clearcoatRoughness: 0.4 },
+  },
+  bed_tally: { tile: 1, rough: 0.85, fallback: "#000000" },
+  bed_dollface: {
+    tile: 1,
+    rough: 0.3,
+    fallback: "#d8cfc2",
+    extra: { clearcoat: 0.7, clearcoatRoughness: 0.2 },
+  },
+  garden_moss: { tile: 1.6, rough: 0.92, fallback: "#3a5222" },
+  garden_gravel: { tile: 1.2, rough: 0.9, fallback: "#9b968a" },
+  garden_pondbed: { tile: 1.5, rough: 0.6, fallback: "#3a3528" },
+  garden_wall: { tile: 2, rough: 0.93, fallback: "#b39a74" },
+  garden_rock: { tile: 1.2, rough: 0.82, fallback: "#6b6860" },
+  garden_roof: { tile: 1, rough: 0.55, fallback: "#3a3c40" },
+  garden_bark: { tile: 0.6, rough: 0.78, fallback: "#3a2a26" },
+  plaza_cobble: { tile: 2, rough: 0.8, fallback: "#4a4844" },
+  ruin_ash: { tile: 2.5, rough: 0.95, fallback: "#2a2724" },
+  church_stone: { tile: 3, rough: 0.88, fallback: "#8f877a" },
+  ruin_char: { tile: 0.8, rough: 0.9, fallback: "#151210" },
+  street_asphalt: { tile: 3, rough: 0.85, fallback: "#2b2a29" },
+  tile_floor: { tile: 1.2, rough: 0.45, fallback: "#6a5a4c" },
+  sidewalk_tiles: { tile: 1.2, rough: 0.8, fallback: "#5e5b56" },
+  tactile_paving: { tile: 0.6, rough: 0.7, fallback: "#9a8a3a" },
+  car_burnt: { tile: 1.5, rough: 0.86, metal: 0.25, fallback: "#3b2519" },
+  bed_score: { tile: 1, rough: 0.9, fallback: "#c9b98f" },
+  bed_clock: { tile: 1, rough: 0.5, fallback: "#d8ccb0" },
+  bed_stain: { tile: 1, rough: 1, fallback: "#ffffff" },
+  bed_cobweb: { tile: 1, rough: 1, fallback: "#9a9a9a" },
+  bed_painting: {
+    tile: 1,
+    rough: 0.55,
+    fallback: "#2a3a5a",
+    extra: { clearcoat: 0.3, clearcoatRoughness: 0.45 },
+  },
+  bed_soot: { tile: 1, rough: 1, fallback: "#ffffff" },
+  bed_linen: {
+    tile: 1,
+    rough: 0.88,
+    fallback: "#cbc0a8",
+    extra: { sheen: 0.35, sheenColor: "#e0d4bc", sheenRoughness: 0.6 },
+  },
+  study_gunmetal: {
+    tile: 0.08,
+    rough: 0.27,
+    metal: 1,
+    fallback: "#4a525e",
+    extra: { clearcoat: 0.12, clearcoatRoughness: 0.25 },
+  },
+  rug_runner: {
+    tile: 0.8,
+    rough: 1,
+    fallback: "#5a2a24",
+    extra: { sheen: 0.5, sheenColor: "#a06050", sheenRoughness: 0.8 },
+  },
+  church_ashlar: { tile: 3, rough: 0.86, fallback: "#8a8174" },
+  church_dressed: { tile: 2, rough: 0.78, fallback: "#958b7c" },
+  church_web: { tile: 2.4, rough: 0.93, fallback: "#9a9284" },
+  church_floor: { tile: 4, rough: 0.62, fallback: "#5d574e" },
+  church_gilt: { tile: 0.6, rough: 0.34, metal: 1, fallback: "#b08a3e" },
+  church_glass: { tile: 1, rough: 1, fallback: "#442222" },
+  church_glass2: { tile: 1, rough: 1, fallback: "#222244" },
+  church_panels: { tile: 1, rough: 0.55, fallback: "#6a4a20" },
+  church_banner: { tile: 1, rough: 0.8, fallback: "#5a2226" },
+  church_ledger: { tile: 1, rough: 0.5, fallback: "#3c3e40" },
+  forest_bark: { tile: 1, rough: 0.86, fallback: "#4a3226" },
+  forest_floor: { tile: 2, rough: 0.9, fallback: "#3a2a1c" },
+  forest_path: { tile: 2, rough: 0.82, fallback: "#3a2e24" },
+  forest_stone: { tile: 1, rough: 0.9, fallback: "#8a857a" },
+  forest_wall: { tile: 2, rough: 0.92, fallback: "#5c564e" },
+  house_log: { tile: 1, rough: 0.82, fallback: "#9a8468" },
+  house_floor: { tile: 2.4, rough: 0.72, bk: 0.3, fallback: "#5e4630" },
+  house_plank: { tile: 1.6, rough: 0.85, fallback: "#7a6450" },
+  house_shingle: { tile: 2, rough: 0.9, fallback: "#4a443c" },
+  house_stone: { tile: 1.6, rough: 0.9, fallback: "#6e685e" },
+  house_quilt: {
+    tile: 1.44,
+    rough: 0.95,
+    fallback: "#7a3a30",
+    extra: { sheen: 0.6, sheenColor: "#c49a88", sheenRoughness: 0.7 },
+  },
+  house_rug: {
+    tile: 1,
+    rough: 1,
+    fallback: "#6a4636",
+    extra: { sheen: 0.5, sheenColor: "#a07060", sheenRoughness: 0.8 },
+  },
+  house_labels: { tile: 1, rough: 0.8, fallback: "#b8a888" },
+  train_moquette: { tile: 0.36, rough: 0.94, fallback: "#1b4248" },
+  train_floor: { tile: 1.2, rough: 0.72, fallback: "#4d5559" },
+  metro_tile_cream: { tile: 1.2, rough: 0.16, fallback: "#c9bc9a" },
+  metro_tile_teal: { tile: 1.2, rough: 0.14, fallback: "#1f4a49" },
+  metro_concrete: { tile: 2.4, rough: 0.88, fallback: "#6a675f" },
+  metro_paint: { tile: 2, rough: 0.7, fallback: "#b8b4a6" },
+  metro_floor: { tile: 2.4, rough: 0.55, fallback: "#77736a" },
+  metro_steel: { tile: 1, rough: 0.5, fallback: "#4a1716" },
+  metro_enamel: { tile: 1.2, rough: 0.2, fallback: "#cfccc2" },
+  metro_stone: { tile: 2.4, rough: 0.25, fallback: "#3a3b3c" },
+  metro_stainless: { tile: 0.5, rough: 0.32, metal: 1, fallback: "#a8aaab" },
+  metro_lining: { tile: 2, rough: 0.86, fallback: "#5b5852" },
+  park3_lawn: { tile: 2.2, rough: 0.93, fallback: "#26341a" },
+  park3_litter: { tile: 2.6, rough: 0.82, fallback: "#3a2a18" },
+  park3_bark: { tile: 1.4, rough: 0.74, fallback: "#7a7462" },
+  park3_hedge: { tile: 0.9, rough: 0.7, fallback: "#1c2a14" },
+  park3_canvas: { tile: 1.2, rough: 0.9, fallback: "#4a4a30" },
+};
+let Sn = null;
+function nS() {
+  if (Sn) return Sn;
+  const r = 512,
+    e = new Uint8Array(r * r * 4),
+    t = (i, s, a) => {
+      let o =
+        (Math.imul(i, 374761393) +
+          Math.imul(s, 668265263) +
+          Math.imul(a, 1442695041)) |
+        0;
+      return (
+        (o = Math.imul(o ^ (o >>> 13), 1274126177)),
+        (o ^= o >>> 16),
+        (o >>> 0) / 4294967296
+      );
+    },
+    n = (i, s, a, o) => {
+      const l = (i * a) % a,
+        c = (s * a) % a,
+        h = Math.floor(l),
+        d = Math.floor(c),
+        u = l - h,
+        f = c - d,
+        p = u * u * (3 - 2 * u),
+        x = f * f * (3 - 2 * f),
+        m = t(h % a, d % a, o),
+        g = t((h + 1) % a, d % a, o),
+        y = t(h % a, (d + 1) % a, o),
+        w = t((h + 1) % a, (d + 1) % a, o);
+      return m + (g - m) * p + (y - m) * x + (m - g - y + w) * p * x;
+    };
+  for (let i = 0; i < r; i++)
+    for (let s = 0; s < r; s++) {
+      const a = s / r,
+        o = i / r;
+      let l = 0,
+        c = 0.5,
+        h = 3,
+        d = 0;
+      for (let p = 0; p < 5; p++)
+        ((l += c * n(a, o, h, p * 7 + 1)), (d += c), (c *= 0.55), (h *= 2));
+      l /= d;
+      const u = n(a, o, 9, 91),
+        f = (i * r + s) * 4;
+      ((e[f] = Math.max(0, Math.min(255, (l - 0.5) * 2.4 * 255 + 128))),
+        (e[f + 1] = Math.max(0, Math.min(255, (u - 0.35) * 2.2 * 255))),
+        (e[f + 2] = 128),
+        (e[f + 3] = 255));
+    }
+  return (
+    (Sn = new pn(e, r, r, Nt)),
+    (Sn.wrapS = Sn.wrapT = ji),
+    (Sn.magFilter = mt),
+    (Sn.minFilter = Rn),
+    (Sn.generateMipmaps = !0),
+    (Sn.colorSpace = Cn),
+    (Sn.needsUpdate = !0),
+    Sn
+  );
+}

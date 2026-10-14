@@ -1,35 +1,46 @@
 // audit.js — integrity gate (PLAN §5), tailored to this mirror's shape.
 //
 // ZOMBIE GAME MADE BY CLAUDE ("LULLABY") is capture-class: the itch.io HTML5
-// embed served from https://html-classic.itch.zone/html/19679752/. There is no
-// authored source in the mirror, so the derived pipeline is:
+// embed served from https://html-classic.itch.zone/html/19679752/ (44 JS chunks,
+// a Vite-style ES-module build). There is no authored source in the mirror, so
+// the derived pipeline is:
 //
-//   capture assets/<name>.js           -> readable/<tag>.pretty.js   (pinned prettier 3.9.6, rendered to fixpoint)
-//   readable app chunks                -> src/<tag>-NN.js            (statement-aligned slices)
-//   readable vendor bundles/regions    -> split-spec wholeFile sections (vendor rule: never sliced —
-//                                          three.js r185 region in the entry chunk + the two jsm addon chunks)
-//   readable build machinery           -> split-spec wholeFile sections (mapDeps table, modulepreload
-//                                          polyfill, preload helper)
-//   readable export tables             -> split-spec skipped sections  (chunk tails, not sliced)
-//   capture index.html                 -> inline <script>/<style> scan (style twin + readable/index-inline-map.json)
+//   capture assets/<name>.js      -> readable/assets/<name>.pretty.js  (pinned prettier 3.9.6,
+//                                                                        format-to-fixpoint)
+//   readable app chunks           -> src/assets/<name>-NN.js           (statement-aligned slices,
+//                                                                        re-cut through the recorded
+//                                                                        semantic rename map)
+//   readable vendor bundles       -> split-spec wholeFile sections     (three.js r185 region in the entry
+//                                                                        chunk + the two jsm addon chunks:
+//                                                                        never sliced, never renamed)
+//   readable build machinery      -> split-spec wholeFile sections     (mapDeps table, modulepreload
+//                                                                        polyfill, preload helper)
+//   readable export tables        -> split-spec skipped sections       (final export {…} tables: indexed,
+//                                                                        not sliced; public names kept)
+//   capture index.html            -> inline <script>/<style> scan      (style twin + readable/index-inline-map.json)
+//   rename-map.json               -> recovered word-boundary + token-index records for the campaign
 //
+// Both derived layers keep the served path (nested directories — no __ flattening).
 // split-spec.json records that pipeline and this gate keeps it honest:
 //
 //   1. split-spec.json parses, carries a note + renderOptions, and a defaultFile exists.
-//   2. Every section resolves: ranged slices have a src/*.js file on disk, a readable
-//      *.pretty.js|css sourceFile and in-bounds startLine/endLine; wholeFile sections
-//      (machinery, three.js region, vendor addons, inline style) must NOT have a src file;
-//      `skipped` sections (chunk tail export tables) must NOT have a src file and are
-//      re-verified textually against their recorded firstLine/lastLine.
+//   2. Every section resolves: ranged slices have a src/<path>-NN.js file on disk, a
+//      readable *.pretty.js|css sourceFile and in-bounds startLine/endLine; wholeFile
+//      sections (machinery, three.js region, vendor addons, inline style) must NOT have a
+//      src file; `skipped` sections (chunk tail export tables) must NOT have a src file
+//      and are re-verified textually against their recorded firstLine/lastLine.
 //   3. The ranges of each sourceFile tile it exactly: first starts at line 1, each next
 //      starts at previous end + 1, last ends at EOF — no gaps, no overlaps.
-//   4. Byte-exact round-trip: every src slice minus its exact 2-line header
-//      (`// <tag> NN — <marker>` + `// Lines A-B of <pretty> (statement-aligned).`)
-//      equals its recorded sourceFile range byte for byte.
+//   4. Byte-exact round-trip through the rename layer: every src slice minus its exact
+//      2-line header (`// <chunk tag> NN — <marker>` + `// Lines A-B of <pretty>
+//      (statement-aligned).`) equals its recorded sourceFile range byte for byte with
+//      the recorded rename map applied (tools/engine/rename-layer.mjs applyRecordedMap;
+//      an unrenamed slice round-trips with no map). A slice that differs from its range
+//      WITHOUT a recorded map is a problem — renames must be recorded, never ad hoc.
 //   5. Every slice parses standalone with the exact gate command
 //      `node --input-type=module --check -` (stdin), as does every readable *.pretty.js.
-//   6. src/*.js on disk and the spec's ranged slices are the same set — no unlisted or
-//      missing reversals; wholeFile/skipped names are not on disk.
+//   6. src/ recursively on disk and the spec's ranged slices are the same set — no
+//      unlisted or missing reversals; wholeFile/skipped names are not on disk.
 //   7. Every readable pretty is referenced by the spec, its capture source exists, is
 //      recorded in .upstream/manifest.json, and is NOT byte-identical to the pretty
 //      (prettier did run). Every captured .js/.css file has a readable twin (layer
@@ -39,26 +50,31 @@
 //   8. The hard rule — src/ import resolution: relative specifiers (static from-imports,
 //      side-effect imports, re-exports, dynamic import() incl. non-interpolated template
 //      literals) resolve to files the CAPTURE carries, since src/ keeps the served
-//      chunk names verbatim (statement-aligned slices are not specifier-rewritten).
-//      Every named import must be exported by its target capture chunk. `node:` and
-//      `vite/*` bare specifiers and root-served `/…` paths are whitelisted machinery;
-//      other bare/URL specifiers are flagged.
+//      chunk names verbatim (the rename campaign renames top-level bindings/aliases only —
+//      imported and public names stay the capture's). Every named import must be exported
+//      by its target capture chunk. `node:` and `vite/*` bare specifiers and root-served
+//      `/…` paths are whitelisted machinery; other bare/URL specifiers are flagged.
 //   9. Inline-block scan: every inline <script>/<style> content block in a captured HTML
 //      document must have its readable twin and a readable/index-inline-map.json entry
 //      whose byte range + sha256 match the capture bytes (the itch chrome script and the
 //      app chunk are external references, not inline blocks).
-//  10. Derived layers never enter the capture sums: no readable/, src/, legacy/ or
-//      split-spec.json path may appear in .upstream/manifest.json.
+//  10. Derived layers never enter the capture sums: no readable/, src/, legacy/,
+//      split-spec.json or rename-map.json path may appear in .upstream/manifest.json.
+//  11. Rename-map honesty (the campaign gate, PLAN §5): rename-map.json parses; every
+//      recorded src file is a ranged slice; every scoped index addresses the recorded
+//      identifier token in its slice's range and never an import/export specifier
+//      (foreign) position; every renamed slice reproduces byte-exact through its map
+//      (rule 4) and every map record is actually applied somewhere in the slice.
 //
 // usage: node tools/audit.js
-"use strict";
-const fs = require("node:fs");
-const path = require("node:path");
-const crypto = require("node:crypto");
-const { spawnSync } = require("node:child_process");
-const { pathToFileURL } = require("node:url");
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { applyRecordedMap, foreignNameIndices, tokens } from "./engine/rename-layer.mjs";
 
-const here = __dirname;
+const here = path.dirname(fileURLToPath(import.meta.url));
 const proj = path.resolve(here, "..");
 const srcDir = path.join(proj, "src");
 const readableDir = path.join(proj, "readable");
@@ -82,12 +98,13 @@ const getLines = (abs) => {
 };
 const sha256 = (buf) => crypto.createHash("sha256").update(buf).digest("hex");
 
-// capture-relative name -> readable twin name (dirs flattened with __)
-const prettyNameOf = (capRel) => {
+// capture-relative name -> readable twin (served path kept, extension swapped)
+const tagOf = (capRel) => {
   const rel = capRel.startsWith(ROOT) ? capRel.slice(ROOT.length) : capRel;
-  const flat = rel.replace(/\.(js|css)$/i, "").split("/").join("__");
-  return "readable/" + flat + (/\.css$/i.test(rel) ? ".pretty.css" : ".pretty.js");
+  return rel.replace(/\.(js|css)$/i, "");
 };
+const prettyNameOf = (capRel) =>
+  "readable/" + tagOf(capRel) + (/\.css$/i.test(capRel) ? ".pretty.css" : ".pretty.js");
 const captureByPretty = new Map(); // readable/<x>.pretty.js|css -> capture rel
 
 // parse check — the exact standalone gate: node --input-type=module --check - < file
@@ -100,6 +117,17 @@ function parseCheck(abs, rel) {
   if (r.status !== 0)
     problem(`standalone ESM parse failed: ${rel} — ${(r.stderr || "").trim().split("\n").slice(-2).join(" | ")}`);
   return r.status === 0;
+}
+
+// recursive file walk (posix rels against base)
+function walkFiles(dir, base = dir, out = []) {
+  if (!fs.existsSync(dir)) return out;
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) walkFiles(p, base, out);
+    else out.push(path.relative(base, p).split(path.sep).join("/"));
+  }
+  return out;
 }
 
 // inline <script>/<style> scan (byte-exact, same shape as tools/derive.mjs)
@@ -231,9 +259,37 @@ if (!spec?.renderOptions || typeof spec.renderOptions !== "object")
 if (!Array.isArray(spec?.notRendered))
   problem("split-spec.json records no notRendered array (non-code payload blocks)");
 if (spec?.defaultFile) {
-  const df = path.join(srcDir, path.basename(String(spec.defaultFile)));
+  const df = path.join(proj, String(spec.defaultFile));
   if (!fs.existsSync(df)) problem(`split-spec defaultFile "${spec.defaultFile}" does not exist`);
 }
+
+// ── rename-map.json (the campaign record this gate re-proves) ───────────
+const renameMapPath = path.join(proj, "rename-map.json");
+let renameMap = { files: {}, scoped: {} };
+const renameSlices = new Set();
+let renamedRecorded = 0;
+if (fs.existsSync(renameMapPath)) {
+  try {
+    const rm = JSON.parse(fs.readFileSync(renameMapPath, "utf8"));
+    renameMap = { files: rm.files || {}, scoped: rm.scoped || {}, note: rm.note || "" };
+    if (!String(renameMap.note).trim()) problem("rename-map.json has no note (recovery record)");
+    for (const f of Object.keys(renameMap.files)) {
+      renameSlices.add(f);
+      renamedRecorded += Object.keys(renameMap.files[f]).length;
+    }
+    for (const f of Object.keys(renameMap.scoped)) {
+      renameSlices.add(f);
+      renamedRecorded += Object.values(renameMap.scoped[f]).flat().length;
+    }
+  } catch (e) {
+    problem(`rename-map.json does not parse: ${e.message}`);
+  }
+}
+const recordFor = (file) => {
+  const files = renameMap.files[file];
+  const scoped = renameMap.scoped[file];
+  return files || scoped ? { files, scoped } : null;
+};
 
 const seen = new Set();
 const rangedFiles = new Set();
@@ -256,14 +312,16 @@ for (const s of sections) {
 }
 if (!rangedFiles.size) problem("no ranged src slices in split-spec.json (no reversed layer)");
 
-const onDisk = fs.existsSync(srcDir)
-  ? fs.readdirSync(srcDir).filter((f) => f.endsWith(".js")).sort()
-  : [];
+const onDisk = walkFiles(srcDir).filter((f) => f.endsWith(".js")).sort();
 if (!onDisk.length) problem("src/ missing or empty (no reversed layer)");
 for (const f of onDisk) if (!rangedFiles.has(f)) problem(`src/${f} exists but is not a ranged slice in split-spec.json`);
 for (const f of rangedFiles) if (!onDisk.includes(f)) problem(`split-spec lists ${f} but it is not on disk`);
 for (const f of indexOnlyFiles)
   if (onDisk.includes(f)) problem(`index-only section ${f} must not have a src file on disk (wholeFile/skipped)`);
+for (const f of renameSlices) {
+  if (!rangedFiles.has(f)) problem(`rename-map.json records ${f} but it is not a ranged slice in split-spec.json`);
+  else if (!onDisk.includes(f)) problem(`rename-map.json records ${f} but it is not on disk`);
+}
 
 // ── ranges: existence, bounds, tiling ───────────────────────────────────
 const bySource = new Map();
@@ -312,14 +370,15 @@ for (const [sourceFile, list] of bySource) {
   if (ok) tiledOK++;
 }
 
-// ── byte-exact round-trip + header provenance ───────────────────────────
+// ── byte-exact round-trip through the rename layer + header provenance ──
 let roundOK = 0,
-  ranged = 0;
+  ranged = 0,
+  renamedSlices = 0;
 for (const [, list] of bySource) {
   for (const { s, A, B } of list) {
     if (s.wholeFile === true || s.skipped === true) continue;
     ranged++;
-    const srcAbs = path.join(srcDir, path.basename(String(s.file)));
+    const srcAbs = path.join(srcDir, s.file);
     if (!fs.existsSync(srcAbs)) continue; // already reported
     const text = fs.readFileSync(srcAbs, "utf8");
     const nl1 = text.indexOf("\n");
@@ -330,20 +389,58 @@ for (const [, list] of bySource) {
     }
     const header1 = text.slice(0, nl1);
     const header2 = text.slice(nl1 + 1, nl2);
-    const nn = path.basename(String(s.file)).match(/-(\d+)\.js$/)?.[1];
+    const nn = s.file.match(/-(\d+)\.js$/)?.[1];
     if (!nn) problem(`src/${s.file}: file name carries no -NN slice number`);
     else if (!new RegExp(`^// .+ ${nn} — .+$`).test(header1))
-      problem(`src/${s.file}: header line 1 does not match "// <tag> ${nn} — <marker>": ${header1}`);
+      problem(`src/${s.file}: header line 1 does not match "// <chunk tag> ${nn} — <marker>": ${header1}`);
     const want2 = `// Lines ${A}-${B} of ${s.sourceFile} (statement-aligned).`;
     if (header2 !== want2) problem(`src/${s.file}: header line 2 is not the recorded range: ${header2}`);
     const body = text.slice(nl2 + 1);
     const srcLines = getLines(path.join(proj, s.sourceFile));
-    const expected = srcLines.slice(A - 1, B).join("\n") + "\n";
-    if (body !== expected)
-      problem(`src/${s.file}: body is not a byte-exact round-trip of ${s.sourceFile} lines ${A}-${B}`);
+    const raw = srcLines.slice(A - 1, B).join("\n") + "\n";
+    const record = recordFor(s.file);
+    let expected = raw;
+    if (record) {
+      try {
+        expected = applyRecordedMap(raw, record);
+        renamedSlices++;
+      } catch (e) {
+        problem(`src/${s.file}: recorded rename map does not apply: ${e.message}`);
+        continue;
+      }
+    } else if (body !== raw) {
+      problem(`src/${s.file}: body differs from its readable range but rename-map.json records no map (unrecorded rename)`);
+      continue;
+    }
+    if (body !== expected) problem(`src/${s.file}: body is not a byte-exact round-trip of ${s.sourceFile} lines ${A}-${B}`);
     else roundOK++;
   }
 }
+
+// ── rename-map honesty: indices address the recorded identifier tokens ──
+let mapOK = 0;
+const foreignProblems = [];
+for (const [file, scoped] of Object.entries(renameMap.scoped)) {
+  const sec = sections.find((s) => s.file === file);
+  if (!sec || sec.wholeFile || sec.skipped) continue; // already reported above
+  const srcLines = getLines(path.join(proj, sec.sourceFile));
+  const raw = srcLines.slice(sec.startLine - 1, sec.endLine).join("\n") + "\n";
+  const ts = tokens(raw);
+  const foreign = foreignNameIndices(ts);
+  for (const [name, hits] of Object.entries(scoped)) {
+    for (const [i, target] of hits) {
+      const t = ts[i];
+      if (!t || t.t !== "id" || t.v !== name) {
+        problems.push(`rename-map.json ${file}: index ${i} is not the identifier "${name}" (${t ? t.t : "none"})`);
+        continue;
+      }
+      if (foreign.has(i)) foreignProblems.push(`${file} index ${i} ("${name}") is an import/export specifier name`);
+      if (target === name) problems.push(`rename-map.json ${file}: "${name}" maps to itself at ${i}`);
+    }
+  }
+  mapOK++;
+}
+for (const p of foreignProblems) problem(`rename-map.json renames a foreign position: ${p}`);
 
 // ── skipped sections: textual re-verification ───────────────────────────
 let skippedOK = 0,
@@ -373,15 +470,9 @@ let checkOK = 0;
 for (const f of onDisk) if (parseCheck(path.join(srcDir, f), `src/${f}`)) checkOK++;
 
 const prettyFiles = [];
-const walkPretty = (dir) => {
-  if (!fs.existsSync(dir)) return;
-  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    const p = path.join(dir, e.name);
-    if (e.isDirectory()) walkPretty(p);
-    else if (/\.pretty\.(js|css)$/i.test(e.name)) prettyFiles.push(p);
-  }
-};
-walkPretty(readableDir);
+walkFiles(readableDir).forEach((rel) => {
+  if (/\.pretty\.(js|css)$/i.test(rel)) prettyFiles.push(path.join(readableDir, rel));
+});
 if (!prettyFiles.length) problem("readable/ has no *.pretty.js|css (derived layer missing)");
 let prettyOK = 0,
   prettyParsed = 0;
@@ -392,22 +483,69 @@ for (const abs of prettyFiles) {
   if (parseCheck(abs, rel)) prettyOK++;
 }
 
+// ── inline block twins + map (deliverable rule) ─────────────────────────
+const inlineMapPath = path.join(readableDir, "index-inline-map.json");
+let inlineMap = null;
+if (fs.existsSync(inlineMapPath)) {
+  try {
+    inlineMap = JSON.parse(fs.readFileSync(inlineMapPath, "utf8"));
+  } catch (e) {
+    problem(`readable/index-inline-map.json does not parse: ${e.message}`);
+  }
+}
+const inlineTwinRels = new Set();
+let inlineBlocks = 0;
+for (const capRel of Object.keys(manifest?.files ?? {})) {
+  if (!/\.html$/i.test(capRel)) continue;
+  const buf = fs.readFileSync(path.join(proj, capRel));
+  const blocks = scanBlocks(buf);
+  inlineBlocks += blocks.length;
+  const entryTag = capRel.replace(/\.html$/i, "").split("/").join("__");
+  for (const b of blocks) {
+    const twinExt = b.kind === "style" ? "css" : b.kind === "importmap" ? "json" : "js";
+    const twin = `readable/${entryTag}-inline-${b.block}.pretty.${twinExt}`;
+    inlineTwinRels.add(twin);
+    if (!fs.existsSync(path.join(proj, twin))) problem(`${capRel}: inline ${b.kind} #${b.block} has no twin ${twin}`);
+    else {
+      const twinText = fs.readFileSync(path.join(proj, twin), "utf8");
+      const content = buf.subarray(b.contentStart, b.contentEnd);
+      if (twinText === content.toString("utf8"))
+        problem(`${twin}: byte-identical to its capture block (prettier did not run?)`);
+      if (twinExt === "json") {
+        try {
+          JSON.parse(twinText);
+        } catch (e) {
+          problem(`${twin}: does not parse as JSON: ${e.message}`);
+        }
+      }
+    }
+    const entryRec = inlineMap?.sources?.find((x) => x.source === capRel);
+    const rec = entryRec?.blocks?.find((x) => x.file === twin);
+    if (!rec) {
+      problem(`${capRel}: inline ${b.kind} #${b.block} is missing from readable/index-inline-map.json`);
+      continue;
+    }
+    if (rec.byteStart !== b.contentStart || rec.byteEnd !== b.contentEnd || rec.sha256 !== b.sha256)
+      problem(`${twin}: recorded inline byte range/sha256 does not match the capture bytes`);
+  }
+}
+if (inlineMap && inlineBlocks === 0) problem("readable/index-inline-map.json exists but the capture has no inline blocks");
+
 // ── every pretty referenced + provably derived + layer completeness ─────
 const referenced = new Set();
 for (const [sourceFile] of bySource) referenced.add(sourceFile.split(path.sep).join("/"));
 let derivedOK = 0;
 for (const abs of prettyFiles) {
   const rel = path.relative(proj, abs).split(path.sep).join("/");
-  if (!referenced.has(rel))
-    problem(`readable/${path.basename(rel)} exists but is not referenced by split-spec.json`);
+  if (!referenced.has(rel)) problem(`readable/${rel.replace(/^readable\//, "")} exists but is not referenced by split-spec.json`);
+  if (inlineTwinRels.has(rel)) {
+    derivedOK++; // inline twins are byte-compared against their capture block above
+    continue;
+  }
   const capRel = captureByPretty.get(rel);
   const capAbs = capRel ? path.join(proj, capRel) : null;
   if (!capAbs || !fs.existsSync(capAbs)) {
-    // the inline <style> twin has no capture *file* — its capture source is a byte
-    // range of index.html, checked by the inline-block scan below
-    if (!/^readable\/index-inline-\d+\.pretty\.(css|js)$/.test(rel))
-      problem(`${rel}: capture source missing (no captured .js/.css maps to this pretty)`);
-    else derivedOK++;
+    problem(`${rel}: capture source missing (no captured .js/.css maps to this pretty)`);
     continue;
   }
   if (manifest && !manifest.files?.[capRel])
@@ -425,32 +563,22 @@ if (manifest) {
 }
 
 // ── vendor/machinery rule: wholeFile sections carry the recorded shape ──
+// (the guards are required for this mirror; absence is a problem)
 const VENDOR_GUARDS = [
-  [
-    "assets__index-DaQlAVPp-machinery.js",
-    /__vite__mapDeps/,
-    /modulepreload/,
-  ],
-  [
-    "assets__index-DaQlAVPp-three-vendor.js",
-    /Copyright 2010-\d{4} Three\.js Authors/,
-    /Symbol\.toStringTag/,
-  ],
-  [
-    "assets__RoundedBoxGeometry-D0zz8qHa-vendor.js",
-    /RoundedBoxGeometry/,
-    /toNonIndexed/,
-  ],
-  [
-    "assets__BufferGeometryUtils-Qxvmd-vM-vendor.js",
-    /THREE\.BufferGeometryUtils:/,
-    /mergeGeometries/,
-  ],
+  ["assets/index-DaQlAVPp-machinery.js", /__vite__mapDeps/, /modulepreload/],
+  ["assets/index-DaQlAVPp-machinery.js", /__vite__mapDeps/, /new URL\(r, e\)\.href/],
+  ["assets/index-DaQlAVPp-three-vendor.js", /Copyright 2010-\d{4} Three\.js Authors/, /Symbol\.toStringTag/],
+  ["assets/index-DaQlAVPp-three-vendor.js", /const Wo = "185"/, /DOLLY_PAN: 2/],
+  ["assets/RoundedBoxGeometry-D0zz8qHa-vendor.js", /RoundedBoxGeometry/, /toNonIndexed/],
+  ["assets/BufferGeometryUtils-Qxvmd-vM-vendor.js", /THREE\.BufferGeometryUtils:/, /mergeGeometries/],
   ["index-inline-1.css", /#veil/, /canvas#c/],
 ];
 for (const [file, reA, reB] of VENDOR_GUARDS) {
   const sec = sections.find((s) => s.file === file);
-  if (!sec) continue; // absence is fine; presence must hold its guard
+  if (!sec) {
+    problem(`vendor section ${file} missing from split-spec.json`);
+    continue;
+  }
   if (sec.wholeFile !== true) {
     problem(`vendor section ${file} is not wholeFile`);
     continue;
@@ -461,40 +589,6 @@ for (const [file, reA, reB] of VENDOR_GUARDS) {
   if (!reA.test(text) || !reB.test(text)) problem(`vendor section ${file}: content guard failed — readable changed shape`);
 }
 
-// ── inline block twins + map (deliverable rule) ─────────────────────────
-const inlineMapPath = path.join(readableDir, "index-inline-map.json");
-let inlineMap = null;
-if (fs.existsSync(inlineMapPath)) {
-  try {
-    inlineMap = JSON.parse(fs.readFileSync(inlineMapPath, "utf8"));
-  } catch (e) {
-    problem(`readable/index-inline-map.json does not parse: ${e.message}`);
-  }
-}
-let inlineBlocks = 0;
-for (const capRel of Object.keys(manifest?.files ?? {})) {
-  if (!/\.html$/i.test(capRel)) continue;
-  const buf = fs.readFileSync(path.join(proj, capRel));
-  const blocks = scanBlocks(buf);
-  inlineBlocks += blocks.length;
-  const entryTag = capRel.replace(/\.html$/i, "").split("/").join("__");
-  for (const b of blocks) {
-    const twinExt = b.kind === "style" ? "css" : b.kind === "importmap" ? "json" : "js";
-    const twin = `readable/${entryTag}-inline-${b.block}.pretty.${twinExt}`;
-    if (!fs.existsSync(path.join(proj, twin))) problem(`${capRel}: inline ${b.kind} #${b.block} has no twin ${twin}`);
-    else if (!referenced.has(twin)) problem(`${twin}: inline twin is not referenced by split-spec.json`);
-    const entryRec = inlineMap?.sources?.find((x) => x.source === capRel);
-    const rec = entryRec?.blocks?.find((x) => x.file === twin);
-    if (!rec) {
-      problem(`${capRel}: inline ${b.kind} #${b.block} is missing from readable/index-inline-map.json`);
-      continue;
-    }
-    if (rec.byteStart !== b.contentStart || rec.byteEnd !== b.contentEnd || rec.sha256 !== b.sha256)
-      problem(`${twin}: recorded inline byte range/sha256 does not match the capture bytes`);
-  }
-}
-if (inlineMap && inlineBlocks === 0) problem("readable/index-inline-map.json exists but the capture has no inline blocks");
-
 // ── the hard rule: src/ import resolution against the capture ───────────
 let checkedImports = 0,
   resolvedImports = 0,
@@ -502,7 +596,7 @@ let checkedImports = 0,
 for (const s of sections) {
   if (s.wholeFile === true || s.skipped === true) continue;
   if (!s.file || typeof s.sourceFile !== "string") continue;
-  const srcAbs = path.join(srcDir, path.basename(String(s.file)));
+  const srcAbs = path.join(srcDir, s.file);
   if (!fs.existsSync(srcAbs)) continue;
   const capRel = captureByPretty.get(s.sourceFile);
   const baseDir = capRel ? path.posix.dirname(capRel) : null;
@@ -540,7 +634,7 @@ for (const s of sections) {
 if (manifest) {
   for (const rel of Object.keys(manifest.files)) {
     const norm = rel.split(path.sep).join("/");
-    if (/^(readable|src|legacy)\//.test(norm) || norm === "split-spec.json")
+    if (/^(readable|src|legacy)\//.test(norm) || norm === "split-spec.json" || norm === "rename-map.json")
       problem(`derived layer leaked into the capture manifest: ${rel}`);
   }
 }
@@ -565,69 +659,83 @@ function loadPinnedPrettier() {
   return null;
 }
 
-(async () => {
-  let renderNote = `prettier ${PINNED} not importable — renderOptions recorded, re-render check skipped`;
-  const prettierPath = loadPinnedPrettier();
-  if (prettierPath) {
-    const prettier = (await import(pathToFileURL(prettierPath).href)).default;
-    // same method as tools/derive.mjs: render to fixpoint (max 5 passes)
-    const fixpoint = async (text, parser) => {
-      let cur = text;
-      for (let pass = 1; pass <= 5; pass++) {
-        const next = await prettier.format(cur, { parser });
-        if (next === cur) return next;
-        cur = next;
-      }
-      throw new Error("no fixpoint in 5 passes");
-    };
-    let renderOK = 0;
-    for (const abs of prettyFiles) {
-      const rel = path.relative(proj, abs).split(path.sep).join("/");
-      const capRel = captureByPretty.get(rel);
-      const capAbs = capRel ? path.join(proj, capRel) : null;
-      const parser = /\.pretty\.css$/i.test(rel) ? "css" : "babel";
-      let sourceText = null;
-      if (capAbs && fs.existsSync(capAbs)) sourceText = fs.readFileSync(capAbs, "utf8");
-      else if (/^readable\/index-inline-\d+\.pretty\.(css|js)$/.test(rel)) {
-        // inline twin: re-derive from the recorded capture byte range
-        const m = rel.match(/index-inline-(\d+)\.pretty\.(css|js)$/);
-        const rec = inlineMap?.sources?.[0]?.blocks?.find((x) => x.file === rel);
-        if (!rec) {
-          problem(`${rel}: no inline-map record for the twin (cannot re-render)`);
-          continue;
-        }
-        const entryBuf = fs.readFileSync(path.join(proj, inlineMap.sources[0].source));
-        sourceText = entryBuf.subarray(rec.byteStart, rec.byteEnd).toString("utf8");
-      }
-      if (sourceText === null) continue; // already reported
+let renderNote = `prettier ${PINNED} not importable — renderOptions recorded, re-render check skipped`;
+const prettierPath = loadPinnedPrettier();
+if (prettierPath) {
+  const prettier = (await import(pathToFileURL(prettierPath).href)).default;
+  // same method as tools/derive.mjs: render to fixpoint (max 5 passes)
+  const fixpoint = async (text, parser) => {
+    let cur = text;
+    for (let pass = 1; pass <= 5; pass++) {
+      const next = await prettier.format(cur, { parser });
+      if (next === cur) return next;
+      cur = next;
+    }
+    throw new Error("no fixpoint in 5 passes");
+  };
+  let renderOK = 0;
+  let renderTotal = 0;
+  for (const abs of prettyFiles) {
+    const rel = path.relative(proj, abs).split(path.sep).join("/");
+    if (inlineTwinRels.has(rel)) continue; // re-rendered from the capture byte range below
+    const capRel = captureByPretty.get(rel);
+    const capAbs = capRel ? path.join(proj, capRel) : null;
+    if (!capAbs || !fs.existsSync(capAbs)) continue; // already reported
+    const parser = /\.pretty\.css$/i.test(rel) ? "css" : "babel";
+    const want = fs.readFileSync(abs, "utf8");
+    let got;
+    renderTotal++;
+    try {
+      got = await fixpoint(fs.readFileSync(capAbs, "utf8"), parser);
+    } catch (e) {
+      problem(`${rel}: re-render failed (${e.message})`);
+      continue;
+    }
+    if (got === want) renderOK++;
+    else problem(`${rel}: does not re-render byte-exact under pinned prettier ${PINNED} (fixpoint method, {parser:${parser}})`);
+  }
+  // inline twins re-render from their capture byte range
+  for (const rec of inlineMap?.sources ?? []) {
+    const capAbs = path.join(proj, rec.source);
+    if (!fs.existsSync(capAbs)) continue; // already reported
+    const buf = fs.readFileSync(capAbs);
+    for (const b of rec.blocks ?? []) {
+      const parser = b.parsedAs === "json" ? "json" : b.parsedAs === "css" ? "css" : "babel";
+      const src = buf.subarray(b.byteStart, b.byteEnd).toString("utf8");
+      const abs = path.join(proj, b.file);
+      if (!fs.existsSync(abs)) continue; // already reported
       const want = fs.readFileSync(abs, "utf8");
       let got;
+      renderTotal++;
       try {
-        got = await fixpoint(sourceText, parser);
+        got = await fixpoint(src, parser);
       } catch (e) {
-        problem(`${rel}: re-render failed (${e.message})`);
+        problem(`${b.file}: re-render failed (${e.message})`);
         continue;
       }
       if (got === want) renderOK++;
-      else problem(`${rel}: does not re-render byte-exact under pinned prettier ${PINNED} (fixpoint method, {parser:${parser}})`);
+      else problem(`${b.file}: does not re-render byte-exact under pinned prettier ${PINNED} (fixpoint method, {parser:${parser}})`);
     }
-    renderNote = `${renderOK}/${prettyFiles.length} pretties re-render byte-exact under pinned prettier ${PINNED} (fixpoint method)`;
   }
+  renderNote =
+    `${renderOK}/${renderTotal} pretties re-render byte-exact under pinned prettier ${PINNED} (fixpoint method)`;
+}
 
-  if (problems.length) {
-    console.error(`AUDIT FAIL — ${problems.length} problem(s)`);
-    for (const p of problems) console.error("  " + p);
-    process.exit(1);
-  }
-  console.log(
-    `AUDIT PASS — ${sections.length} spec sections (${roundOK}/${ranged} src↔pretty round-trips byte-exact, ` +
-      `${tiledOK}/${bySource.size} pretty sources tiled contiguously, ` +
-      `${skippedOK}/${skippedTotal} skipped export-table sections re-verified textually, ` +
-      `${checkOK}/${onDisk.length} src slices + ${prettyOK}/${prettyParsed} readable/*.pretty.js parse standalone (node --input-type=module --check -), ` +
-      `${derivedOK}/${prettyFiles.length} pretties provably distinct from their capture source, ` +
-      `${indexOnlyFiles.size} index-only wholeFile/skipped sections carry no src file, ` +
-      `${inlineBlocks} inline content block(s) with twins + map, ` +
-      `${resolvedImports}/${checkedImports} imports resolve inside the capture (${whitelisted} whitelisted machinery), ` +
-      `${renderNote}, capture manifest free of derived layers)`,
-  );
-})();
+if (problems.length) {
+  console.error(`AUDIT FAIL — ${problems.length} problem(s)`);
+  for (const p of problems) console.error("  " + p);
+  process.exit(1);
+}
+console.log(
+  `AUDIT PASS — ${sections.length} spec sections (${roundOK}/${ranged} src↔pretty round-trips byte-exact through the recorded rename map, ` +
+    `${renamedSlices} renamed slice(s), ` +
+    `${tiledOK}/${bySource.size} pretty sources tiled contiguously, ` +
+    `${skippedOK}/${skippedTotal} skipped export-table sections re-verified textually, ` +
+    `${checkOK}/${onDisk.length} src slices + ${prettyOK}/${prettyParsed} readable/*.pretty.js parse standalone (node --input-type=module --check -), ` +
+    `${derivedOK}/${prettyFiles.length} pretties provably distinct from their capture source, ` +
+    `${indexOnlyFiles.size} index-only wholeFile/skipped sections carry no src file, ` +
+    `${inlineBlocks} inline content block(s) with twins + index-inline-map.json, ` +
+    `${resolvedImports}/${checkedImports} imports resolve inside the capture (${whitelisted} whitelisted machinery), ` +
+    `rename map: ${renamedRecorded} record(s) over ${renameSlices.size} slice(s), ${mapOK} scoped slice(s) token-validated, no foreign position, ` +
+    `${renderNote}, capture manifest free of derived layers)`,
+);

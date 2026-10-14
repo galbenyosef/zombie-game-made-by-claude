@@ -1,0 +1,201 @@
+// assets/looks-DR2oSjqf 01 — fog
+// Lines 1-199 of readable/assets/looks-DR2oSjqf.pretty.js (statement-aligned).
+import {
+  C as s,
+  aq as D,
+  ar as L,
+  as as P,
+  y as S,
+  $ as V,
+  i as O,
+  am as C,
+  c as I,
+  V as u,
+  aI as j,
+  d as A,
+  p as F,
+  m as T,
+} from "./index-DaQlAVPp.js";
+const v = [
+    "exposure",
+    "bloom",
+    "bloomThreshold",
+    "vignette",
+    "sat",
+    "contrast",
+  ],
+  B = {
+    post: {
+      exposure: 0.95,
+      bloom: 0.22,
+      bloomThreshold: 1.3,
+      vignette: 0.45,
+      sat: 0.95,
+      contrast: 1.06,
+    },
+    key: [10335968, 0.25],
+    keyDir: [0.35, 0.6, -0.72],
+    fill: [5662346, 0.05],
+    fillDir: [-0.5, 0.4, 0.6],
+    hemi: [4215918, 1841172, 0.25],
+    env: 0.15,
+    envName: "under",
+    fog: [658965, 0.02],
+    keyBox: 30,
+  },
+  b = (o) => (o.isVector3 ? o.clone() : new u(o[0], o[1], o[2])).normalize(),
+  K = { forest: "cabin", ruins: "sky" };
+function R(o, i = B) {
+  const e = { ...i, ...(o || {}), post: { ...i.post, ...(o?.post || {}) } };
+  return {
+    post: Object.fromEntries(v.map((l) => [l, e.post[l]])),
+    key: new s(e.key[0]),
+    keyI: e.key[1],
+    keyDir: b(e.keyDir),
+    fill: new s(e.fill[0]),
+    fillI: e.fill[1],
+    fillDir: b(e.fillDir),
+    hemiSky: new s(e.hemi[0]),
+    hemiGround: new s(e.hemi[1]),
+    hemiI: e.hemi[2],
+    env: e.env,
+    envName: K[e.envName] || e.envName,
+    fog: new s(e.fog[0]),
+    fogD: e.fog[1],
+    keyBox: e.keyBox ?? 30,
+    beam: e.beam ?? 0,
+    torch: e.torch ?? 1,
+  };
+}
+function W(o, i) {
+  return (U(o, i, 1), (o.envName = i.envName), (o.keyBox = i.keyBox), o);
+}
+function U(o, i, e) {
+  for (const l of v) o.post[l] += (i.post[l] - o.post[l]) * e;
+  return (
+    o.key.lerp(i.key, e),
+    (o.keyI += (i.keyI - o.keyI) * e),
+    o.keyDir.lerp(i.keyDir, e).normalize(),
+    o.fill.lerp(i.fill, e),
+    (o.fillI += (i.fillI - o.fillI) * e),
+    o.fillDir.lerp(i.fillDir, e).normalize(),
+    o.hemiSky.lerp(i.hemiSky, e),
+    o.hemiGround.lerp(i.hemiGround, e),
+    (o.hemiI += (i.hemiI - o.hemiI) * e),
+    (o.env += (i.env - o.env) * e),
+    o.fog.lerp(i.fog, e),
+    (o.fogD += (i.fogD - o.fogD) * e),
+    (o.beam += ((i.beam ?? 0) - (o.beam ?? 0)) * e),
+    (o.torch += ((i.torch ?? 1) - (o.torch ?? 1)) * e),
+    e > 0.5 && ((o.envName = i.envName), (o.keyBox = i.keyBox)),
+    o
+  );
+}
+function Y(o, { parent: i } = {}) {
+  const { scene: e, renderer: l, game: M } = o,
+    a = new D(16777215, 0.3);
+  ((a.name = "p3_key"),
+    (a.castShadow = !0),
+    a.shadow.mapSize.set(4096, 4096),
+    (a.shadow.bias = -35e-5),
+    (a.shadow.normalBias = 0.035));
+  const f = new D(9414358, 0.05);
+  f.name = "p3_fill";
+  const y = new L(4215918, 1841172, 0.25);
+  ((y.name = "p3_hemi"),
+    (i || e).add(a, a.target, f, f.target, y),
+    (!e.fog || !e.fog.isFogExp2) && (e.fog = new P(658965, 0.02)));
+  const h = {},
+    x = new j(l),
+    c = (n, t, r = 0.02) => ((h[n] = x.fromScene(t, r).texture), h[n]);
+  {
+    const n = new S();
+    n.background = new s(131844);
+    const t = (r, m, d, E, z, _, G = 0) => {
+      const g = new I(new A(z, _), new F({ color: r, side: T }));
+      (g.position.set(m, d, E), (g.rotation.y = G), n.add(g));
+    };
+    (t(new s(0.55, 0.62, 0.58), 0, 6, 0, 30, 1.2),
+      t(new s(0.25, 0.3, 0.28), 8, 2, -10, 6, 3),
+      t(new s(0.35, 0.18, 0.08), -9, 1.5, 6, 4, 2, 1.2),
+      n.children.forEach((r) => {
+        r.position.y > 5 && (r.rotation.x = Math.PI / 2);
+      }),
+      c("under", n, 0.04),
+      c("cabin", n, 0.04));
+  }
+  {
+    const n = new S(),
+      t = new V(100, 32, 16),
+      r = new O({
+        side: C,
+        depthWrite: !1,
+        uniforms: {},
+        vertexShader:
+          "varying vec3 vD; void main(){ vD = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }",
+        fragmentShader:
+          "varying vec3 vD; void main(){ float h = clamp(vD.y, -1.0, 1.0); vec3 top = vec3(0.012, 0.022, 0.05), hor = vec3(0.09, 0.08, 0.1), gnd = vec3(0.01, 0.01, 0.012); vec3 c = h > 0.0 ? mix(hor, top, pow(h, 0.5)) : mix(hor, gnd, pow(-h, 0.4)); c += vec3(0.25, 0.08, 0.02) * pow(max(0.0, 1.0 - abs(h) * 6.0), 2.0) * 0.6; gl_FragColor = vec4(c, 1.0); }",
+      });
+    (n.add(new I(t, r)), c("sky", n, 0.03));
+  }
+  const p = new u(),
+    N = R(B);
+  let w = -1;
+  const k = (n) => {
+    if (n === w) return;
+    w = n;
+    const t = a.shadow.camera;
+    ((t.left = -n),
+      (t.right = n),
+      (t.top = n),
+      (t.bottom = -n),
+      (t.near = 1),
+      (t.far = 400),
+      t.updateProjectionMatrix(),
+      (a.shadow.needsUpdate = !0));
+  };
+  return (
+    k(30),
+    {
+      key: a,
+      fill: f,
+      hemi: y,
+      envs: h,
+      makeEnv: c,
+      cur: N,
+      apply: (n, t = !0, r = null) => {
+        if (
+          (a.color.copy(n.key),
+          (a.intensity = n.keyI),
+          a.target.position.copy(p),
+          a.position.copy(p).addScaledVector(n.keyDir, 150),
+          f.color.copy(n.fill),
+          (f.intensity = n.fillI),
+          f.position.copy(n.fillDir).multiplyScalar(80),
+          f.target.position.set(0, 0, 0),
+          y.color.copy(n.hemiSky),
+          y.groundColor.copy(n.hemiGround),
+          (y.intensity = n.hemiI),
+          (e.environment = h[n.envName] || h.under),
+          (e.environmentIntensity = n.env),
+          e.fog && (e.fog.color.copy(n.fog), (e.fog.density = n.fogD)),
+          k(n.keyBox || 30),
+          t)
+        )
+          for (const m of v) M.post[m] = n.post[m] * (r?.[m] ?? 1);
+      },
+      target: p,
+      follow(n, t = 6) {
+        const r = Math.round(n.x / t) * t,
+          m = Math.round(n.y / t) * t,
+          d = Math.round(n.z / t) * t;
+        return p.x !== r || p.y !== m || p.z !== d
+          ? (p.set(r, m, d), (a.shadow.needsUpdate = !0), !0)
+          : !1;
+      },
+      dispose() {
+        x.dispose();
+      },
+    }
+  );
+}
