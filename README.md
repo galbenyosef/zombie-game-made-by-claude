@@ -77,15 +77,32 @@ that site chrome is not the game).
   (`html/19679752/`) as served, byte-exact; the itch page's iframe target is
   `index.html` here
 - `.upstream/manifest.json` — sha256 for every captured file
-- `readable/` — prettified derived layer (pinned prettier 3.9.6) for the 44
-  chunks plus the entry document's inline `<style>` twin
+- `readable/` — prettified derived layer (pinned prettier 3.9.6) that **mirrors
+  the served paths**: the 44 chunks under `readable/assets/<chunk>.pretty.js`
+  plus the entry document's inline `<style>` twin
   (`readable/index-inline-1.pretty.css`) and `readable/index-inline-map.json`
 - `src/` + `split-spec.json` — 416 statement-aligned slices of the 42 app
-  chunks with the recorded derivation spec
+  chunks in the same served-path structure (`src/assets/<chunk>-NN.js`), the
+  sequence re-cut through the recorded rename map, with the derivation spec
+- `rename-map.json` + `tools/names.json` — the identifier rename campaign: the
+  recovered word-boundary record over the slices and the reviewed worklist with
+  per-name evidence
+- `legacy/2026-10-14/` — the superseded derived layer (the previous 416-slice
+  `src/` with `__`-flattened names + its `split-spec.json`), kept as the
+  rollback copy
 - `tools/derive.mjs` — rebuild `readable/` + `src/` + `split-spec.json`
+  (re-applies the recorded rename map on every re-cut)
 - `tools/update.mjs` — read-only drift probe against the embed host
 - `tools/verify.mjs` — re-hash the capture against the manifest
-- `tools/audit.js` — integrity gate for the derived layers (`AUDIT PASS`)
+- `tools/audit.js` — integrity gate for the derived layers and the rename map
+  (`AUDIT PASS`)
+- `tools/apply-names.mjs` — apply the reviewed renames (`tools/names.json`) to
+  one chunk or all
+- `tools/recover-scoped-map.mjs` — record the achieved map into `rename-map.json`
+- `tools/verify-rename.mjs`, `tools/check-chunk.mjs`, `tools/refcheck.mjs`,
+  `tools/engine/rename-layer.mjs` — the rename gates and the shared
+  tokenizer/scope layer (acorn 8.14.1 from gitignored `tools/.deps`, installed
+  on first use by `tools/lib-acorn.mjs`, authoring-time only)
 - `tools/serve.mjs` — loopback static server used for the boot test
 
 ## Assets
@@ -115,9 +132,16 @@ Click the veil to begin (the game wants pointer lock for mouse-look; keys
 ## Verify
 
 ```
-node tools/verify.mjs     # re-hash the capture against the manifest
-node tools/audit.js       # derived-layer integrity gate (AUDIT PASS)
+node tools/verify.mjs                 # re-hash the capture against the manifest
+node tools/audit.js                   # derived-layer + rename-map gate (AUDIT PASS)
+node tools/verify-rename.mjs --all    # per-slice reproduction + references/bindings
+node tools/check-chunk.mjs --all      # cross-slice calls resolve after renames
 ```
+
+The rename gates need acorn (authoring-time only): it installs into the
+gitignored `tools/.deps/` on first use (`npm install --prefix tools/.deps
+acorn@8.14.1`) and is never needed by `derive.mjs`, the capture or the served
+app.
 
 ## Updating from upstream
 
@@ -178,8 +202,9 @@ the derived trees):
   sections): every chunk's final `export {…}` table.
 - Identification is the bundle's own minified names (the app half of the entry
   chunk slices as `shadowmap`, `pixelate`, `hud`, … markers) — the identifier
-  rename campaign (PLAN §5) remains an open task, as does any prettier-version
-  bump (the pinned 3.9.6 is required to re-derive byte-exact).
+  rename campaign (PLAN §5) was open as of this note and is **closed
+  2026-10-14** (see the structure + rename section below); any prettier-version
+  bump remains open (the pinned 3.9.6 is required to re-derive byte-exact).
 - Gates: `node tools/verify.mjs` → `910 files checked, 0 problems`;
   `node tools/audit.js` → `AUDIT PASS` (416/416 round-trips, 45/45 pretties
   re-render byte-exact, 45/45 tiled contiguously, 192/192 imports resolve,
@@ -196,6 +221,152 @@ the derived trees):
   to begin" — bedroom, NPC, burning city through the window) and the cover
   `docs/cover.png` (actual gameplay: flashlight on, lit wallpaper and painting,
   arm with the flashlight in frame), both shot on the loopback mirror.
+
+### 2026-10-14 structure pass + identifier rename campaign (the open task, closed)
+
+Mission of this pass: converge the derived layers on the real project shape and
+run the PLAN §5 identifier rename campaign. The capture was **not** touched —
+`node tools/verify.mjs` still re-hashes all 910 files (0 problems) — so this
+section is entirely about `readable/`, `src/`, `split-spec.json`,
+`rename-map.json` and `tools/`.
+
+- **Inventory (source maps + module boundaries) — both negative, recorded**:
+  - *Source maps*: zero `sourceMappingURL` occurrences across the capture
+    (html/js/css) and no `.map` file in it, so no original tree can be
+    reconstructed from maps; the derivation stays a prettier/slice pass.
+  - *Module boundaries*: the 42 app chunks are **flat Vite ES modules** — the
+    entry opens with the `__vite__mapDeps` chunk table + modulepreload polyfill
+    + preload helper, every chunk is a single top-level statement list ending in
+    a plain `export {…}` table, and there is no webpack/Turbopack factory
+    (`push([...])`) family to split on. The factory-family module-extraction
+    precedents (spawn-dust-2-dm / mindfall / kettuvellam / futbol-island) are
+    therefore **not applicable**; the evidence-based stillwater / taipei
+    precedent applies — the statement-aligned slice is the true boundary this
+    bundle exposes, and the chunk names the build preserved (`bedroom`,
+    `hall`, `metro`, `gameplay`, …) are the capture's own module names.
+- **Structure — `readable/` and `src/` now mirror the served paths** (PLAN §5:
+  "the served path is the truth" — the capture is the embed directory root, so
+  a captured file at `assets/gameplay-DnQwS-TC.js` derives to
+  `readable/assets/gameplay-DnQwS-TC.pretty.js` and
+  `src/assets/gameplay-DnQwS-TC-NN.js`; the `__`-flattening is gone). The entry
+  document's inline twin and map stay at the `readable/` root
+  (`readable/index-inline-1.pretty.css`, `readable/index-inline-map.json`).
+  Slice headers carry the served tag (`// assets/gameplay-DnQwS-TC 07 — …`);
+  `split-spec.json`'s `file`/`sourceFile`/`defaultFile` all use the new paths.
+  Before/after counts: `readable/` 45 flat files → 44 under `readable/assets/`
+  + the inline twin/map at the root (bytes unchanged, path-only re-rooting);
+  `src/` 416 flat slices → 416 under `src/assets/`; the 47 index-only section
+  names (5 wholeFile, 42 skipped) now read as served paths
+  (`assets/index-DaQlAVPp-machinery.js`, `assets/index-DaQlAVPp-three-vendor.js`,
+  `assets/<chunk>-tail-export.js`, `index-inline-1.css`). The superseded layer
+  (previous 416-slice `src/` + its `split-spec.json`) is archived at
+  `legacy/2026-10-14/`.
+- **Rename campaign (PLAN §5) — applied and gated**: `tools/names.json` is the
+  reviewed worklist — **35 chunks, 182 rules (166 curated semantic rules with
+  per-name evidence read out of the code's own strings/identifiers + 16
+  evidence-driven proposals from own export tables / semantic imports)**,
+  applied by `tools/apply-names.mjs` as **182 names / 517 identifier splices,
+  0 refused**, recovered into `rename-map.json` (**314 word-boundary records
+  over 161 slices**) by `tools/recover-scoped-map.mjs`, and re-applied by
+  `tools/derive.mjs` on every re-cut. Highlights: the entry chunk
+  (`GameApp`/`Player`/`Input`/`PostFX`/`Scheduler`/`EventBus`/`AudioEngine`/
+  `Interactables`/`RoomEnvironment`/`createRenderer`, the texture bank
+  (`texManifest`/`loadTextureSet`/`applyTextureSet`/`initTextureBank`),
+  `HOUSE_PLAN`/`ROOM_HEIGHT`/`ROOM_LOADERS`, `MATERIAL_SPECS`, the veil
+  elements, the QA service bridge); `gameplay` (`installGameplay`,
+  `installHud`, `spawnZombies`, `AkaneCompanion`, `runStoryScript`,
+  `installWeaponViewmodel`, `ZombieAnimator`, `collectShadowProxies`); the
+  rooms (`buildBedroom` + `buildNightstand`/`buildWardrobe`/`buildCandles`,
+  `buildHall`/`buildHallSconces`/`buildHallProps`, `buildStudy`/`buildDesk`/
+  `buildBookcases`, `buildLiving`/`buildTvUnit`/`buildBarricade`,
+  `buildHouseDoor`/`buildHouseMoonlight`/`buildDreamRuins`,
+  `buildExterior`/`buildCitySkyline`/`buildCityCorpses`); the districts
+  (`buildAshwoodStation`/`buildParkgateConcourse`/`buildMetroShaft`,
+  `buildParkPaths`/`buildEvacCamp`/`buildArmyTruck`, `buildBus`/`buildTaxi`/
+  `buildBusStop`/`buildWreckedCar`, `buildGarden`/`buildRuinWalls`/
+  `buildArmyCheckpoint`, `buildTrain`, `buildHelicopter` +
+  `bakeHelicopterDecals`); the systems (`NavigationGrid`/`resolveCollisions`,
+  `PoseAnimator`, `buildLightRig`/`installSceneLights`, `buildMotorcycle`,
+  `createZombie`/`KINDS`/`STATES`/`prebuildZombies` (zombie kit),
+  `buildFloorHatch`); the lab scenes (`buildLabStudio`, `buildLabScene`,
+  `buildZombieLab`, `buildTrainLab`, `buildCityLab`, `buildMetroLab`,
+  `buildParkLab`, `buildAkaneLab`, `buildLabFlashlight`) and the QA bot
+  (`createBot`). The 42 skipped export tables keep their documented semantics
+  and are **re-read by the reconstruction gates through
+  `split-spec.sources[].renameBindings`** (182 fired binding rules recorded):
+  the campaign renames their *local* side; the public names are the capture's
+  own API and never change.
+- **What the campaign deliberately does not rename** (honest scope):
+  - **public API names** — the aliased side of every `export { local as
+    Public }` (importers in other chunks use them) and, for chunks whose tables
+    are unaliased (`export { n, t }`), the exported locals themselves;
+  - names in shorthand positions (`{x}`, `const {x} = …`, `import {x}`) —
+    the key shares the token text, so a splice would rewrite a property name;
+  - **locals inside function bodies** — the campaign renames top-level
+    bindings and import aliases only;
+  - **vendor identifiers** — the three.js r185 region, the RoundedBoxGeometry
+    and BufferGeometryUtils addons and the Vite build machinery are wholeFile
+    and never renamed;
+  - the **7 app chunks with no recorded renames** (`akane` — its 111
+    minified top-level bindings export as `G/a/b/c/d/h` with no semantic
+    evidence in the table, `common`, `frames`, `furniture`, `kit-CFeM0oZ2`,
+    `kit-CwMQzO5T`, `plan3`) keep the bundle's own minified top-level names —
+    the tooling is in place for further batches; 35 of the 42 app chunks
+    carry the layer;
+  - the map holds **word-boundary records only** (no token-index records were
+    needed: every renamed name reached one target and covered every occurrence
+    in its slice, which recovery proves mechanically — the token streams of a
+    slice and its readable range must be identical in every non-identifier
+    position, or nothing is written).
+- **One real engine defect found and fixed** by the gates during the campaign:
+  `tools/recover-scoped-map.mjs` aligned against a body with whole-line `//`
+  comments stripped by a line-based tracker that can misclassify a `//` line
+  that is GLSL/template payload (the district paint shader), corrupting that
+  template's atomic literal token. The tokenizer already drops real comments,
+  so recovery now aligns against the RAW committed body — exactly the bytes
+  `tools/verify-rename.mjs` compares.
+- **Gates (verbatim tails, 2026-10-14)**:
+  - `node tools/verify.mjs` → `910 files checked, 0 problems`
+  - `node tools/update.mjs` → `up to date: 910 captured files identical upstream`
+  - `node tools/audit.js` → `AUDIT PASS — 463 spec sections (416/416
+    src↔pretty round-trips byte-exact through the recorded rename map, 161
+    renamed slice(s), 45/45 pretty sources tiled contiguously, 42/42 skipped
+    export-table sections re-verified textually, 416/416 src slices + 44/44
+    readable/*.pretty.js parse standalone (node --input-type=module --check -),
+    45/45 pretties provably distinct from their capture source, 47 index-only
+    wholeFile/skipped sections carry no src file, 1 inline content block(s)
+    with twins + index-inline-map.json, 192/192 imports resolve inside the
+    capture (0 whitelisted machinery), rename map: 314 record(s) over 161
+    slice(s), 0 scoped slice(s) token-validated, no foreign position, 45/45
+    pretties re-render byte-exact under pinned prettier 3.9.6 (fixpoint
+    method), capture manifest free of derived layers)`
+  - `node tools/verify-rename.mjs --all` → `verify-rename: 416/416 slice(s)
+    reproduce byte-exact, 161 renamed slice(s) (0 indexed occurrence(s)), 42/42
+    chunk(s) references+bindings YES`
+  - `node tools/check-chunk.mjs --all` → `check-chunk: 42 chunk(s), 416 slice
+    body(ies) substituted — all cross-slice calls resolve`
+  - `node tools/derive.mjs` self-check tail → `derive: 45 readable file(s),
+    416 src slices (416/416 parse standalone, 416/416 round-trip byte-exact
+    through the recorded map, 161 renamed slice(s)), 42 skipped, 5 wholeFile,
+    44 pretty js parse clean, 0 notRendered, 0 orphan(s) pruned — self-check
+    clean`; full-pipeline re-run (`derive.mjs && apply-names.mjs --all &&
+    recover-scoped-map.mjs`) reproduces **all 464 derived entries
+    byte-identical** (readable + src + split-spec.json + rename-map.json).
+  - serve probe — mirror root served on loopback (`tools/serve.mjs`, port
+    8093): `/` (2,738 B), `/assets/index-DaQlAVPp.js` (832,859 B),
+    `/assets/bedroom-Se-_w21f.js` (76,324 B), `/tex/manifest.json` (25,703 B),
+    `/audio/manifest.json` (55,097 B), `/art/painting_crying_girl.png`
+    (2,024,442 B), a texture albedo (255,778 B) and a sound cue (65,245 B) all
+    HTTP 200; a missing path answers an honest 404; the listener was killed and
+    the port verified closed (`netstat`: no LISTENING socket on 8093;
+    connection refused).
+- **Boot evidence** stays the 2026-10-13 shots (`docs/boot-2026-10-13.png`,
+  `docs/cover.png`) — the capture and therefore the served bytes are unchanged
+  by this pass, so the game on disk is byte-for-byte the one already booted and
+  played; the 2026-10-14 serve probe re-confirms the mirror serves it.
+- **Still open**: any prettier-version bump (the pinned 3.9.6 is required to
+  re-derive byte-exact) and the seven unrenamed app chunks listed above (their
+  tooling exists; further batches would extend `tools/names.json`).
 
 ## Mirror conventions
 
