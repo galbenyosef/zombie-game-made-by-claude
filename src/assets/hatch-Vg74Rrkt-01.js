@@ -23,7 +23,7 @@ const et = {
   ladderZ: 204.6,
   bottom: -9,
 };
-function rt(j, { house: O }) {
+function buildFloorHatch(j, { house: O }) {
   const R = new P();
   R.name = "hatch";
   const i = new P();

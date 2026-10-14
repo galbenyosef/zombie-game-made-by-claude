@@ -1,6 +1,6 @@
 // assets/index-DaQlAVPp 04 — look
 // Lines 36261-36368 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-class $M {
+class Input {
   constructor() {
     ((this.held = new Set()),
       (this.edge = new Set()),

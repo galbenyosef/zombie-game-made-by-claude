@@ -236,15 +236,15 @@ function yn(e, o, n, c) {
     },
   };
 }
-const ht = { lanky: uo, brute: po, gown: bo };
-ht.soldier = go;
-ht.nun = vo;
-ht.priest = ko;
+const KINDS = { lanky: uo, brute: po, gown: bo };
+KINDS.soldier = go;
+KINDS.nun = vo;
+KINDS.priest = ko;
 Z1(x1);
 const it = new Map();
-function T1(e) {
+function getKit(e) {
   if (it.has(e)) return it.get(e);
-  const o = ht[e];
+  const o = KINDS[e];
   if (!o) throw new Error("unknown zombie kind " + e);
   const n = performance.now(),
     c = o(),
@@ -301,10 +301,10 @@ function T1(e) {
     };
   return (it.set(e, p), p);
 }
-async function Fn(e = Object.keys(ht)) {
-  for (const o of e) (T1(o), await new Promise((n) => setTimeout(n, 0)));
+async function prebuildZombies(e = Object.keys(KINDS)) {
+  for (const o of e) (getKit(o), await new Promise((n) => setTimeout(n, 0)));
 }
-function En() {
+function disposeKits() {
   for (const e of it.values())
     (e.geo.dispose(), e.faceTex && e.faceTex.dispose());
   it.clear();

@@ -1,6 +1,6 @@
 // assets/gameplay-DnQwS-TC 06 — list
 // Lines 1882-2220 of readable/assets/gameplay-DnQwS-TC.pretty.js (statement-aligned).
-async function si(o) {
+async function spawnZombies(o) {
   let t = null,
     i = !1,
     e = ["lanky", "brute", "gown"];
@@ -60,7 +60,7 @@ async function si(o) {
     spawn(l, n, r, h = {}) {
       const a = t(l, h.seed ?? s.list.length + 1);
       o.scene.add(a.root);
-      const y = new ei(s, l, a, n, r, h.yaw ?? 0);
+      const y = new ZombieAnimator(s, l, a, n, r, h.yaw ?? 0);
       return (
         o.world.groundAt &&
           ((y.pos.y = o.world.groundAt(n, r, h.y ?? o.player.pos.y)), y.sync()),

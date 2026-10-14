@@ -35,7 +35,7 @@ function Fn(t) {
       sub: "Pull handle - speak to driver",
       bg: "#a3201c",
     }),
-    Bn(t, e),
+    bakePosters(t, e),
     Gn(t, 0, 640, 512, 384, e),
     Un(t, 512, 640, 192, 384),
     xn(t, 704, 640, 320, 384, e),

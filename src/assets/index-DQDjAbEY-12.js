@@ -303,7 +303,7 @@ function Ca(e, l, { rng: a = Math.random } = {}) {
     };
   return (
     t("floor", () => Na(e)),
-    t("panel", () => Fa(e, l)),
+    t("panel", () => buildInstrumentPanel(e, l)),
     t("pedestal", () => Ea(e, l)),
     t("overhead", () => Da(e, l)),
     t("post", () => Ba(e)),

@@ -2,7 +2,7 @@
 // Lines 1385-1701 of readable/assets/index-DQDjAbEY.pretty.js (statement-aligned).
 let ct = null;
 const Fe = {};
-function ao() {
+function bakeHelicopterDecals() {
   if (ct) return ct;
   const e = 2048,
     l = document.createElement("canvas");

@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 17 — math
 // Lines 4665-4980 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-function tr(s, o, t) {
+function buildArmyCheckpoint(s, o, t) {
   const u = new Kt();
   u.name = "checkpoint";
   const e = Mo.a,

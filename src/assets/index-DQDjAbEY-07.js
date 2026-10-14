@@ -142,7 +142,7 @@ function Ma(e, { army: l = !1, rng: a = Math.random } = {}) {
       (f(), (c.parts[d] = o.tris + t.tris + s.tris - p));
     };
   return (
-    i("pod", () => Pa(e, n, l, c)),
+    i("pod", () => buildCockpitGlass(e, n, l, c)),
     i("deck", () => Ra(o, n, l)),
     i("boom", () => ka(o, t, n)),
     i("tailSurfaces", () => za(o, t, n)),

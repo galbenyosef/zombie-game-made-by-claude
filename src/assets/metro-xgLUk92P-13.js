@@ -1,6 +1,6 @@
 // assets/metro-xgLUk92P 13 — add
 // Lines 4178-4919 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function pa(c) {
+function buildStationWayfinding(c) {
   const { B: a, M: o, L: s, D: f, group: h, rng: d, A: l } = c,
     i = [],
     t = [],
@@ -329,7 +329,7 @@ function pa(c) {
         }));
     });
   });
-  const s0 = xa(c),
+  const s0 = buildPlatformShutters(c),
     f0 = d;
   for (const g of [-6.2, 14.4, 29.6, 41.2])
     i.push(...Qe(c, g, r, m.zN + 0.45, 0, { chunk: "ash" }));

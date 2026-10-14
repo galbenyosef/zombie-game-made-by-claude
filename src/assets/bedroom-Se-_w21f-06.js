@@ -1,6 +1,6 @@
 // assets/bedroom-Se-_w21f 06 — add
 // Lines 1168-1878 of readable/assets/bedroom-Se-_w21f.pretty.js (statement-aligned).
-function Be(N, t) {
+function buildNightstand(N, t) {
   const w = new u0();
   w.name = "nightstands";
   const e = new M0("nightstands"),

@@ -1,18 +1,18 @@
-// assets/index-DaQlAVPp 15 — math
+// assets/index-DaQlAVPp 15 — game
 // Lines 39474-39647 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-at.ready
+game.ready
   .then(() => {
-    if (Pl) {
-      (ei.classList.add("gone"), AS(at));
+    if (serviceMode) {
+      (veilEl.classList.add("gone"), connectServiceBridge(game));
       return;
     }
-    Ns.textContent = "click to begin";
+    veilSubEl.textContent = "click to begin";
     let r = performance.now(),
       e = !1,
       t = !1;
-    const n = at.pixelRatio,
+    const n = game.pixelRatio,
       i = Math.max(0.6, n * 0.6),
-      s = at.renderer.getContext(),
+      s = game.renderer.getContext(),
       a = s.getExtension("EXT_disjoint_timer_query_webgl2"),
       o = [],
       l = [];
@@ -55,7 +55,7 @@ at.ready
     const v = "lullaby.brightness";
     try {
       const R = +localStorage.getItem(v);
-      R >= 0.5 && R <= 1.8 && (at.post.exposureMul = R);
+      R >= 0.5 && R <= 1.8 && (game.post.exposureMul = R);
     } catch {}
     window.addEventListener("keydown", (R) => {
       if (R.code !== "BracketLeft" && R.code !== "BracketRight") return;
@@ -64,28 +64,28 @@ at.ready
         Math.max(
           0.5,
           Math.round(
-            at.post.exposureMul *
+            game.post.exposureMul *
               (R.code === "BracketRight" ? 1.1 : 1 / 1.1) *
               100,
           ) / 100,
         ),
       );
-      at.post.exposureMul = L;
+      game.post.exposureMul = L;
       try {
         localStorage.setItem(v, String(L));
       } catch {}
-      at.hud?.hint(`Brightness ${Math.round(L * 100)}%   ( [  ] )`, 1.6);
+      game.hud?.hint(`Brightness ${Math.round(L * 100)}%   ( [  ] )`, 1.6);
     });
     const T = (R) => {
       const L = Math.max(0, (R - r) / 1e3),
         V = Math.min(L, 1 / 15);
-      ((r = Math.max(r, R)), h(), at.step(V));
+      ((r = Math.max(r, R)), h(), game.step(V));
       let N = null;
       if (
         (a &&
           o.length < 8 &&
           ((N = s.createQuery()), s.beginQuery(a.TIME_ELAPSED_EXT, N)),
-        at.render(),
+        game.render(),
         N && (s.endQuery(a.TIME_ELAPSED_EXT), o.push(N)),
         (b += L),
         S++,
@@ -93,17 +93,17 @@ at.ready
         b > 0.5)
       ) {
         if (_.style.display !== "none") {
-          const D = at.perf();
+          const D = game.perf();
           _.textContent = `${(S / b).toFixed(0)} fps  ${((b / S) * 1e3).toFixed(1)} ms  worst ${(E * 1e3).toFixed(0)} ms
 step ${D.cpuStep} ms  render ${D.cpuRender} ms (cpu)  card ${(c * 1e3).toFixed(1)} ms
 calls ${D.calls}  tris ${(D.tris / 1e6).toFixed(2)}M
-scale ${at.pixelRatio.toFixed(2)}  hp ${at.combat ? at.combat.hp | 0 : "-"}`;
+scale ${game.pixelRatio.toFixed(2)}  hp ${game.combat ? game.combat.hp | 0 : "-"}`;
         }
         ((b = 0), (S = 0), (E = 0));
       }
       if (
         e &&
-        !at.paused &&
+        !game.paused &&
         L < 0.2 &&
         (w += L) > 5 &&
         (d.push(L), (f += L), (x -= L), (g += L), f > 3)
@@ -121,9 +121,9 @@ scale ${at.pixelRatio.toFixed(2)}  hp ${at.combat ? at.combat.hp | 0 : "-"}`;
         const re = ee == null || ee > Math.max(Y * 0.8, B * 0.7),
           Ee = ee != null && ee < Y * 0.55;
         ((y = Q && re ? y + 1 : 0),
-          Q && re && (y >= 2 || B > Y * 2.2) && at.pixelRatio > i + 0.01
-            ? ((at.pixelRatio = Math.max(i, at.pixelRatio - 0.1)),
-              at.requestResize(),
+          Q && re && (y >= 2 || B > Y * 2.2) && game.pixelRatio > i + 0.01
+            ? ((game.pixelRatio = Math.max(i, game.pixelRatio - 0.1)),
+              game.requestResize(),
               g < 7 && (m = Math.min(120, m * 2)),
               (x = m),
               (p = 0),
@@ -132,9 +132,9 @@ scale ${at.pixelRatio.toFixed(2)}  hp ${at.combat ? at.combat.hp | 0 : "-"}`;
               ? ((p += f),
                 p > 15 &&
                   x <= 0 &&
-                  at.pixelRatio < n - 0.01 &&
-                  ((at.pixelRatio = Math.min(n, at.pixelRatio + 0.1)),
-                  at.requestResize(),
+                  game.pixelRatio < n - 0.01 &&
+                  ((game.pixelRatio = Math.min(n, game.pixelRatio + 0.1)),
+                  game.requestResize(),
                   (p = 0),
                   (g = 0)))
               : (p = 0),
@@ -146,31 +146,31 @@ scale ${at.pixelRatio.toFixed(2)}  hp ${at.combat ? at.combat.hp | 0 : "-"}`;
     requestAnimationFrame(T);
     const C = async () => {
       if (!e) {
-        ((e = !0), (Ns.textContent = "sound"), at.input.requestLock());
+        ((e = !0), (veilSubEl.textContent = "sound"), game.input.requestLock());
         try {
-          (at.audio.unlock(),
-            await at.audio.loadManifest(),
-            await at.audio.preload(Object.keys(at.audio.manifest)));
+          (game.audio.unlock(),
+            await game.audio.loadManifest(),
+            await game.audio.preload(Object.keys(game.audio.manifest)));
         } catch (R) {
           console.warn("audio", R);
         }
-        ((t = !0), ei.classList.add("gone"), at.script && at.script.start());
+        ((t = !0), veilEl.classList.add("gone"), game.script && game.script.start());
       }
     };
-    (ei.addEventListener("click", () => {
-      e ? at.input.requestLock() : C();
+    (veilEl.addEventListener("click", () => {
+      e ? game.input.requestLock() : C();
     }),
-      Bp.addEventListener("click", () => {
-        e && at.input.requestLock();
+      canvasEl.addEventListener("click", () => {
+        e && game.input.requestLock();
       }),
-      (at.input.onLockChange = (R) => {
+      (game.input.onLockChange = (R) => {
         t &&
-          ((at.paused = !R),
-          (Ns.textContent = "click to continue"),
-          ei.classList.toggle("gone", R),
-          (ei.querySelector("h1").style.opacity = R ? 1 : 0.55));
+          ((game.paused = !R),
+          (veilSubEl.textContent = "click to continue"),
+          veilEl.classList.toggle("gone", R),
+          (veilEl.querySelector("h1").style.opacity = R ? 1 : 0.55));
       }));
   })
   .catch((r) => {
-    ((Ns.textContent = "error: " + r.message), console.error(r));
+    ((veilSubEl.textContent = "error: " + r.message), console.error(r));
   });

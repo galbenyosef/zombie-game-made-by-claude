@@ -1,6 +1,6 @@
 // assets/living-DeOLLwnx 05 — translate
 // Lines 1233-1668 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-function ue(a, t, r, e) {
+function buildTvUnit(a, t, r, e) {
   const o = new y0();
   ((o.name = "tv"), r.add(o));
   const s = 16.5,

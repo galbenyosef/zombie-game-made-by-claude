@@ -32,7 +32,7 @@ function Vn(s, o, t) {
           0.1,
         ]);
   }
-  const g = Nn({
+  const g = buildBirdFlocks({
       sdf: J0,
       depth: dn,
       waterY: v0,

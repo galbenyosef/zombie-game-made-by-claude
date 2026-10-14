@@ -100,7 +100,7 @@ const Yo = [
     [-0.057, -0.075],
     [-0.05, -0.048],
   ];
-function Ro(
+function buildGunCase(
   I,
   { name: L = "pistol", gripMat: u = null, steelMat: c = null } = {},
 ) {

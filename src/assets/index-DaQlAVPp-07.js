@@ -1,10 +1,10 @@
-// assets/index-DaQlAVPp 07 — extra
+// assets/index-DaQlAVPp 07 — texcache
 // Lines 37002-37258 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-function iS(
+function installMaterialBreakup(
   r,
   { amt: e = 0.5, scale: t = 0.23, ceilH: n = 3, gravity: i = 1 } = {},
 ) {
-  const s = nS();
+  const s = proceduralGrainTexture();
   r.userData.breakup = e;
   const a = r.onBeforeCompile;
   return (
@@ -68,71 +68,71 @@ uniform float uBrkGrav;`,
     r
   );
 }
-const Lp = "./";
-let Mi = {},
-  Dp = 8;
-const kn = new Map(),
+const ASSET_BASE = "./";
+let texManifest = {},
+  maxAnisotropy = 8;
+const texCache = new Map(),
   Bs = new Map(),
-  sS = new lp();
-async function Ga(r, e) {
-  if (kn.has(r)) return kn.get(r);
-  const t = sS
+  texLoader = new lp();
+async function loadTexture(r, e) {
+  if (texCache.has(r)) return texCache.get(r);
+  const t = texLoader
     .loadAsync(r)
     .then(
       (n) => (
         (n.wrapS = n.wrapT = ji),
         (n.colorSpace = e ? Ht : Cn),
-        (n.anisotropy = Dp),
+        (n.anisotropy = maxAnisotropy),
         (n.generateMipmaps = !0),
         n
       ),
     )
     .catch(() => null);
-  return (kn.set(r, t), t);
+  return (texCache.set(r, t), t);
 }
-let Yc = !1;
-const Vo = new Map();
-async function qh(r) {
-  const e = Mi[r];
-  if (!e || kn.has("set:" + r)) return;
-  if (kn.has("load:" + r)) return kn.get("load:" + r);
+let lazyTextures = !1;
+const materialWaiters = new Map();
+async function loadTextureSet(r) {
+  const e = texManifest[r];
+  if (!e || texCache.has("set:" + r)) return;
+  if (texCache.has("load:" + r)) return texCache.get("load:" + r);
   const t = "?v=" + (e.baked || 0),
-    n = (s) => `${Lp}tex/${r}/${s}.${e.ext?.[s] || "png"}${t}`,
+    n = (s) => `${ASSET_BASE}tex/${r}/${s}.${e.ext?.[s] || "png"}${t}`,
     i = Promise.all([
-      e.maps.albedo ? Ga(n("albedo"), !0) : null,
-      e.maps.normal ? Ga(n("normal"), !1) : null,
-      e.maps.orm ? Ga(n("orm"), !1) : null,
-      e.maps.emissive ? Ga(n("emissive"), !0) : null,
+      e.maps.albedo ? loadTexture(n("albedo"), !0) : null,
+      e.maps.normal ? loadTexture(n("normal"), !1) : null,
+      e.maps.orm ? loadTexture(n("orm"), !1) : null,
+      e.maps.emissive ? loadTexture(n("emissive"), !0) : null,
     ]).then(([s, a, o, l]) => {
-      kn.set("set:" + r, { albedo: s, normal: a, orm: o, emissive: l });
-      for (const [c, h] of Vo.get(r) || []) (Fp(c, r, h), (c.needsUpdate = !0));
-      Vo.delete(r);
+      texCache.set("set:" + r, { albedo: s, normal: a, orm: o, emissive: l });
+      for (const [c, h] of materialWaiters.get(r) || []) (applyTextureSet(c, r, h), (c.needsUpdate = !0));
+      materialWaiters.delete(r);
     });
-  return (kn.set("load:" + r, i), i);
+  return (texCache.set("load:" + r, i), i);
 }
-async function Up(r, e, { lazy: t = !1 } = {}) {
-  Dp = Math.min(16, r?.capabilities?.getMaxAnisotropy?.() ?? 8);
+async function initTextureBank(r, e, { lazy: t = !1 } = {}) {
+  maxAnisotropy = Math.min(16, r?.capabilities?.getMaxAnisotropy?.() ?? 8);
   try {
-    Mi = await (
-      await fetch(Lp + "tex/manifest.json", { cache: "no-store" })
+    texManifest = await (
+      await fetch(ASSET_BASE + "tex/manifest.json", { cache: "no-store" })
     ).json();
   } catch {
-    Mi = {};
+    texManifest = {};
   }
-  if (((Yc = t), Yc)) return;
-  const n = e || Object.keys(Mi);
-  await Promise.all(n.map((i) => qh(i)));
+  if (((lazyTextures = t), lazyTextures)) return;
+  const n = e || Object.keys(texManifest);
+  await Promise.all(n.map((i) => loadTextureSet(i)));
 }
-async function rS(r) {
-  await Promise.all((r || []).map((e) => qh(e)));
+async function preloadTextureSets(r) {
+  await Promise.all((r || []).map((e) => loadTextureSet(e)));
 }
-function Np(r, e = {}) {
+function materialCacheKey(r, e = {}) {
   const t =
     r + "|" + JSON.stringify(e, (h, d) => (d && d.isColor ? d.getHex() : d));
   if (Bs.has(t)) return Bs.get(t);
-  const n = Xh[r] || { rough: 0.8 },
-    i = Mi[r],
-    s = kn.get("set:" + r),
+  const n = MATERIAL_SPECS[r] || { rough: 0.8 },
+    i = texManifest[r],
+    s = texCache.get("set:" + r),
     a = n.extra && Object.keys(n.extra).length,
     o = {
       roughness: e.rough ?? n.rough ?? 0.8,
@@ -140,20 +140,20 @@ function Np(r, e = {}) {
       side: e.side ?? Vn,
     },
     l = a ? new Sl(o) : new ss(o);
-  (!s && Yc && i && ((Vo.get(r) || Vo.set(r, []).get(r)).push([l, e]), qh(r)),
-    Fp(l, r, e, !0),
+  (!s && lazyTextures && i && ((materialWaiters.get(r) || materialWaiters.set(r, []).get(r)).push([l, e]), loadTextureSet(r)),
+    applyTextureSet(l, r, e, !0),
     (l.userData.catalog = r));
   const c = e.breakup ?? n.bk;
   return (
-    c && iS(l, { amt: c, scale: n.bkScale ?? 0.23, ceilH: n.ceilH ?? 3 }),
+    c && installMaterialBreakup(l, { amt: c, scale: n.bkScale ?? 0.23, ceilH: n.ceilH ?? 3 }),
     Bs.set(t, l),
     l
   );
 }
-function Fp(r, e, t, n = !1) {
-  const i = Xh[e] || { tile: 1, fallback: "#808080" },
-    s = Mi[e],
-    a = kn.get("set:" + e);
+function applyTextureSet(r, e, t, n = !1) {
+  const i = MATERIAL_SPECS[e] || { tile: 1, fallback: "#808080" },
+    s = texManifest[e],
+    a = texCache.get("set:" + e);
   if (a && a.albedo) {
     const o = t.uv ?? s.tile ?? i.tile ?? 1,
       l = 1 / o,
@@ -204,23 +204,23 @@ function aS(r, e = {}) {
   return (Bs.set(t, n), n);
 }
 function oS(r) {
-  return !!Mi[r];
+  return !!texManifest[r];
 }
 function lS() {
-  return Object.keys(Mi);
+  return Object.keys(texManifest);
 }
-const cS = Xh,
+const cS = MATERIAL_SPECS,
   Od = Object.freeze(
     Object.defineProperty(
       {
         __proto__: null,
         baked: lS,
         catalog: cS,
-        ensure: rS,
-        get: Np,
+        ensure: preloadTextureSets,
+        get: materialCacheKey,
         has: oS,
         paint: aS,
-        preload: Up,
+        preload: initTextureBank,
       },
       Symbol.toStringTag,
       { value: "Module" },
@@ -253,7 +253,7 @@ function Op(r, e = null, t = 0) {
   }
   return (r.setAttribute("uv", new ot(s, 2)), r);
 }
-function Bd(r, e, t, n, i, s) {
+function boxBetween(r, e, t, n, i, s) {
   const a = new Zt(n - r, i - e, s - t);
   return (a.translate((r + n) / 2, (e + i) / 2, (t + s) / 2), Op(a));
 }

@@ -1,23 +1,23 @@
 // assets/index-DaQlAVPp 13 — camera
 // Lines 38988-39258 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-class wS {
+class GameApp {
   constructor(e, t = {}) {
     ((this.THREE = qc),
       (this.opts = t),
       (this.service = !!t.service),
       (this.canvas = e),
-      (this.renderer = kM(e, { service: this.service })),
+      (this.renderer = createRenderer(e, { service: this.service })),
       (this.scene = new Vr()),
       (this.camera = new Ut(72, 16 / 9, 0.05, 1500)),
-      (this.post = new JM(this.renderer, { samples: 4 })),
+      (this.post = new PostFX(this.renderer, { samples: 4 })),
       (this.post.clock = () => this.time),
-      (this.input = new $M()),
+      (this.input = new Input()),
       this.input.attach(e),
       (this.world = { colliders: [], circles: [], time: 0 }),
-      (this.player = new tS(this.camera, this.world)),
+      (this.player = new Player(this.camera, this.world)),
       (this.time = 0),
-      (this.events = new SS()),
-      (this.sched = new MS(this)),
+      (this.events = new EventBus()),
+      (this.sched = new Scheduler(this)),
       (this.camCtl = null),
       (this.paused = !1),
       (this.baseFov = 72),
@@ -30,7 +30,7 @@ class wS {
       (this.flags = new Set()),
       (this.updaters = []),
       (this.prepares = []),
-      (this.debug = TS(this)),
+      (this.debug = createDebugTools(this)),
       this.resize(),
       window.addEventListener("resize", () => {
         this.service || this.requestResize();
@@ -53,11 +53,11 @@ class wS {
       s = i.get("solo");
     ((this.section = Vd[+i.get("section")] ? +i.get("section") : 1),
       n(0.05, "textures"),
-      await Up(this.renderer, null, { lazy: !!s && this.section === 3 }),
+      await initTextureBank(this.renderer, null, { lazy: !!s && this.section === 3 }),
       (this.mats = Od),
-      (this.audio = new yS(this)),
+      (this.audio = new AudioEngine(this)),
       this.audio.loadManifest(),
-      (this.interact = new bS(this)),
+      (this.interact = new Interactables(this)),
       this.updaters.push(() => this.interact.update()),
       (this.rooms = {}));
     const a = s === "lab" || s === "akane";
@@ -73,12 +73,12 @@ class wS {
       l = this.makeCtx();
     let c = 0;
     for (const h of o) {
-      if ((n(0.3 + 0.6 * (c++ / o.length), h), !zd[h])) {
+      if ((n(0.3 + 0.6 * (c++ / o.length), h), !ROOM_LOADERS[h])) {
         console.warn("[game] unknown module", h);
         continue;
       }
       try {
-        const u = await (await zd[h]()).build(l);
+        const u = await (await ROOM_LOADERS[h]()).build(l);
         ((this.rooms[h] = u || {}),
           u?.colliders?.length && this.world.colliders.push(...u.colliders),
           u?.circles?.length && this.world.circles.push(...u.circles),
@@ -204,7 +204,7 @@ class wS {
     (this.step(e), this.render());
   }
 }
-function TS(r) {
+function createDebugTools(r) {
   const e = Math.PI / 180,
     t = {
       setCam({ x: n, y: i, z: s, yaw: a = 0, pitch: o = 0, fov: l }) {

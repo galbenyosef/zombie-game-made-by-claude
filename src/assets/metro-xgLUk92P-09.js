@@ -1,6 +1,6 @@
 // assets/metro-xgLUk92P 09 — add
 // Lines 3021-3382 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function ra(c) {
+function buildMetroShaft(c) {
   const { B: a, M: o, L: s, D: f, group: h, rng: d } = c,
     l = _0,
     i = "shaft",

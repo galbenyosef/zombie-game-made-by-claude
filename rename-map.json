@@ -1,0 +1,642 @@
+{
+  "note": "Semantic rename map for src/, recovered mechanically by anchor alignment from the committed slices (tools/recover-scoped-map.mjs): the token streams of a slice and its readable range must be identical in every non-identifier position, so every differing identifier pair is a proven rename, not a guess. `files` is a word-boundary map, used only where a name means the same thing everywhere in the slice and is never a property or object key; `scoped` addresses the rest by exact token index as { name: [[i, target], …] }. tools/derive.mjs re-applies this map when it re-cuts src/ (index-validated), tools/verify-rename.mjs and tools/audit.js re-prove every slice from it, and tools/check-chunk.mjs proves cross-slice references still resolve. Regenerate with `node tools/recover-scoped-map.mjs` after any rename batch.",
+  "files": {
+    "assets/akane_lab-C9tKDZYg-01.js": {
+      "F": "buildAkaneLab"
+    },
+    "assets/anim-B86X8yU9-02.js": {
+      "Et": "PoseAnimator"
+    },
+    "assets/bedroom-Se-_w21f-04.js": {
+      "Ze": "buildCandles"
+    },
+    "assets/bedroom-Se-_w21f-06.js": {
+      "Be": "buildNightstand"
+    },
+    "assets/bedroom-Se-_w21f-08.js": {
+      "Ge": "buildWindowDressing"
+    },
+    "assets/bedroom-Se-_w21f-10.js": {
+      "De": "buildPiano"
+    },
+    "assets/bedroom-Se-_w21f-12.js": {
+      "Fe": "buildWardrobe"
+    },
+    "assets/bedroom-Se-_w21f-13.js": {
+      "We": "buildDolls",
+      "oe": "buildDollHeads"
+    },
+    "assets/bedroom-Se-_w21f-14.js": {
+      "oe": "buildDollHeads"
+    },
+    "assets/bedroom-Se-_w21f-16.js": {
+      "Oe": "buildDresser"
+    },
+    "assets/bedroom-Se-_w21f-19.js": {
+      "Be": "buildNightstand",
+      "De": "buildPiano",
+      "Ee": "loadBedroomMaterials",
+      "Fe": "buildWardrobe",
+      "Ge": "buildWindowDressing",
+      "Je": "buildBedroom",
+      "Oe": "buildDresser",
+      "We": "buildDolls",
+      "Ze": "buildCandles"
+    },
+    "assets/bedroom-Se-_w21f-20.js": {
+      "Ee": "loadBedroomMaterials"
+    },
+    "assets/bot-D6vJ5k-G-02.js": {
+      "_": "createBot"
+    },
+    "assets/city-COfbVKUz-05.js": {
+      "Se": "buildTowers"
+    },
+    "assets/city-COfbVKUz-10.js": {
+      "Ke": "buildGroundWater"
+    },
+    "assets/city-COfbVKUz-12.js": {
+      "to": "buildCityEmbers"
+    },
+    "assets/city-COfbVKUz-13.js": {
+      "co": "buildCityWreckage"
+    },
+    "assets/city-COfbVKUz-16.js": {
+      "ko": "buildCitySites"
+    },
+    "assets/city-COfbVKUz-25.js": {
+      "Ke": "buildGroundWater",
+      "Se": "buildTowers",
+      "co": "buildCityWreckage",
+      "ko": "buildCitySites",
+      "to": "buildCityEmbers"
+    },
+    "assets/district-BhfbivMT-02.js": {
+      "Xo": "buildDistrictGround"
+    },
+    "assets/district-BhfbivMT-03.js": {
+      "re": "bakeSignTextures"
+    },
+    "assets/district-BhfbivMT-04.js": {
+      "re": "bakeSignTextures"
+    },
+    "assets/district-BhfbivMT-05.js": {
+      "re": "bakeSignTextures"
+    },
+    "assets/district-BhfbivMT-07.js": {
+      "co": "buildBusStop"
+    },
+    "assets/district-BhfbivMT-08.js": {
+      "co": "buildBusStop"
+    },
+    "assets/district-BhfbivMT-15.js": {
+      "ko": "buildTaxi"
+    },
+    "assets/district-BhfbivMT-16.js": {
+      "Pn": "buildVehicleInterior"
+    },
+    "assets/district-BhfbivMT-17.js": {
+      "Pn": "buildVehicleInterior",
+      "Po": "buildWreckedCar",
+      "ko": "buildTaxi"
+    },
+    "assets/district-BhfbivMT-18.js": {
+      "Fo": "buildBus"
+    },
+    "assets/district-BhfbivMT-19.js": {
+      "Fo": "buildBus"
+    },
+    "assets/district-BhfbivMT-20.js": {
+      "Pn": "buildVehicleInterior"
+    },
+    "assets/district-BhfbivMT-23.js": {
+      "re": "bakeSignTextures"
+    },
+    "assets/exterior-BqAhvNw2-05.js": {
+      "Ae": "buildBackdrop"
+    },
+    "assets/exterior-BqAhvNw2-06.js": {
+      "Le": "buildCityNearFacades",
+      "Ne": "buildCitySkyline"
+    },
+    "assets/exterior-BqAhvNw2-09.js": {
+      "Ke": "buildCityEmbers"
+    },
+    "assets/exterior-BqAhvNw2-11.js": {
+      "Je": "buildCityStreet"
+    },
+    "assets/exterior-BqAhvNw2-13.js": {
+      "st": "buildCityCorpses"
+    },
+    "assets/exterior-BqAhvNw2-14.js": {
+      "dt": "buildHelicopterFlight"
+    },
+    "assets/exterior-BqAhvNw2-15.js": {
+      "Ae": "buildBackdrop",
+      "Je": "buildCityStreet",
+      "Ke": "buildCityEmbers",
+      "Ne": "buildCitySkyline",
+      "dt": "buildHelicopterFlight",
+      "st": "buildCityCorpses",
+      "vt": "buildExterior"
+    },
+    "assets/gameplay-DnQwS-TC-03.js": {
+      "Zs": "installHud"
+    },
+    "assets/gameplay-DnQwS-TC-04.js": {
+      "ti": "installCombatAudio"
+    },
+    "assets/gameplay-DnQwS-TC-05.js": {
+      "ei": "ZombieAnimator"
+    },
+    "assets/gameplay-DnQwS-TC-06.js": {
+      "ei": "ZombieAnimator",
+      "si": "spawnZombies"
+    },
+    "assets/gameplay-DnQwS-TC-07.js": {
+      "pi": "installWeaponViewmodel"
+    },
+    "assets/gameplay-DnQwS-TC-09.js": {
+      "fi": "AkaneCompanion"
+    },
+    "assets/gameplay-DnQwS-TC-11.js": {
+      "wi": "runStoryScript"
+    },
+    "assets/gameplay-DnQwS-TC-12.js": {
+      "mi": "collectShadowProxies"
+    },
+    "assets/gameplay-DnQwS-TC-13.js": {
+      "Li": "installGameplay",
+      "Zs": "installHud",
+      "fi": "AkaneCompanion",
+      "mi": "collectShadowProxies",
+      "pi": "installWeaponViewmodel",
+      "si": "spawnZombies",
+      "ti": "installCombatAudio",
+      "wi": "runStoryScript"
+    },
+    "assets/hall-C7P9MLkg-01.js": {
+      "it": "buildHallCeiling"
+    },
+    "assets/hall-C7P9MLkg-02.js": {
+      "ut": "buildHallSconces"
+    },
+    "assets/hall-C7P9MLkg-03.js": {
+      "ft": "buildHallProps"
+    },
+    "assets/hall-C7P9MLkg-04.js": {
+      "mt": "buildHallFloor"
+    },
+    "assets/hall-C7P9MLkg-05.js": {
+      "ft": "buildHallProps",
+      "it": "buildHallCeiling",
+      "mt": "buildHallFloor",
+      "ut": "buildHallSconces",
+      "xt": "buildHall"
+    },
+    "assets/hatch-Vg74Rrkt-01.js": {
+      "rt": "buildFloorHatch"
+    },
+    "assets/house-BEzMWI26-02.js": {
+      "bt": "buildHouseSurfaces"
+    },
+    "assets/house-BEzMWI26-03.js": {
+      "De": "buildHouseDoor"
+    },
+    "assets/house-BEzMWI26-04.js": {
+      "De": "buildHouseDoor",
+      "he": "buildHouseShutters"
+    },
+    "assets/house-BEzMWI26-05.js": {
+      "_t": "buildHouseLamp"
+    },
+    "assets/house-BEzMWI26-07.js": {
+      "It": "buildHouseMoonlight"
+    },
+    "assets/house-BEzMWI26-09.js": {
+      "Dt": "buildHouseYard"
+    },
+    "assets/house-BEzMWI26-10.js": {
+      "Dt": "buildHouseYard",
+      "It": "buildHouseMoonlight",
+      "Rt": "buildDreamRuins",
+      "_t": "buildHouseLamp",
+      "bt": "buildHouseSurfaces"
+    },
+    "assets/index-BcIwWgby-02.js": {
+      "kn": "buildRuinWalls"
+    },
+    "assets/index-BcIwWgby-04.js": {
+      "Fn": "buildPond"
+    },
+    "assets/index-BcIwWgby-05.js": {
+      "Nn": "buildBirdFlocks"
+    },
+    "assets/index-BcIwWgby-07.js": {
+      "Nn": "buildBirdFlocks"
+    },
+    "assets/index-BcIwWgby-08.js": {
+      "Kn": "bakeGardenSigns"
+    },
+    "assets/index-BcIwWgby-10.js": {
+      "Kn": "bakeGardenSigns",
+      "qn": "buildGardenFlora"
+    },
+    "assets/index-BcIwWgby-12.js": {
+      "Hn": "buildGardenProps"
+    },
+    "assets/index-BcIwWgby-16.js": {
+      "Qn": "buildOutsideShell",
+      "tr": "buildArmyCheckpoint"
+    },
+    "assets/index-BcIwWgby-17.js": {
+      "tr": "buildArmyCheckpoint"
+    },
+    "assets/index-BcIwWgby-65.js": {
+      "Fn": "buildPond",
+      "Hn": "buildGardenProps",
+      "Qn": "buildOutsideShell",
+      "kn": "buildRuinWalls",
+      "pi": "buildGarden",
+      "qn": "buildGardenFlora"
+    },
+    "assets/index-DQDjAbEY-05.js": {
+      "ao": "bakeHelicopterDecals"
+    },
+    "assets/index-DQDjAbEY-06.js": {
+      "ao": "bakeHelicopterDecals"
+    },
+    "assets/index-DQDjAbEY-07.js": {
+      "Pa": "buildCockpitGlass"
+    },
+    "assets/index-DQDjAbEY-08.js": {
+      "Pa": "buildCockpitGlass"
+    },
+    "assets/index-DQDjAbEY-12.js": {
+      "Fa": "buildInstrumentPanel"
+    },
+    "assets/index-DQDjAbEY-13.js": {
+      "Fa": "buildInstrumentPanel"
+    },
+    "assets/index-DQDjAbEY-22.js": {
+      "Tn": "buildHeliFx"
+    },
+    "assets/index-DQDjAbEY-24.js": {
+      "Fn": "buildHelicopter",
+      "Tn": "buildHeliFx",
+      "ao": "bakeHelicopterDecals"
+    },
+    "assets/index-DaQlAVPp-01.js": {
+      "kM": "createRenderer"
+    },
+    "assets/index-DaQlAVPp-03.js": {
+      "JM": "PostFX"
+    },
+    "assets/index-DaQlAVPp-04.js": {
+      "$M": "Input"
+    },
+    "assets/index-DaQlAVPp-05.js": {
+      "tS": "Player"
+    },
+    "assets/index-DaQlAVPp-06.js": {
+      "Sn": "grainTexture",
+      "Xh": "MATERIAL_SPECS",
+      "nS": "proceduralGrainTexture"
+    },
+    "assets/index-DaQlAVPp-07.js": {
+      "Bd": "boxBetween",
+      "Dp": "maxAnisotropy",
+      "Fp": "applyTextureSet",
+      "Ga": "loadTexture",
+      "Lp": "ASSET_BASE",
+      "Mi": "texManifest",
+      "Np": "materialCacheKey",
+      "Up": "initTextureBank",
+      "Vo": "materialWaiters",
+      "Xh": "MATERIAL_SPECS",
+      "Yc": "lazyTextures",
+      "iS": "installMaterialBreakup",
+      "kn": "texCache",
+      "nS": "proceduralGrainTexture",
+      "qh": "loadTextureSet",
+      "rS": "preloadTextureSets",
+      "sS": "texLoader"
+    },
+    "assets/index-DaQlAVPp-08.js": {
+      "Go": "HOUSE_PLAN",
+      "Qn": "ROOM_HEIGHT"
+    },
+    "assets/index-DaQlAVPp-09.js": {
+      "Bd": "boxBetween",
+      "Go": "HOUSE_PLAN",
+      "Np": "materialCacheKey",
+      "Qn": "ROOM_HEIGHT"
+    },
+    "assets/index-DaQlAVPp-10.js": {
+      "_S": "RoomEnvironment",
+      "zd": "ROOM_LOADERS"
+    },
+    "assets/index-DaQlAVPp-11.js": {
+      "yS": "AudioEngine"
+    },
+    "assets/index-DaQlAVPp-12.js": {
+      "MS": "Scheduler",
+      "SS": "EventBus",
+      "bS": "Interactables"
+    },
+    "assets/index-DaQlAVPp-13.js": {
+      "$M": "Input",
+      "JM": "PostFX",
+      "MS": "Scheduler",
+      "SS": "EventBus",
+      "TS": "createDebugTools",
+      "Up": "initTextureBank",
+      "bS": "Interactables",
+      "kM": "createRenderer",
+      "tS": "Player",
+      "wS": "GameApp",
+      "yS": "AudioEngine",
+      "zd": "ROOM_LOADERS"
+    },
+    "assets/index-DaQlAVPp-14.js": {
+      "AS": "connectServiceBridge",
+      "Bp": "canvasEl",
+      "ES": "veilBarEl",
+      "Ns": "veilSubEl",
+      "Pl": "serviceMode",
+      "Rl": "urlParams",
+      "at": "game",
+      "ei": "veilEl",
+      "wS": "GameApp"
+    },
+    "assets/index-DaQlAVPp-15.js": {
+      "AS": "connectServiceBridge",
+      "Bp": "canvasEl",
+      "Ns": "veilSubEl",
+      "Pl": "serviceMode",
+      "at": "game",
+      "ei": "veilEl"
+    },
+    "assets/index-Db-AsSxU-01.js": {
+      "Hn": "STATES"
+    },
+    "assets/index-Db-AsSxU-25.js": {
+      "Zo": "PRIEST_TAKEN"
+    },
+    "assets/index-Db-AsSxU-26.js": {
+      "Zo": "PRIEST_TAKEN"
+    },
+    "assets/index-Db-AsSxU-28.js": {
+      "En": "disposeKits",
+      "Fn": "prebuildZombies",
+      "T1": "getKit",
+      "ht": "KINDS"
+    },
+    "assets/index-Db-AsSxU-29.js": {
+      "In": "createZombie",
+      "T1": "getKit"
+    },
+    "assets/index-TPd_HXBJ-05.js": {
+      "Bn": "bakePosters"
+    },
+    "assets/index-TPd_HXBJ-06.js": {
+      "Bn": "bakePosters"
+    },
+    "assets/index-TPd_HXBJ-15.js": {
+      "Ta": "buildConcourseProps"
+    },
+    "assets/index-TPd_HXBJ-17.js": {
+      "Da": "buildTrain",
+      "Ta": "buildConcourseProps"
+    },
+    "assets/index-U-kV3K8W-01.js": {
+      "Fo": "buildSection3"
+    },
+    "assets/lab-C35YMKXq-01.js": {
+      "I": "buildLabStudio"
+    },
+    "assets/lab-Cas1v10u-02.js": {
+      "Xe": "buildLabScene"
+    },
+    "assets/lab-DIaoglYu-01.js": {
+      "ct": "KINDS",
+      "lt": "getKit",
+      "tt": "createZombie"
+    },
+    "assets/lab-DIaoglYu-02.js": {
+      "ct": "KINDS",
+      "lt": "getKit",
+      "tt": "createZombie",
+      "yt": "buildZombieLab"
+    },
+    "assets/lab-n3Z2_Qkz-01.js": {
+      "Te": "buildTrainLab",
+      "ve": "buildTrainLabSet"
+    },
+    "assets/lab-n3Z2_Qkz-02.js": {
+      "ve": "buildTrainLabSet"
+    },
+    "assets/lab_city-Bdm3u4EP-01.js": {
+      "ne": "buildCityLab"
+    },
+    "assets/lab_metro-lF7do2Pb-01.js": {
+      "W": "buildMetroLab"
+    },
+    "assets/lab_park-Qy6dpCC3-01.js": {
+      "Q": "buildLabCityStandins",
+      "Z": "buildLabHeliStandins",
+      "pe": "buildParkLab"
+    },
+    "assets/labkit-ElMHH8EU-01.js": {
+      "O": "buildLabFlashlight"
+    },
+    "assets/lightrig-BOum5aAY-01.js": {
+      "zt": "buildLightRig"
+    },
+    "assets/lightrig-BOum5aAY-02.js": {
+      "Dt": "createLightRigParams"
+    },
+    "assets/living-DeOLLwnx-05.js": {
+      "ue": "buildTvUnit"
+    },
+    "assets/living-DeOLLwnx-07.js": {
+      "be": "buildFloorLamp",
+      "ge": "buildPhone",
+      "me": "buildSeatingArea"
+    },
+    "assets/living-DeOLLwnx-08.js": {
+      "be": "buildFloorLamp",
+      "ge": "buildPhone"
+    },
+    "assets/living-DeOLLwnx-10.js": {
+      "ye": "buildDiningSet"
+    },
+    "assets/living-DeOLLwnx-12.js": {
+      "ve": "buildGrandfatherClock",
+      "we": "buildLivingWalls"
+    },
+    "assets/living-DeOLLwnx-14.js": {
+      "ve": "buildGrandfatherClock"
+    },
+    "assets/living-DeOLLwnx-15.js": {
+      "ze": "buildLivingWindows"
+    },
+    "assets/living-DeOLLwnx-16.js": {
+      "_e": "buildBarricade"
+    },
+    "assets/living-DeOLLwnx-17.js": {
+      "Ce": "buildLiving",
+      "_e": "buildBarricade",
+      "me": "buildSeatingArea",
+      "ue": "buildTvUnit",
+      "we": "buildLivingWalls",
+      "ye": "buildDiningSet",
+      "ze": "buildLivingWindows"
+    },
+    "assets/looks-DR2oSjqf-01.js": {
+      "Y": "installSceneLights"
+    },
+    "assets/metro-xgLUk92P-02.js": {
+      "Ge": "installMetroMaterialShader"
+    },
+    "assets/metro-xgLUk92P-03.js": {
+      "jo": "buildMetroLights"
+    },
+    "assets/metro-xgLUk92P-04.js": {
+      "Ge": "installMetroMaterialShader",
+      "Jo": "buildTunnelShell"
+    },
+    "assets/metro-xgLUk92P-06.js": {
+      "Ko": "buildAshwoodStation"
+    },
+    "assets/metro-xgLUk92P-09.js": {
+      "ra": "buildMetroShaft"
+    },
+    "assets/metro-xgLUk92P-10.js": {
+      "ca": "buildStaffPassage"
+    },
+    "assets/metro-xgLUk92P-13.js": {
+      "pa": "buildStationWayfinding",
+      "xa": "buildPlatformShutters"
+    },
+    "assets/metro-xgLUk92P-14.js": {
+      "xa": "buildPlatformShutters"
+    },
+    "assets/metro-xgLUk92P-16.js": {
+      "ka": "buildParkgateTunnel"
+    },
+    "assets/metro-xgLUk92P-19.js": {
+      "va": "buildParkgateConcourse"
+    },
+    "assets/metro-xgLUk92P-21.js": {
+      "Jo": "buildTunnelShell",
+      "Ko": "buildAshwoodStation",
+      "ca": "buildStaffPassage",
+      "jo": "buildMetroLights",
+      "ka": "buildParkgateTunnel",
+      "pa": "buildStationWayfinding",
+      "ra": "buildMetroShaft",
+      "va": "buildParkgateConcourse"
+    },
+    "assets/nav-DkEG8EU--01.js": {
+      "B": "resolveCollisions",
+      "I": "NavigationGrid"
+    },
+    "assets/park-CwBfNU5l-03.js": {
+      "Ya": "buildParkGround"
+    },
+    "assets/park-CwBfNU5l-04.js": {
+      "sa": "buildYoungTrees"
+    },
+    "assets/park-CwBfNU5l-05.js": {
+      "Ya": "buildParkGround",
+      "sa": "buildYoungTrees"
+    },
+    "assets/park-CwBfNU5l-06.js": {
+      "Xa": "buildHedges"
+    },
+    "assets/park-CwBfNU5l-07.js": {
+      "qa": "buildFountain"
+    },
+    "assets/park-CwBfNU5l-09.js": {
+      "$a": "buildParkPaths",
+      "qa": "buildFountain"
+    },
+    "assets/park-CwBfNU5l-10.js": {
+      "xe": "bakeEmergencySigns"
+    },
+    "assets/park-CwBfNU5l-11.js": {
+      "we": "buildParkStructures",
+      "xe": "bakeEmergencySigns"
+    },
+    "assets/park-CwBfNU5l-13.js": {
+      "ao": "buildParkFurniture",
+      "we": "buildParkStructures",
+      "xe": "bakeEmergencySigns"
+    },
+    "assets/park-CwBfNU5l-15.js": {
+      "io": "buildEvacCamp",
+      "we": "buildParkStructures",
+      "xe": "bakeEmergencySigns"
+    },
+    "assets/park-CwBfNU5l-16.js": {
+      "uo": "buildArmyTruck"
+    },
+    "assets/park-CwBfNU5l-19.js": {
+      "$a": "buildParkPaths",
+      "Xa": "buildHedges",
+      "ao": "buildParkFurniture",
+      "io": "buildEvacCamp",
+      "sa": "buildYoungTrees",
+      "uo": "buildArmyTruck",
+      "we": "buildParkStructures"
+    },
+    "assets/script2-Chjgntzz-01.js": {
+      "$0": "KINDS",
+      "Po": "createZombie"
+    },
+    "assets/script2-Chjgntzz-11.js": {
+      "aa": "buildMotorcycle"
+    },
+    "assets/script2-Chjgntzz-13.js": {
+      "$0": "KINDS",
+      "Po": "createZombie",
+      "aa": "buildMotorcycle",
+      "da": "createScript2"
+    },
+    "assets/script3-CjSek-Nt-01.js": {
+      "zo": "KINDS"
+    },
+    "assets/script3-CjSek-Nt-02.js": {
+      "Fo": "createScript3",
+      "zo": "KINDS"
+    },
+    "assets/study-C-Lxctw8-01.js": {
+      "Ro": "buildGunCase"
+    },
+    "assets/study-C-Lxctw8-02.js": {
+      "Co": "buildDesk",
+      "Ro": "buildGunCase"
+    },
+    "assets/study-C-Lxctw8-04.js": {
+      "Xo": "buildStudySeating"
+    },
+    "assets/study-C-Lxctw8-06.js": {
+      "Vo": "buildBookcases"
+    },
+    "assets/study-C-Lxctw8-08.js": {
+      "Wo": "buildDeerHead"
+    },
+    "assets/study-C-Lxctw8-09.js": {
+      "Co": "buildDesk",
+      "Oo": "buildStudy",
+      "Vo": "buildBookcases",
+      "Wo": "buildDeerHead",
+      "Xo": "buildStudySeating"
+    },
+    "assets/zombie_stub-3Vfgk-wH-01.js": {
+      "P": "createZombieStub"
+    }
+  },
+  "scoped": {}
+}

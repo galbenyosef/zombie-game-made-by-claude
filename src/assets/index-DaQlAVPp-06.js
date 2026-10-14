@@ -1,6 +1,6 @@
 // assets/index-DaQlAVPp 06 — fallback
 // Lines 36691-37001 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-const Xh = {
+const MATERIAL_SPECS = {
   floor_oak_dark: {
     tile: 2,
     rough: 0.5,
@@ -250,9 +250,9 @@ const Xh = {
   park3_hedge: { tile: 0.9, rough: 0.7, fallback: "#1c2a14" },
   park3_canvas: { tile: 1.2, rough: 0.9, fallback: "#4a4a30" },
 };
-let Sn = null;
-function nS() {
-  if (Sn) return Sn;
+let grainTexture = null;
+function proceduralGrainTexture() {
+  if (grainTexture) return grainTexture;
   const r = 512,
     e = new Uint8Array(r * r * 4),
     t = (i, s, a) => {
@@ -301,13 +301,13 @@ function nS() {
         (e[f + 3] = 255));
     }
   return (
-    (Sn = new pn(e, r, r, Nt)),
-    (Sn.wrapS = Sn.wrapT = ji),
-    (Sn.magFilter = mt),
-    (Sn.minFilter = Rn),
-    (Sn.generateMipmaps = !0),
-    (Sn.colorSpace = Cn),
-    (Sn.needsUpdate = !0),
-    Sn
+    (grainTexture = new pn(e, r, r, Nt)),
+    (grainTexture.wrapS = grainTexture.wrapT = ji),
+    (grainTexture.magFilter = mt),
+    (grainTexture.minFilter = Rn),
+    (grainTexture.generateMipmaps = !0),
+    (grainTexture.colorSpace = Cn),
+    (grainTexture.needsUpdate = !0),
+    grainTexture
   );
 }

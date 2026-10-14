@@ -9,14 +9,14 @@ async function Jo(m, { rng: e } = {}) {
     c = ze(m, h);
   n.add(c.mesh);
   const w = Pe(),
-    s = Se(e, w, io),
-    x = co(s, w, m.rng(5307));
+    s = buildTowers(e, w, io),
+    x = buildCityWreckage(s, w, m.rng(5307));
   x.heli2Path = zt;
   const k = Be(m, h, s);
   n.add(k.group);
-  const P = ko(m, h, s, x, k.texture, m.rng(5308));
+  const P = buildCitySites(m, h, s, x, k.texture, m.rng(5308));
   n.add(P.group);
-  const _ = Ke(m, h, s);
+  const _ = buildGroundWater(m, h, s);
   n.add(_.group);
   const g = Co(m, h, s, k.texture, _.mat, m.rng(5309), x.blds.prop.id);
   (n.add(g.group), s.lamps.push(...g.lamps), s.fires.push(...g.fires));
@@ -27,7 +27,7 @@ async function Jo(m, { rng: e } = {}) {
     (s.extraPts = M.points));
   const N = Do(m, h, s, k.texture, x.blds.prop.id, m.rng(5311));
   (n.add(N.group), s.extraPts.push(...N.points));
-  const T = to(m, h, s, m.rng(7713));
+  const T = buildCityEmbers(m, h, s, m.rng(7713));
   n.add(T.group);
   const S = Ao(n, s.fires),
     v = { light: null },

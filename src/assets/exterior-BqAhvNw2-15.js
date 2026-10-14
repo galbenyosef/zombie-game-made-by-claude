@@ -1,6 +1,6 @@
 // assets/exterior-BqAhvNw2 15 — math
 // Lines 3612-3796 of readable/assets/exterior-BqAhvNw2.pretty.js (statement-aligned).
-async function vt(t) {
+async function buildExterior(t) {
   const i = performance.now(),
     a = new b0();
   a.name = "exterior";
@@ -13,17 +13,17 @@ async function vt(t) {
   a.add(d.mesh);
   const v = ke(t, e);
   a.add(v.mesh);
-  const x = Ae(t.rng(20260928)),
-    n = Ne(t, e, x);
+  const x = buildBackdrop(t.rng(20260928)),
+    n = buildCitySkyline(t, e, x);
   a.add(n.group);
   const k = _e(t, e, a),
-    m = Je(t, e, t.rng(4242));
+    m = buildCityStreet(t, e, t.rng(4242));
   a.add(m.group);
-  const p = st(t, e, t.rng(99), m);
+  const p = buildCityCorpses(t, e, t.rng(99), m);
   a.add(p.mesh);
   const b = nt(t, e);
   a.add(b.mesh);
-  const N = dt(t, e);
+  const N = buildHelicopterFlight(t, e);
   (a.add(N.group),
     m.slots.push({
       type: "door",
@@ -50,7 +50,7 @@ async function vt(t) {
       ? [{ p: o.lantern, c: [2.4, 1.1, 0.35], s: 1.3, m: [3, 0.3, 1.5, 0] }]
       : [],
     z = x.near.find((g) => g.ex && g.ex.tall),
-    f = Ke(t, e, x, t.rng(777), {
+    f = buildCityEmbers(t, e, x, t.rng(777), {
       gridLamps: ye(),
       warning: z
         ? [[z.x + 4.07, z.base + z.h + z.flH * 3 + 9.2, z.z + 2.07]]

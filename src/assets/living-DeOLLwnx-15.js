@@ -1,6 +1,6 @@
 // assets/living-DeOLLwnx 15 — math
 // Lines 4534-4850 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-function ze(a, t, r, e) {
+function buildLivingWindows(a, t, r, e) {
   const o = new y0();
   ((o.name = "windows"), r.add(o));
   const s = [],

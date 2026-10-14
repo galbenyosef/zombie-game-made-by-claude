@@ -21,7 +21,7 @@ import "./looks-DR2oSjqf.js";
 import "./RoundedBoxGeometry-D0zz8qHa.js";
 import "./furniture-BraVmmRV.js";
 import "./kit-CFeM0oZ2.js";
-async function W(m) {
+async function buildMetroLab(m) {
   const o = P,
     a = -7.38,
     z = {

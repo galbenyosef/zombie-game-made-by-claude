@@ -1,19 +1,19 @@
 // assets/index-DaQlAVPp 08 — openings
 // Lines 37259-37573 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-const Qn = 3,
+const ROOM_HEIGHT = 3,
   hS = 0.2,
-  Go = {
-    bedroom: { x0: 0, x1: 5.2, z0: 0, z1: 4.8, h: Qn, skin: "bedroom" },
-    hall: { x0: 5.4, x1: 6.8, z0: 0, z1: 13.4, h: Qn, skin: "hall" },
-    study: { x0: 7, x1: 10.8, z0: 4.6, z1: 9, h: Qn, skin: "hall" },
+  HOUSE_PLAN = {
+    bedroom: { x0: 0, x1: 5.2, z0: 0, z1: 4.8, h: ROOM_HEIGHT, skin: "bedroom" },
+    hall: { x0: 5.4, x1: 6.8, z0: 0, z1: 13.4, h: ROOM_HEIGHT, skin: "hall" },
+    study: { x0: 7, x1: 10.8, z0: 4.6, z1: 9, h: ROOM_HEIGHT, skin: "hall" },
     living: { x0: 0, x1: 12.2, z0: 13.6, z1: 20.4, h: 3.2, skin: "living" },
-    bath: { x0: 0, x1: 5.2, z0: 5, z1: 8, h: Qn, skin: "hall", sealed: !0 },
+    bath: { x0: 0, x1: 5.2, z0: 5, z1: 8, h: ROOM_HEIGHT, skin: "hall", sealed: !0 },
     kitchen: {
       x0: 0,
       x1: 5.2,
       z0: 8.2,
       z1: 13.4,
-      h: Qn,
+      h: ROOM_HEIGHT,
       skin: "hall",
       sealed: !0,
     },
@@ -269,9 +269,9 @@ const Qn = 3,
     kitchenDoorL: [2.05, 14.2],
   },
   uS = -27,
-  dS = { x0: -0.2, x1: 12.4, z0: -0.2, z1: 20.6, top: Qn + 0.9 };
+  dS = { x0: -0.2, x1: 12.4, z0: -0.2, z1: 20.6, top: ROOM_HEIGHT + 0.9 };
 function fS(r, e) {
-  for (const [t, n] of Object.entries(Go))
+  for (const [t, n] of Object.entries(HOUSE_PLAN))
     if (r >= n.x0 && r <= n.x1 && e >= n.z0 && e <= n.z1) return t;
   return r >= 5.4 && r <= 6.8 && e >= 13.4 && e <= 13.6 ? "hall" : null;
 }
@@ -280,9 +280,9 @@ const pS = Object.freeze(
       {
         __proto__: null,
         BUILDING: dS,
-        CEIL: Qn,
+        CEIL: ROOM_HEIGHT,
         POINTS: Zc,
-        ROOMS: Go,
+        ROOMS: HOUSE_PLAN,
         STREET_Y: uS,
         WALLS: Ya,
         WALL_T: hS,

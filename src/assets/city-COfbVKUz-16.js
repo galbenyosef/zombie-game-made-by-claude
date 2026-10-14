@@ -1,6 +1,6 @@
 // assets/city-COfbVKUz 16 — math
 // Lines 4483-5575 of readable/assets/city-COfbVKUz.pretty.js (statement-aligned).
-function ko(m, e, d, n, h, c) {
+function buildCitySites(m, e, d, n, h, c) {
   const w = new T0();
   w.name = "city3_sites";
   const s = (r, y) => r + (y - r) * c(),

@@ -1,6 +1,6 @@
 // assets/living-DeOLLwnx 16 — math
 // Lines 4851-5588 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-function _e(a, t, r) {
+function buildBarricade(a, t, r) {
   const e = new y0();
   ((e.name = "barricade"), t.add(e));
   const o = [],

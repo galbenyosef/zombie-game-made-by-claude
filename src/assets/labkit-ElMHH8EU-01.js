@@ -3,7 +3,7 @@
 import { c as C, l as u } from "./looks-DR2oSjqf.js";
 import { G as M, C as S, n as j, V as q } from "./index-DaQlAVPp.js";
 const g = Math.PI / 180;
-function O(
+function buildLabFlashlight(
   f,
   { name: r, look: w, views: s = {}, torch: y = !0, onView: d } = {},
 ) {

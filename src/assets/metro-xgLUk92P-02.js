@@ -1,6 +1,6 @@
 // assets/metro-xgLUk92P 02 — replace
 // Lines 301-585 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function Ge(c, a = {}) {
+function installMetroMaterialShader(c, a = {}) {
   const o = c.clone();
   ((o.userData = {
     ...c.userData,

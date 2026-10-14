@@ -95,7 +95,7 @@ function Fe(n, t, e, r, o, l) {
   return s.translate(r, o, l);
 }
 let ct = null;
-function re() {
+function bakeSignTextures() {
   if (ct) return ct;
   const n = ln(1024, 1024, (e) => {
       let r = 11;

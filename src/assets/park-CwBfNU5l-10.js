@@ -1,6 +1,6 @@
 // assets/park-CwBfNU5l 10 — fillrect
 // Lines 2632-3063 of readable/assets/park-CwBfNU5l.pretty.js (statement-aligned).
-function xe() {
+function bakeEmergencySigns() {
   if (ce) return ce;
   const e = {};
   return (

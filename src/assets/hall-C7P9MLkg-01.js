@@ -72,7 +72,7 @@ function dt(b) {
     x
   );
 }
-function it(b, C, { x: r = 6.1, z: x = 8, ceil: e = 3 } = {}) {
+function buildHallCeiling(b, C, { x: r = 6.1, z: x = 8, ceil: e = 3 } = {}) {
   const y = (w, A) => b.mats.get(w, A),
     o = y("brass_aged"),
     p = new Q();

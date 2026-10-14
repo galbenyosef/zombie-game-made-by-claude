@@ -1,6 +1,6 @@
 // assets/exterior-BqAhvNw2 05 — math
 // Lines 994-1292 of readable/assets/exterior-BqAhvNw2.pretty.js (statement-aligned).
-function Ae(t) {
+function buildBackdrop(t) {
   const i = [],
     a = [],
     e = [],

@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 65 — fog
 // Lines 20705-21178 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-async function pi(s) {
+async function buildGarden(s) {
   const { scene: o, renderer: t, game: u } = s,
     e = s.rng(20260929),
     r = new Kt();
@@ -48,10 +48,10 @@ async function pi(s) {
   }
   const v = mn();
   r.add(v.group);
-  const n = kn(s, e);
+  const n = buildRuinWalls(s, e);
   (r.add(n.group), p.push(...n.colliders));
   const l = [],
-    f = Fn(s);
+    f = buildPond(s);
   (r.add(f.mesh), a.push((F) => f.update(F)), Ca(v.basin.material, f.causU));
   const h = Vn(s, f, e);
   (r.add(h.school, h.dead),
@@ -70,9 +70,9 @@ async function pi(s) {
     l.push((F) => {
       (f.setWorld(F), h.setWorld(F));
     }));
-  const c = qn(s, f, e);
+  const c = buildGardenFlora(s, f, e);
   (r.add(c.group), i.push(...c.circles), a.push((F, E) => c.update(F, E)));
-  const M = Hn(s, e);
+  const M = buildGardenProps(s, e);
   (r.add(M.group),
     i.push(...M.circles),
     l.push((F) => {
@@ -97,7 +97,7 @@ async function pi(s) {
       m.update(F, E, u.camera, et ? k : [k[0]]));
   }),
     l.push((F) => m.setWorld(F)));
-  const S = Qn(s, e);
+  const S = buildOutsideShell(s, e);
   (r.add(S.group),
     p.push(...S.colliders),
     a.push((F, E) => S.update(F, E)),

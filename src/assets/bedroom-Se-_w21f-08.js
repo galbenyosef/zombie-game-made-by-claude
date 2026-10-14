@@ -1,6 +1,6 @@
 // assets/bedroom-Se-_w21f 08 — add
 // Lines 1881-2262 of readable/assets/bedroom-Se-_w21f.pretty.js (statement-aligned).
-function Ge(N, t) {
+function buildWindowDressing(N, t) {
   const w = new u0();
   w.name = "window_dressing";
   const e = new M0("window"),

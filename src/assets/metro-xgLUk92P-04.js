@@ -1,13 +1,13 @@
 // assets/metro-xgLUk92P 04 — tag
 // Lines 907-1243 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function Jo(c, a) {
+function buildTunnelShell(c, a) {
   const { mats: o } = c,
     s = (d, l = {}, i = {}) => {
-      const t = Ge(o.get(d, l), i);
+      const t = installMetroMaterialShader(o.get(d, l), i);
       return ((t.name = "m_" + d + (i.tag ? "_" + i.tag : "")), t);
     },
     f = (d, l = {}) => {
-      const i = Ge(new so(d), l);
+      const i = installMetroMaterialShader(new so(d), l);
       return ((i.name = "m_" + (l.tag || "plain")), i);
     },
     h = {

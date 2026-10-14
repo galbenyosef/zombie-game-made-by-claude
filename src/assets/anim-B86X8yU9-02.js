@@ -1,6 +1,6 @@
 // assets/anim-B86X8yU9 02 — math
 // Lines 134-1190 of readable/assets/anim-B86X8yU9.pretty.js (statement-aligned).
-class Et {
+class PoseAnimator {
   constructor(t, s = 1) {
     ((this.def = t), (this.st = t.style), (this.seed = s));
     const h = t.J;

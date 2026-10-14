@@ -16,7 +16,7 @@ import {
 import "./lightrig-BOum5aAY.js";
 import "./RoundedBoxGeometry-D0zz8qHa.js";
 import "./BufferGeometryUtils-Qxvmd-vM.js";
-async function F(n) {
+async function buildAkaneLab(n) {
   const { game: i } = n,
     a = new A();
   ((a.name = "akane_lab"),

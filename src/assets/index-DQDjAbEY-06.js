@@ -188,7 +188,7 @@ function ya({ livery: e = "rescue" } = {}) {
     uDecP: { value: t },
     uDecU: { value: s },
     uDecS: { value: n },
-    tAtlas: { value: ao() },
+    tAtlas: { value: bakeHelicopterDecals() },
     uViewToRest: { value: new b0() },
     uDoorsOpen: { value: new I0() },
     uPanelLight: { value: 0 },

@@ -1,13 +1,13 @@
 // assets/index-DQDjAbEY 24 — math
 // Lines 6700-7720 of readable/assets/index-DQDjAbEY.pretty.js (statement-aligned).
-function Fn(e, l = {}) {
+function buildHelicopter(e, l = {}) {
   const a = e.game || e,
     o = e.scene || a.scene,
     t = l.livery === "army";
   let s = 5304;
   const n = l.rng || (() => ((s = (s * 16807) % 2147483647), s / 2147483647)),
     c = performance.now();
-  ao();
+  bakeHelicopterDecals();
   const i = {
       body: new Ke("body"),
       tail: new Ke("tail"),
@@ -163,7 +163,7 @@ function Fn(e, l = {}) {
     Object.assign(i0, { searchlight: V, landing: p0, glow: C }));
   const J = new Ct(16722458, 0, 9, 2);
   ((J.name = y.name + "_fxlight"), (J.castShadow = !1), o.add(J), (i0.fx = J));
-  const Y = Tn(o, { name: y.name + "_fx", haloN: 8, seed: t ? 91 : 77 }),
+  const Y = buildHeliFx(o, { name: y.name + "_fx", haloN: 8, seed: t ? 91 : 77 }),
     B = {},
     k0 = Ln(a, B, { enabled: l.sound !== !1 });
   l.parent !== null && (l.parent || o).add(y);

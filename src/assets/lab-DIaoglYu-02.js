@@ -1,15 +1,15 @@
 // assets/lab-DIaoglYu 02 — position
 // Lines 24-600 of readable/assets/lab-DIaoglYu.pretty.js (statement-aligned).
-async function yt(_) {
+async function buildZombieLab(_) {
   const { game: d, mats: Y } = _,
     f = new pt();
   ((f.name = "zombies_lab"), _.scene.add(f));
   const i = new y(60, 0, 60),
-    W = Object.keys(ct),
+    W = Object.keys(KINDS),
     nt = performance.now(),
     Z = {};
   for (const e of W) {
-    const s = lt(e);
+    const s = getKit(e);
     Z[e] = s.buildMs;
   }
   const it = Math.round(performance.now() - nt),
@@ -69,7 +69,7 @@ async function yt(_) {
     ((u.length = 0), C.clear());
   }
   function g(e, s, n, a = 0, t) {
-    const o = tt(_, { kind: e, seed: t ?? at++ });
+    const o = createZombie(_, { kind: e, seed: t ?? at++ });
     (o.root.position.set(i.x + s, 0, i.z + n),
       (o.root.rotation.y = a * F),
       f.add(o.root));
@@ -225,7 +225,7 @@ async function yt(_) {
     }
     if (s === "hall") {
       (w(), T(!1));
-      const t = tt(_, { kind: "lanky", seed: 5 });
+      const t = createZombie(_, { kind: "lanky", seed: 5 });
       (t.root.position.set(6.1, 0, 6),
         (t.root.rotation.y = 0),
         f.add(t.root),

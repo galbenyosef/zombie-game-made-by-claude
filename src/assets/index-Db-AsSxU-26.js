@@ -6,7 +6,7 @@ function tn(e, o, n, c) {
     i = t.J,
     r = s.tk || (s.tk = {});
   if ((zo(Xo, o, r), c > 0))
-    for (const [F, J] of Zo.events)
+    for (const [F, J] of PRIEST_TAKEN.events)
       o >= F && o - c < F && t.events.push([J, "taken"]);
   const l = R0(1.62, 2.05, o),
     a = I0((o - 2.2) / 0.32),

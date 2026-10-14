@@ -1,6 +1,6 @@
 // assets/city-COfbVKUz 12 — math
 // Lines 3428-3731 of readable/assets/city-COfbVKUz.pretty.js (statement-aligned).
-function to(m, e, d, n) {
+function buildCityEmbers(m, e, d, n) {
   const h = new T0();
   h.name = "city3_fx";
   const c = (S, v) => S + (v - S) * n(),

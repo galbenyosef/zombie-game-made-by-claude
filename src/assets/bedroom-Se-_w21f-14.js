@@ -1,6 +1,6 @@
 // assets/bedroom-Se-_w21f 14 — math
 // Lines 3278-3675 of readable/assets/bedroom-Se-_w21f.pretty.js (statement-aligned).
-function oe(N, t, w, e, o, M, s = !1) {
+function buildDollHeads(N, t, w, e, o, M, s = !1) {
   const h = new u0();
   h.name = "doll" + M;
   const i = new M0("doll" + M),

@@ -1,6 +1,6 @@
 // assets/index-DaQlAVPp 05 — math
 // Lines 36369-36690 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-class tS {
+class Player {
   constructor(e, t) {
     ((this.camera = e),
       (this.world = t),

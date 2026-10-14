@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 04 — math
 // Lines 748-1004 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-function Fn(s) {
+function buildPond(s) {
   const { game: o, renderer: t, scene: u } = s,
     e = fn,
     r = ko.merge([

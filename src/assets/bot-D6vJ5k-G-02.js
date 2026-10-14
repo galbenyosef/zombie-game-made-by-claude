@@ -1,6 +1,6 @@
 // assets/bot-D6vJ5k-G 02 — pos
 // Lines 3-374 of readable/assets/bot-D6vJ5k-G.pretty.js (statement-aligned).
-function _(i) {
+function createBot(i) {
   const e = i.player,
     k = i.weapons,
     I = [],

@@ -19,7 +19,7 @@ function I0(b, C) {
     v = 0.0015 * Math.sin(C * 3.1 + x * 2) * Math.sin(C * 0.9);
   return r.t + y + o + p + v;
 }
-function mt(b, C) {
+function buildHallFloor(b, C) {
   const r = (o, p) => b.mats.get(o, p),
     x = b.rng(90210),
     e = new Q();

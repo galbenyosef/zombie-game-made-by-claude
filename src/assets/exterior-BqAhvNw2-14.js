@@ -79,7 +79,7 @@ void main() {
   #include <colorspace_fragment>
 }
 `;
-function dt(t, i) {
+function buildHelicopterFlight(t, i) {
   const a = new b0();
   a.name = "helicopter";
   const e = new b0(),

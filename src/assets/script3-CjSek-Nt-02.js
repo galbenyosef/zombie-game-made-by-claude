@@ -1,6 +1,6 @@
 // assets/script3-CjSek-Nt 02 — pos
 // Lines 35-3457 of readable/assets/script3-CjSek-Nt.pretty.js (statement-aligned).
-function Fo(H) {
+function createScript3(H) {
   const o = H,
     c = H.player,
     w = () => H.npc,
@@ -23,7 +23,7 @@ function Fo(H) {
     },
     Ft = new A(),
     Se = () => o.camera.getWorldPosition(Ft),
-    Y = (...e) => e.find((t) => zo[t]) || "lanky",
+    Y = (...e) => e.find((t) => KINDS[t]) || "lanky",
     Be = (e, t, n = c.pos.y) =>
       o.world.groundAt ? o.world.groundAt(e, t, n) : 0,
     it = () => {

@@ -1,6 +1,6 @@
 // assets/district-BhfbivMT 17 — plates
 // Lines 5343-5636 of readable/assets/district-BhfbivMT.pretty.js (statement-aligned).
-function Po(n, t) {
+function buildWreckedCar(n, t) {
   const e = t.sink("bed"),
     r = t.burnt,
     o = r ? "burnt" : "paint",
@@ -287,10 +287,10 @@ function Ro(n, t) {
           : s.plates.type + "0"
         : null),
     Lt(e, r),
-    ko(e, r, h),
-    r.inside && Pn(e, r),
+    buildTaxi(e, r, h),
+    r.inside && buildVehicleInterior(e, r),
     So(e, r),
-    s.bed && Po(e, r),
+    s.bed && buildWreckedCar(e, r),
     Ut(n, e, r, h)
   );
 }

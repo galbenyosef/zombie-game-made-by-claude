@@ -1,6 +1,6 @@
 // assets/gameplay-DnQwS-TC 07 — math
 // Lines 2221-2814 of readable/assets/gameplay-DnQwS-TC.pretty.js (statement-aligned).
-function pi(o) {
+function installWeaponViewmodel(o) {
   const { scene: t, camera: i, player: e } = o;
   t.add(i);
   const s = {

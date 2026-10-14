@@ -6,7 +6,7 @@ function mS(r) {
   const t = [],
     n = {},
     i = {},
-    s = (_, b) => Np(_, b),
+    s = (_, b) => materialCacheKey(_, b),
     a = [],
     o = () => s("trim_ivory"),
     l = new Map(),
@@ -14,7 +14,7 @@ function mS(r) {
       (l.has(b) || l.set(b, []), l.get(b).push(_));
     },
     h = (_, b, S, E, v, T, C) => {
-      const R = Bd(_, b, S, E, v, T).toNonIndexed();
+      const R = boxBetween(_, b, S, E, v, T).toNonIndexed();
       if (!Array.isArray(C)) {
         c(R, C);
         return;
@@ -36,7 +36,7 @@ function mS(r) {
     },
     d = (_, b, S, E, v, T) =>
       t.push({ x0: _, x1: E, z0: S, z1: T, y0: b, y1: v });
-  for (const [_, b] of Object.entries(Go)) {
+  for (const [_, b] of Object.entries(HOUSE_PLAN)) {
     const S = Tn[b.skin] || Tn.hall;
     (h(b.x0, -0.3, b.z0, b.x1, 0, b.z1, [
       null,
@@ -78,7 +78,7 @@ function mS(r) {
       T = b === "a" ? -0.25 : 0.25,
       C = S ? E : E + T + (b === "a" ? -0.1 : 0.1),
       R = S ? v + T + (b === "a" ? -0.1 : 0.1) : v;
-    for (const L of Object.values(Go))
+    for (const L of Object.values(HOUSE_PLAN))
       if (
         C >= L.x0 - 0.01 &&
         C <= L.x1 + 0.01 &&
@@ -86,7 +86,7 @@ function mS(r) {
         R <= L.z1 + 0.01
       )
         return L.h;
-    return Qn;
+    return ROOM_HEIGHT;
   }
   function f(_, b) {
     const E = (_.z1 - _.z0 < _.x1 - _.x0 ? _.x0 : _.z0) + b.at;
@@ -96,7 +96,7 @@ function mS(r) {
     const b = _.z1 - _.z0 < _.x1 - _.x0,
       S = b ? _.x0 : _.z0,
       E = b ? _.x1 : _.z1,
-      v = Qn + 0.3,
+      v = ROOM_HEIGHT + 0.3,
       T = -0.3;
     (Tn[_.a] || Tn.hall, Tn[_.b] || Tn.hall);
     const C = (N, D) => {
@@ -461,7 +461,7 @@ function mS(r) {
   }
   const w = [];
   for (const _ of a) {
-    const b = Bd(_.x0, _.y, _.z0, _.x1, _.y + 0.3, _.z1),
+    const b = boxBetween(_.x0, _.y, _.z0, _.x1, _.y + 0.3, _.z1),
       S = new rt(
         b,
         [null, null, s("dark_room"), s("ceiling_plaster"), null, null].map(

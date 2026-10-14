@@ -15,7 +15,7 @@ import {
   g as j,
   p as q,
 } from "./index-DaQlAVPp.js";
-async function I(x) {
+async function buildLabStudio(x) {
   const { game: i, mats: S } = x,
     o = new v();
   ((o.name = "lab"), x.scene.add(o));

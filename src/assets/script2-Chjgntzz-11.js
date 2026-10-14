@@ -1,6 +1,6 @@
 // assets/script2-Chjgntzz 11 — math
 // Lines 2610-3378 of readable/assets/script2-Chjgntzz.pretty.js (statement-aligned).
-function aa(p, e = {}) {
+function buildMotorcycle(p, e = {}) {
   const o = p.game || p,
     r = p.scene || o.scene,
     s =

@@ -1,6 +1,6 @@
 // assets/district-BhfbivMT 16 — math
 // Lines 5107-5342 of readable/assets/district-BhfbivMT.pretty.js (statement-aligned).
-function Pn(n, t) {
+function buildVehicleInterior(n, t) {
   const e = n.dress.cabin,
     r = t.sink("interior"),
     o = t.burnt,

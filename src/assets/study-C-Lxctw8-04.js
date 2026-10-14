@@ -1,6 +1,6 @@
 // assets/study-C-Lxctw8 04 — add
 // Lines 1177-1584 of readable/assets/study-C-Lxctw8.pretty.js (statement-aligned).
-function Xo(I, L) {
+function buildStudySeating(I, L) {
   const u = (f, w) => I.mats.get(f, w),
     c = u("wood_walnut"),
     b = u("brass_aged"),

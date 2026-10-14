@@ -1,7 +1,7 @@
 // assets/gameplay-DnQwS-TC 12 — count
 // Lines 5326-5538 of readable/assets/gameplay-DnQwS-TC.pretty.js (statement-aligned).
 const fs = 5;
-function mi(o, { exclude: t = [] } = {}) {
+function collectShadowProxies(o, { exclude: t = [] } = {}) {
   const i = o.scene,
     e = o.renderer,
     s = o.camera.layers.mask;

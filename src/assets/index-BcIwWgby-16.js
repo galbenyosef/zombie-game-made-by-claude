@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 16 — math
 // Lines 4029-4664 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-function Qn(s, o) {
+function buildOutsideShell(s, o) {
   const t = new Kt();
   ((t.name = "outside"), (t.visible = !1));
   const u = new Map(),
@@ -179,7 +179,7 @@ function Qn(s, o) {
       t.add(rt),
       r.push({ x0: -2.8, x1: -2.4, z0: 14.4, z1: 14.8, y0: 0, y1: 3 }));
   }
-  const k = tr(o, r, e);
+  const k = buildArmyCheckpoint(o, r, e);
   t.add(k.group);
   const S = pn(s, a);
   (t.add(S.group), r.push(...S.colliders));

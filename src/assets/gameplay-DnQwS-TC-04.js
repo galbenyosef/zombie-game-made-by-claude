@@ -1,6 +1,6 @@
 // assets/gameplay-DnQwS-TC 04 — math
 // Lines 1031-1222 of readable/assets/gameplay-DnQwS-TC.pretty.js (statement-aligned).
-function ti(o) {
+function installCombatAudio(o) {
   const t = {
       hp: 100,
       maxHp: 100,

@@ -71,7 +71,7 @@ function J(i, o) {
     { dome: t, mat: f }
   );
 }
-function Q(i) {
+function buildLabCityStandins(i) {
   let o = 77;
   const f = () => (o = (o * 16807) % 2147483647) / 2147483647,
     t = [],
@@ -163,7 +163,7 @@ float ch(vec2 p){ return fract(sin(dot(p, vec2(12.99, 78.23))) * 43758.55); }`,
     x
   );
 }
-function Z() {
+function buildLabHeliStandins() {
   const i = new V();
   i.name = "lab_heli";
   const o = new z({ color: 14211284, roughness: 0.4, metalness: 0.2 }),
@@ -238,7 +238,7 @@ function Z() {
     }
   );
 }
-async function pe(i) {
+async function buildParkLab(i) {
   const o = (e, l = {}) => ({ cam: e, fov: 70, ...l }),
     f = {
       exit: o([430, 1.62, 195.6, -7, 1.5]),
@@ -269,8 +269,8 @@ async function pe(i) {
     },
     t = K(i, { name: "park", look: G, torch: !1, views: f }),
     u = J(i, t);
-  t.group.add(Q());
-  const s = Z();
+  t.group.add(buildLabCityStandins());
+  const s = buildLabHeliStandins();
   t.group.add(s.group);
   const r = await N(i, { rng: i.rng(5305) });
   t.group.add(r.group);

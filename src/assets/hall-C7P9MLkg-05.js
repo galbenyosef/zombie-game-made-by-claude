@@ -1,6 +1,6 @@
 // assets/hall-C7P9MLkg 05 — math
 // Lines 1602-1737 of readable/assets/hall-C7P9MLkg.pretty.js (statement-aligned).
-async function xt(b) {
+async function buildHall(b) {
   const { game: C, shell: r } = b,
     x = (h, n) => b.mats.get(h, n),
     e = new Q();
@@ -9,10 +9,10 @@ async function xt(b) {
     o = [],
     p = [],
     v = Q0(b, e),
-    s = it(b, e, { x: 6.1, z: 8 }),
-    Y = ut(b, e),
-    m = ft(b, e);
-  (mt(b, e), p.push(...m.colliders));
+    s = buildHallCeiling(b, e, { x: 6.1, z: 8 }),
+    Y = buildHallSconces(b, e),
+    m = buildHallProps(b, e);
+  (buildHallFloor(b, e), p.push(...m.colliders));
   const M = r?.doors?.D3;
   if (M) {
     const h = new Q();

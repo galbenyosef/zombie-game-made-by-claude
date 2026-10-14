@@ -1,6 +1,6 @@
 // assets/index-DaQlAVPp 14 — math
 // Lines 39259-39473 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-function AS(r) {
+function connectServiceBridge(r) {
   const e = new URLSearchParams(location.search).get("slot") ?? "0",
     t = new WebSocket(`ws://${location.host}/__ws?slot=${e}`);
   t.binaryType = "arraybuffer";
@@ -181,37 +181,37 @@ ${u.js}
     return createImageBitmap(s);
   }
 }
-const Rl = new URLSearchParams(location.search),
-  Pl = Rl.get("service") === "1",
-  Bp = document.getElementById("c"),
-  ei = document.getElementById("veil"),
-  Ns = document.getElementById("veil-sub"),
-  ES = document.getElementById("veil-bar");
-if (+(Rl.get("section") || 1) == 2 && !Pl) {
-  ((ei.style.background =
+const urlParams = new URLSearchParams(location.search),
+  serviceMode = urlParams.get("service") === "1",
+  canvasEl = document.getElementById("c"),
+  veilEl = document.getElementById("veil"),
+  veilSubEl = document.getElementById("veil-sub"),
+  veilBarEl = document.getElementById("veil-bar");
+if (+(urlParams.get("section") || 1) == 2 && !serviceMode) {
+  ((veilEl.style.background =
     "radial-gradient(ellipse at 50% 40%, #fbf7f0 0%, #efe6d8 75%)"),
-    (ei.querySelector("h1").style.cssText =
+    (veilEl.querySelector("h1").style.cssText =
       "color:#4a3a34;text-shadow:0 0 30px rgba(255,200,160,0.6)"),
-    (Ns.style.color = "#8a7466"));
+    (veilSubEl.style.color = "#8a7466"));
   const r = document.createElement("div");
   ((r.textContent = "II  ·  the garden"),
     (r.style.cssText =
       "font-size:15px;letter-spacing:0.5em;color:#8a6a5a;margin:0.4em 0 0.6em;text-transform:uppercase"),
-    ei.querySelector("h1").after(r),
+    veilEl.querySelector("h1").after(r),
     (document.body.style.background = "#fbf7f0"));
 }
-if (+(Rl.get("section") || 1) == 3 && !Pl) {
+if (+(urlParams.get("section") || 1) == 3 && !serviceMode) {
   const r = document.createElement("div");
   ((r.textContent = "III  ·  the last stop"),
     (r.style.cssText =
       "font-size:15px;letter-spacing:0.5em;color:#9a7466;margin:0.4em 0 0.6em;text-transform:uppercase"),
-    ei.querySelector("h1").after(r));
+    veilEl.querySelector("h1").after(r));
 }
-const at = new wS(Bp, {
-  service: Pl,
-  maxPixelRatio: +(Rl.get("pr") || 1.5),
+const game = new GameApp(canvasEl, {
+  service: serviceMode,
+  maxPixelRatio: +(urlParams.get("pr") || 1.5),
   progress: (r, e) => {
-    ((ES.style.width = (r * 100).toFixed(0) + "%"), e && (Ns.textContent = e));
+    ((veilBarEl.style.width = (r * 100).toFixed(0) + "%"), e && (veilSubEl.textContent = e));
   },
 });
-window.__game = at;
+window.__game = game;

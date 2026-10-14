@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 08 — math
 // Lines 1703-1978 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-function Kn() {
+function bakeGardenSigns() {
   const u = document.createElement("canvas");
   ((u.width = 2048), (u.height = 1024));
   const e = u.getContext("2d");

@@ -1,6 +1,6 @@
 // assets/index-DQDjAbEY 08 — pos
 // Lines 2200-2438 of readable/assets/index-DQDjAbEY.pretty.js (statement-aligned).
-function Pa(e, l, a, o) {
+function buildCockpitGlass(e, l, a, o) {
   const { body: t, glass: s } = e,
     n = 98,
     c = 88,

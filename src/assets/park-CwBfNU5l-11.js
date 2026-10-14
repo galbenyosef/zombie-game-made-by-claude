@@ -116,7 +116,7 @@ const f0 = Math.PI * 2,
     new Pa(e, a, t, o, Math.min(r, e / 2 - 1e-4, a / 2 - 1e-4, t / 2 - 1e-4)),
   He = (e, a) => e.map((t) => t.clone().applyMatrix4(a));
 let A0 = null;
-function we(e) {
+function buildParkStructures(e) {
   if (A0) return A0;
   const a = Gt(
       e.mats.get("church_dressed", { color: 11052186 }),
@@ -201,8 +201,8 @@ varying vec3 vBN2;`,
       cloth: qt("cloth", 2763312, { rough: 0.95 }),
       cloth2: qt("cloth2", 4864554, { rough: 0.95 }),
       blanket: qt("blanket", 4868676, { rough: 1 }),
-      paper: Gt(new u0({ map: xe().tex, roughness: 0.85, side: y0 }), "paper"),
-      sign: Gt(new u0({ map: xe().tex, roughness: 0.55 }), "sign"),
+      paper: Gt(new u0({ map: bakeEmergencySigns().tex, roughness: 0.85, side: y0 }), "paper"),
+      sign: Gt(new u0({ map: bakeEmergencySigns().tex, roughness: 0.55 }), "sign"),
       lace: (() => {
         const r = Gt(
           new u0({

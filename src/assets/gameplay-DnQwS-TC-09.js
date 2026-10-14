@@ -1,6 +1,6 @@
 // assets/gameplay-DnQwS-TC 09 — math
 // Lines 2950-3934 of readable/assets/gameplay-DnQwS-TC.pretty.js (statement-aligned).
-class fi {
+class AkaneCompanion {
   constructor(t, i, e, s = {}) {
     ((this.game = t),
       (this.akane = i),

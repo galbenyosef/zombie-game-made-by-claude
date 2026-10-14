@@ -1,6 +1,6 @@
 // assets/index-TPd_HXBJ 15 — add
 // Lines 4489-4893 of readable/assets/index-TPd_HXBJ.pretty.js (statement-aligned).
-function Ta(t) {
+function buildConcourseProps(t) {
   const e = new M0("props"),
     o = new M0("midDec"),
     n = new M0("midGlass"),

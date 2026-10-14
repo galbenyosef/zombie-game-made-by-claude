@@ -1,6 +1,6 @@
 // assets/bedroom-Se-_w21f 20 — color
 // Lines 4966-5235 of readable/assets/bedroom-Se-_w21f.pretty.js (statement-aligned).
-async function Ee(N) {
+async function loadBedroomMaterials(N) {
   const { mats: t } = N,
     w = (h) => t.has(h),
     e = (h, i, z, D = {}) => t.get(h, { ...D, color: w(h) ? z : i }),

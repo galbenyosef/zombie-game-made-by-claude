@@ -49,7 +49,7 @@ function Na(e) {
   for (const d of [-0.62, 0.62, -0.12, 0.12])
     e.add(G(0.05, 0.06, 0.05, 0.008, 1), z(d, l + 0.02, 2.405), R.dark);
 }
-function Fa(e, l) {
+function buildInstrumentPanel(e, l) {
   const a = t0.panel;
   (e.add(G(a.x * 2, a.h, 0.16, 0.018, 2), D0(0, a.h / 2, -0.08), R.panelPaint),
     e.add(G(0.5, 0.2, 0.16, 0.018, 2), D0(0, -0.06, -0.08), R.panelPaint));

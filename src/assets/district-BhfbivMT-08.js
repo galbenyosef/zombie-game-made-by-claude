@@ -87,7 +87,7 @@ const uo = new Set(["paint", "trim", "metal", "lamp", "burnt", "tarp"]);
 function zn() {
   if (yt) return yt;
   const n = io(),
-    t = co(),
+    t = buildBusStop(),
     e = ut(
       new Hn({
         vertexColors: !0,

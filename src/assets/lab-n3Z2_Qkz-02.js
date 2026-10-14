@@ -1,6 +1,6 @@
 // assets/lab-n3Z2_Qkz 02 — attributes
 // Lines 348-585 of readable/assets/lab-n3Z2_Qkz.pretty.js (statement-aligned).
-function ve(i, s) {
+function buildTrainLabSet(i, s) {
   const { mats: e } = i,
     x = new de();
   ((x.name = "train_lab_set"), s.add(x));

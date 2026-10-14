@@ -1,6 +1,6 @@
 // assets/hall-C7P9MLkg 03 — math
 // Lines 531-1283 of readable/assets/hall-C7P9MLkg.pretty.js (statement-aligned).
-function ft(b, C) {
+function buildHallProps(b, C) {
   const r = (t, d) => b.mats.get(t, d),
     x = b.rng(2024),
     e = r("wood_walnut"),

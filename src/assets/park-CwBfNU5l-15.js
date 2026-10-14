@@ -1,8 +1,8 @@
 // assets/park-CwBfNU5l 15 — math
 // Lines 5028-6686 of readable/assets/park-CwBfNU5l.pretty.js (statement-aligned).
-function io(e, a, t, r) {
-  const o = we(e),
-    n = xe(),
+function buildEvacCamp(e, a, t, r) {
+  const o = buildParkStructures(e),
+    n = bakeEmergencySigns(),
     i = Me(),
     f = new P0();
   f.name = "park_camp";

@@ -1,6 +1,6 @@
 // assets/index-DQDjAbEY 22 — age
 // Lines 6161-6534 of readable/assets/index-DQDjAbEY.pretty.js (statement-aligned).
-function Tn(
+function buildHeliFx(
   e,
   {
     name: l = "heli_fx",

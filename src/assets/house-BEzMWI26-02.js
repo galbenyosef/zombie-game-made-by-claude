@@ -1,6 +1,6 @@
 // assets/house-BEzMWI26 02 — math
 // Lines 287-545 of readable/assets/house-BEzMWI26.pretty.js (statement-aligned).
-function bt(s) {
+function buildHouseSurfaces(s) {
   const { mats: o } = s,
     e = (h) => o.has(h),
     n = ge,

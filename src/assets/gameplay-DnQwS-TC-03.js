@@ -59,7 +59,7 @@ const Qs = `
   },
   rs =
     '<svg viewBox="0 0 11 30"><path d="M5.5 0c2.5 2.5 4 5 4 9v3H1.5V9c0-4 1.5-6.5 4-9z" fill="#c99b50"/><rect x="1.5" y="12" width="8" height="16" rx="1" fill="#efe3d4"/><rect x="1.5" y="26" width="8" height="3" fill="#8a6a32"/></svg>';
-function Zs(o, t = document.getElementById("hud")) {
+function installHud(o, t = document.getElementById("hud")) {
   const i = document.createElement("style");
   ((i.textContent = Qs),
     document.head.appendChild(i),

@@ -1,6 +1,6 @@
 // assets/study-C-Lxctw8 08 — math
 // Lines 2070-2588 of readable/assets/study-C-Lxctw8.pretty.js (statement-aligned).
-function Wo(I, L) {
+function buildDeerHead(I, L) {
   const u = (l, m) => I.mats.get(l, m),
     c = u("wood_walnut"),
     b = u("brass_aged");

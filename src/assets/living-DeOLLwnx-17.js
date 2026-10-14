@@ -1,23 +1,23 @@
 // assets/living-DeOLLwnx 17 — push
 // Lines 5589-5720 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-async function Ce(a) {
+async function buildLiving(a) {
   const t = new y0();
   ((t.name = "living"), a.scene.add(t));
   const r = a.rng(1307),
     e = new st(a.mats, r),
     o = [],
     s = [],
-    n = ue(a, e, t, a.rng(11));
+    n = buildTvUnit(a, e, t, a.rng(11));
   (o.push(...n.colliders), s.push(n.anim));
-  const l = me(a, e, t, a.rng(23));
+  const l = buildSeatingArea(a, e, t, a.rng(23));
   (o.push(...l.colliders), s.push(...l.anim));
-  const p = ye(a, e, t, a.rng(37));
+  const p = buildDiningSet(a, e, t, a.rng(37));
   o.push(...p.colliders);
-  const d = we(a, e, t, a.rng(41));
+  const d = buildLivingWalls(a, e, t, a.rng(41));
   (o.push(...d.colliders), s.push(...d.anim));
-  const c = ze(a, e, t, a.rng(53));
+  const c = buildLivingWindows(a, e, t, a.rng(53));
   (o.push(...c.colliders), s.push(...c.anim));
-  const u = _e(a, t, a.rng(67));
+  const u = buildBarricade(a, t, a.rng(67));
   (o.push(...u.colliders), s.push(u.anim));
   const b = e.flush(t, "living");
   for (const z of b) ((z.matrixAutoUpdate = !1), z.updateMatrix());

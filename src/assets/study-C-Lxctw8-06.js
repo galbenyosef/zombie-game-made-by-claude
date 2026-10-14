@@ -1,6 +1,6 @@
 // assets/study-C-Lxctw8 06 — box
 // Lines 1692-1956 of readable/assets/study-C-Lxctw8.pretty.js (statement-aligned).
-function Vo(I, L) {
+function buildBookcases(I, L) {
   const u = (m, r) => I.mats.get(m, r),
     c = u("wood_walnut"),
     b = u("brass_aged"),

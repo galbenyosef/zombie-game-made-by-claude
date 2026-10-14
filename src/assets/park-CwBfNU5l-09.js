@@ -1,6 +1,6 @@
 // assets/park-CwBfNU5l 09 — math
 // Lines 2310-2631 of readable/assets/park-CwBfNU5l.pretty.js (statement-aligned).
-function $a(
+function buildParkPaths(
   e,
   {
     trees: a = [],
@@ -13,7 +13,7 @@ function $a(
 ) {
   const f = new P0();
   f.name = "park_ground";
-  const w = qa({ trees: a, hedges: t, wear: r, ruts: o, mud: n, paved: i }),
+  const w = buildFountain({ trees: a, hedges: t, wear: r, ruts: o, mud: n, paved: i }),
     s = {
       tMask: { value: w.tex },
       tLitter: { value: e.mats.get("park3_litter").map },

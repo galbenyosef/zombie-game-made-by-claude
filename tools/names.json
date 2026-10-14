@@ -1,0 +1,611 @@
+{
+  "assets/akane_lab-C9tKDZYg.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "F": "buildAkaneLab"
+    },
+    "evidence": {
+      "F": "curated: the Akane lab (exported as `build`; akane_lab/stand/hands_up/reach/point/gunwalk)"
+    }
+  },
+  "assets/bedroom-Se-_w21f.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "Je": "buildBedroom",
+      "Be": "buildNightstand",
+      "Ge": "buildWindowDressing",
+      "De": "buildPiano",
+      "Fe": "buildWardrobe",
+      "We": "buildDolls",
+      "oe": "buildDollHeads",
+      "Oe": "buildDresser",
+      "Ze": "buildCandles",
+      "Ee": "loadBedroomMaterials"
+    },
+    "evidence": {
+      "Je": "curated: the bedroom room builder (exported as `build`; candles/painting/chair/tally wall, returns the flashlight)",
+      "Be": "curated: nightstand + lamp + clock + the flashlight pickup (lampLight/lampUp/lampFill)",
+      "Ge": "curated: window dressing — curtains/curtain depth + radiator",
+      "De": "curated: the bedroom piano prop",
+      "Fe": "curated: wardrobe with chained/padlocked doors (padlock, centripetal chain)",
+      "We": "curated: the dolls set (dolls/auburn/ringlets/dressRose)",
+      "oe": "curated: doll head variants (blonde/auburn dollhead, ringlets/bonnet)",
+      "Oe": "curated: dresser with perfume + mirror",
+      "Ze": "curated: candle cluster (candles/saucer/chamber/flame/candleLight)",
+      "Ee": "curated: async bedroom material set loader (iron_black/brass_aged/bed_linen/wax_candle/rug_persian...)"
+    }
+  },
+  "assets/bot-D6vJ5k-G.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "_": "createBot"
+    },
+    "evidence": {
+      "_": "curated: the QA bot driver (exported as `createBot`; walks used_/bedroom/flashlight/study/pistol/fallback use)"
+    }
+  },
+  "assets/exterior-BqAhvNw2.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "vt": "buildExterior",
+      "Ae": "buildBackdrop",
+      "Ne": "buildCitySkyline",
+      "Le": "buildCityNearFacades",
+      "Ke": "buildCityEmbers",
+      "Je": "buildCityStreet",
+      "st": "buildCityCorpses",
+      "dt": "buildHelicopterFlight"
+    },
+    "evidence": {
+      "vt": "curated: the exterior room builder (exported as `build`; lantern)",
+      "Ae": "curated: the garden/backdrop shell (sback/south/north)",
+      "Ne": "curated: distant city massing (city_mid/city_far/roofboxes/tanks/tanklegs)",
+      "Le": "curated: near city facades (city_near)",
+      "Ke": "curated: the burning-city ember field (city_fx/city_points)",
+      "Je": "curated: street dressing (street/street_static/street_lamps)",
+      "st": "curated: the dead-pedestrian field (city_dead, aBone/aGait/aLook)",
+      "dt": "curated: the helicopter flight path (helicopter, aKind/catmullrom)"
+    }
+  },
+  "assets/gameplay-DnQwS-TC.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "Li": "installGameplay",
+      "Zs": "installHud",
+      "si": "spawnZombies",
+      "pi": "installWeaponViewmodel",
+      "fi": "AkaneCompanion",
+      "wi": "runStoryScript",
+      "mi": "collectShadowProxies",
+      "ei": "ZombieAnimator",
+      "ti": "installCombatAudio"
+    },
+    "evidence": {
+      "Li": "own export table: local `Li` is exported as `installGameplay`",
+      "Zs": "curated: builds the HUD DOM (prompt/cross/vitals/thought/fadeout) into #hud",
+      "si": "curated: spawns zombie hordes by kind (lanky/brute/soldier) with emerge + groan audio",
+      "pi": "curated: builds the FPS viewmodel — gunRoot/pistol/torch flashlight, pickup/reload/dry-fire cues",
+      "fi": "curated: Akane companion class (states neutral/touch/whispering/screaming/scared, gestures hands_up/point)",
+      "wi": "curated: the story director (intro, thoughts, ambient beds, voice cues, scripted beats)",
+      "mi": "curated: collects meshes into shadowProxies for cheap baked shadows",
+      "ei": "curated: zombie animation state machine (stagger/die_head/die_front/attack, launch)",
+      "ti": "curated: gun/hit/voice/heartbeat combat audio cues (gun_pistol_*, zombie_hit_wet, s_hurt*)"
+    }
+  },
+  "assets/hall-C7P9MLkg.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "xt": "buildHall",
+      "it": "buildHallCeiling",
+      "ut": "buildHallSconces",
+      "ft": "buildHallProps",
+      "mt": "buildHallFloor"
+    },
+    "evidence": {
+      "xt": "curated: the hall room builder (exported as `build`; hall_photos/hallArchSpill)",
+      "it": "curated: hall ceiling + chain-swinging brass fixture (hall_bowl)",
+      "ut": "curated: hall sconces, broken + live variants (sconce_glass/bulb)",
+      "ft": "curated: hall props — telephone + handset swing, clock, walnut furniture",
+      "mt": "curated: hall floor dressing — runner rug + footprints trail"
+    }
+  },
+  "assets/index-BcIwWgby.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "pi": "buildGarden",
+      "kn": "buildRuinWalls",
+      "Fn": "buildPond",
+      "Nn": "buildBirdFlocks",
+      "Kn": "bakeGardenSigns",
+      "qn": "buildGardenFlora",
+      "Hn": "buildGardenProps",
+      "Qn": "buildOutsideShell",
+      "tr": "buildArmyCheckpoint"
+    },
+    "evidence": {
+      "pi": "curated: the garden/church district builder (exported as `build`)",
+      "kn": "curated: ruin/garden walls (garden_wall/walls_standing/walls_broken/stubs/rubble)",
+      "Fn": "curated: the garden pond (pond_water/ruins)",
+      "Nn": "curated: bird flock behavior (cruise/visit/transit/hover)",
+      "Kn": "curated: canvas sign baking for the garden/church set",
+      "qn": "curated: garden flora (cherry/maple/bamboo/bamboo_burnt/lilypads)",
+      "Hn": "curated: garden props (rocks/steps/lantern/granite/bridge)",
+      "Qn": "curated: outside shell of the church/garden (ext_brick/church_shell/ruin_ash)",
+      "tr": "curated: the army checkpoint (blast_walls/CHURCH/armytruck/sandbags)"
+    }
+  },
+  "assets/index-Db-AsSxU.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "En": "disposeKits",
+      "Fn": "prebuildZombies",
+      "Hn": "STATES",
+      "In": "createZombie",
+      "T1": "getKit",
+      "Zo": "PRIEST_TAKEN",
+      "ht": "KINDS"
+    },
+    "evidence": {
+      "En": "own export table: local `En` is exported as `disposeKits`",
+      "Fn": "own export table: local `Fn` is exported as `prebuildZombies`",
+      "Hn": "own export table: local `Hn` is exported as `STATES`",
+      "In": "own export table: local `In` is exported as `createZombie`",
+      "T1": "own export table: local `T1` is exported as `getKit`",
+      "Zo": "own export table: local `Zo` is exported as `PRIEST_TAKEN`",
+      "ht": "own export table: local `ht` is exported as `KINDS`"
+    }
+  },
+  "assets/index-U-kV3K8W.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "Fo": "buildSection3"
+    },
+    "evidence": {
+      "Fo": "curated: the third-section builder (exported as `build`; section3 rooms: house/metro/ruins/cabin/shaft/passage/ashwood/tunnel/parkgate/concourse)"
+    }
+  },
+  "assets/lab-C35YMKXq.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "I": "buildLabStudio"
+    },
+    "evidence": {
+      "I": "curated: the studio lab scene (exported as `build`; studio canvas, night)"
+    }
+  },
+  "assets/lab-Cas1v10u.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "Xe": "buildLabScene"
+    },
+    "evidence": {
+      "Xe": "curated: the lab scene (exported as `build`; lab_sky/lab_lawn/lab_pad/lab_towers/lab_fire/heli_army)"
+    }
+  },
+  "assets/lab-DIaoglYu.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "ct": "KINDS",
+      "lt": "getKit",
+      "tt": "createZombie",
+      "yt": "buildZombieLab"
+    },
+    "evidence": {
+      "ct": "import { KINDS as ct } from \"./index-Db-AsSxU.js\" — public name is semantic",
+      "lt": "import { getKit as lt } from \"./index-Db-AsSxU.js\" — public name is semantic",
+      "tt": "import { createZombie as tt } from \"./index-Db-AsSxU.js\" — public name is semantic",
+      "yt": "curated: the zombie lineup lab (exported as `build`; zombies_lab/lineup victim/priest)"
+    }
+  },
+  "assets/lab-n3Z2_Qkz.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "Te": "buildTrainLab",
+      "ve": "buildTrainLabSet"
+    },
+    "evidence": {
+      "Te": "curated: the train lab (exported as `build`; train/arrive/standIn/curve)",
+      "ve": "curated: the train-lab set shell (train_lab_set/lab_platform/lab_trackbed/lab_tubes)"
+    }
+  },
+  "assets/lab_city-Bdm3u4EP.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "ne": "buildCityLab"
+    },
+    "evidence": {
+      "ne": "curated: the city lab stand-ins (exported as `build`; lab_park_standin/lab_heli_standin/lab_searchlight)"
+    }
+  },
+  "assets/lab_metro-lF7do2Pb.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "W": "buildMetroLab"
+    },
+    "evidence": {
+      "W": "curated: the metro lab stand-ins (exported as `build`; metro/lab_standins)"
+    }
+  },
+  "assets/lab_park-Qy6dpCC3.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "pe": "buildParkLab",
+      "Q": "buildLabCityStandins",
+      "Z": "buildLabHeliStandins"
+    },
+    "evidence": {
+      "pe": "curated: the park lab (exported as `build`; nofog/nomist variants)",
+      "Q": "curated: lab_city stand-ins inside the park lab",
+      "Z": "curated: lab_heli stand-ins inside the park lab"
+    }
+  },
+  "assets/living-DeOLLwnx.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "Ce": "buildLiving",
+      "ue": "buildTvUnit",
+      "me": "buildSeatingArea",
+      "ge": "buildPhone",
+      "be": "buildFloorLamp",
+      "ye": "buildDiningSet",
+      "we": "buildLivingWalls",
+      "ve": "buildGrandfatherClock",
+      "ze": "buildLivingWindows",
+      "_e": "buildBarricade"
+    },
+    "evidence": {
+      "Ce": "curated: the living room builder (exported as `build`)",
+      "ue": "curated: TV unit (vcr_clock/tv_screen/tv_light/tv_halo/static)",
+      "me": "curated: living seating area (rug/throw/album/jigsaw/upholstery)",
+      "ge": "curated: the living-room telephone + receiver",
+      "be": "curated: floor lamp (shade/lamp_light/lamp_up)",
+      "ye": "curated: dining table set (tablecloth/porcelain/wax_candle)",
+      "we": "curated: living walls/floor dressing (record_player/wall_n)",
+      "ve": "curated: grandfather clock (clock_dial/pendulum)",
+      "ze": "curated: living windows/curtains/fire_gaps",
+      "_e": "curated: the barricade set (boards/planks/sideboard/chair_drag)"
+    }
+  },
+  "assets/script2-Chjgntzz.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "$0": "KINDS",
+      "Po": "createZombie",
+      "da": "createScript2",
+      "aa": "buildMotorcycle"
+    },
+    "evidence": {
+      "$0": "import { KINDS as $0 } from \"./index-Db-AsSxU.js\" — public name is semantic",
+      "Po": "import { createZombie as Po } from \"./index-Db-AsSxU.js\" — public name is semantic",
+      "da": "own export table: local `da` is exported as `createScript2`",
+      "aa": "curated: the motorcycle build (moto_lean/chassis/steerFrame/fwheel/rwheel/shocks)"
+    }
+  },
+  "assets/script3-CjSek-Nt.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "Fo": "createScript3",
+      "zo": "KINDS"
+    },
+    "evidence": {
+      "Fo": "own export table: local `Fo` is exported as `createScript3`",
+      "zo": "import { KINDS as zo } from \"./index-Db-AsSxU.js\" — public name is semantic"
+    }
+  },
+  "assets/study-C-Lxctw8.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "Oo": "buildStudy",
+      "Ro": "buildGunCase",
+      "Co": "buildDesk",
+      "Xo": "buildStudySeating",
+      "Vo": "buildBookcases",
+      "Wo": "buildDeerHead"
+    },
+    "evidence": {
+      "Oo": "curated: the study room builder (exported as `build`; study rug/fill, pistol pickup)",
+      "Ro": "curated: the study gun case with the pistol (study_gunmetal/gun_bore)",
+      "Co": "curated: the study desk set (bankersLamp/deskLamp/gunCase, lamp glass variants)",
+      "Xo": "curated: study seating set (leather/whisky/crystal)",
+      "Vo": "curated: study bookcases + books",
+      "Wo": "curated: the study deer head + wall dressing (deerHead/fur/antler)"
+    }
+  },
+  "assets/zombie_stub-3Vfgk-wH.js": {
+    "note": "evidence-driven proposals (tools/propose-names.mjs): own export table + semantic imports",
+    "renames": {
+      "P": "createZombieStub"
+    },
+    "evidence": {
+      "P": "curated: the zombie stub factory (exported as `createZombieStub`; kind lanky default, die_back/die_head/attack)"
+    }
+  },
+  "assets/index-DaQlAVPp.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Sn": "grainTexture",
+      "nS": "proceduralGrainTexture",
+      "iS": "installMaterialBreakup",
+      "Mi": "texManifest",
+      "kn": "texCache",
+      "sS": "texLoader",
+      "Ga": "loadTexture",
+      "Lp": "ASSET_BASE",
+      "Dp": "maxAnisotropy",
+      "Vo": "materialWaiters",
+      "Yc": "lazyTextures",
+      "qh": "loadTextureSet",
+      "Up": "initTextureBank",
+      "rS": "preloadTextureSets",
+      "Np": "materialCacheKey",
+      "Fp": "applyTextureSet",
+      "kM": "createRenderer",
+      "JM": "PostFX",
+      "$M": "Input",
+      "tS": "Player",
+      "Xh": "MATERIAL_SPECS",
+      "Go": "HOUSE_PLAN",
+      "Qn": "ROOM_HEIGHT",
+      "zd": "ROOM_LOADERS",
+      "_S": "RoomEnvironment",
+      "wS": "GameApp",
+      "at": "game",
+      "Rl": "urlParams",
+      "Pl": "serviceMode",
+      "Bp": "canvasEl",
+      "ei": "veilEl",
+      "Ns": "veilSubEl",
+      "ES": "veilBarEl",
+      "MS": "Scheduler",
+      "SS": "EventBus",
+      "yS": "AudioEngine",
+      "bS": "Interactables",
+      "TS": "createDebugTools",
+      "AS": "connectServiceBridge",
+      "Bd": "boxBetween"
+    },
+    "evidence": {
+      "Sn": "curated: module-level cache of the procedural grain texture (`let Sn = null`, set by nS, used as the uBrk breakup map)",
+      "nS": "curated: builds the cached 512x512 value-noise DataTexture (stone-grain uBrk map)",
+      "iS": "curated: injects the uBrk/uBrkAmt/uBrkScale/uBrkCeil/uBrkGrav breakup shader into a material's onBeforeCompile",
+      "Mi": "curated: parsed tex/manifest.json (`Mi = await (await fetch(Lp+'tex/manifest.json')).json()`)",
+      "kn": "curated: texture/set promise cache Map (keys 'set:'+name / 'load:'+name)",
+      "sS": "curated: one THREE.TextureLoader instance (`const sS = new lp()`) used by loadTexture",
+      "Ga": "curated: loads one texture through texLoader (wrap/anisotropy/colorspace) and caches the promise",
+      "Lp": "curated: the './' asset base used for tex/ URLs and the manifest fetch",
+      "Dp": "curated: anisotropy cap set from renderer.capabilities.getMaxAnisotropy()",
+      "Vo": "curated: Map name -> waiting materials notified when a texture set finishes loading",
+      "Yc": "curated: lazy-fetch flag set by Up({lazy}) so texture sets load on demand",
+      "qh": "curated: loads a material's albedo/normal/orm/emissive set from tex/<name>/ with the ?v= baked stamp",
+      "Up": "curated: fetches the tex manifest, sets the anisotropy cap and preloads every (or the requested) texture set",
+      "rS": "curated: preloads a list of texture sets",
+      "Np": "curated: builds the material cache key (`name|JSON.stringify(opts)`) used to dedupe materials",
+      "Fp": "curated: assigns the loaded albedo/normal/orm/emissive maps onto a material",
+      "kM": "curated: builds the WebGLRenderer (antialias, powerPreference high-performance; service mode tweaks)",
+      "JM": "curated: post-processing stack class (ao/bloom/grade/exposure/vignette/grain/ca/sharpen) wrapping the renderer",
+      "$M": "curated: input class (held/edge key sets, pointer lock, mouse-look look{x,y}) attached to the canvas",
+      "tS": "curated: first-person player controller class (pos/vel/yaw/pitch/eye/bob, camera-bound)",
+      "Xh": "curated: per-material spec table (tile/rough/bk/fallback/extra per tex name, e.g. floor_oak_dark)",
+      "Go": "curated: the house floor plan (bedroom/hall/study/living/bath/kitchen rectangles with skins and openings)",
+      "Qn": "curated: default room height (3) used across the house plan",
+      "zd": "curated: lazy room loader table (bedroom/hall/study/living/exterior/lab/... -> import() thunks)",
+      "_S": "curated: the RoomEnvironment scene class (`this.name = \"RoomEnvironment\"`, PMREM probe box)",
+      "wS": "curated: the main app class (renderer/scene/camera/post/input/player/audio/events/scheduler; `new wS(canvas, opts)`)",
+      "at": "curated: the main GameApp instance (`const at = new wS(Bp, {...})`, `window.__game = at`)",
+      "Rl": "curated: `new URLSearchParams(location.search)` (pr/section/service/slot switches)",
+      "Pl": "curated: `Rl.get(\"service\") === \"1\"` — the QA/service mode switch",
+      "Bp": "curated: `document.getElementById(\"c\")` canvas element",
+      "ei": "curated: `document.getElementById(\"veil\")` loading veil element",
+      "Ns": "curated: `document.getElementById(\"veil-sub\")` veil status line",
+      "ES": "curated: `document.getElementById(\"veil-bar\")` veil progress bar",
+      "MS": "curated: sequencer class with wait()/until() promises (game.sched)",
+      "SS": "curated: tiny on/off event bus class (game.events)",
+      "yS": "curated: WebAudio engine class (manifest, buffers, loops, HRTF listener, voice level)",
+      "bS": "curated: interactable registry class (radius/cone/prompt items, focus + onChange)",
+      "TS": "curated: debug/QA tooling factory (setCam/lookAtCam helpers on the game)",
+      "AS": "curated: QA service bridge — WebSocket ws://<host>/__ws?slot= with hello/binary frames",
+      "Bd": "curated: box geometry between two corners (min/max box, translated + centered)"
+    }
+  },
+  "assets/house-BEzMWI26.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "De": "buildHouseDoor",
+      "he": "buildHouseShutters",
+      "_t": "buildHouseLamp",
+      "It": "buildHouseMoonlight",
+      "Dt": "buildHouseYard",
+      "bt": "buildHouseSurfaces",
+      "Rt": "buildDreamRuins"
+    },
+    "evidence": {
+      "De": "curated: house door state machine (door_rattle/thud/slam, bar_drop/bar_lift)",
+      "he": "curated: house shutters (shutter_close/open)",
+      "_t": "curated: the yard lamp (house_lamp/embers/lamp_out/rattle)",
+      "It": "curated: moonlight through the slits (house_moonlight/house_moon/aSlit)",
+      "Dt": "curated: the house yard dressing",
+      "bt": "curated: house surface materials (house_log/plank/shingle/stone/quilt)",
+      "Rt": "curated: the dream/ruins sequence (house_body/ruins/house_static/shove/forest/stone)"
+    }
+  },
+  "assets/city-COfbVKUz.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Se": "buildTowers",
+      "Ke": "buildGroundWater",
+      "to": "buildCityEmbers",
+      "co": "buildCityWreckage",
+      "ko": "buildCitySites"
+    },
+    "evidence": {
+      "Se": "curated: tower/podium massing (south/tower/podium/storey)",
+      "Ke": "curated: city3 ground/water (city3_ground/city3_water/city3_river)",
+      "to": "curated: city3 fx points (city3_fx/city3_points)",
+      "co": "curated: tanker impact/wires/bridge bus wreckage (city3_tanker/impact/wires)",
+      "ko": "curated: the city3 site set (city3_sites/crane/sculpture/tanker/helipad)"
+    }
+  },
+  "assets/district-BhfbivMT.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Xo": "buildDistrictGround",
+      "re": "bakeSignTextures",
+      "co": "buildBusStop",
+      "ko": "buildTaxi",
+      "Pn": "buildVehicleInterior",
+      "Po": "buildWreckedCar",
+      "Fo": "buildBus"
+    },
+    "evidence": {
+      "Xo": "curated: district ground masks (terrain/garden_moss/plaza_cobble/burnt_ground)",
+      "re": "curated: canvas text baker (bold 15px..150px Arial/monospace sign + sign textures)",
+      "co": "curated: the bus stop (bus_no/bus_front/OUT OF SERVICE/TEL plate)",
+      "ko": "curated: the taxi livery build (taxi_sign/taxi_door/plate)",
+      "Pn": "curated: vehicle interior (interior/burnt)",
+      "Po": "curated: the wrecked car dressing (burnt/hazard/decal/plate_burnt)",
+      "Fo": "curated: the bus livery build (bus_front/side/rear/no/ad, burnt plates)"
+    }
+  },
+  "assets/metro-xgLUk92P.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Ge": "installMetroMaterialShader",
+      "jo": "buildMetroLights",
+      "Jo": "buildTunnelShell",
+      "Ko": "buildAshwoodStation",
+      "ra": "buildMetroShaft",
+      "ca": "buildStaffPassage",
+      "pa": "buildStationWayfinding",
+      "xa": "buildPlatformShutters",
+      "ka": "buildParkgateTunnel",
+      "va": "buildParkgateConcourse"
+    },
+    "evidence": {
+      "Ge": "curated: the metroLit material patch (onBeforeCompile + customProgramCacheKey)",
+      "jo": "curated: metro point/spot lights with flicker/dying behavior",
+      "Jo": "curated: tunnel shell materials (metro_tile_cream/teal, tactile_paving, shaft)",
+      "Ko": "curated: the Ashwood platform (ash_name/EASTBOUND/WESTBOUND/way out)",
+      "ra": "curated: the maintenance shaft (ladderTop/ladder_slide, st_exit)",
+      "ca": "curated: the staff passage (staffDoor/slam, staff_only)",
+      "pa": "curated: platform wayfinding (frieze/posters/notice_service/route/missing)",
+      "xa": "curated: platform shutters with rattle (ash_shutter, no_entry, graffiti)",
+      "ka": "curated: the Parkgate tunnel run (parkgate/tunnel)",
+      "va": "curated: the Parkgate concourse (pg_tickets/concourse/quarantine/badge/monitor)"
+    }
+  },
+  "assets/park-CwBfNU5l.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Ya": "buildParkGround",
+      "sa": "buildYoungTrees",
+      "Xa": "buildHedges",
+      "qa": "buildFountain",
+      "$a": "buildParkPaths",
+      "xe": "bakeEmergencySigns",
+      "we": "buildParkStructures",
+      "ao": "buildParkFurniture",
+      "io": "buildEvacCamp",
+      "uo": "buildArmyTruck"
+    },
+    "evidence": {
+      "Ya": "curated: the park ground build (round paths/lawn)",
+      "sa": "curated: young tree planting",
+      "Xa": "curated: park hedges (park_hedges/hedge_sprays)",
+      "qa": "curated: the fountain/forecourt set (avenue/fountain/forecourt/young)",
+      "$a": "curated: park paths (park_ground/forest_path/park_paths_/setts/plaza_cobble)",
+      "xe": "curated: canvas emergency signage (EVACUATION POINT/CITY EMERGENCY SERVICES - ARMY/NO ENTRY)",
+      "we": "curated: park structures (church_dressed/benchwood/brick/boards/playground colors)",
+      "ao": "curated: park furniture (park_furniture/statueW/lamps/paper)",
+      "io": "curated: the evacuation camp (park_camp/tentcanvas/medcanvas/sandbag/bodybag)",
+      "uo": "curated: the army truck (armytruck/truckbed)"
+    }
+  },
+  "assets/index-DQDjAbEY.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Fn": "buildHelicopter",
+      "ao": "bakeHelicopterDecals",
+      "Pa": "buildCockpitGlass",
+      "Fa": "buildInstrumentPanel",
+      "Tn": "buildHeliFx"
+    },
+    "evidence": {
+      "Fn": "curated: the helicopter model builder (exported as `c`)",
+      "ao": "curated: canvas helicopter decals (AIR RESCUE/callsign RESCUE 07/JA21AR/DANGER tail rotor)",
+      "Pa": "curated: cockpit glass/doors (dfront/dslide/glassFL..glassRR/wfront/wslide)",
+      "Fa": "curated: instrument panel (dialAsi/dialAtt/dialAlt/clock/placard)",
+      "Tn": "curated: helicopter effects (heli_fx/aStar)"
+    }
+  },
+  "assets/index-TPd_HXBJ.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Da": "buildTrain",
+      "Bn": "bakePosters",
+      "Ta": "buildConcourseProps"
+    },
+    "evidence": {
+      "Da": "curated: the train build (exported as `c`; train_moquette/floor/glassIn/glassOut/aoMap)",
+      "Bn": "curated: canvas poster baker (ARCADIA BANK/REGENT THEATRE/freshway/public notice)",
+      "Ta": "curated: concourse dressing (props/midDec/midGlass/dmgDec)"
+    }
+  },
+  "assets/labkit-ElMHH8EU.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "O": "buildLabFlashlight"
+    },
+    "evidence": {
+      "O": "curated: the lab flashlight prop (exported as `m`; lab_flashlight)"
+    }
+  },
+  "assets/nav-DkEG8EU-.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "I": "NavigationGrid",
+      "B": "resolveCollisions"
+    },
+    "evidence": {
+      "I": "curated: the navigation grid class (free/sealed Uint8 grids, Float32 g-score, came/seen arrays, 0.15 cell)",
+      "B": "curated: pushes a position out of overlapping colliders (3-pass resolve, height band y0/y1)"
+    }
+  },
+  "assets/lightrig-BOum5aAY.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "zt": "buildLightRig",
+      "Dt": "createLightRigParams"
+    },
+    "evidence": {
+      "zt": "curated: the scene light rig builder",
+      "Dt": "curated: light rig parameter object (keyDir/keyCol/ambGain/ambCol/ambRGB)"
+    }
+  },
+  "assets/looks-DR2oSjqf.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Y": "installSceneLights"
+    },
+    "evidence": {
+      "Y": "curated: installs the p3 key/fill/hemi lights (p3_key 4096 shadow map)"
+    }
+  },
+  "assets/hatch-Vg74Rrkt.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "rt": "buildFloorHatch"
+    },
+    "evidence": {
+      "rt": "curated: the floor hatch (hatch_top/hatch_lid, house_floor cut)"
+    }
+  },
+  "assets/anim-B86X8yU9.js": {
+    "note": "curated semantic rules (reviewed against the readable code; evidence per rule) + evidence-driven proposals",
+    "renames": {
+      "Et": "PoseAnimator"
+    },
+    "evidence": {
+      "Et": "curated: the pose animator class (footL/footR/handL/handR, stagger/attack/reach/emerge/shamble/grab_hold)"
+    }
+  }
+}

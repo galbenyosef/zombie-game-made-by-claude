@@ -1,6 +1,6 @@
 // assets/metro-xgLUk92P 03 — math
 // Lines 586-906 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function jo(c, a) {
+function buildMetroLights(c, a) {
   const o = [];
   let s = 0;
   const f = [],

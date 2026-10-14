@@ -14,7 +14,7 @@ const o = g,
     brute: { h: 1.82, w: 0.3, c: 6971224 },
     gown: { h: 1.66, w: 0.16, c: 9080968 },
   };
-function P(E, { kind: S = "lanky" } = {}) {
+function createZombieStub(E, { kind: S = "lanky" } = {}) {
   const t = y[S] || y.lanky,
     e = new z(),
     f = new G({ color: t.c, roughness: 0.8 }),

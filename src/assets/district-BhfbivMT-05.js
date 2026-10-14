@@ -1,7 +1,7 @@
 // assets/district-BhfbivMT 05 — math
 // Lines 1320-1643 of readable/assets/district-BhfbivMT.pretty.js (statement-aligned).
 function Uo() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0(),
     e = new Cn(0.5, 0.3, 8, 1, !0);
   return (
@@ -31,7 +31,7 @@ function Uo() {
   );
 }
 function Ct() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0();
   return (
     X(Q(w0(0.1, 0.07, 0.26, 0, 0.035, 0)), n.white, t),
@@ -41,7 +41,7 @@ function Ct() {
   );
 }
 function no() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0();
   (X(Q(new b0(0.33, 0.33, 0.012, 24).translate(0, 0.006, 0)), n.iron, t),
     X(
@@ -58,7 +58,7 @@ function no() {
   return { group: t, size: [0.7, 0.7] };
 }
 function oo() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0();
   X(Q(w0(0.5, 0.01, 0.36, 0, 0.005, 0)), n.dark, t);
   for (let e = 0; e < 7; e++)
@@ -66,7 +66,7 @@ function oo() {
   return { group: t, size: [0.5, 0.36] };
 }
 function ro({ fallen: n = !1 } = {}) {
-  const t = re(),
+  const t = bakeSignTextures(),
     e = new P0();
   e.name = "scooter";
   const r = 0.28,

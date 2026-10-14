@@ -1,6 +1,6 @@
 // assets/metro-xgLUk92P 14 — add
 // Lines 4920-5375 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function xa(c, a) {
+function buildPlatformShutters(c, a) {
   const { B: o, M: s, L: f, D: h, group: d } = c,
     l = [],
     i = { chunk: "astair" },

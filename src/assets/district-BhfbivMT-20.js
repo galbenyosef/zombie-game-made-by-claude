@@ -210,5 +210,5 @@ function Yo(n) {
       : []),
     Lt(t, e));
   const s = Vt(t);
-  return (Go(t, e, s, o), Pn(t, e), Ut("armytruck", t, e, s));
+  return (Go(t, e, s, o), buildVehicleInterior(t, e), Ut("armytruck", t, e, s));
 }

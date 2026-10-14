@@ -1,7 +1,7 @@
 // assets/district-BhfbivMT 04 — translate
 // Lines 990-1319 of readable/assets/district-BhfbivMT.pretty.js (statement-aligned).
 function jn({ kind: n = "white", lit: t = !0, smashed: e = !1 } = {}) {
-  const r = re(),
+  const r = bakeSignTextures(),
     o = new P0();
   o.name = "vending";
   const l = 1,
@@ -58,7 +58,7 @@ function Jn({
   lamp: e = !1,
   lean: r = 0,
 } = {}) {
-  const o = re(),
+  const o = bakeSignTextures(),
     l = new P0();
   ((l.name = "pole"),
     X(Q(new b0(0.13, 0.17, n, 14).translate(0, n / 2, 0)), o.concrete, l));
@@ -110,7 +110,7 @@ function Jn({
   );
 }
 function ot({ fallen: n = !1, color: t = 2771562 } = {}) {
-  const e = re(),
+  const e = bakeSignTextures(),
     r = new P0();
   r.name = "bicycle";
   const o = new e0({ color: t, roughness: 0.4, metalness: 0.5 }),
@@ -208,7 +208,7 @@ function ot({ fallen: n = !1, color: t = 2771562 } = {}) {
   );
 }
 function cn() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0();
   return (
     X(
@@ -230,7 +230,7 @@ function cn() {
   );
 }
 function Qn() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0();
   (X(Fe(1.2, 0.28, n.rect.keep, 0, 0.82, 0.02), n.decal, t),
     X(Fe(1.2, 0.28, n.rect.keep, 0, 0.82, 0.02).rotateY(Math.PI), n.decal, t));
@@ -243,7 +243,7 @@ function Qn() {
   return { group: t, size: [1.3, 0.5] };
 }
 function Bn() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0();
   return (
     X(Q(new b0(0.24, 0.24, 1.1, 20).translate(0, 0.55, 0)), n.paintR, t),
@@ -265,7 +265,7 @@ function Bn() {
   );
 }
 function eo() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0();
   return (
     X(Q(new b0(0.03, 0.03, 2.6, 8).translate(0, 1.3, 0)), n.paintW, t),
@@ -275,7 +275,7 @@ function eo() {
   );
 }
 function to() {
-  const n = re(),
+  const n = bakeSignTextures(),
     t = new P0();
   for (const e of [-0.55, 0.55])
     X(Q(new b0(0.04, 0.04, 3.4, 8).translate(e, 1.7, 0)), n.paintW, t);
@@ -286,7 +286,7 @@ function to() {
   );
 }
 function fn({ open: n = !1 } = {}) {
-  const t = re(),
+  const t = bakeSignTextures(),
     e = new P0();
   if (n) {
     (X(Q(w0(0.45, 0.12, 0.66, 0, 0.06, 0)), t.cloth, e),

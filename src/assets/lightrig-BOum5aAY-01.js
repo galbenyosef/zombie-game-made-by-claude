@@ -72,7 +72,7 @@ function qt(e, r, f, s, p, C, c, M, u, i) {
     y = Math.max(g, 0);
   return Math.sqrt(h * h + w * w + y * y) + Math.min(Math.max(S, b, g), 0) - i;
 }
-function zt(e, r, f, s, p = {}) {
+function buildLightRig(e, r, f, s, p = {}) {
   const c = Math.ceil((f[0] - r[0]) / s / 4) * 4 + 1,
     M = Math.ceil((f[1] - r[1]) / s / 4) * 4 + 1,
     u = Math.ceil((f[2] - r[2]) / s / 4) * 4 + 1,

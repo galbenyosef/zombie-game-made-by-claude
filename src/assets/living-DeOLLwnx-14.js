@@ -1,6 +1,6 @@
 // assets/living-DeOLLwnx 14 — part
 // Lines 4308-4533 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-function ve(a, t, r, e, o) {
+function buildGrandfatherClock(a, t, r, e, o) {
   const [s, , n] = o,
     l = 0.27,
     p = F(s + l / 2, 0, n, e0 / 2);

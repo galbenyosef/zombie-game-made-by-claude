@@ -1,6 +1,6 @@
 // assets/bedroom-Se-_w21f 16 — add
 // Lines 3707-4130 of readable/assets/bedroom-Se-_w21f.pretty.js (statement-aligned).
-function Oe(N, t) {
+function buildDresser(N, t) {
   const w = new u0();
   w.name = "dresser";
   const e = new M0("dresser"),

@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 12 — math
 // Lines 2961-3283 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-function Hn(s, o) {
+function buildGardenProps(s, o) {
   const t = new Kt();
   t.name = "props";
   const u = [],

@@ -321,5 +321,5 @@ function Ao(n) {
       : []),
     Lt(t, e));
   const s = Vt(t);
-  return (Fo(t, e, s), Wo(t, e), Ut("bus", t, e, s));
+  return (buildBus(t, e, s), Wo(t, e), Ut("bus", t, e, s));
 }

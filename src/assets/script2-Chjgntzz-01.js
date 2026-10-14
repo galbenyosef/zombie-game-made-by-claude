@@ -36,7 +36,7 @@ import {
   az as _o,
   aQ as zo,
 } from "./index-DaQlAVPp.js";
-import { KINDS as $0, createZombie as Po } from "./index-Db-AsSxU.js";
+import { KINDS as KINDS, createZombie as createZombie } from "./index-Db-AsSxU.js";
 import { S as So } from "./anim-B86X8yU9.js";
 import {
   V as d,

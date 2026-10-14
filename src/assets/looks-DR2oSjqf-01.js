@@ -91,7 +91,7 @@ function U(o, i, e) {
     o
   );
 }
-function Y(o, { parent: i } = {}) {
+function installSceneLights(o, { parent: i } = {}) {
   const { scene: e, renderer: l, game: M } = o,
     a = new D(16777215, 0.3);
   ((a.name = "p3_key"),

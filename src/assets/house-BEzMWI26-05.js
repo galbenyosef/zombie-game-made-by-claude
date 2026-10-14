@@ -1,6 +1,6 @@
 // assets/house-BEzMWI26 05 — math
 // Lines 1261-1743 of readable/assets/house-BEzMWI26.pretty.js (statement-aligned).
-function _t(s, o, e, { near: n = () => !0, S: t } = {}) {
+function buildHouseLamp(s, o, e, { near: n = () => !0, S: t } = {}) {
   const u = nt(909),
     d = new l0();
   d.name = "house_lamp";

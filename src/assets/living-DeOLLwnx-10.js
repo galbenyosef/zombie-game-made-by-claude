@@ -1,6 +1,6 @@
 // assets/living-DeOLLwnx 10 — part
 // Lines 2838-3185 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-function ye(a, t, r, e) {
+function buildDiningSet(a, t, r, e) {
   const o = new y0();
   ((o.name = "dining"), r.add(o));
   const s = [],

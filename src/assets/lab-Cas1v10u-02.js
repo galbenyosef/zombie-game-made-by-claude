@@ -1,6 +1,6 @@
 // assets/lab-Cas1v10u 02 — math
 // Lines 63-652 of readable/assets/lab-Cas1v10u.pretty.js (statement-aligned).
-async function Xe(R) {
+async function buildLabScene(R) {
   const { game: p, scene: j, mats: v } = R;
   await v.ensure?.(["garden_moss", "concrete_grey", "street_asphalt"]);
   const g = {},

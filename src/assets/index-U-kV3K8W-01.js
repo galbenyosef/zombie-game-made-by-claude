@@ -16,7 +16,7 @@ import "./plan3-BlRgM2iV.js";
 import "./common-BYwPbecq.js";
 import "./BufferGeometryUtils-Qxvmd-vM.js";
 const W = -8.9;
-async function Fo(l) {
+async function buildSection3(l) {
   const { scene: y, renderer: O, game: n } = l,
     f = new mo();
   ((f.name = "section3"), y.add(f), (y.background = new go(0)));

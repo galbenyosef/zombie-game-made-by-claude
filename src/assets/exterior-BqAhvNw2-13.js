@@ -1,6 +1,6 @@
 // assets/exterior-BqAhvNw2 13 — math
 // Lines 3125-3396 of readable/assets/exterior-BqAhvNw2.pretty.js (statement-aligned).
-function st(t, i, a, e) {
+function buildCityCorpses(t, i, a, e) {
   const s = (c, w) => c + (w - c) * a(),
     l = [],
     d = (c, w, h = {}) =>

@@ -1,6 +1,6 @@
 // assets/index-DaQlAVPp 12 — items
 // Lines 38775-38987 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-class bS {
+class Interactables {
   constructor(e) {
     ((this.game = e),
       (this.items = []),
@@ -65,7 +65,7 @@ const Ho = (r, e = 0, t = 1) => (r < e ? e : r > t ? t : r),
     smooth: (r) => r * r * (3 - 2 * r),
     slow: (r) => r * r * r * (r * (r * 6 - 15) + 10),
   };
-class MS {
+class Scheduler {
   constructor(e) {
     ((this.game = e), (this.items = []), (this.cancelled = !1));
   }
@@ -192,7 +192,7 @@ function CS(r, e, t = {}) {
       r.camCtl(0));
   });
 }
-class SS {
+class EventBus {
   constructor() {
     this.m = new Map();
   }

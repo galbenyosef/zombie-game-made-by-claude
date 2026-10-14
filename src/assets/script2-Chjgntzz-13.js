@@ -1,6 +1,6 @@
 // assets/script2-Chjgntzz 13 — math
 // Lines 3388-7796 of readable/assets/script2-Chjgntzz.pretty.js (statement-aligned).
-function da(p) {
+function createScript2(p) {
   const e = p,
     o = p.player,
     r = () => p.npc,
@@ -1003,7 +1003,7 @@ function da(p) {
     Ze = () => k()?.forest,
     _ = () => k()?.house,
     re = () => tt()?.points || {},
-    ie = (...t) => t.find((a) => $0[a]) || "lanky",
+    ie = (...t) => t.find((a) => KINDS[a]) || "lanky",
     Le = (t, a, l) => {
       (async () => (await u(a), n(t) || l()))();
     },
@@ -1026,10 +1026,10 @@ function da(p) {
       };
     },
     v = (() => {
-      if (!$0.priest) return null;
+      if (!KINDS.priest) return null;
       let t = null;
       try {
-        t = Po(e.makeCtx(), { kind: "priest", seed: 5 });
+        t = createZombie(e.makeCtx(), { kind: "priest", seed: 5 });
       } catch (i) {
         return (console.warn("[script2] no priest:", i.message), null);
       }
@@ -2680,7 +2680,7 @@ function da(p) {
   }
   const U = (() => {
       try {
-        const t = aa(e.makeCtx(), {});
+        const t = buildMotorcycle(e.makeCtx(), {});
         return (
           (t.park = (a, l, i) => {
             (t.root.position.set(a, 0, l),

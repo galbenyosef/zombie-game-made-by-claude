@@ -48,7 +48,7 @@ function gt(e) {
   }
   return s.lights;
 }
-function Dt(e, r = {}) {
+function createLightRigParams(e, r = {}) {
   const f = new A(),
     s = new A(),
     p = new A(0.4, 0.5, 0.9),

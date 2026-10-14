@@ -1,6 +1,6 @@
 // assets/index-TPd_HXBJ 17 — math
 // Lines 4956-6167 of readable/assets/index-TPd_HXBJ.pretty.js (statement-aligned).
-function Da(t, e = {}) {
+function buildTrain(t, e = {}) {
   const o = t.game || t;
   t.scene || o.scene;
   const n = t.renderer || o.renderer,
@@ -56,7 +56,7 @@ function Da(t, e = {}) {
     m = performance.now(),
     v = Je("mid", "hi", a),
     y = Je("cab", "lo", a),
-    w = Ta(a),
+    w = buildConcourseProps(a),
     M = (u) => (u.nv > 0 ? u.build() : null),
     k = {
       mid: {

@@ -1,6 +1,6 @@
 // assets/hall-C7P9MLkg 02 — add
 // Lines 290-530 of readable/assets/hall-C7P9MLkg.pretty.js (statement-aligned).
-function ut(b, C, { y: r = 1.86 } = {}) {
+function buildHallSconces(b, C, { y: r = 1.86 } = {}) {
   const e = ((M, i) => b.mats.get(M, i))("brass_aged"),
     y = new Q();
   ((y.name = "sconces"), C.add(y));

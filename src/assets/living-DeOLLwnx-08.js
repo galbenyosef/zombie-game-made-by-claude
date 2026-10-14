@@ -1,6 +1,6 @@
 // assets/living-DeOLLwnx 08 — math
 // Lines 2385-2727 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-function ge(a, t, r, e, o, s) {
+function buildPhone(a, t, r, e, o, s) {
   const n = new y0();
   ((n.name = "phone"), t.add(n));
   const l = a0(a, "#15100e");
@@ -144,7 +144,7 @@ function ge(a, t, r, e, o, s) {
     },
   };
 }
-function be(a, t, r, e) {
+function buildFloorLamp(a, t, r, e) {
   const o = new y0();
   ((o.name = "lamp"), t.add(o));
   const [s, , n] = e;

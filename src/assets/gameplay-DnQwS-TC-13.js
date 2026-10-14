@@ -167,22 +167,22 @@ function yi(o, { exclude: t = [] } = {}) {
   };
 }
 const gi = () => new Promise((o) => setTimeout(o, 40));
-async function Li(o, t = () => {}) {
+async function installGameplay(o, t = () => {}) {
   (t(0.4, "systems"),
     (o.nav = new Vs(o.world, 0.3, o.navPlan || null)),
     (o.roomAt ||= ie),
     (o.fx = $s(o)),
-    (o.hud = Zs()),
-    (o.combat = ti(o)),
-    (o.zombies = await si(o)),
+    (o.hud = installHud()),
+    (o.combat = installCombatAudio(o)),
+    (o.zombies = await spawnZombies(o)),
     o.loadMark?.("zombies"),
-    (o.weapons = pi(o)),
+    (o.weapons = installWeaponViewmodel(o)),
     o.weapons.onFire((r) => o.combat.shoot(r)),
     t(0.55, "akane"),
     await gi());
   const i = Hs(o, {});
   (o.scene.add(i.root),
-    (o.npc = new fi(o, i, o.nav)),
+    (o.npc = new AkaneCompanion(o, i, o.nav)),
     o.loadMark?.("akane"),
     (o.npc.onFire = (r, h) =>
       o.combat.shoot({
@@ -295,7 +295,7 @@ async function Li(o, t = () => {}) {
               import.meta.url,
             )
           ).createScript2(o)
-        : wi(o)),
+        : runStoryScript(o)),
     (o.beats = {
       goto: (r) =>
         r.startsWith("run:")
@@ -307,7 +307,7 @@ async function Li(o, t = () => {}) {
     Mi(o),
     await _i(o),
     o.loadMark?.("warmUp"),
-    (o.shadowProxies = mi(o, { exclude: [i.root, o.camera] })),
+    (o.shadowProxies = collectShadowProxies(o, { exclude: [i.root, o.camera] })),
     zi(o),
     o.loadMark?.("shadow proxies"),
     o.shell &&

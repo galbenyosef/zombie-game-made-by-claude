@@ -1,6 +1,6 @@
 // assets/living-DeOLLwnx 07 — part
 // Lines 1729-2384 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-function me(a, t, r, e) {
+function buildSeatingArea(a, t, r, e) {
   const o = new y0();
   ((o.name = "island"), r.add(o));
   const s = [],
@@ -625,7 +625,7 @@ function me(a, t, r, e) {
       );
     }
   }
-  const z = ge(
+  const z = buildPhone(
     a,
     o,
     t,
@@ -634,7 +634,7 @@ function me(a, t, r, e) {
     [h.x + 0.03, C - 0.2, h.z - h.w / 2 - 0.035],
   );
   n.push(z.anim);
-  const w = be(a, o, t, [5.43, 0, 18.21]);
+  const w = buildFloorLamp(a, o, t, [5.43, 0, 18.21]);
   return (
     n.push(w.anim),
     s.push({

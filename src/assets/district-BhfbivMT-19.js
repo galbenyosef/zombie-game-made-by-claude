@@ -1,6 +1,6 @@
 // assets/district-BhfbivMT 19 — off
 // Lines 5960-6376 of readable/assets/district-BhfbivMT.pretty.js (statement-aligned).
-function Fo(n, t, e) {
+function buildBus(n, t, e) {
   const r = t.sink("body"),
     o = t.burnt,
     l = t.o,

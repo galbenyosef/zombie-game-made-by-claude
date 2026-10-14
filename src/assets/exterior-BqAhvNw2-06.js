@@ -1,6 +1,6 @@
 // assets/exterior-BqAhvNw2 06 — astyle
 // Lines 1293-1573 of readable/assets/exterior-BqAhvNw2.pretty.js (statement-aligned).
-function Ne(t, i, a) {
+function buildCitySkyline(t, i, a) {
   const e = new b0();
   e.name = "city";
   const s = S0(i, 1),
@@ -88,7 +88,7 @@ function Ne(t, i, a) {
     (N.name = "city_tanks"),
     (u.name = "city_tanklegs"),
     e.add(p, N, u));
-  const z = Le(a.near, s);
+  const z = buildCityNearFacades(a.near, s);
   return (
     e.add(z),
     { group: e, mats: [s, l, d], meshes: { mid: x, far: n, near: z } }
@@ -99,7 +99,7 @@ function X0(t) {
   for (const a of t) i.add(a, new a0(), {});
   return i.build();
 }
-function Le(t, i) {
+function buildCityNearFacades(t, i) {
   const a = new p0({ aOrigin: 4, aDims: 4, aStyle: 4, aLight: 4 }),
     e = new a0(),
     s = new s0(),

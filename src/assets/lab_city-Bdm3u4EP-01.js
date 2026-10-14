@@ -25,7 +25,7 @@ import "./kit-CFeM0oZ2.js";
 import "./RoundedBoxGeometry-D0zz8qHa.js";
 import "./hatch-Vg74Rrkt.js";
 import "./furniture-BraVmmRV.js";
-async function ne(y) {
+async function buildCityLab(y) {
   const { game: l } = y;
   let o = null;
   const s = { on: !1, t: 0, chase: !1, look: null },

@@ -23,7 +23,7 @@ async function Io(e, { rng: a } = {}) {
   const h = { root: [468.4, 140.6], dir: [0.34, 0.94], H: 23, r: 0.62 };
   {
     const k = { kind: "plane", x: 0, z: 0, r: h.r, H: h.H },
-      O = sa(k, a, { free: !0, ivy: 0.6 }),
+      O = buildYoungTrees(k, a, { free: !0, ivy: 0.6 }),
       ht = Math.atan2(h.dir[0], h.dir[1]),
       U = new gt()
         .makeTranslation(h.root[0], h.r * 0.8, h.root[1])
@@ -59,7 +59,7 @@ async function Io(e, { rng: a } = {}) {
       (Ot.customDepthMaterial = bt.d),
       (Ot.castShadow = !0),
       i.add(Ot));
-    const Rt = we(e),
+    const Rt = buildParkStructures(e),
       Kt = vo(e, "forest_path"),
       r0 = new ga(
         new ka(
@@ -126,18 +126,18 @@ async function Io(e, { rng: a } = {}) {
     });
   }
   n("fallen");
-  const v = Xa(e, a);
+  const v = buildHedges(e, a);
   (i.add(v.group), f.push(...v.colliders), w.push(...v.circles), n("hedges"));
-  const S = ao(e, a, l, u);
+  const S = buildParkFurniture(e, a, l, u);
   (i.add(S.group),
     f.push(...S.colliders),
     w.push(...S.circles),
     n("furniture"));
-  const d = io(e, a, l, u);
+  const d = buildEvacCamp(e, a, l, u);
   (i.add(d.group), f.push(...d.colliders), w.push(...d.circles), n("camp"));
-  const y = uo(e, a, l);
+  const y = buildArmyTruck(e, a, l);
   (f.push(...y.colliders), n("cover"));
-  const m = we(e),
+  const m = buildParkStructures(e),
     F = Re("sedan", { burnt: !0, seed: 17, bonnet: 0.5 });
   (F.group.position.set(Nt.x, 0, Nt.z),
     F.group.rotation.set(0, Nt.yaw, 0.02),
@@ -362,7 +362,7 @@ async function Io(e, { rng: a } = {}) {
     ],
     W = [[h0.x, h0.z, h0.half * 1.42]];
   n("litter");
-  const D = $a(e, {
+  const D = buildParkPaths(e, {
     trees: c,
     hedges: v.hedges,
     wear: [...S.wear, ...d.wear],

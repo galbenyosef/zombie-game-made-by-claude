@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 05 — math
 // Lines 1005-1343 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-function Nn({
+function buildBirdFlocks({
   sdf: s,
   depth: o,
   waterY: t,

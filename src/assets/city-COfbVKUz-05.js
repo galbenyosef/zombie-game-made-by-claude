@@ -1,6 +1,6 @@
 // assets/city-COfbVKUz 05 — math
 // Lines 1044-1488 of readable/assets/city-COfbVKUz.pretty.js (statement-aligned).
-function Se(m, e, d = []) {
+function buildTowers(m, e, d = []) {
   const n = (o, l) => o + (l - o) * m(),
     h = (o) => o[Math.floor(m() * o.length)],
     c = we(),

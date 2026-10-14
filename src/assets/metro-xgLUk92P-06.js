@@ -1,6 +1,6 @@
 // assets/metro-xgLUk92P 06 — fillstyle
 // Lines 1358-2373 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function Ko() {
+function buildAshwoodStation() {
   const c = Ve(5310),
     a = new ne(2048, 3072, { bg: "#2a2a28" });
   (a.put("ash_name", 1024, 200, (t, e, n) => {

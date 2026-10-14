@@ -1,6 +1,6 @@
 // assets/study-C-Lxctw8 02 — add
 // Lines 343-1166 of readable/assets/study-C-Lxctw8.pretty.js (statement-aligned).
-function Co(I, L) {
+function buildDesk(I, L) {
   const u = (o, p) => I.mats.get(o, p),
     c = u("wood_walnut", {
       extra: {
@@ -506,7 +506,7 @@ function Co(I, L) {
       new N0().makeBasis(y(0, 0, 1), y(1, 0, 0), y(0, 1, 0)),
     );
   for (const o of A0) {
-    const p = Ro(I, { name: "pistol" + o.key });
+    const p = buildGunCase(I, { name: "pistol" + o.key });
     (p.position.set(o.PX, w0 + 0.0167 + Math.abs(o.tilt) * 0.03, o.PZ),
       p.quaternion.setFromAxisAngle(y(0, 0, 1), o.tilt).multiply(vo),
       i0.add(p),

@@ -1,6 +1,6 @@
 // assets/metro-xgLUk92P 19 — add
 // Lines 6355-7930 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function va(c, a) {
+function buildParkgateConcourse(c, a) {
   const { B: o, M: s, L: f, D: h, group: d, rng: l } = c,
     i = [],
     t = [],

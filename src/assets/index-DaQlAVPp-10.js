@@ -35,7 +35,7 @@ function gS(r) {
     );
   };
 }
-class _S extends Vr {
+class RoomEnvironment extends Vr {
   constructor() {
     (super(), (this.name = "RoomEnvironment"), (this.position.y = -3.5));
     const e = new Zt();
@@ -154,7 +154,7 @@ function xS(r) {
   const a = new Nh(1712691, 722693, 0.08);
   ((a.name = "hemi"), e.add(a));
   const o = new zo(t),
-    l = o.fromScene(new _S(), 0.04).texture;
+    l = o.fromScene(new RoomEnvironment(), 0.04).texture;
   return (
     (e.environment = l),
     (e.environmentIntensity = 0.045),
@@ -162,7 +162,7 @@ function xS(r) {
     { moon: n, fire: s, hemi: a, env: l }
   );
 }
-const zd = {
+const ROOM_LOADERS = {
     bedroom: () =>
       Gt(
         () => import("./bedroom-Se-_w21f.js"),

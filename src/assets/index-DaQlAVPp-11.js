@@ -1,6 +1,6 @@
 // assets/index-DaQlAVPp 11 — math
 // Lines 38322-38774 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-class yS {
+class AudioEngine {
   constructor(e) {
     ((this.game = e),
       (this.ctx = null),

@@ -1,6 +1,6 @@
 // assets/house-BEzMWI26 09 — add
 // Lines 2454-2695 of readable/assets/house-BEzMWI26.pretty.js (statement-aligned).
-function Dt(s, o, e, n) {
+function buildHouseYard(s, o, e, n) {
   const t = new l0();
   t.name = "house_yard";
   const u = n,

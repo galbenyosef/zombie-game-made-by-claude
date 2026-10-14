@@ -1,6 +1,6 @@
 // assets/bedroom-Se-_w21f 04 — math
 // Lines 562-1058 of readable/assets/bedroom-Se-_w21f.pretty.js (statement-aligned).
-function Ze(N, t, w = []) {
+function buildCandles(N, t, w = []) {
   const e = new u0();
   e.name = "candles";
   const o = new M0("candles"),

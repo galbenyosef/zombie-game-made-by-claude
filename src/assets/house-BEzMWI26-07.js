@@ -1,6 +1,6 @@
 // assets/house-BEzMWI26 07 — math
 // Lines 1939-2247 of readable/assets/house-BEzMWI26.pretty.js (statement-aligned).
-function It(s, o, { slits: e, shutK: n, doorK: t, near: u, dead: d }) {
+function buildHouseMoonlight(s, o, { slits: e, shutK: n, doorK: t, near: u, dead: d }) {
   const a = new l0();
   a.name = "house_moonlight";
   const h = new j(...lt()),

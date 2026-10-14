@@ -1,6 +1,6 @@
 // assets/index-DaQlAVPp 01 — shadowmap
 // Lines 35396-35431 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-function kM(r, { service: e = !1 } = {}) {
+function createRenderer(r, { service: e = !1 } = {}) {
   const t = new Ip({
     canvas: r,
     antialias: !1,

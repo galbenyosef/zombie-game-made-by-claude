@@ -1,6 +1,6 @@
 // assets/district-BhfbivMT 02 — replace
 // Lines 332-666 of readable/assets/district-BhfbivMT.pretty.js (statement-aligned).
-function Xo(n) {
+function buildDistrictGround(n) {
   const t = new P0();
   t.name = "terrain";
   const e = De,

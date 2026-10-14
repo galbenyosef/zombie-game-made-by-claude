@@ -1,6 +1,6 @@
 // assets/city-COfbVKUz 13 — kind
 // Lines 3732-4092 of readable/assets/city-COfbVKUz.pretty.js (statement-aligned).
-function co(m, e, d) {
+function buildCityWreckage(m, e, d) {
   const n = (w) => m.add({ exempt: !0, tier: "near", ...w }),
     h = { blds: {} };
   ((h.blds.glass = n({

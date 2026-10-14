@@ -7,11 +7,11 @@ async function La(c, { rng: a, hatch: o } = {}) {
   const f = [],
     h = [],
     d = [],
-    l = Ko();
+    l = buildAshwoodStation();
   ((l.board = ea({ cols: 24, rows: 2 })),
     l.board.set(`LINE 4    PARKGATE
 SERVICE SUSPENDED`));
-  const i = Jo(c, l);
+  const i = buildTunnelShell(c, l);
   ((i.board = st([2.6, 2.6, 2.6], {
     name: "m_board",
     base: 789e3,
@@ -26,7 +26,7 @@ SERVICE SUSPENDED`));
       map: l.signs.tex,
       rough: 0.35,
     })));
-  const t = jo(c, s),
+  const t = buildMetroLights(c, s),
     e = Pa(),
     n = (E, N, Q) => e.groundAt(E, N, Math.min(Q, -2.6)) ?? e.groundAt(E, N, Q),
     r = new na("metro", { floorAt: n }),
@@ -49,12 +49,12 @@ SERVICE SUSPENDED`));
       faceQuadLocal: (E, N, Q, K) => Rt(l.signs.rect(E), N, Q, K, "+z", 0, 0),
     };
   M.D = la(M);
-  const x = ra(M),
-    w = ca(M),
-    p = pa(M),
-    S = ka(M, u),
+  const x = buildMetroShaft(M),
+    w = buildStaffPassage(M),
+    p = buildStationWayfinding(M),
+    S = buildParkgateTunnel(M, u),
     y = Ta(M, u),
-    L = va(M);
+    L = buildParkgateConcourse(M);
   for (const E of [x, w, p, S, y, L]) h.push(...(E.colliders || []));
   const v = r.flush(s),
     C = c.camera || c.game.camera;

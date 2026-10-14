@@ -24,7 +24,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { recoverSlice, serializeMap, sourceResolver, stripHeader, stripCommentLines, rangeText } from "./engine/rename-layer.mjs";
+import { recoverSlice, serializeMap, sourceResolver, stripHeader, rangeText } from "./engine/rename-layer.mjs";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const proj = path.resolve(here, "..");
@@ -49,7 +49,12 @@ for (const sec of spec.sections) {
   }
   const range = rangeText(prettyFor, sec);
   const raw = fs.readFileSync(srcAbs, "utf8").replace(/\r\n/g, "\n");
-  const body = stripCommentLines(stripHeader(raw).split("\n")).join("\n").trimEnd();
+  // Align against the RAW committed body (header stripped): the tokenizer drops
+  // real comments on both sides by construction, while a whole-line `//` that is
+  // template/GLSL payload is one atomic literal run — stripping comment lines
+  // here (stripCommentLines) can misclassify payload and corrupt that literal,
+  // so recovery must see the same bytes tools/verify-rename.mjs compares.
+  const body = stripHeader(raw).trimEnd();
   const rec = recoverSlice(range, body);
   slices++;
   if (!rec.ok) {

@@ -1,6 +1,6 @@
 // assets/living-DeOLLwnx 12 — part
 // Lines 3338-4064 of readable/assets/living-DeOLLwnx.pretty.js (statement-aligned).
-function we(a, t, r, e) {
+function buildLivingWalls(a, t, r, e) {
   const o = new y0();
   ((o.name = "walls"), r.add(o));
   const s = [],
@@ -568,7 +568,7 @@ function we(a, t, r, e) {
   }
   (S(Jt(e), 640, 480, [g0.west, 2.08, 16.5], e0 / 2, 0.98, 0.74, {}),
     S(Bt(e, !0), 640, 440, [6, 1.66, g0.south], e0, 0.84, 0.58, { tilt: 0.12 }),
-    (l.clock = ve(a, o, t, e, [g0.west + 0.06, 0, 19.3])),
+    (l.clock = buildGrandfatherClock(a, o, t, e, [g0.west + 0.06, 0, 19.3])),
     n.push(l.clock.anim),
     s.push({
       x0: 0,

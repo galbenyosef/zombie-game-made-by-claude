@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 10 — math
 // Lines 2205-2869 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-function qn(s, o, t) {
+function buildGardenFlora(s, o, t) {
   const u = new Kt();
   u.name = "flora";
   const e = {
@@ -9,7 +9,7 @@ function qn(s, o, t) {
       uSunDirF: { value: new dt(-0.83, 0.27, 0.49).normalize() },
       uSunColF: { value: new Xt(1, 0.75, 0.45) },
     },
-    r = Kn(),
+    r = bakeGardenSigns(),
     a = Un(r, e),
     p = At("garden_bark"),
     i = At("ruin_char"),

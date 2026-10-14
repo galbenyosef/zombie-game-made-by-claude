@@ -1,6 +1,6 @@
 // assets/index-BcIwWgby 02 — push
 // Lines 181-502 of readable/assets/index-BcIwWgby.pretty.js (statement-aligned).
-function kn(s, o) {
+function buildRuinWalls(s, o) {
   const t = new Kt();
   t.name = "walls";
   const u = [],

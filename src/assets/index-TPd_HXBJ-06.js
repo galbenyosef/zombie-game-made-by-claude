@@ -1,6 +1,6 @@
 // assets/index-TPd_HXBJ 06 — fillstyle
 // Lines 1623-1965 of readable/assets/index-TPd_HXBJ.pretty.js (statement-aligned).
-function Bn(t, e) {
+function bakePosters(t, e) {
   const o = (n) => [(n % 4) * 512, 256 + Math.floor(n / 4) * 192, 512, 192];
   {
     const [n, a, l, r] = o(0),

@@ -1,6 +1,6 @@
 // assets/house-BEzMWI26 03 — math
 // Lines 546-937 of readable/assets/house-BEzMWI26.pretty.js (statement-aligned).
-function De(s, o, e, n, t, u) {
+function buildHouseDoor(s, o, e, n, t, u) {
   const d = e.wall === "N",
     a = d ? n0.z0 : n0.z1,
     h = d ? X.z0 : X.z1,

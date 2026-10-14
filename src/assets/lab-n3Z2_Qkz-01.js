@@ -56,7 +56,7 @@ function ce(i, s) {
     Math.atan2(x, Math.hypot(e, a)) / B,
   ];
 }
-async function Te(i) {
+async function buildTrainLab(i) {
   const { game: s } = i;
   await i.mats.ensure([
     "train_moquette",
@@ -191,7 +191,7 @@ async function Te(i) {
       onView: (t, w) => K(w),
     }),
     h = c.group,
-    y = ve(i, h),
+    y = buildTrainLabSet(i, h),
     o = me(i, { rng: i.rng(5303) });
   h.add(o.root);
   const u = [];

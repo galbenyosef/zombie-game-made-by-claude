@@ -27,7 +27,7 @@ function $o(n, t) {
     },
     m = (R, I) => {
       const G = new mn({
-          map: re().card.map,
+          map: bakeSignTextures().card.map,
           color: new Mt(...I),
           transparent: !0,
           depthWrite: !1,
@@ -1614,10 +1614,10 @@ function $o(n, t) {
     ])
       I(oo(), A, H, 0);
     if (R.length) {
-      const A = new l0(_0(R), re().card);
+      const A = new l0(_0(R), bakeSignTextures().card);
       ((A.name = "machine_light"), (A.renderOrder = 3), o.add(A));
     }
-    const F = re().glow;
+    const F = bakeSignTextures().glow;
     a.push((A, H) => {
       const g = Math.sin(H * 0.83) * Math.sin(H * 13.1);
       F.emissiveIntensity = g > 0.9 ? 0.15 : 0.55 + 0.05 * Math.sin(H * 50);

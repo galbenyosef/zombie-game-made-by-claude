@@ -20,7 +20,7 @@ function Wa(e) {
     t = Math.floor(e / 4);
   return [a / 4, 1 - (t + 1) / 2, (a + 1) / 4, 1 - t / 2];
 }
-function Ya() {
+function buildParkGround() {
   return ye(2048, 1024, (e) => {
     e.clearRect(0, 0, 2048, 1024);
     let a = 7741;

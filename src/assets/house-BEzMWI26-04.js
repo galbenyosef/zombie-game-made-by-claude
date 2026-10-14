@@ -1,8 +1,8 @@
 // assets/house-BEzMWI26 04 — math
 // Lines 938-1260 of readable/assets/house-BEzMWI26.pretty.js (statement-aligned).
 function xt(s, o, e) {
-  const n = De(s, o, T0.door, "frontDoor", { open: "house_door_creak" }, e),
-    t = De(s, o, T0.back, "backDoor", { open: "house_door_creak_back" }, e);
+  const n = buildHouseDoor(s, o, T0.door, "frontDoor", { open: "house_door_creak" }, e),
+    t = buildHouseDoor(s, o, T0.back, "backDoor", { open: "house_door_creak_back" }, e);
   return {
     front: n,
     back: t,
@@ -68,7 +68,7 @@ function Oe(s, o, e) {
   }
   return n.filter(([t, u]) => u - t > 0.03);
 }
-function he(s, o, e, n) {
+function buildHouseShutters(s, o, e, n) {
   const t = T0[n],
     u = it[n],
     d = Ve(n),
@@ -307,9 +307,9 @@ function he(s, o, e, n) {
 }
 function zt(s, o, e) {
   const n = {
-      W1: he(s, o, e, "W1"),
-      W2: he(s, o, e, "W2"),
-      W3: he(s, o, e, "W3"),
+      W1: buildHouseShutters(s, o, e, "W1"),
+      W2: buildHouseShutters(s, o, e, "W2"),
+      W3: buildHouseShutters(s, o, e, "W3"),
     },
     t = ["W1", "W2", "W3"];
   return {

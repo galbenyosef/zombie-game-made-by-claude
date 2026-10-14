@@ -1,6 +1,6 @@
 // assets/gameplay-DnQwS-TC 11 — pos
 // Lines 3944-5325 of readable/assets/gameplay-DnQwS-TC.pretty.js (statement-aligned).
-function wi(o) {
+function runStoryScript(o) {
   const t = o,
     i = o.player,
     e = () => o.npc,

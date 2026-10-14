@@ -1,6 +1,6 @@
 // assets/gameplay-DnQwS-TC 05 — pos
 // Lines 1223-1881 of readable/assets/gameplay-DnQwS-TC.pretty.js (statement-aligned).
-class ei {
+class ZombieAnimator {
   constructor(t, i, e, s, l, n) {
     ((this.mgr = t),
       (this.game = t.game),

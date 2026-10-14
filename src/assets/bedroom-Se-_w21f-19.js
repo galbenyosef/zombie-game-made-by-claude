@@ -9,19 +9,19 @@ function re(N, t, w, e) {
     z = new Ft().setFromUnitVectors(new w0(0, 1, 0), i);
   return (h.applyQuaternion(z), h.translate(o.x, o.y, o.z), h);
 }
-async function Je(N) {
+async function buildBedroom(N) {
   const t = new u0();
   ((t.name = "bedroom"), N.scene.add(t));
-  const w = await Ee(N),
+  const w = await loadBedroomMaterials(N),
     e = { ...N, scene: t },
     o = Ie(e, w),
-    M = Ze(e, w),
-    s = Be(e, w),
-    h = Ge(e, w),
-    i = De(e, w),
-    z = Fe(e, w),
-    D = We(e, w),
-    C = Oe(e, w),
+    M = buildCandles(e, w),
+    s = buildNightstand(e, w),
+    h = buildWindowDressing(e, w),
+    i = buildPiano(e, w),
+    z = buildWardrobe(e, w),
+    D = buildDolls(e, w),
+    C = buildDresser(e, w),
     V = await je(e, w, { candles: M.api }),
     A = [
       ...o.colliders,

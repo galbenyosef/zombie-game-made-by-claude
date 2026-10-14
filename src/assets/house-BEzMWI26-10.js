@@ -1,12 +1,12 @@
 // assets/house-BEzMWI26 10 — api
 // Lines 2696-2942 of readable/assets/house-BEzMWI26.pretty.js (statement-aligned).
-function Rt(s, { rng: o }) {
+function buildDreamRuins(s, { rng: o }) {
   let e = "dream";
   const n = new l0();
   n.name = "house";
   const t = new l0();
   ((t.name = "house_body"), (t.visible = !1), n.add(t));
-  const u = bt(s),
+  const u = buildHouseSurfaces(s),
     d = [],
     a = [],
     h = new dt("house"),
@@ -26,14 +26,14 @@ function Rt(s, { rng: o }) {
         x.z < S0.z1 + 10
       );
     },
-    M = _t(s, u, n, { near: w, S: h });
+    M = buildHouseLamp(s, u, n, { near: w, S: h });
   (t.add(M.group),
     d.push(M.anim),
     d.push(() => {
       u.glass.emissiveIntensity *=
         1 - 0.28 * (g.closeK("W1") + g.closeK("W2") + g.closeK("W3"));
     }));
-  const p = It(s, n, {
+  const p = buildHouseMoonlight(s, n, {
     slits: g.slits,
     shutK: g.closeK,
     near: w,
@@ -52,7 +52,7 @@ function Rt(s, { rng: o }) {
   (t.add(C.points), d.push(C.anim));
   const A = ht(s, u, o, h);
   (t.add(A.group), a.push(...A.colliders));
-  const L = Dt(s, u, o, h);
+  const L = buildHouseYard(s, u, o, h);
   (t.add(L.group), a.push(...L.colliders));
   {
     const x = T0.W3,

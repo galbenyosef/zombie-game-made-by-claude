@@ -1,6 +1,6 @@
 // assets/park-CwBfNU5l 07 — math
 // Lines 1917-2224 of readable/assets/park-CwBfNU5l.pretty.js (statement-aligned).
-function qa({
+function buildFountain({
   trees: e = [],
   hedges: a = [],
   wear: t = [],

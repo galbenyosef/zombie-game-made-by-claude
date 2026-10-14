@@ -1,6 +1,6 @@
 // assets/study-C-Lxctw8 09 — shadow
 // Lines 2589-2729 of readable/assets/study-C-Lxctw8.pretty.js (statement-aligned).
-async function Oo(I) {
+async function buildStudy(I) {
   const { game: L, shell: u } = I,
     c = (m, r) => I.mats.get(m, r),
     b = new c0();
@@ -8,10 +8,10 @@ async function Oo(I) {
   const e = I.rng(777),
     a = [],
     n = [],
-    t = Co(I, b),
-    h = Xo(I, b),
-    s = Vo(I, b),
-    M = Wo(I, b);
+    t = buildDesk(I, b),
+    h = buildStudySeating(I, b),
+    s = buildBookcases(I, b),
+    M = buildDeerHead(I, b);
   a.push(t.collider, ...h.colliders, ...s.colliders, ...M.colliders);
   {
     const m = new n0("studyRug"),

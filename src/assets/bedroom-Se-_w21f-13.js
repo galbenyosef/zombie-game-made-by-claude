@@ -36,7 +36,7 @@ const Ve = { x0: 0.18, x1: 1.1, y: 1.46, z1: 0.2 },
       trim: "dressIvory",
     },
   ];
-function We(N, t) {
+function buildDolls(N, t) {
   const w = new u0();
   w.name = "dolls";
   const e = new M0("dolls"),
@@ -82,14 +82,14 @@ function We(N, t) {
   for (let m = 0; m < 4; m++) {
     const S = s + 0.12 + m * 0.22,
       u = Math.atan2(1.05 - S, 2.4 - 0.1),
-      c = oe(e, t, ae[m], o, M, m);
+      c = buildDollHeads(e, t, ae[m], o, M, m);
     (c.body.position.set(S, i, 0.085),
       (c.body.rotation.y = u),
       w.add(c.body),
       D.push(c));
   }
   {
-    const m = oe(
+    const m = buildDollHeads(
       e,
       t,
       {

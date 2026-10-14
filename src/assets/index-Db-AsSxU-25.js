@@ -1,6 +1,6 @@
 // assets/index-Db-AsSxU 25 — dyaw
 // Lines 10633-10925 of readable/assets/index-Db-AsSxU.pretty.js (statement-aligned).
-const Zo = {
+const PRIEST_TAKEN = {
     dur: 2.6,
     events: [
       [1.1, "thud"],

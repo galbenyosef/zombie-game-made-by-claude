@@ -1,6 +1,6 @@
 // assets/index-DaQlAVPp 03 — math
 // Lines 35846-36260 of readable/assets/index-DaQlAVPp.pretty.js (statement-aligned).
-class JM {
+class PostFX {
   constructor(e, t = {}) {
     ((this.renderer = e),
       (this.samples = t.samples ?? 4),

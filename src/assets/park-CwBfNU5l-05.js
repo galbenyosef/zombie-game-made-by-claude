@@ -154,7 +154,7 @@ uniform float uPT;`,
 let Pe = null;
 function We() {
   if (!Pe) {
-    const e = Ya();
+    const e = buildParkGround();
     Pe = { atlas: e, ...Da(e, "cards") };
   }
   return Pe;
@@ -178,7 +178,7 @@ function Oa(e, a, t) {
           : M.setRGB(0.6 * h, 0.58 * h, 0.56 * h);
     };
   for (const c of a) {
-    const M = sa(c, t),
+    const M = buildYoungTrees(c, t),
       h = ee(c.x, c.z);
     let v = s.get(h);
     (v || s.set(h, (v = { plane: [], oak: [], cards: [] })),

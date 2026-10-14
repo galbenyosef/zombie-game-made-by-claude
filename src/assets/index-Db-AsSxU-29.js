@@ -1,10 +1,10 @@
 // assets/index-Db-AsSxU 29 — copy
 // Lines 11875-12127 of readable/assets/index-Db-AsSxU.pretty.js (statement-aligned).
-function In(e, o = {}) {
+function createZombie(e, o = {}) {
   const n = e.game || e,
     c = o.kind || "lanky",
     t = o.seed ?? 1,
-    s = T1(c),
+    s = getKit(c),
     i = performance.now(),
     r = s.def,
     l = new w1();

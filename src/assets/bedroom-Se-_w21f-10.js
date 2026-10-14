@@ -1,6 +1,6 @@
 // assets/bedroom-Se-_w21f 10 — add
 // Lines 2273-2639 of readable/assets/bedroom-Se-_w21f.pretty.js (statement-aligned).
-function De(N, t) {
+function buildPiano(N, t) {
   const w = new u0();
   w.name = "piano";
   const e = new M0("piano"),

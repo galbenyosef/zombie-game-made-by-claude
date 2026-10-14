@@ -5,7 +5,7 @@ const co = {
   van: { x: 437.4, z: 170.8, yaw: -0.75 },
   taxi: { x: 444.4, z: 161.3, yaw: -2.33 },
 };
-function uo(e, a, t) {
+function buildArmyTruck(e, a, t) {
   const r = [],
     o = [],
     n = {},

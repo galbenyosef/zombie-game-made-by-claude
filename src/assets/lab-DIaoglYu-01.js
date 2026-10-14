@@ -1,9 +1,9 @@
 // assets/lab-DIaoglYu 01 — createzombie
 // Lines 1-23 of readable/assets/lab-DIaoglYu.pretty.js (statement-aligned).
 import {
-  getKit as lt,
-  KINDS as ct,
-  createZombie as tt,
+  getKit as getKit,
+  KINDS as KINDS,
+  createZombie as createZombie,
 } from "./index-Db-AsSxU.js";
 import {
   G as pt,

@@ -1,7 +1,7 @@
 // assets/nav-DkEG8EU- 01 — math
 // Lines 1-309 of readable/assets/nav-DkEG8EU-.pretty.js (statement-aligned).
 import { W as j, R as O } from "./index-DaQlAVPp.js";
-class I {
+class NavigationGrid {
   constructor(s, e = 0.3, h = null) {
     ((this.world = s), (this.radius = e), (this.plan = h));
     const i = h || { x0: -0.6, x1: 13, z0: -0.6, z1: 21.2, cell: 0.15 };
@@ -265,7 +265,7 @@ class I {
     return q;
   }
 }
-function B(R, s, e, h = 0, i = null) {
+function resolveCollisions(R, s, e, h = 0, i = null) {
   let c = !1;
   for (let n = 0; n < 3; n++) {
     let d = !1;

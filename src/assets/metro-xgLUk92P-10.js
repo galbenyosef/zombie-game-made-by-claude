@@ -1,6 +1,6 @@
 // assets/metro-xgLUk92P 10 — add
 // Lines 3383-3747 of readable/assets/metro-xgLUk92P.pretty.js (statement-aligned).
-function ca(c) {
+function buildStaffPassage(c) {
   const { B: a, M: o, L: s, D: f, group: h } = c,
     d = dt,
     l = "pass",

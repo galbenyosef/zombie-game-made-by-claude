@@ -1,6 +1,6 @@
 // assets/district-BhfbivMT 07 — fillstyle
 // Lines 1833-2123 of readable/assets/district-BhfbivMT.pretty.js (statement-aligned).
-function co() {
+function buildBusStop() {
   const n = zt(1024, 1024),
     t = n.getContext("2d"),
     e = zt(1024, 1024),
