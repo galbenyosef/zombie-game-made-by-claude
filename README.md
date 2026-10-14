@@ -165,6 +165,12 @@ into `legacy/<date>/` first, so nothing is lost.
 
 ### 2026-10-13 derivation
 
+> **Superseded in part 2026-10-14** by the structure pass + rename campaign
+> below: `readable/` and `src/` were re-rooted onto the served paths
+> (`readable/assets/…`, `src/assets/…` — the flat `assets__*` names are gone)
+> and the identifier rename task recorded here as open is closed. The counts
+> and gate tails below are the first-cut (2026-10-13) record, kept as such.
+
 Both derived layers were cut from the recorded capture (capture bytes
 untouched — `tools/verify.mjs` re-hashes all 910 files; `tools/audit.js` gates
 the derived trees):
