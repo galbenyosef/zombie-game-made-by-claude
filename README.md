@@ -96,6 +96,8 @@ that site chrome is not the game).
 - `tools/verify.mjs` — re-hash the capture against the manifest
 - `tools/audit.js` — integrity gate for the derived layers and the rename map
   (`AUDIT PASS`)
+- `tools/check-exports.mjs` — the fleet's shared public-export-name gate for
+  the derived layer
 - `tools/apply-names.mjs` — apply the reviewed renames (`tools/names.json`) to
   one chunk or all
 - `tools/recover-scoped-map.mjs` — record the achieved map into `rename-map.json`
@@ -136,6 +138,7 @@ node tools/verify.mjs                 # re-hash the capture against the manifest
 node tools/audit.js                   # derived-layer + rename-map gate (AUDIT PASS)
 node tools/verify-rename.mjs --all    # per-slice reproduction + references/bindings
 node tools/check-chunk.mjs --all      # cross-slice calls resolve after renames
+node tools/check-exports.mjs          # the derived layer still exports every public name
 ```
 
 The rename gates need acorn (authoring-time only): it installs into the
