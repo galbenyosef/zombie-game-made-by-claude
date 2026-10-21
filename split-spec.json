@@ -1065,12 +1065,13 @@
       "file": "assets/index-DaQlAVPp-tail-export.js",
       "skipped": true,
       "title": "assets/index-DaQlAVPp — final export table (not sliced)",
-      "desc": "Lines 39648-39759. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 39648-39759. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/index-DaQlAVPp.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 39648,
       "endLine": 39759,
       "sourceFile": "readable/assets/index-DaQlAVPp.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{qs as $,Pc as A,Je as B,ye as C,Em as D,rn as E,ns as F,ni as G,sn as H,Pe as I,yl as J,_h as K,Ai as L,ss as M,Cn as N,lt as O,Oh as P,Pt as Q,Go as R,mh as S,qc as T,pn as U,P as V,Ya as W,Nt as X,mt as Y,xh as Z,Gt as _,Rf as a,ml as a0,hl as a1,Rh as a2,om as a3,Ph as a4,Xr as a5,pl as a6,bh as a7,gl as a8,j as a9,$t as aA,Pn as aB,tt as aC,l0 as aD,dl as aE,$o as aF,en as aG,nn as aH,zo as aI,bt as aJ,ph as aK,fh as aL,$c as aM,Za as aN,$a as aO,Wh as aP,mp as aQ,ol as aR,If as aS,aS as aT,Lr as aa,Sl as ab,Lc as ac,lp as ad,Vn as ae,Ml as af,xl as ag,Zt as ah,$e as ai,_l as aj,Op as ak,ji as al,Wt as am,Vs as an,fp as ao,Bd as ap,ko as aq,Nh as ar,zr as as,Np as at,Jf as au,ve as av,Rn as aw,xi as ax,Ei as ay,dn as az,Hr as b,rt as c,rs as d,Kt as e,j0 as f,Ht as g,ot as h,mn as i,Ji as j,Uf as k,Wr as l,En as m,cp as n,Ve as o,Ci as p,ul as q,fS as r,Zc as s,CS as t,Jc as u,Ft as v,Xt as w,ut as x,Vr as y,Ut as z};"
     },
     {
       "file": "assets/akane_lab-C9tKDZYg-01.js",
@@ -1084,12 +1085,13 @@
       "file": "assets/akane_lab-C9tKDZYg-tail-export.js",
       "skipped": true,
       "title": "assets/akane_lab-C9tKDZYg — final export table (not sliced)",
-      "desc": "Lines 141-141. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 141-141. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/akane_lab-C9tKDZYg.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 141,
       "endLine": 141,
       "sourceFile": "readable/assets/akane_lab-C9tKDZYg.pretty.js",
       "firstLine": "export { F as build };",
-      "lastLine": "export { F as build };"
+      "lastLine": "export { F as build };",
+      "text": "export{F as build};"
     },
     {
       "file": "assets/akane-CN21eJhw-01.js",
@@ -1279,12 +1281,13 @@
       "file": "assets/akane-CN21eJhw-tail-export.js",
       "skipped": true,
       "title": "assets/akane-CN21eJhw — final export table (not sliced)",
-      "desc": "Lines 7980-7980. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 7980-7980. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/akane-CN21eJhw.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 7980,
       "endLine": 7980,
       "sourceFile": "readable/assets/akane-CN21eJhw.pretty.js",
       "firstLine": "export { rn as G, tn as a, ln as b, cn as c, mn as d, $o as h };",
-      "lastLine": "export { rn as G, tn as a, ln as b, cn as c, mn as d, $o as h };"
+      "lastLine": "export { rn as G, tn as a, ln as b, cn as c, mn as d, $o as h };",
+      "text": "export{rn as G,tn as a,ln as b,cn as c,mn as d,$o as h};"
     },
     {
       "file": "assets/anim-B86X8yU9-01.js",
@@ -1346,12 +1349,13 @@
       "file": "assets/anim-B86X8yU9-tail-export.js",
       "skipped": true,
       "title": "assets/anim-B86X8yU9 — final export table (not sliced)",
-      "desc": "Lines 2541-2551. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 2541-2551. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/anim-B86X8yU9.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 2541,
       "endLine": 2551,
       "sourceFile": "readable/assets/anim-B86X8yU9.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{Et as A,F as B,S as N,G as S,Y as W,Tt as a,d as b,Vt as c,ut as d};"
     },
     {
       "file": "assets/bedroom-Se-_w21f-01.js",
@@ -1517,12 +1521,13 @@
       "file": "assets/bedroom-Se-_w21f-tail-export.js",
       "skipped": true,
       "title": "assets/bedroom-Se-_w21f — final export table (not sliced)",
-      "desc": "Lines 5236-5236. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 5236-5236. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/bedroom-Se-_w21f.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 5236,
       "endLine": 5236,
       "sourceFile": "readable/assets/bedroom-Se-_w21f.pretty.js",
       "firstLine": "export { Je as build };",
-      "lastLine": "export { Je as build };"
+      "lastLine": "export { Je as build };",
+      "text": "export{Je as build};"
     },
     {
       "file": "assets/bot-D6vJ5k-G-01.js",
@@ -1544,12 +1549,13 @@
       "file": "assets/bot-D6vJ5k-G-tail-export.js",
       "skipped": true,
       "title": "assets/bot-D6vJ5k-G — final export table (not sliced)",
-      "desc": "Lines 375-375. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 375-375. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/bot-D6vJ5k-G.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 375,
       "endLine": 375,
       "sourceFile": "readable/assets/bot-D6vJ5k-G.pretty.js",
       "firstLine": "export { _ as createBot };",
-      "lastLine": "export { _ as createBot };"
+      "lastLine": "export { _ as createBot };",
+      "text": "export{_ as createBot};"
     },
     {
       "file": "assets/BufferGeometryUtils-Qxvmd-vM-vendor.js",
@@ -1765,12 +1771,13 @@
       "file": "assets/city-COfbVKUz-tail-export.js",
       "skipped": true,
       "title": "assets/city-COfbVKUz — final export table (not sliced)",
-      "desc": "Lines 8043-8043. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 8043-8043. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/city-COfbVKUz.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 8043,
       "endLine": 8043,
       "sourceFile": "readable/assets/city-COfbVKUz.pretty.js",
       "firstLine": "export { $o as L, Xo as a, Jo as b, Yt as h };",
-      "lastLine": "export { $o as L, Xo as a, Jo as b, Yt as h };"
+      "lastLine": "export { $o as L, Xo as a, Jo as b, Yt as h };",
+      "text": "export{$o as L,Xo as a,Jo as b,Yt as h};"
     },
     {
       "file": "assets/common-BYwPbecq-01.js",
@@ -1784,12 +1791,13 @@
       "file": "assets/common-BYwPbecq-tail-export.js",
       "skipped": true,
       "title": "assets/common-BYwPbecq — final export table (not sliced)",
-      "desc": "Lines 280-280. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 280-280. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/common-BYwPbecq.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 280,
       "endLine": 280,
       "sourceFile": "readable/assets/common-BYwPbecq.pretty.js",
       "firstLine": "export { B as A, D as F, N as V, P as c, E as f, U as k, T as m, O as t };",
-      "lastLine": "export { B as A, D as F, N as V, P as c, E as f, U as k, T as m, O as t };"
+      "lastLine": "export { B as A, D as F, N as V, P as c, E as f, U as k, T as m, O as t };",
+      "text": "export{B as A,D as F,N as V,P as c,E as f,U as k,T as m,O as t};"
     },
     {
       "file": "assets/district-BhfbivMT-01.js",
@@ -1979,12 +1987,13 @@
       "file": "assets/district-BhfbivMT-tail-export.js",
       "skipped": true,
       "title": "assets/district-BhfbivMT — final export table (not sliced)",
-      "desc": "Lines 9229-9258. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 9229-9258. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/district-BhfbivMT.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 9229,
       "endLine": 9258,
       "sourceFile": "readable/assets/district-BhfbivMT.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{Oo as B,bt as C,mt as G,Ke as H,Lo as N,qo as P,Vo as S,dt as W,De as a,No as b,sn as c,Xn as d,Ft as e,$o as f,Un as g,Do as h,Zn as i,pn as j,Qe as k,Xo as l,_0 as m,Gt as n,ot as o,Rt as p,Ct as q,fn as s,Uo as u,On as z};"
     },
     {
       "file": "assets/exterior-BqAhvNw2-01.js",
@@ -2110,12 +2119,13 @@
       "file": "assets/exterior-BqAhvNw2-tail-export.js",
       "skipped": true,
       "title": "assets/exterior-BqAhvNw2 — final export table (not sliced)",
-      "desc": "Lines 3797-3797. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 3797-3797. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/exterior-BqAhvNw2.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 3797,
       "endLine": 3797,
       "sourceFile": "readable/assets/exterior-BqAhvNw2.pretty.js",
       "firstLine": "export { vt as build };",
-      "lastLine": "export { vt as build };"
+      "lastLine": "export { vt as build };",
+      "text": "export{vt as build};"
     },
     {
       "file": "assets/frames-D6Ub_iDK-01.js",
@@ -2145,12 +2155,13 @@
       "file": "assets/frames-D6Ub_iDK-tail-export.js",
       "skipped": true,
       "title": "assets/frames-D6Ub_iDK — final export table (not sliced)",
-      "desc": "Lines 922-943. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 922-943. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/frames-D6Ub_iDK.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 922,
       "endLine": 943,
       "sourceFile": "readable/assets/frames-D6Ub_iDK.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{yt as A,J as B,Xt as F,Vt as S,z as V,_t as a,kt as b,Pt as c,Ot as d,At as e,Yt as f,Rt as g,tt as h,$ as i,Ft as j,Wt as l,T as m,vt as r,Bt as s,Nt as t};"
     },
     {
       "file": "assets/furniture-BraVmmRV-01.js",
@@ -2228,12 +2239,13 @@
       "file": "assets/furniture-BraVmmRV-tail-export.js",
       "skipped": true,
       "title": "assets/furniture-BraVmmRV — final export table (not sliced)",
-      "desc": "Lines 3691-3717. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 3691-3717. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/furniture-BraVmmRV.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 3691,
       "endLine": 3717,
       "sourceFile": "readable/assets/furniture-BraVmmRV.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{oo as B,ot as F,Ft as H,K as I,bt as O,l0 as P,S0 as R,mo as S,so as T,q as W,Q as a,$ as b,O as c,j0 as d,wo as e,ko as f,Dt as g,Mo as h,xt as i,N0 as j,z0 as l,zo as m,U0 as p,po as s,T as v};"
     },
     {
       "file": "assets/gameplay-DnQwS-TC-01.js",
@@ -2351,12 +2363,13 @@
       "file": "assets/gameplay-DnQwS-TC-tail-export.js",
       "skipped": true,
       "title": "assets/gameplay-DnQwS-TC — final export table (not sliced)",
-      "desc": "Lines 6174-6174. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 6174-6174. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/gameplay-DnQwS-TC.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 6174,
       "endLine": 6174,
       "sourceFile": "readable/assets/gameplay-DnQwS-TC.pretty.js",
       "firstLine": "export { Li as installGameplay };",
-      "lastLine": "export { Li as installGameplay };"
+      "lastLine": "export { Li as installGameplay };",
+      "text": "export{Li as installGameplay};"
     },
     {
       "file": "assets/hall-C7P9MLkg-01.js",
@@ -2402,12 +2415,13 @@
       "file": "assets/hall-C7P9MLkg-tail-export.js",
       "skipped": true,
       "title": "assets/hall-C7P9MLkg — final export table (not sliced)",
-      "desc": "Lines 1738-1738. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 1738-1738. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/hall-C7P9MLkg.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 1738,
       "endLine": 1738,
       "sourceFile": "readable/assets/hall-C7P9MLkg.pretty.js",
       "firstLine": "export { xt as build };",
-      "lastLine": "export { xt as build };"
+      "lastLine": "export { xt as build };",
+      "text": "export{xt as build};"
     },
     {
       "file": "assets/hatch-Vg74Rrkt-01.js",
@@ -2421,12 +2435,13 @@
       "file": "assets/hatch-Vg74Rrkt-tail-export.js",
       "skipped": true,
       "title": "assets/hatch-Vg74Rrkt — final export table (not sliced)",
-      "desc": "Lines 187-187. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 187-187. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/hatch-Vg74Rrkt.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 187,
       "endLine": 187,
       "sourceFile": "readable/assets/hatch-Vg74Rrkt.pretty.js",
       "firstLine": "export { et as H, rt as b };",
-      "lastLine": "export { et as H, rt as b };"
+      "lastLine": "export { et as H, rt as b };",
+      "text": "export{et as H,rt as b};"
     },
     {
       "file": "assets/house-BEzMWI26-01.js",
@@ -2512,12 +2527,13 @@
       "file": "assets/house-BEzMWI26-tail-export.js",
       "skipped": true,
       "title": "assets/house-BEzMWI26 — final export table (not sliced)",
-      "desc": "Lines 2943-2943. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 2943-2943. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/house-BEzMWI26.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 2943,
       "endLine": 2943,
       "sourceFile": "readable/assets/house-BEzMWI26.pretty.js",
       "firstLine": "export { ve as F, Rt as a, Ut as b };",
-      "lastLine": "export { ve as F, Rt as a, Ut as b };"
+      "lastLine": "export { ve as F, Rt as a, Ut as b };",
+      "text": "export{ve as F,Rt as a,Ut as b};"
     },
     {
       "file": "assets/index-BcIwWgby-01.js",
@@ -3043,12 +3059,13 @@
       "file": "assets/index-BcIwWgby-tail-export.js",
       "skipped": true,
       "title": "assets/index-BcIwWgby — final export table (not sliced)",
-      "desc": "Lines 21179-21179. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 21179-21179. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/index-BcIwWgby.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 21179,
       "endLine": 21179,
       "sourceFile": "readable/assets/index-BcIwWgby.pretty.js",
       "firstLine": "export { pi as build };",
-      "lastLine": "export { pi as build };"
+      "lastLine": "export { pi as build };",
+      "text": "export{pi as build};"
     },
     {
       "file": "assets/index-Db-AsSxU-01.js",
@@ -3286,12 +3303,13 @@
       "file": "assets/index-Db-AsSxU-tail-export.js",
       "skipped": true,
       "title": "assets/index-Db-AsSxU — final export table (not sliced)",
-      "desc": "Lines 12128-12136. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 12128-12136. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/index-Db-AsSxU.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 12128,
       "endLine": 12136,
       "sourceFile": "readable/assets/index-Db-AsSxU.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{ht as KINDS,Zo as PRIEST_TAKEN,Hn as STATES,In as createZombie,En as disposeKits,T1 as getKit,Fn as prebuildZombies};"
     },
     {
       "file": "assets/index-DQDjAbEY-01.js",
@@ -3497,12 +3515,13 @@
       "file": "assets/index-DQDjAbEY-tail-export.js",
       "skipped": true,
       "title": "assets/index-DQDjAbEY — final export table (not sliced)",
-      "desc": "Lines 7780-7780. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 7780-7780. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/index-DQDjAbEY.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 7780,
       "endLine": 7780,
       "sourceFile": "readable/assets/index-DQDjAbEY.pretty.js",
       "firstLine": "export { Fn as c };",
-      "lastLine": "export { Fn as c };"
+      "lastLine": "export { Fn as c };",
+      "text": "export{Fn as c};"
     },
     {
       "file": "assets/index-TPd_HXBJ-01.js",
@@ -3652,12 +3671,13 @@
       "file": "assets/index-TPd_HXBJ-tail-export.js",
       "skipped": true,
       "title": "assets/index-TPd_HXBJ — final export table (not sliced)",
-      "desc": "Lines 6210-6210. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 6210-6210. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/index-TPd_HXBJ.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 6210,
       "endLine": 6210,
       "sourceFile": "readable/assets/index-TPd_HXBJ.pretty.js",
       "firstLine": "export { Da as c };",
-      "lastLine": "export { Da as c };"
+      "lastLine": "export { Da as c };",
+      "text": "export{Da as c};"
     },
     {
       "file": "assets/index-U-kV3K8W-01.js",
@@ -3671,12 +3691,13 @@
       "file": "assets/index-U-kV3K8W-tail-export.js",
       "skipped": true,
       "title": "assets/index-U-kV3K8W — final export table (not sliced)",
-      "desc": "Lines 335-335. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 335-335. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/index-U-kV3K8W.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 335,
       "endLine": 335,
       "sourceFile": "readable/assets/index-U-kV3K8W.pretty.js",
       "firstLine": "export { Fo as build };",
-      "lastLine": "export { Fo as build };"
+      "lastLine": "export { Fo as build };",
+      "text": "export{Fo as build};"
     },
     {
       "file": "assets/kit-CFeM0oZ2-01.js",
@@ -3698,12 +3719,13 @@
       "file": "assets/kit-CFeM0oZ2-tail-export.js",
       "skipped": true,
       "title": "assets/kit-CFeM0oZ2 — final export table (not sliced)",
-      "desc": "Lines 546-566. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 546-566. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/kit-CFeM0oZ2.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 546,
       "endLine": 566,
       "sourceFile": "readable/assets/kit-CFeM0oZ2.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{Ut as B,ut as M,Ft as a,Pt as b,qt as c,Gt as d,nt as e,It as f,rt as g,lt as h,Ct as i,St as l,jt as m,Yt as p,Zt as r,Nt as s,kt as t,Et as v,Vt as x};"
     },
     {
       "file": "assets/kit-CwMQzO5T-01.js",
@@ -3725,12 +3747,13 @@
       "file": "assets/kit-CwMQzO5T-tail-export.js",
       "skipped": true,
       "title": "assets/kit-CwMQzO5T — final export table (not sliced)",
-      "desc": "Lines 502-522. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 502-522. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/kit-CwMQzO5T.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 502,
       "endLine": 522,
       "sourceFile": "readable/assets/kit-CwMQzO5T.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{ht as S,ft as T,z as V,mt as a,pt as b,it as c,bt as d,Mt as e,dt as f,gt as g,et as h,zt as i,lt as j,xt as l,at as m,At as p,yt as r,wt as s,rt as t};"
     },
     {
       "file": "assets/lab_city-Bdm3u4EP-01.js",
@@ -3744,12 +3767,13 @@
       "file": "assets/lab_city-Bdm3u4EP-tail-export.js",
       "skipped": true,
       "title": "assets/lab_city-Bdm3u4EP — final export table (not sliced)",
-      "desc": "Lines 223-223. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 223-223. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/lab_city-Bdm3u4EP.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 223,
       "endLine": 223,
       "sourceFile": "readable/assets/lab_city-Bdm3u4EP.pretty.js",
       "firstLine": "export { ne as build };",
-      "lastLine": "export { ne as build };"
+      "lastLine": "export { ne as build };",
+      "text": "export{ne as build};"
     },
     {
       "file": "assets/lab_metro-lF7do2Pb-01.js",
@@ -3763,12 +3787,13 @@
       "file": "assets/lab_metro-lF7do2Pb-tail-export.js",
       "skipped": true,
       "title": "assets/lab_metro-lF7do2Pb — final export table (not sliced)",
-      "desc": "Lines 208-208. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 208-208. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/lab_metro-lF7do2Pb.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 208,
       "endLine": 208,
       "sourceFile": "readable/assets/lab_metro-lF7do2Pb.pretty.js",
       "firstLine": "export { W as build };",
-      "lastLine": "export { W as build };"
+      "lastLine": "export { W as build };",
+      "text": "export{W as build};"
     },
     {
       "file": "assets/lab_park-Qy6dpCC3-01.js",
@@ -3782,12 +3807,13 @@
       "file": "assets/lab_park-Qy6dpCC3-tail-export.js",
       "skipped": true,
       "title": "assets/lab_park-Qy6dpCC3 — final export table (not sliced)",
-      "desc": "Lines 347-347. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 347-347. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/lab_park-Qy6dpCC3.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 347,
       "endLine": 347,
       "sourceFile": "readable/assets/lab_park-Qy6dpCC3.pretty.js",
       "firstLine": "export { pe as build };",
-      "lastLine": "export { pe as build };"
+      "lastLine": "export { pe as build };",
+      "text": "export{pe as build};"
     },
     {
       "file": "assets/lab-C35YMKXq-01.js",
@@ -3801,12 +3827,13 @@
       "file": "assets/lab-C35YMKXq-tail-export.js",
       "skipped": true,
       "title": "assets/lab-C35YMKXq — final export table (not sliced)",
-      "desc": "Lines 134-134. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 134-134. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/lab-C35YMKXq.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 134,
       "endLine": 134,
       "sourceFile": "readable/assets/lab-C35YMKXq.pretty.js",
       "firstLine": "export { I as build };",
-      "lastLine": "export { I as build };"
+      "lastLine": "export { I as build };",
+      "text": "export{I as build};"
     },
     {
       "file": "assets/lab-Cas1v10u-01.js",
@@ -3836,12 +3863,13 @@
       "file": "assets/lab-Cas1v10u-tail-export.js",
       "skipped": true,
       "title": "assets/lab-Cas1v10u — final export table (not sliced)",
-      "desc": "Lines 702-702. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 702-702. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/lab-Cas1v10u.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 702,
       "endLine": 702,
       "sourceFile": "readable/assets/lab-Cas1v10u.pretty.js",
       "firstLine": "export { Xe as build };",
-      "lastLine": "export { Xe as build };"
+      "lastLine": "export { Xe as build };",
+      "text": "export{Xe as build};"
     },
     {
       "file": "assets/lab-DIaoglYu-01.js",
@@ -3863,12 +3891,13 @@
       "file": "assets/lab-DIaoglYu-tail-export.js",
       "skipped": true,
       "title": "assets/lab-DIaoglYu — final export table (not sliced)",
-      "desc": "Lines 601-601. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 601-601. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/lab-DIaoglYu.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 601,
       "endLine": 601,
       "sourceFile": "readable/assets/lab-DIaoglYu.pretty.js",
       "firstLine": "export { yt as build };",
-      "lastLine": "export { yt as build };"
+      "lastLine": "export { yt as build };",
+      "text": "export{yt as build};"
     },
     {
       "file": "assets/lab-n3Z2_Qkz-01.js",
@@ -3890,12 +3919,13 @@
       "file": "assets/lab-n3Z2_Qkz-tail-export.js",
       "skipped": true,
       "title": "assets/lab-n3Z2_Qkz — final export table (not sliced)",
-      "desc": "Lines 586-586. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 586-586. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/lab-n3Z2_Qkz.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 586,
       "endLine": 586,
       "sourceFile": "readable/assets/lab-n3Z2_Qkz.pretty.js",
       "firstLine": "export { Te as build };",
-      "lastLine": "export { Te as build };"
+      "lastLine": "export { Te as build };",
+      "text": "export{Te as build};"
     },
     {
       "file": "assets/labkit-ElMHH8EU-01.js",
@@ -3909,12 +3939,13 @@
       "file": "assets/labkit-ElMHH8EU-tail-export.js",
       "skipped": true,
       "title": "assets/labkit-ElMHH8EU — final export table (not sliced)",
-      "desc": "Lines 89-89. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 89-89. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/labkit-ElMHH8EU.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 89,
       "endLine": 89,
       "sourceFile": "readable/assets/labkit-ElMHH8EU.pretty.js",
       "firstLine": "export { O as m };",
-      "lastLine": "export { O as m };"
+      "lastLine": "export { O as m };",
+      "text": "export{O as m};"
     },
     {
       "file": "assets/lightrig-BOum5aAY-01.js",
@@ -3936,12 +3967,13 @@
       "file": "assets/lightrig-BOum5aAY-tail-export.js",
       "skipped": true,
       "title": "assets/lightrig-BOum5aAY — final export table (not sliced)",
-      "desc": "Lines 557-567. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 557-567. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/lightrig-BOum5aAY.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 557,
       "endLine": 567,
       "sourceFile": "readable/assets/lightrig-BOum5aAY.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{pt as a,bt as b,vt as c,dt as d,kt as e,qt as f,Dt as g,St as r,zt as s};"
     },
     {
       "file": "assets/living-DeOLLwnx-01.js",
@@ -4083,12 +4115,13 @@
       "file": "assets/living-DeOLLwnx-tail-export.js",
       "skipped": true,
       "title": "assets/living-DeOLLwnx — final export table (not sliced)",
-      "desc": "Lines 5721-5721. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 5721-5721. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/living-DeOLLwnx.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 5721,
       "endLine": 5721,
       "sourceFile": "readable/assets/living-DeOLLwnx.pretty.js",
       "firstLine": "export { Ce as build };",
-      "lastLine": "export { Ce as build };"
+      "lastLine": "export { Ce as build };",
+      "text": "export{Ce as build};"
     },
     {
       "file": "assets/looks-DR2oSjqf-01.js",
@@ -4102,12 +4135,13 @@
       "file": "assets/looks-DR2oSjqf-tail-export.js",
       "skipped": true,
       "title": "assets/looks-DR2oSjqf — final export table (not sliced)",
-      "desc": "Lines 200-200. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 200-200. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/looks-DR2oSjqf.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 200,
       "endLine": 200,
       "sourceFile": "readable/assets/looks-DR2oSjqf.pretty.js",
       "firstLine": "export { W as a, U as b, Y as c, R as l };",
-      "lastLine": "export { W as a, U as b, Y as c, R as l };"
+      "lastLine": "export { W as a, U as b, Y as c, R as l };",
+      "text": "export{W as a,U as b,Y as c,R as l};"
     },
     {
       "file": "assets/metro-xgLUk92P-01.js",
@@ -4281,12 +4315,13 @@
       "file": "assets/metro-xgLUk92P-tail-export.js",
       "skipped": true,
       "title": "assets/metro-xgLUk92P — final export table (not sliced)",
-      "desc": "Lines 8534-8534. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 8534-8534. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/metro-xgLUk92P.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 8534,
       "endLine": 8534,
       "sourceFile": "readable/assets/metro-xgLUk92P.pretty.js",
       "firstLine": "export { Aa as M, La as b };",
-      "lastLine": "export { Aa as M, La as b };"
+      "lastLine": "export { Aa as M, La as b };",
+      "text": "export{Aa as M,La as b};"
     },
     {
       "file": "assets/nav-DkEG8EU--01.js",
@@ -4300,12 +4335,13 @@
       "file": "assets/nav-DkEG8EU--tail-export.js",
       "skipped": true,
       "title": "assets/nav-DkEG8EU- — final export table (not sliced)",
-      "desc": "Lines 310-310. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 310-310. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/nav-DkEG8EU-.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 310,
       "endLine": 310,
       "sourceFile": "readable/assets/nav-DkEG8EU-.pretty.js",
       "firstLine": "export { I as N, B as r };",
-      "lastLine": "export { I as N, B as r };"
+      "lastLine": "export { I as N, B as r };",
+      "text": "export{I as N,B as r};"
     },
     {
       "file": "assets/park-CwBfNU5l-01.js",
@@ -4471,12 +4507,13 @@
       "file": "assets/park-CwBfNU5l-tail-export.js",
       "skipped": true,
       "title": "assets/park-CwBfNU5l — final export table (not sliced)",
-      "desc": "Lines 8357-8357. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 8357-8357. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/park-CwBfNU5l.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 8357,
       "endLine": 8357,
       "sourceFile": "readable/assets/park-CwBfNU5l.pretty.js",
       "firstLine": "export { Ce as L, Io as b };",
-      "lastLine": "export { Ce as L, Io as b };"
+      "lastLine": "export { Ce as L, Io as b };",
+      "text": "export{Ce as L,Io as b};"
     },
     {
       "file": "assets/plan3-BlRgM2iV-01.js",
@@ -4490,12 +4527,13 @@
       "file": "assets/plan3-BlRgM2iV-tail-export.js",
       "skipped": true,
       "title": "assets/plan3-BlRgM2iV — final export table (not sliced)",
-      "desc": "Lines 20-32. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 20-32. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/plan3-BlRgM2iV.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 20,
       "endLine": 32,
       "sourceFile": "readable/assets/plan3-BlRgM2iV.pretty.js",
       "firstLine": "export {",
-      "lastLine": "};"
+      "lastLine": "};",
+      "text": "export{A,E as C,r as E,R as P,n as R,a as T,c as U,o as a,s as b,P as c,p as d};"
     },
     {
       "file": "assets/RoundedBoxGeometry-D0zz8qHa-vendor.js",
@@ -4615,12 +4653,13 @@
       "file": "assets/script2-Chjgntzz-tail-export.js",
       "skipped": true,
       "title": "assets/script2-Chjgntzz — final export table (not sliced)",
-      "desc": "Lines 7797-7797. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 7797-7797. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/script2-Chjgntzz.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 7797,
       "endLine": 7797,
       "sourceFile": "readable/assets/script2-Chjgntzz.pretty.js",
       "firstLine": "export { da as createScript2 };",
-      "lastLine": "export { da as createScript2 };"
+      "lastLine": "export { da as createScript2 };",
+      "text": "export{da as createScript2};"
     },
     {
       "file": "assets/script3-CjSek-Nt-01.js",
@@ -4642,12 +4681,13 @@
       "file": "assets/script3-CjSek-Nt-tail-export.js",
       "skipped": true,
       "title": "assets/script3-CjSek-Nt — final export table (not sliced)",
-      "desc": "Lines 3458-3458. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 3458-3458. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/script3-CjSek-Nt.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 3458,
       "endLine": 3458,
       "sourceFile": "readable/assets/script3-CjSek-Nt.pretty.js",
       "firstLine": "export { Fo as createScript3 };",
-      "lastLine": "export { Fo as createScript3 };"
+      "lastLine": "export { Fo as createScript3 };",
+      "text": "export{Fo as createScript3};"
     },
     {
       "file": "assets/study-C-Lxctw8-01.js",
@@ -4725,12 +4765,13 @@
       "file": "assets/study-C-Lxctw8-tail-export.js",
       "skipped": true,
       "title": "assets/study-C-Lxctw8 — final export table (not sliced)",
-      "desc": "Lines 2730-2730. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 2730-2730. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/study-C-Lxctw8.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 2730,
       "endLine": 2730,
       "sourceFile": "readable/assets/study-C-Lxctw8.pretty.js",
       "firstLine": "export { Oo as build };",
-      "lastLine": "export { Oo as build };"
+      "lastLine": "export { Oo as build };",
+      "text": "export{Oo as build};"
     },
     {
       "file": "assets/zombie_stub-3Vfgk-wH-01.js",
@@ -4744,12 +4785,13 @@
       "file": "assets/zombie_stub-3Vfgk-wH-tail-export.js",
       "skipped": true,
       "title": "assets/zombie_stub-3Vfgk-wH — final export table (not sliced)",
-      "desc": "Lines 118-118. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only.",
+      "desc": "Lines 118-118. The chunk's final export {…} table — the exported bindings live in the earlier slices; a standalone tail carries no new statements, so it is indexed only. The tail records the served chunk's own export statement (assets/zombie_stub-3Vfgk-wH.js) as its text — the statement the reading copy's table must still match.",
       "startLine": 118,
       "endLine": 118,
       "sourceFile": "readable/assets/zombie_stub-3Vfgk-wH.pretty.js",
       "firstLine": "export { P as createZombieStub };",
-      "lastLine": "export { P as createZombieStub };"
+      "lastLine": "export { P as createZombieStub };",
+      "text": "export{P as createZombieStub};"
     },
     {
       "file": "index-inline-1.css",
