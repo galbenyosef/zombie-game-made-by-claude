@@ -98,6 +98,8 @@ that site chrome is not the game).
   (`AUDIT PASS`)
 - `tools/check-exports.mjs` — the fleet's shared public-export-name gate for
   the derived layer
+- `tools/check-links.mjs` — link gate: every module of the derived layer
+  exports only names the layer declares
 - `tools/apply-names.mjs` — apply the reviewed renames (`tools/names.json`) to
   one chunk or all
 - `tools/recover-scoped-map.mjs` — record the achieved map into `rename-map.json`
@@ -139,8 +141,25 @@ node tools/audit.js                   # derived-layer + rename-map gate (AUDIT P
 node tools/verify-rename.mjs --all    # per-slice reproduction + references/bindings
 node tools/check-chunk.mjs --all      # cross-slice calls resolve after renames
 node tools/check-exports.mjs          # the derived layer still exports every public name
+node tools/check-links.mjs            # every module of the derived layer exports only names the layer declares
 node tools/derive.mjs --check          # the derived layer is current? (compares a fresh rebuild; writes NOTHING)
 ```
+
+`check-links.mjs` guards the one class the export-name gate cannot see: a
+module whose export statement names a binding the layer never declares is a
+hard SyntaxError at link time, and the file cannot be imported at all. This
+mirror's layer carries no export statement of its own — every chunk's export
+table lives in a **skipped tail** the layer does not carry as a file, and the
+record of that tail is the *served* chunk's own export statement, in the
+capture's spelling. The gate therefore rewrites each recorded tail into the
+layer's spelling with the mirror's own rename map (`rename-map.json`): the
+local name of a specifier becomes the name the layer gives that binding, the
+exported name is never touched, and a renamed shorthand becomes
+`TARGET as ORIGINAL`. It then reassembles each module from the layer's own
+bytes and asks the engine. A name declared by a sibling part is reported as a
+fragment (the module is whole); a name that exists in no part of the module is
+a real break, and the gate names it.
+
 
 The rename gates need acorn (authoring-time only): it installs into the
 gitignored `tools/.deps/` on first use (`npm install --prefix tools/.deps
