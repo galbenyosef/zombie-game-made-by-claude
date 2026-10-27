@@ -148,17 +148,43 @@ node tools/derive.mjs --check          # the derived layer is current? (compares
 `check-links.mjs` guards the one class the export-name gate cannot see: a
 module whose export statement names a binding the layer never declares is a
 hard SyntaxError at link time, and the file cannot be imported at all. This
-mirror's layer carries no export statement of its own — every chunk's export
-table lives in a **skipped tail** the layer does not carry as a file, and the
-record of that tail is the *served* chunk's own export statement, in the
-capture's spelling. The gate therefore rewrites each recorded tail into the
-layer's spelling with the mirror's own rename map (`rename-map.json`): the
-local name of a specifier becomes the name the layer gives that binding, the
-exported name is never touched, and a renamed shorthand becomes
-`TARGET as ORIGINAL`. It then reassembles each module from the layer's own
-bytes and asks the engine. A name declared by a sibling part is reported as a
-fragment (the module is whole); a name that exists in no part of the module is
-a real break, and the gate names it.
+mirror's layer carries no export statement of its own — every **app** chunk's
+export table lives in a **skipped tail** the layer does not carry as a file,
+and the record of that tail is the *served* chunk's own export statement, in
+the capture's spelling. (The two three.js addon chunks are carried whole and
+never sliced, so they have no tail; see the coverage note below.) The gate
+therefore rewrites each recorded tail into the layer's spelling with the
+mirror's own rename map (`rename-map.json`): the local name of a specifier
+becomes the name the layer gives that binding, the exported name is never
+touched, and a renamed shorthand becomes `TARGET as ORIGINAL`. It then
+reassembles each module from the layer's own bytes and asks the engine. A name
+declared by a sibling part is reported as a fragment (the module is whole); a
+name that exists in no part of the module is a real break, and the gate names
+it.
+
+### Export-name coverage
+
+`node tools/check-exports.mjs` reaches **42 of the capture's 44 ES export
+tables** — the 42 app chunks' final export statements, each compared with its
+recorded captured tail text. The two it reports as **NOT covered** (unchecked,
+not proven intact) are the three.js examples/jsm addon chunks,
+`assets/BufferGeometryUtils-Qxvmd-vM.js` (exports `a`, `m`, `t`) and
+`assets/RoundedBoxGeometry-D0zz8qHa.js` (exports `R`). Both are load-bearing:
+the entry chunk's `__vite__mapDeps` table names both, and bare
+`import "./<chunk>.js"` statements appear in 13 chunks (BufferGeometryUtils)
+and 24 chunks (RoundedBoxGeometry) respectively. They stay uncovered by the
+mirror's own **vendor rule**, not by a missing record: the rule carries each
+chunk whole in `readable/` and never slices or renames it, so the only derived
+artifact is `readable/assets/<chunk>.pretty.js` — which is already the
+`sourceFile` the gate reads as the pristine, leaving no second text to
+compare. No public name can be lost on that path: vendor identifiers and export
+tables are never renamed, and `tools/audit.js` re-renders every pretty
+byte-exact from its capture (45/45). The paired reading-copy section other
+mirrors use cannot be recorded here under this mirror's own gate shapes
+(`audit.js` requires one wholeFile section per vendor file with the exact
+`-vendor.js` name and contiguous per-source tiling; `derive-check.mjs` rejects
+an edited copy of the section `derive.mjs` emits), and both tools are read-only
+for this lane. The full record is `split-spec.json` → `coverageNote`.
 
 
 The rename gates need acorn (authoring-time only): it installs into the
