@@ -133,6 +133,21 @@ node tools/serve.mjs          # http://127.0.0.1:8093/
 Click the veil to begin (the game wants pointer lock for mouse-look; keys
 `WASD` / `Shift` / `E` / `F` / `R` work without it).
 
+## Boot test (2026-10-27)
+
+- Entry: `http://127.0.0.1:5029/` served by `tools/serve.mjs` with the network
+  blocked (`MAP * 127.0.0.1`).
+- Outcome: **rendered** — the veil's "click to begin" was clicked and the 3D
+  bedroom scene rendered with its opening subtitle "You're awake. Don't make a
+  sound.", pointer lock engaged, HUD live.
+- Evidence: body 143 chars; canvas 1262x568; 0 console errors; 0 failed
+  same-origin requests, 1 blocked cross-origin (`https://static.itch.io/htmlgame.js`);
+  screenshot `docs/boot-2026-10-27.png`.
+- Gaps seen: none.
+
+This confirms the existing "served capture boots and plays" claim: the full game
+runs offline from the repo root with no missing same-origin asset.
+
 ## Verify
 
 ```
